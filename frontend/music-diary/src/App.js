@@ -1,10 +1,18 @@
 import './App.css';
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+
+import ClosedIntroPage from './components/intro/ClosedBook'
 
 function App() {
   return (
-    <div className="App">
-      <h2>하이하이</h2>
-    </div>
+    <>
+    <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ClosedIntroPage />} />
+            
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
