@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     # my app
     'accounts',
+    'diaries',
     # django rest framework
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
@@ -65,6 +66,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao',
     'allauth.socialaccount.providers.google',
+    # django-seed
+    'django_seed',
 ]
 
 REST_FRAMEWORK = {
