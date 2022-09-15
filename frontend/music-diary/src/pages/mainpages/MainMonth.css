@@ -1,0 +1,12 @@
+.main-month {
+    position: relative;
+}
+
+.main-month .diary-item {
+    position: absolute;
+}
+
+.main-month .main-note {
+    position: absolute;
+    z-index: -1;
+}
