@@ -1,25 +1,40 @@
 .main-calender {
     height:100vh;
-    width:100vw;
-    font-size: 1.5vh;
+    width:82vw;
     display: flex;      /* display 설정해줘야 아래 flex로 해주면 direction 선택가능*/
     flex-direction: column;   /* 이건 세로순으로  태그들을 표시함 css*/
-    align-items: center;      /* 이건 가로 중앙 css*/
+    align-items: center;    
     justify-content: center;  /* 이건 세로 중앙 css*/
+    /* background-color: aqua; */
+    /* opacity: 50%; */
+    margin-left: 16vw;
   }
-  
+
+.main-calender .main-note {
+    position: absolute;
+    z-index: -1;
+    font-size: 3vh;
+}
+   
+  /* 캘린더 설정값 */
   .main-calender .control{
     display: flex;
-    /* flex-direction: row; */
+    flex-direction: column;
+    font-size: 5vh;
+    margin-top: 10vh;
+    /* background-color: black; */
   }
+  
   .main-calender table{
-    display:flex;
+    /* display:flex; */
     width:50vw;
     height:50vh;
+
   }
   .main-calender table tbody{
     display:flex;
     flex-direction: column;
+    font-size: 3vh;
   }
   .main-calender tr{
       display:flex;
@@ -27,12 +42,40 @@
   }
   .main-calender td{
       display:flex;
-      border:1px solid gray;
-      width:5vw;
-      height:5vh;
+      /* border:1px solid gray; */
+      width:70%;
+      height:10vh;
+      justify-content: center;
   }
   .main-calender td span{
       display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
+      align-items: center;
   }
+
+
+/* 날짜 바꾸는 버튼 */
+.time-change-button {
+  border: none;
+  background-color: transparent;
+}
+
+.year-change{
+  font-size: 2.5vh;
+}
+
+/* 월~ 일 글자 */
+.days {
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+}
+
+
+
+/* 모아보기 버튼 */
+.go-diarylist {
+  border: none;
+  /* background-color: ; */
+  display: flex;
+  margin-left: 60vw;
+}
