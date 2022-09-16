@@ -15,10 +15,12 @@ from allauth.socialaccount.models import SocialAccount
 from .models import User
 
 from .models import User
-from .serializers import SignupSirializer ,SigninSirializer
+from .serializers import SignupSirializer ,SigninSirializer, UserSerializer
 
-from rest_framework import generics, status
+from rest_framework import generics, status, mixins
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+
 
 
 BASE_URL = 'http://localhost:8000/'
@@ -83,11 +85,13 @@ def google_callback(request):
         data = {'access_token': access_token, 'code': code}
         accept = requests.post(
             f"{BASE_URL}accounts/google/login/finish/", data=data)
+        print("엑세스")
+        print(accept.json())
         accept_status = accept.status_code
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
         accept_json = accept.json()
-        accept_json.pop('user', None)
+        # accept_json.pop('user', None)
         print("login!!!!!!!!!!!!!!!",accept_json)
         print()
         return JsonResponse(accept_json)
@@ -100,7 +104,7 @@ def google_callback(request):
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
         accept_json = accept.json()
-        accept_json.pop('user', None)
+        # accept_json.pop('user', None)
         print("기존유저")
         print(accept_json)
         return JsonResponse(accept_json)
@@ -178,7 +182,7 @@ def kakao_callback(request):
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
         accept_json = accept.json()
-        accept_json.pop('user', None)
+        # accept_json.pop('user', None)
         return JsonResponse(accept_json)
     except User.DoesNotExist:
         # 기존에 가입된 유저가 없으면 새로 가입
@@ -190,7 +194,7 @@ def kakao_callback(request):
             return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
         # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
         accept_json = accept.json()
-        accept_json.pop('user', None)
+        # accept_json.pop('user', None)
         return JsonResponse(accept_json)
 
 
@@ -213,6 +217,31 @@ class SigninView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         
         serializer.is_valid(raise_exception = True)
-        token = serializer.validated_data
-        print(token)
-        return Response({"token":token}, status=status.HTTP_200_OK)
+        data = serializer.validated_data
+        print(data)
+        return Response({"data":data}, status=status.HTTP_200_OK)
+    
+    def put(self, request):
+        serializer = self.get_serializer(data=request.data)
+        
+        serializer.is_valid(raise_exception = True)
+        data = serializer.validated_data
+        print(data)
+        return Response({"data":data}, status=status.HTTP_200_OK)
+    
+class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+    def get(self, request ,email):
+        user = get_object_or_404(User, email=email)
+        serializer = UserSerializer(user)
+        data = serializer.data
+        return Response({"data":data}, status=status.HTTP_200_OK)
+
+    def delete(self,request):
+        pass
+    
+    # def put(self, request, email):
+    #     return self.update(request, email)
