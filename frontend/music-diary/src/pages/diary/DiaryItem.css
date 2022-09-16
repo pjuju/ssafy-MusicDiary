@@ -1,0 +1,14 @@
+.diary-item {
+    width: 30vw;
+    border: 1px solid black;
+    /* position: absolute; */
+}
+
+.diary-item-header {
+    display: flex;
+}
+
+.diary-item-context {
+    height: 6vh;
+    padding-top: 1vh;
+}
