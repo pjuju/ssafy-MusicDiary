@@ -1,9 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-import "./ClosedBook.css";
+import "../../css/intropages/ClosedBook.css";
 import Button from '../Common/Button'
 
+
 function ClosedBook() {
+
+  const navigate = useNavigate()
+
+  const moveOpenIntroPage = () =>{
+    navigate('/intro/open/one')
+  }
+
+
   return (
     <>
     {/* <div class="v-center"></div> */}
@@ -19,8 +29,9 @@ function ClosedBook() {
                   name="로그인"
                   color="#AC5050"
                   size="lg"
+                  onClick={moveOpenIntroPage}
                 />
-                <div>Don't have an account? SignUp</div>
+                <div>Don't You have an account? SignUp</div>
               </div>
             </div>
           </div>
