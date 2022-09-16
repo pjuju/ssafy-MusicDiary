@@ -1,6 +1,7 @@
+from dataclasses import field
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from django.contrib.auth import get_user_model
 
 # class CustomTokenRefreshSerializer(serializers.Serializer):
 #     refresh_token = serializers.CharField()
@@ -56,23 +57,33 @@ class SignupSirializer(serializers.ModelSerializer):
     image_url = serializers.CharField(
         write_only = True,
     )    
-    # password2 = serializers.CharField(write_only = True, required=True)
+    password2 = serializers.CharField(write_only = True, required=True)
     
     class Meta:
         model = User
-        fields = ('email','password','username', 'sad', 'angry', 'depressed', 'normal', 'point', 'image_url')
+        fields = ('email','password','password2','username', 'sad', 'angry', 'depressed', 'normal', 'point', 'image_url')
     
     def validate(self, data):
-        # if data['password'] != data['password2']:
-        #     raise serializers.ValidationError({
-        #         "password" : "Pass word fields didn't match"
-        #     })
+        if data['password'] != data['password2']:
+            raise serializers.ValidationError({
+                "password" : "Pass word fields didn't match"
+            })
         
         return data
 
     def create(self, validated_data):
         user = User.objects.create(
-            email = validated_data['email']
+            username = validated_data['username'],
+            email = validated_data['email'],
+            point = validated_data['point'],
+            sad = validated_data['sad'],
+            angry = validated_data['angry'],
+            depressed = validated_data['depressed'],
+            normal = validated_data['normal'],
+            image_url = validated_data['image_url']
+
+
+            
         )
         token = RefreshToken.for_user(user)
         user.set_password(validated_data['password'])
@@ -113,9 +124,24 @@ class SigninSirializer(serializers.ModelSerializer):
 
         token = RefreshToken.for_user(user=user)
         data = {
+            'username' : user.username ,
+            'email' : user.email,
+            'sad' : user.sad,
+            'depressed' : user.depressed,
+            'normal' : user.normal,
+            'point' : user.point,
+            'angry' : user.angry,
             'user' : user.id,
-            'refresh_token' : str(token),
-            'access_token' : str(token.access_token)
+            'token' : {
+                'refresh_token' : str(token),
+                'access_token' : str(token.access_token)    
+            }
         }
         return data
     
+    
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = '__all__'
+
