@@ -1,21 +1,24 @@
+from tkinter.tix import DirSelectBox
 from django.shortcuts import get_object_or_404, get_list_or_404
+
+from .serializers import DiarySerializer, BookmarkSerializer
+from .models import Bookmark, Diary
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializers import DiarySerializer
-from .models import Diary
-from diaries import serializers
+from rest_framework import generics, status, mixins
 
 # Get: 다이어리 목록 반환
 # Post: 다이어리 작성
 @api_view(['GET', 'POST'])
-def create(request):
+def diary(request):
     if request.method == 'GET':
         diary = Diary.objects.all()
         serializer = DiarySerializer(diary, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-    if request.method == 'POST':
+    elif request.method == 'POST':
         serializer = DiarySerializer(request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -24,19 +27,27 @@ def create(request):
 
 # Get: 일기 상세보기
 # Put: 일기 수정
-@api_view(['GET', 'PUT'])
-def detail(request, diary_pk):
+# Delete: 일기 삭제
+@api_view(['GET', 'PUT', 'DELETE'])
+def diary_detail(request, diary_pk):
     diary = get_object_or_404(Diary, pk=diary_pk)
 
     if request.method == 'GET':
         serializer = DiarySerializer(diary)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-    if request.method == 'PUT':
+    elif request.method == 'PUT':
         serializer = DiarySerializer(diary, request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+    elif request.method == 'DELETE':
+        diary.delete()
+        data = {
+            'delete': f'데이터 {diary_pk}번이 삭제되었습니다.'
+        }
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 #################################
@@ -57,7 +68,7 @@ def detail(request, diary_pk):
 #         serializer = DiarySerializer(diary, many=True)
 #         return Response(serializer.data)
 
-#     if request.method == 'POST':
+#     elif request.method == 'POST':
 #         serializer = DiarySerializer(request.data)
 #         if serializer.is_valid(raise_exception=True):
 #             serializer.save()
@@ -78,15 +89,26 @@ def detail(request, diary_pk):
 @api_view(['GET', 'POST'])
 def bookmark(request):
     if request.method == 'GET':
-        diary = Diary.objects.all()
-        serializer = DiarySerializer(diary, many=True)
-        return Response(serializer.data)
+        bookmark = Bookmark.objects.all()
+        serializer = BookmarkSerializer(bookmark, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-    if request.method == 'POST':
-        serializer = DiarySerializer(request.data)
+    elif request.method == 'POST':
+        serializer = BookmarkSerializer(request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+# Delete: 북마크 삭제
+@api_view(['DELETE'])
+def bookmark_detail(request, bookmark_pk):
+    bookmark = get_object_or_404(Bookmark, pk=bookmark_pk)
+    bookmark.delete()
+    data = {
+        'delete': f'데이터 {bookmark_pk}번이 삭제되었습니다.'
+    }
+    return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 # Get: 월별 일기 감정 조회
