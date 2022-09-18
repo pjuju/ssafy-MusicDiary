@@ -3,6 +3,8 @@ from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
 
+from rest_framework.validators import UniqueValidator
+
 # class CustomTokenRefreshSerializer(serializers.Serializer):
 #     refresh_token = serializers.CharField()
 
@@ -145,3 +147,24 @@ class UserSerializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = '__all__'
 
+    # def update(self, instance, validated_data): 
+    #     instance.username = validated_data.get('username', instance.username)
+    #     return instance
+        # instance.content = validated_data.get('content', instance.title)
+
+# class UserUpdateSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = get_user_model()
+#         fields = ('username',)
+
+#     def update(self, instance, validated_data): 
+#         instance.username = validated_data.get('username', instance.username)
+#         # instance.content = validated_data.get('content', instance.title)
+
+# user = get_user_model()
+# class EmailUniqueCheckSerializer(serializers.ModelSerializer):
+#     email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=user.objects.all())])
+
+#     class Meta:
+#         model = get_user_model()
+#         fields = ('email')
