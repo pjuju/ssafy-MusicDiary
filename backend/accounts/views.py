@@ -221,21 +221,21 @@ class SigninView(generics.GenericAPIView):
         print(data)
         return Response({"data":data}, status=status.HTTP_200_OK)
     
-    def put(self, request):
-        serializer = self.get_serializer(data=request.data)
+    # def put(self, request):
+    #     serializer = self.get_serializer(data=request.data)
         
-        serializer.is_valid(raise_exception = True)
-        data = serializer.validated_data
-        print(data)
-        return Response({"data":data}, status=status.HTTP_200_OK)
+    #     serializer.is_valid(raise_exception = True)
+    #     data = serializer.validated_data
+    #     print(data)
+    #     return Response({"data":data}, status=status.HTTP_200_OK)
     
 class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
     
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
-    def get(self, request ,email):
-        user = get_object_or_404(User, email=email)
+    def get(self, request ,pk):
+        user = get_object_or_404(User, id=pk)
         serializer = UserSerializer(user)
         data = serializer.data
         return Response({"data":data}, status=status.HTTP_200_OK)
@@ -243,5 +243,37 @@ class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destro
     def delete(self,request):
         pass
     
-    # def put(self, request, email):
-    #     return self.update(request, email)
+    def put(self, request, pk):
+        # if request.method == 'PUT':
+        #     user = get_object_or_404(User, email=email)
+        #     serializer = UserSerializer(user)
+        #     if serializer.is_valid():
+        #         serializer.save()
+        #         return JsonResponse(serializer.data)
+        #     return JsonResponse(serializer.errors, status=400)
+        
+        
+
+
+        return self.update(request, pk)
+    
+    # def post(self, request):
+
+    #     response = Response({
+    #         "message": "Logout success"
+    #         }, status=status.HTTP_202_ACCEPTED)
+    #     response.delete_cookie('refreshtoken')
+    
+    
+# class EmailUniqueCheck(generics.CreateAPIView):
+#     serializer_class = EmailUniqueCheckSerializer
+
+#     def post(self, request, format=None):
+#         serializer = self.get_serializer(data=request.data, context={'request': request})
+
+#         if serializer.is_valid():
+#             return Response(data={'detail':['You can use this email']}, status=status.HTTP_200_OK)
+#         else:
+#             detail = dict()
+#             detail['detail'] = serializer.errors['email']
+#             return Response(data=detail, status=status.HTTP_400_BAD_REQUEST)
