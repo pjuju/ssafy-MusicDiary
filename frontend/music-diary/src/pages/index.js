@@ -8,3 +8,5 @@ export { default as PaginationTest } from './intropages/PaginationTest'
 export {default as Bookmarks } from './mainpages/Bookmarks'
 export {default as MainMonth } from './mainpages/MainMonth'
 export {default as MainCalender } from './mainpages/MainCalender'
+
+export { default as SignupInfo} from './signuppages/SignupInfo'

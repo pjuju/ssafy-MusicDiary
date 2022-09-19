@@ -1,6 +1,6 @@
 
-.closed-book-wrapper html,
-.closed-book-wrapper body {
+.signup-info-wrapper html,
+.signup-info-wrapper body {
   height: 100%;
 }
 
@@ -21,7 +21,7 @@ body {
   margin: 20px auto;
 } */
 .v-center {
-  display: inline-block;
+  display: inline-block;     
   vertical-align: middle;
   height: 100%;
   width: 0;
@@ -30,7 +30,7 @@ body {
   display: inline-block;
   vertical-align: middle;
 } */
-.closed-book-wrapper .closed-book {
+.signup-info-wrapper .closed-book {
   transform-style: preserve-3d;
 /*   transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg); */
   transition: transform 1s;
@@ -45,8 +45,8 @@ body {
 }
 
 
-.closed-book-wrapper .closed-book .paper,
-.closed-book-wrapper .closed-book .shadow {
+.signup-info-wrapper .closed-book .paper,
+.signup-info-wrapper .closed-book .shadow {
   width: 38em; /* 공책 : 넓이 부분 조절*/
   height: 38em;
   position: absolute;
@@ -55,14 +55,14 @@ body {
 }
 
 /* 덮인 책 : 그림자 부분 */
-.closed-book-wrapper .closed-book .shadow {
+.signup-info-wrapper .closed-book .shadow {
   background: transparent;
   transform: translateZ(-3em);
   box-shadow: -1em 1em 3px 3px #bebec1;
   z-index: 1;
 }
 
-.closed-book-wrapper .closed-book .page {
+.signup-info-wrapper .closed-book .page {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -71,7 +71,7 @@ body {
 }
 
 /* 책 표지 색깔 */
-.closed-book-wrapper .closed-book .first .page {
+.signup-info-wrapper .closed-book .first .page {
   background: #FAF3EB;
 }
 
@@ -87,7 +87,9 @@ body {
 }
 */
 
-.closed-book-wrapper .closed-book .intro {
+
+
+.signup-info-wrapper .closed-book .intro {
   position: absolute;
   width: 90%;
   width: calc(100% - 3em);
@@ -100,8 +102,7 @@ body {
   bottom: 1;
   margin: auto;
 }
-
-.closed-book-wrapper .closed-book .intro h2 {
+.signup-info-wrapper .closed-book .intro h2 {
   padding: 0.5em 0.5em;
   font-size: 1em;
   color: black; /* DIARY 글씨 부분 색깔*/
@@ -109,8 +110,9 @@ body {
   text-align: left;
   letter-spacing: 5px;
 }
-.closed-book-wrapper .closed-book .intro h1 {
-  padding: 3.5em 0.25em; /* 상하 - 좌우*/
+.signup-info-wrapper .closed-book .intro h1 {
+  /* 상우하좌*/
+  padding: 3em  0.20em 0.5em 1.2em;
   font-size: 3em; /* 알쏭달쏭 부분 글자 크기*/
   color: black; /* 알쏭달쏭 부분 글자 색깔*/
   word-break: break-all;
@@ -118,9 +120,26 @@ body {
 
 
 @media (max-width: 700px) {
-  .closed-book-wrapper .closed-book {
+  .signup-info-wrapper .closed-book {
     left: 50%;
   }
 }
 
+
+/* 직접 추가하는 CSS : SHY */
+
+/* 회원가입폼 : input태그 부분 */
+.signup-info-wrapper .signup-form-wrapper input {
+  display: block;
+  margin-bottom: 1rem;
+  margin-left: 40%;
+
+  background-color: #FAF3EB;
+  padding-left: 10px;
+}
+
+.signup-info-wrapper Button {
+  margin-left: 50px;
+  margin-top: 5rem;
+}
 
