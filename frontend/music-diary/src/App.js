@@ -7,14 +7,15 @@ import {
   OpenIntroPageTwo,
   OpenIntroPageThree,
   OpenIntroPageFour,
-  PaginationTest
+  PaginationTest,
+  Bookmarks,
+  MainCalender,
+  MainMonth
 } from './pages/index'
-import MainCalender from './pages/mainpages/MainCalender';
-import MainMonth from './pages/mainpages/MainMonth';
 
 function App() {
   return (
-    <>
+    <div className='App'>
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<ClosedIntroPage />} />
@@ -24,10 +25,11 @@ function App() {
           <Route path="/intro/open/two" element={<OpenIntroPageTwo />} />
           <Route path="/intro/open/three" element={<OpenIntroPageThree />} />
           <Route path="/intro/open/four" element={<OpenIntroPageFour />} />
-          <Route path="/intro/pagination" element={<PaginationTest />} />           
+          <Route path="/intro/pagination" element={<PaginationTest />} /> 
+          <Route path="/bookmarks" element={<Bookmarks />} /> 
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
