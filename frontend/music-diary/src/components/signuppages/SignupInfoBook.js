@@ -13,7 +13,6 @@ const SignupInfoBookcontainer = styled.div`
   vertical-align: middle;
 `
 
-
 function SignupInfoBook() {
   const [email, setEmail] = useState()
   const [nickname, setNickname] = useState()
@@ -38,13 +37,8 @@ function SignupInfoBook() {
     setPassword2(e.target.value)
   }
 
-  const registerBtn = () => {
-    // json 유저 정보 생성
-    const userInfo = {
-    }
-
-    // register API 호출
-
+  const moveQuestionOne = () => {
+    navigate('/signup/question/one')
 
   }
 
@@ -89,6 +83,7 @@ function SignupInfoBook() {
                   name="다음->"
                   color="#AC5050"
                   size="lg"
+                  onClick={moveQuestionOne}
                 />
                 </div>
               </div>
