@@ -1,0 +1,74 @@
+
+.bookmark-item {
+    width: 60vw;
+    height: 20vh;
+    margin-top: 3vh;
+    margin-left: 7vw;
+    overflow:auto;
+    -ms-overflow-style: none;
+    /* background-color: green; */
+    cursor: pointer;
+
+    transition: 0.06s linear;
+}
+
+.bookmark-item:hover {
+    background-color: rgb(225, 225, 225);
+    /* scale: 102%; */
+    transform: scale(101%);
+
+}
+
+.bookmark-item::-webkit-scrollbar{
+    display:none;
+  }
+
+.real-bookmark {
+    width: 3vw;
+    height: 4vh;
+    background-color: #93AAAC;
+    margin-left: 67vw;
+    position: absolute;
+}
+
+.bookmark-item-header {
+    display: flex;
+    /* margin-top: -3vh; */
+}
+
+.bookmark .bookmark-title {
+    margin-left: 1vw;
+    margin-top: 1vh;
+    /* background-color: red; */
+}
+
+.bookmark .bookmark-emotion {
+    /* width: 3%; */
+    height: 5vh;
+    /* background-color: green; */
+    margin-left: 0.5vw;
+}
+
+.bookmark .bookmark-created-date {
+    margin-right: -40vw;
+    margin-top: -3vh;
+}
+
+/* 사진이 없는 경우 일기 내용만 보이면 된다 */
+.bookmark .bookmark-context {
+    margin-left: 5vw;
+    width: 52vw;
+}
+
+/* 사진이 있는 경우 사진이랑 나란히 보여야한다*/
+.bookmark .bookmark-img-context {
+    margin-left: 5vw;
+    width: 35vw;
+    position: absolute;
+}
+
+.bookmark .bookmark-img {
+    width: 15vw;
+    position: absolute;
+    right: 1vw;
+}

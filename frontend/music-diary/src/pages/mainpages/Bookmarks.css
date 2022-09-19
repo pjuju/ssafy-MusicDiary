@@ -1,0 +1,33 @@
+.bookmark {
+    position: relative;
+
+}
+
+.bookmark .diary-list {
+  /* 이건 모든 페이지들이 공용으로 설정할 값 */
+  width: 77vw;
+  height: 90vh;
+  margin-top: 6vh;
+  margin-left: 18vw;
+  /* background-color: green; */
+
+  position: absolute;
+  z-index: 1;
+  color: black;
+  overflow:auto;
+  -ms-overflow-style: none;
+}
+
+/* 스크롤 기능은 있되 스크롤바 없애기 */
+.bookmark .diary-list::-webkit-scrollbar{
+  display:none;
+}
+
+
+.bookmark .main-note {
+    position: absolute;
+}
+
+.bookmark .bookmarks-page-title {
+  margin-top: 5vh;
+}
