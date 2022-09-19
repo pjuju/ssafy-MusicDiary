@@ -10,3 +10,7 @@ export {default as MainMonth } from './mainpages/MainMonth'
 export {default as MainCalender } from './mainpages/MainCalender'
 
 export { default as SignupInfo} from './signuppages/SignupInfo'
+export { default as SignupQuestionOne} from './signuppages/SignupQuestionOne'
+export { default as SignupQuestionTwo} from './signuppages/SignupQuestionTwo'
+export { default as SignupQuestionThree} from './signuppages/SignupQuestionThree'
+export { default as SignupQuestionFour} from './signuppages/SignupQuestionFour'

@@ -11,7 +11,11 @@ import {
   Bookmarks,
   MainCalender,
   MainMonth,
-  SignupInfo
+  SignupInfo, 
+  SignupQuestionOne,
+  SignupQuestionTwo,
+  SignupQuestionThree,
+  SignupQuestionFour
 } from './pages/index'
 
 function App() {
@@ -28,6 +32,11 @@ function App() {
           <Route path="/intro/open/four" element={<OpenIntroPageFour />} />
           <Route path="/bookmarks" element={<Bookmarks />} /> 
           <Route path="/signup/info" element={<SignupInfo />} />
+          <Route path="/signup/question/one" element={<SignupQuestionOne />} />
+          <Route path="/signup/question/two" element={<SignupQuestionTwo />} />
+          <Route path="/signup/question/three" element={<SignupQuestionThree />} />
+          <Route path="/signup/question/four" element={<SignupQuestionFour />} />
+
         </Routes>
       </BrowserRouter>
     </div>
