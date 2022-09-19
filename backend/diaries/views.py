@@ -1,4 +1,3 @@
-from tkinter.tix import DirSelectBox
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from .serializers import DiarySerializer, BookmarkSerializer
@@ -7,7 +6,8 @@ from .models import Bookmark, Diary
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework import generics, status, mixins
+from rest_framework import status
+from datetime import datetime
 
 # Get: 다이어리 목록 반환
 # Post: 다이어리 작성
@@ -114,10 +114,24 @@ def bookmark_detail(request, bookmark_pk):
 # Get: 월별 일기 감정 조회
 @api_view(['GET'])
 def monthEmotion():
+    # now = datetime.now()
+    # year = now.strftime("%Y")
+    # month = now.strftime("%m")
+    # emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__year=year, created_at__month=month)
+    # serializer = BookmarkSerializer(emotions, many=True)
+    # return Response(serializer.data, status=status.HTTP_200_OK)
     pass
 
 
 # Get: 월별 일기 모아보기
 @api_view(['GET'])
 def monthDiary():
+    # # from datetime import date, timedelta
+    # # diaries = Diary.objects.filter(created_at__range=[date.today() - timedelta(days=30), date.today]).values().all()
+    # now = datetime.now()
+    # year = now.strftime("%Y")
+    # month = now.strftime("%m")
+    # diaries = Diary.objects.filter(created_at__year=year, created_at__month=month)
+    # serializer = BookmarkSerializer(diaries, many=True)
+    # return Response(serializer.data, status=status.HTTP_200_OK)
     pass
