@@ -2,7 +2,10 @@
 /* 로컬 폰트 적용해보기 */
 @font-face {
   font-family:"alsongdalsong";
-  src: url("../src/assets/fonts/nanum.ttf")
+  /* src: url("../src/assets/fonts/nanum.ttf") */
 }
 
-
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap');
+.App {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
