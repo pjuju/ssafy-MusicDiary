@@ -58,7 +58,7 @@ const MainCalender =() => {
   
     return (
       <div className="main-calender">
-  
+        <div className='calender'>
           <div className="control">
             <div className='year-change'>
               <button onClick={()=>{ setMoment(getMoment.clone().subtract(1, 'year')) }} className="time-change-button">&#10092; &nbsp;</button>
@@ -71,8 +71,9 @@ const MainCalender =() => {
               <button onClick={()=>{ setMoment(getMoment.clone().add(1, 'month')) }} className="time-change-button" >&nbsp; &#10093;	</button>
             </div>
           </div>
-          <button onClick={()=>{navigate('/diarylist')}} className="go-diarylist">모아보기</button>
-          <table>
+          <ul onClick={()=>{navigate('/diarylist')}} className="snip1241">
+            <li><a href="#">모아보기</a></li>
+          </ul>          <table>
             <tbody>
               <div className='days'>
                 <p>Sun</p>
@@ -86,7 +87,8 @@ const MainCalender =() => {
               {calendarArr()}
             </tbody>
           </table>
-          <MainNote className="main-note"/>
+        </div>
+        <MainNote className="main-note"/>
       </div>
     );
   }

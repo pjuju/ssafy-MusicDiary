@@ -2,11 +2,29 @@
     position: relative;
 }
 
-.main-month .diary-item {
-    position: absolute;
+.main-month .diary-list {
+  /* 이건 모든 페이지들이 공용으로 설정할 값 */
+  width: 77vw;
+  height: 90vh;
+  margin-top: 6vh;
+  margin-left: 18vw;
+
+  position: absolute;
+  z-index: 1;
+  color: black;
 }
 
 .main-month .main-note {
     position: absolute;
-    z-index: -1;
+}
+
+.main-month .diary-list-page-title {
+  margin-top: 5vh;
+
+} 
+
+.main-month .diary-items {
+  /* background-color: green; */
+  /* grid-template-columns: repeat(3, 1fr); */
+  /* display: inline; */
 }

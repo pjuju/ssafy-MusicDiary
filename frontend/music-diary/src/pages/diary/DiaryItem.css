@@ -1,14 +1,45 @@
 .diary-item {
-    width: 30vw;
-    border: 1px solid black;
-    /* position: absolute; */
+    width: 80vw;
+    padding-left: 4vw;
 }
 
-.diary-item-header {
+.diary-item .diary-item-header {
     display: flex;
 }
 
-.diary-item-context {
+.diary-item .diary-item-card {
+    width: 20vw;
+    height: 20vh;
+    float: left;
+    margin-left: 2vw;
+    margin-top: 3vh;
+    cursor: pointer;
+    transition: 0.06s linear;
+    overflow:auto;
+    -ms-overflow-style: none;
+}
+
+.diary-item .diary-item-card::-webkit-scrollbar{
+    display:none;
+  }
+
+.diary-item .diary-item-card:hover {
+    background-color: rgb(225, 225, 225);
+    transform: scale(102%);
+}
+
+.diary-item .bookmark-paper {
+    position: absolute;
+    width: 2vw;
     height: 6vh;
-    padding-top: 1vh;
+    background-color: #93AAAC;
+    margin-left: 17vw;
+    margin-top: -2vh;
+}
+
+.diary-item .diary-item-title {
+    margin-left: 3vw;
+}
+
+.diary-item .diary-item-context {
 }
