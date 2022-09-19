@@ -4,6 +4,16 @@ import { useNavigate } from "react-router-dom";
 import "../../css/intropages/ClosedBook.css";
 import Button from '../Common/Button'
 
+import styled from 'styled-components'
+
+const ClosedBookcontainer = styled.div`
+  width: 60%;
+  margin: 20px auto;
+  display: inline-block;
+  vertical-align: middle;
+`
+
+
 
 function ClosedBook() {
 
@@ -13,17 +23,20 @@ function ClosedBook() {
     navigate('/intro/open/one')
   }
 
+  const moveSignupPage = () =>{
+    navigate('/signup/info')
+  }
 
   return (
     <>
-    {/* <div class="v-center"></div> */}
-      <div id="closedcontainer">
-        <div class="book">
-          <div class="first paper">
-            <div class="page front contents">
-              <div class="intro">
+    <div className="closed-book-wrapper">
+      {/* <div id="closedcontainer"> */}
+      <ClosedBookcontainer>
+        <div className="closed-book">
+          <div className="first paper">
+            <div className="page front contents">
+              <div className="intro">
                 <h2>DIARY</h2>
-                {/* <img alt = "#" src="./assets/service-title-tag.png" /> */}
                 <h1>알쏭달쏭</h1>
                 <Button 
                   name="로그인"
@@ -31,12 +44,20 @@ function ClosedBook() {
                   size="lg"
                   onClick={moveOpenIntroPage}
                 />
+                <Button 
+                  name="회원가입"
+                  color="#AC5050"
+                  size="lg"
+                  onClick={moveSignupPage}
+                />
                 <div>Don't You have an account? SignUp</div>
               </div>
             </div>
           </div>
-          <div class="shadow"></div>
+          <div className="shadow"></div>
         </div>
+        </ClosedBookcontainer>
+      {/* </div> */}
       </div>
     </>
   );
