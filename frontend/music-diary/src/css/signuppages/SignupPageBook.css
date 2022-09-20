@@ -4,7 +4,7 @@
   height: 100%;
 }
 
-body {
+.signup-info-wrapper body {
   /* background: #fff4d3; */ /* 전체 백그라운드 주황색깔 부분*/
   text-align: center;
   font-family: "alsongdalsong";
@@ -16,20 +16,14 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
-/* #closedcontainer {
-  width: 60%;
-  margin: 20px auto;
-} */
-.v-center {
+
+.signup-info-wrapper .v-center {
   display: inline-block;     
   vertical-align: middle;
   height: 100%;
   width: 0;
 }
-/* #closedcontainer {
-  display: inline-block;
-  vertical-align: middle;
-} */
+
 .signup-info-wrapper .closed-book {
   transform-style: preserve-3d;
 /*   transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg); */
@@ -75,20 +69,6 @@ body {
   background: #FAF3EB;
 }
 
-/* 책 표지 왼쪽 반틈 부분
-.book .first .page.front:after {
-  position: absolute;
-  content: "";
-  width: 50%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: #ada3a31a; 
-}
-*/
-
-
-
 .signup-info-wrapper .closed-book .intro {
   position: absolute;
   width: 90%;
@@ -104,7 +84,7 @@ body {
 }
 .signup-info-wrapper .closed-book .intro h2 {
   padding: 0.5em 0.5em;
-  font-size: 1em;
+  font-size: 1.5em;
   color: black; /* DIARY 글씨 부분 색깔*/
   word-break: break-all;
   text-align: left;
@@ -113,7 +93,7 @@ body {
 .signup-info-wrapper .closed-book .intro h1 {
   /* 상우하좌*/
   padding: 3em  0.20em 0.5em 1.2em;
-  font-size: 3em; /* 알쏭달쏭 부분 글자 크기*/
+  font-size: 3.3em; /* 알쏭달쏭 부분 글자 크기*/
   color: black; /* 알쏭달쏭 부분 글자 색깔*/
   word-break: break-all;
 }
