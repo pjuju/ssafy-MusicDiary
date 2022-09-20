@@ -41,6 +41,6 @@ urlpatterns = [
     path('accounts/', include('dj_rest_auth.urls')),
     # path('accounts/', include('allauth.urls')),
     path('diaries/', include('diaries.urls')),
-
+    path('music/', include('musics.urls')),
     path('swagger/', schema_view.with_ui('swagger')),
 ]
