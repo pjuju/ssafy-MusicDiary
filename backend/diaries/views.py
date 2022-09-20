@@ -1,4 +1,3 @@
-from tkinter.tix import DirSelectBox
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from .serializers import DiarySerializer, BookmarkSerializer
@@ -7,7 +6,8 @@ from .models import Bookmark, Diary
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework import generics, status, mixins
+from rest_framework import status
+from datetime import datetime
 
 # Get: 다이어리 목록 반환
 # Post: 다이어리 작성
@@ -113,11 +113,27 @@ def bookmark_detail(request, bookmark_pk):
 
 # Get: 월별 일기 감정 조회
 @api_view(['GET'])
-def monthEmotion():
-    pass
+def monthEmotion(request, month):
+    # int형 month를 두자리 string형으로 변환
+    target = str(month)
+    if len(target)==1:
+        target = '0'+target
+
+    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__month=target)
+    data = {
+        'emotions': emotions
+    }
+    return Response(data, status=status.HTTP_200_OK)
 
 
 # Get: 월별 일기 모아보기
 @api_view(['GET'])
-def monthDiary():
-    pass
+def monthDiary(request, month):
+    # int형 month를 두자리 string형으로 변환
+    target = str(month)
+    if len(target)==1:
+        target = '0'+target
+
+    diaries = Diary.objects.filter(created_at__month=target)
+    serializer = DiarySerializer(diaries, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
