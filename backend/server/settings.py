@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     # my app
     'accounts',
     'diaries',
+    'musics',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

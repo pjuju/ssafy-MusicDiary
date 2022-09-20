@@ -20,6 +20,7 @@ from .serializers import SignupSirializer ,SigninSirializer, UserSerializer
 from rest_framework import generics, status, mixins
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -212,7 +213,7 @@ class SignupView(generics.CreateAPIView):
 
 class SigninView(generics.GenericAPIView):
     serializer_class = SigninSirializer
-    
+    @csrf_exempt
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         
@@ -244,18 +245,28 @@ class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destro
         pass
     
     def put(self, request, pk):
-        # if request.method == 'PUT':
-        #     user = get_object_or_404(User, email=email)
-        #     serializer = UserSerializer(user)
-        #     if serializer.is_valid():
-        #         serializer.save()
-        #         return JsonResponse(serializer.data)
-        #     return JsonResponse(serializer.errors, status=400)
-        
-        
+        print('asdfas')
+        user = get_object_or_404(User, pk=pk)
+        reqData = request.data
+        print(reqData)
+        serializer = UserSerializer(user, data=reqData)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
 
 
-        return self.update(request, pk)
+
+        # return self.update(request, pk)
+    
+    
+    def patch(self, request, pk):
+        user = get_object_or_404(User, id=pk)
+        serializer = UserSerializer(user, data=request.data, partial=True) # set partial=True to update a data partially
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(code=201, data=serializer.data)
+        return JsonResponse(code=400, data="wrong parameters")
     
     # def post(self, request):
 
