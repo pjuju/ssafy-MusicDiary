@@ -11,8 +11,11 @@ import {
   Bookmarks,
   MainCalender,
   MainMonth,
-  FeelingAnalysis,
-  Opening
+  SignupInfo, 
+  SignupQuestionOne,
+  SignupQuestionTwo,
+  SignupQuestionThree,
+  SignupQuestionFour
 } from './pages/index'
 
 function App() {
@@ -27,10 +30,13 @@ function App() {
           <Route path="/intro/open/two" element={<OpenIntroPageTwo />} />
           <Route path="/intro/open/three" element={<OpenIntroPageThree />} />
           <Route path="/intro/open/four" element={<OpenIntroPageFour />} />
-          <Route path="/intro/pagination" element={<PaginationTest />} /> 
           <Route path="/bookmarks" element={<Bookmarks />} /> 
-          <Route path="/analysis" element={<FeelingAnalysis />} /> 
-          <Route path="/opening" element={<Opening />} /> 
+          <Route path="/signup/info" element={<SignupInfo />} />
+          <Route path="/signup/question/one" element={<SignupQuestionOne />} />
+          <Route path="/signup/question/two" element={<SignupQuestionTwo />} />
+          <Route path="/signup/question/three" element={<SignupQuestionThree />} />
+          <Route path="/signup/question/four" element={<SignupQuestionFour />} />
+
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,8 +1,9 @@
 
-html,
-body {
+.closed-book-wrapper html,
+.closed-book-wrapper body {
   height: 100%;
 }
+
 body {
   /* background: #fff4d3; */ /* 전체 백그라운드 주황색깔 부분*/
   text-align: center;
@@ -15,21 +16,21 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
-#container {
+/* #closedcontainer {
   width: 60%;
   margin: 20px auto;
-}
+} */
 .v-center {
   display: inline-block;
   vertical-align: middle;
   height: 100%;
   width: 0;
 }
-#container {
+/* #closedcontainer {
   display: inline-block;
   vertical-align: middle;
-}
-.book {
+} */
+.closed-book-wrapper .closed-book {
   transform-style: preserve-3d;
 /*   transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg); */
   transition: transform 1s;
@@ -44,8 +45,8 @@ body {
 }
 
 
-.book .paper,
-.book .shadow {
+.closed-book-wrapper .closed-book .paper,
+.closed-book-wrapper .closed-book .shadow {
   width: 38em; /* 공책 : 넓이 부분 조절*/
   height: 38em;
   position: absolute;
@@ -54,15 +55,14 @@ body {
 }
 
 /* 덮인 책 : 그림자 부분 */
-.book .shadow {
+.closed-book-wrapper .closed-book .shadow {
   background: transparent;
   transform: translateZ(-3em);
   box-shadow: -1em 1em 3px 3px #bebec1;
   z-index: 1;
 }
 
-
-.book .page {
+.closed-book-wrapper .closed-book .page {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -71,7 +71,7 @@ body {
 }
 
 /* 책 표지 색깔 */
-.book .first .page {
+.closed-book-wrapper .closed-book .first .page {
   background: #FAF3EB;
 }
 
@@ -87,9 +87,7 @@ body {
 }
 */
 
-
-
-.book .intro {
+.closed-book-wrapper .closed-book .intro {
   position: absolute;
   width: 90%;
   width: calc(100% - 3em);
@@ -102,7 +100,8 @@ body {
   bottom: 1;
   margin: auto;
 }
-.book .intro h2 {
+
+.closed-book-wrapper .closed-book .intro h2 {
   padding: 0.5em 0.5em;
   font-size: 1em;
   color: black; /* DIARY 글씨 부분 색깔*/
@@ -110,7 +109,7 @@ body {
   text-align: left;
   letter-spacing: 5px;
 }
-.book .intro h1 {
+.closed-book-wrapper .closed-book .intro h1 {
   padding: 3.5em 0.25em; /* 상하 - 좌우*/
   font-size: 3em; /* 알쏭달쏭 부분 글자 크기*/
   color: black; /* 알쏭달쏭 부분 글자 색깔*/
@@ -119,7 +118,7 @@ body {
 
 
 @media (max-width: 700px) {
-  .book {
+  .closed-book-wrapper .closed-book {
     left: 50%;
   }
 }
