@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../../css/intropages/ClosedBook.css";
 import Button from '../Common/Button'
+import { CgArrowLongRight } from 'react-icons/cg'
 
 import styled from 'styled-components'
 
@@ -19,12 +20,16 @@ function ClosedBook() {
 
   const navigate = useNavigate()
 
-  const moveOpenIntroPage = () =>{
-    navigate('/intro/open/one')
+  const moveLoginPage = () =>{
+    navigate('/login')
   }
 
   const moveSignupPage = () =>{
     navigate('/signup/info')
+  }
+
+  const moveIntroPage = () => {
+    navigate('/intro/open/one')
   }
 
   return (
@@ -39,21 +44,29 @@ function ClosedBook() {
                 <h2>DIARY</h2>
                 <h1>알쏭달쏭</h1>
                 <Button 
-                  name="로그인"
+                  name="Login"
                   color="#AC5050"
                   size="lg"
-                  onClick={moveOpenIntroPage}
+                  onClick={moveLoginPage}
                 />
-                <Button 
-                  name="회원가입"
-                  color="#AC5050"
-                  size="lg"
-                  onClick={moveSignupPage}
-                />
-                <div>Don't You have an account? SignUp</div>
+                
+                <div className="signup-btn-wrapper">
+                  Don't You have an account?
+                  <Button 
+                    name="SignUp"
+                    color="#AC5050"
+                    size="sm"
+                    onClick={moveSignupPage}
+                  />
+                </div>
+                <div className="move-intro-btn-wrapper">
+                알쏭달쏭이 처음이라면?  
+                <CgArrowLongRight className="antd-CgArrowLongRight" onClick={moveIntroPage} />
+              </div>
               </div>
             </div>
           </div>
+          
           <div className="shadow"></div>
         </div>
         </ClosedBookcontainer>

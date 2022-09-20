@@ -370,3 +370,18 @@ body {
 .intro-ment-1 {
     font-size: 1.5em;
 }
+
+
+/* 하단의 이전, 다음 버튼 */
+.intro-page-prev-btn {
+    margin-right: 5%;
+
+    font-size: 20px;
+}
+
+.intro-page-next-btn {
+
+    
+
+
+}

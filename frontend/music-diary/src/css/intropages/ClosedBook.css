@@ -116,6 +116,37 @@ body {
   word-break: break-all;
 }
 
+.closed-book-wrapper .signup-btn-wrapper {
+  color: black;
+
+  margin-left: 10%;
+}
+
+.signup-btn-wrapper Button {
+  margin-left: 5%;
+  width: 75px;
+  height: 30px;
+
+  padding-bottom: 3
+}
+
+.closed-book-wrapper .move-intro-btn-wrapper {
+  font-size: 20px;
+  color: black;
+
+  margin-top: 10%;
+  margin-left: 65%;
+}
+
+/* -> 이모티콘 커스텀 */
+.closed-book-wrapper .antd-CgArrowLongRight {
+  margin-left: 10px;
+}
+
+.antd-CgArrowLongRight:hover {
+  background-color: #AC5050;
+}
+
 
 @media (max-width: 700px) {
   .closed-book-wrapper .closed-book {

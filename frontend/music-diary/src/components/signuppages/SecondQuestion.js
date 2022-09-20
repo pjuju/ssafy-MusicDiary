@@ -28,6 +28,10 @@ function SecondQuestion() {
         navigate('/signup/question/three')
     }
 
+    const onMoveBack = ()=> {
+      navigate('/signup/question/one')
+    }
+
     const onClickDance = () => {
       setDance(!dance)
       if(!dance){
@@ -74,25 +78,26 @@ function SecondQuestion() {
               <div className="page front contents">
                 <div className="intro">
                   <h1>당신의 음악취향은?</h1>
-                  <h2>나는 평소에 "{secondAnswer}" 노래를 듣는다 </h2>
+                  <h2>2. 나는 슬플 때 "{secondAnswer}" 노래를 듣는다 </h2>
                   
                   <div className="first-row">
                     <div className={dance ? "selected-box" : "question-box"} onClick={onClickDance} >
-                      신나는 노래
+                    신나는
                     </div>
                     <div className={sad ? "selected-box" : "question-box"} onClick={onClickSad} >
-                      슬픈노래
+                    슬픈
                     </div>
                   </div>
                   <div className="second-row">
                     <div className={normal ? "selected-box" : "question-box"} onClick={onClickNormal}>
-                      평온한 노래
+                    평온한
                     </div>
                     <div className={energytic ? "selected-box" : "question-box"} onClick={onClickEnergy}>
-                      에너지틱한 노래
+                    에너지틱한
                     </div>
                     </div>
                     <div className="next-btn">
+                     <Button name="<- 이전" color="#AC5050" size="lg" onClick={onMoveBack} />
                      <Button name="다음->" color="#AC5050" size="lg" onClick={onMoveQuestionTwo} />
                     </div>
                 </div>
