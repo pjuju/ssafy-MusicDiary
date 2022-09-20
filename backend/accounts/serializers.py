@@ -5,6 +5,8 @@ from django.contrib.auth import get_user_model
 
 from rest_framework.validators import UniqueValidator
 
+from musics.serializers import MusicSerialiezer
+
 # class CustomTokenRefreshSerializer(serializers.Serializer):
 #     refresh_token = serializers.CharField()
 
@@ -63,7 +65,7 @@ class SignupSirializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('email','password','password2','username', 'sad', 'angry', 'depressed', 'normal', 'point', 'image_url')
+        fields = ('id', 'email','password','password2','username', 'sad', 'angry', 'depressed', 'normal', 'point', 'image_url')
     
     def validate(self, data):
         if data['password'] != data['password2']:
@@ -104,7 +106,7 @@ class SigninSirializer(serializers.ModelSerializer):
     password = serializers.CharField(
         required = True,
         write_only = True,
-        style= {'input_type' : 'password'}
+        # style= {'input_type' : 'password'}
     )
     class Meta(object):
         model = User
@@ -126,6 +128,7 @@ class SigninSirializer(serializers.ModelSerializer):
 
         token = RefreshToken.for_user(user=user)
         data = {
+            'id' : user.id,
             'username' : user.username ,
             'email' : user.email,
             'sad' : user.sad,
@@ -143,9 +146,12 @@ class SigninSirializer(serializers.ModelSerializer):
     
     
 class UserSerializer(serializers.ModelSerializer):
+    
+    favorite_musics = MusicSerialiezer(many=True)
     class Meta:
         model = get_user_model()
         fields = '__all__'
+        fields = ('id', 'username', 'email', 'sad', 'depressed', 'normal', 'angry', 'point', 'favorite_musics')
 
     # def update(self, instance, validated_data): 
     #     instance.username = validated_data.get('username', instance.username)
