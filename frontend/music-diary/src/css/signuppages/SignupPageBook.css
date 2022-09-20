@@ -87,7 +87,7 @@
   font-size: 1.5em;
   color: black; /* DIARY 글씨 부분 색깔*/
   word-break: break-all;
-  text-align: left;
+  text-align: center;
   letter-spacing: 5px;
 }
 .signup-info-wrapper .closed-book .intro h1 {
