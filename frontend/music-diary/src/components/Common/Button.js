@@ -3,8 +3,8 @@ import styled, { css } from "styled-components";
 const SIZES = {
   sm: css`
     --button-width: 100px;
-    --button-hegith: 50px;
-    --button-font-size: 0.875rem;
+    --button-hegith: 40px;
+    --button-font-size: 0.7rem;
     --button-padding: 8px 12px;
     --button-radius: 4px;
   `,

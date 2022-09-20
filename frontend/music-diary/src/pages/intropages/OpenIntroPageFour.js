@@ -1,9 +1,20 @@
 import React from "react";
 import "../../css/intropages/OpenIntroPage.css";
+import { useNavigate } from "react-router-dom";
 
 import Button from '../../components/Common/Button'
 
+import {CgChevronDoubleLeft} from 'react-icons/cg'
+
 function OpenIntroPageTwo() {
+
+  const navigate = useNavigate()
+
+  const onMoveLoginPage = () => {
+    navigate('/')
+  }
+
+
   return (
     <>
       <div id="wrapper">
@@ -38,7 +49,8 @@ function OpenIntroPageTwo() {
           </section>
         </div>
         <div>
-      <Button name="다음 페이지" color="#AC5050" size="lg" />
+      <Button name="돌아가기" color="#AC5050" size="lg" onClick={onMoveLoginPage} />
+      
       </div>
       </div>
 

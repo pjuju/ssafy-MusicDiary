@@ -5,6 +5,8 @@ import "../../css/signuppages/SignupPageBook.css";
 import "../../css/signuppages/QuestionBox.css"
 import Button from "../Common/Button";
 
+
+
 import styled from "styled-components";
 
 const SignupInfoBookcontainer = styled.div`
@@ -74,7 +76,7 @@ function FirstQuestion() {
               <div className="page front contents">
                 <div className="intro">
                   <h1>당신의 음악취향은?</h1>
-                  <h2>나는 평소에 "{firstAnswer}" 노래를 듣는다 </h2>
+                  <h2>1. 나는 평소에 "<div className="answer">{firstAnswer}</div>" 노래를 듣는다 </h2>
                   
                   <div className="first-row">
                     <div className={dance ? "selected-box" : "question-box"} onClick={onClickDance} >

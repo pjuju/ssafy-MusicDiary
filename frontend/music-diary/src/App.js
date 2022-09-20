@@ -15,7 +15,8 @@ import {
   SignupQuestionOne,
   SignupQuestionTwo,
   SignupQuestionThree,
-  SignupQuestionFour
+  SignupQuestionFour,
+  MainLogin
 } from './pages/index'
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
           <Route path="/signup/question/two" element={<SignupQuestionTwo />} />
           <Route path="/signup/question/three" element={<SignupQuestionThree />} />
           <Route path="/signup/question/four" element={<SignupQuestionFour />} />
-
+          <Route path="/login" element={<MainLogin /> } />
         </Routes>
       </BrowserRouter>
     </div>

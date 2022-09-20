@@ -77,7 +77,7 @@ function ThirdQuestion() {
               <div className="page front contents">
                 <div className="intro">
                   <h1>당신의 음악취향은?</h1>
-                  <h2>나는 화날 때 "{thirdAnswer}" 노래를 듣는다 </h2>
+                  <h2>3. 나는 화날 때 "{thirdAnswer}" 노래를 듣는다 </h2>
                   
                   <div className="first-row">
                     <div className={dance ? "selected-box" : "question-box"} onClick={onClickDance} >
