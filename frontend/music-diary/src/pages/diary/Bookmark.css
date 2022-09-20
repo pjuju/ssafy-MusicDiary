@@ -8,6 +8,7 @@
     -ms-overflow-style: none;
     /* background-color: green; */
     cursor: pointer;
+    margin-bottom: 3vh;
 
     transition: 0.06s linear;
 }

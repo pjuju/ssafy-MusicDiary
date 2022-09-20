@@ -1,0 +1,122 @@
+.feeling-analysis {
+    position: relative;
+}
+
+.feeling-analysis .main-note {
+    position: absolute;
+}
+
+.feeling-analysis .analysis {
+  /* 이건 모든 페이지들이 공용으로 설정할 값 */
+  width: 77vw;
+  height: 90vh;
+  margin-top: 6vh;
+  margin-left: 18vw;
+  /* background-color: green; */
+
+  position: absolute;
+  z-index: 1;
+  color: black;
+}
+
+.feeling-analysis .analysis-page-title {
+    margin-top: 5vh;
+}
+
+.feeling-analysis .analysis-graph {
+    /* background-color: black; */
+    width: 40vw;
+    margin-top: 10vh;
+    height: 50vh;
+    margin-left: 2vw;
+    position: absolute;
+
+}
+
+.feeling-analysis .analysis-time-form {
+    width: 4vw;
+    margin-left: 29vw;
+}
+
+.feeling-analysis .feeling-music-type {
+    width: 30vw;
+    height: 50vh;
+    /* background-color: green; */
+    margin-left: 40vw;
+    position: absolute;
+    margin-top: 10vh;
+}
+
+.feeling-analysis .music-research {
+    margin-bottom: 3vh;
+}
+
+.feeling-analysis .analysis-page-title {
+    margin-bottom: 6vh;
+}
+
+
+
+
+/* 저장하기 버튼 css */
+.snip1226 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .snip1226 * {
+    box-sizing: border-box;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+    
+  }
+  .snip1226 li {
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0 1.5em;
+    overflow: hidden;
+    
+  }
+  .snip1226 a {
+    padding: 0.3em 0;
+    color: rgba(255, 255, 255, 0.5);
+    position: relative;
+    display: inline-block;
+    letter-spacing: 1px;
+    margin: 0;
+    text-decoration: none;
+    color: black;
+  }
+  .snip1226 a:before,
+  .snip1226 a:after {
+    position: absolute;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+    
+  }
+  .snip1226 a:before {
+    bottom: 100%;
+    display: block;
+    height: 3px;
+    width: 100%;
+    content: "";
+    background-color: #e67e22;
+
+  }
+  .snip1226 a:after {
+    padding: 0.3em 0;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    content: attr(data-hover);
+    color: black;
+    white-space: nowrap;
+  }
+  .snip1226 li:hover a,
+  .snip1226 .current a {
+    transform: translateY(100%);
+  }
+  /* Demo purposes only */
+  body {
+    background-color: #212121;
+  }

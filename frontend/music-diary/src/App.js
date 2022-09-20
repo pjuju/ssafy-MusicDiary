@@ -10,7 +10,9 @@ import {
   PaginationTest,
   Bookmarks,
   MainCalender,
-  MainMonth
+  MainMonth,
+  FeelingAnalysis,
+  Opening
 } from './pages/index'
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
           <Route path="/intro/open/four" element={<OpenIntroPageFour />} />
           <Route path="/intro/pagination" element={<PaginationTest />} /> 
           <Route path="/bookmarks" element={<Bookmarks />} /> 
+          <Route path="/analysis" element={<FeelingAnalysis />} /> 
+          <Route path="/opening" element={<Opening />} /> 
         </Routes>
       </BrowserRouter>
     </div>
