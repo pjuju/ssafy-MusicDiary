@@ -113,25 +113,27 @@ def bookmark_detail(request, bookmark_pk):
 
 # Get: 월별 일기 감정 조회
 @api_view(['GET'])
-def monthEmotion():
-    # now = datetime.now()
-    # year = now.strftime("%Y")
-    # month = now.strftime("%m")
-    # emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__year=year, created_at__month=month)
-    # serializer = BookmarkSerializer(emotions, many=True)
-    # return Response(serializer.data, status=status.HTTP_200_OK)
-    pass
+def monthEmotion(request, month):
+    # int형 month를 두자리 string형으로 변환
+    target = str(month)
+    if len(target)==1:
+        target = '0'+target
+
+    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__month=target)
+    data = {
+        'emotions': emotions
+    }
+    return Response(data, status=status.HTTP_200_OK)
 
 
 # Get: 월별 일기 모아보기
 @api_view(['GET'])
-def monthDiary():
-    # # from datetime import date, timedelta
-    # # diaries = Diary.objects.filter(created_at__range=[date.today() - timedelta(days=30), date.today]).values().all()
-    # now = datetime.now()
-    # year = now.strftime("%Y")
-    # month = now.strftime("%m")
-    # diaries = Diary.objects.filter(created_at__year=year, created_at__month=month)
-    # serializer = BookmarkSerializer(diaries, many=True)
-    # return Response(serializer.data, status=status.HTTP_200_OK)
-    pass
+def monthDiary(request, month):
+    # int형 month를 두자리 string형으로 변환
+    target = str(month)
+    if len(target)==1:
+        target = '0'+target
+
+    diaries = Diary.objects.filter(created_at__month=target)
+    serializer = DiarySerializer(diaries, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
