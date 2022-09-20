@@ -1,3 +1,4 @@
+import time
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from .serializers import DiarySerializer, BookmarkSerializer
@@ -5,21 +6,77 @@ from .models import Bookmark, Diary
 
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.generics import GenericAPIView
 from rest_framework.decorators import api_view
-from rest_framework import status
-from datetime import datetime
+
+import base64
+from Crypto import Random
+from Crypto.Cipher import AES
+import hashlib
+from django.conf import settings
+
+
+class AESCipher:
+    def __init__(self, key):
+        self.key = key
+        self.BS = 16
+        self.pad = lambda s: s + (self.BS - len(s.encode('utf-8')) % self.BS) * chr(self.BS - len(s.encode('utf-8')) % self.BS)
+        self.unpad = lambda s : s[:-ord(s[len(s)-1:])]
+
+    def encrypt(self, raw):
+        # raw 데이터 패딩
+        raw = self.pad(raw).encode('utf-8')
+        iv = Random.new().read(AES.block_size)
+        cipher = AES.new(self.key, AES.MODE_CBC, iv)
+        return base64.b64encode(iv + cipher.encrypt(raw))
+
+    def decrypt(self, enc):
+        enc = base64.b64decode(enc)
+        iv = enc[:16]
+        cipher = AES.new(self.key, AES.MODE_CBC, iv)
+        return self.unpad(cipher.decrypt(enc[16:]))
+
+    def encrypt_str(self, raw):
+        return self.encrypt(raw).decode('utf-8')
+
+    def decrypt_str(self, enc):
+        if type(enc)==str:
+            enc = str.encode(enc)
+        return self.decrypt(enc).decode('utf-8')
+
+
+def make_pass():
+    timekey = int(time.time())
+    return str(timekey)
+
 
 # Get: 다이어리 목록 반환
 # Post: 다이어리 작성
-@api_view(['GET', 'POST'])
-def diary(request):
-    if request.method == 'GET':
-        diary = Diary.objects.all()
-        serializer = DiarySerializer(diary, many=True)
+class DiaryList(GenericAPIView):
+    queryset = Diary.objects.all()
+    serializer_class = DiarySerializer
+
+    # key = Random.get_random_bytes(16)
+    key = hashlib.sha256(settings.SECRET_KEY.encode('utf-8')).digest()
+    ciper = AESCipher(bytes(key))
+
+    def get(self, request, format=None):
+        diaries = get_list_or_404(Diary)
+        for diary in diaries:
+            diary.title = self.ciper.decrypt_str(diary.title)
+            diary.content = self.ciper.decrypt_str(diary.content)
+            diary.emotion = self.ciper.decrypt_str(diary.emotion)
+
+        serializer = DiarySerializer(diaries, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    elif request.method == 'POST':
-        serializer = DiarySerializer(request.data)
+    def post(self, request, format=None):
+        updated = dict()       
+        updated['title'] = self.ciper.encrypt_str(request.data['title'])
+        updated['content'] = self.ciper.encrypt_str(request.data['content'])
+        updated['emotion'] = self.ciper.encrypt_str(request.data['emotion'])
+        serializer = DiarySerializer(data=updated)
+
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -28,26 +85,70 @@ def diary(request):
 # Get: 일기 상세보기
 # Put: 일기 수정
 # Delete: 일기 삭제
-@api_view(['GET', 'PUT', 'DELETE'])
-def diary_detail(request, diary_pk):
-    diary = get_object_or_404(Diary, pk=diary_pk)
+class DiaryDetail(GenericAPIView):
+    serializer_class = DiarySerializer
+    key = hashlib.sha256(settings.SECRET_KEY.encode('utf-8')).digest()
+    ciper = AESCipher(bytes(key))
 
-    if request.method == 'GET':
+    def get(self, request, diary_pk, format=None):
+        diary = get_object_or_404(Diary, pk=diary_pk)
+        diary.title = self.ciper.decrypt_str(diary.title)
+        diary.content = self.ciper.decrypt_str(diary.content)
+        diary.emotion = self.ciper.decrypt_str(diary.emotion)
         serializer = DiarySerializer(diary)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    elif request.method == 'PUT':
-        serializer = DiarySerializer(diary, request.data)
+    def put(self, request, diary_pk, format=None):
+        diary = get_object_or_404(Diary, pk=diary_pk)
+
+        updated = dict()       
+        updated['title'] = self.ciper.encrypt_str(request.data['title'])
+        updated['content'] = self.ciper.encrypt_str(request.data['content'])
+        updated['emotion'] = self.ciper.encrypt_str(request.data['emotion'])
+        
+        serializer = DiarySerializer(diary, data=updated)
+
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, diary_pk, format=None):
+        diary = get_object_or_404(Diary, pk=diary_pk)
         diary.delete()
         data = {
             'delete': f'데이터 {diary_pk}번이 삭제되었습니다.'
         }
         return Response(data, status=status.HTTP_204_NO_CONTENT)
+
+
+# def encrypt(txt):
+#     try:
+#         # convert integer etc to string first
+#         txt = str(txt)
+#         # get the key from settings
+#         cipher_suite = Fernet(settings.ENCRYPT_KEY) # key should be byte
+#         # #input should be byte, so convert the text to byte
+#         encrypted_text = cipher_suite.encrypt(txt.encode('utf-8'))
+#         # encode to urlsafe base64 format
+#         encrypted_text = base64.urlsafe_b64encode(encrypted_text).decode("utf-8")
+#         return encrypted_text
+#     except Exception as e:
+#         # log the error if any
+#         logging.getLogger("error_logger").error(traceback.format_exc())
+#         return None
+
+
+# def decrypt(txt):
+#     try:
+#         # base64 decode
+#         txt = base64.urlsafe_b64decode(txt)
+#         cipher_suite = Fernet(settings.ENCRYPT_KEY)
+#         decoded_text = cipher_suite.decrypt(txt).decode("utf-8")
+#         return decoded_text
+#     except Exception as e:
+#         # log the error
+#         logging.getLogger("error_logger").error(traceback.format_exc())
+#         return None
 
 
 #################################
@@ -116,14 +217,16 @@ def bookmark_detail(request, bookmark_pk):
 def monthEmotion(request, month):
     # int형 month를 두자리 string형으로 변환
     target = str(month)
-    if len(target)==1:
+    if len(target) == 1:
         target = '0'+target
 
-    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__month=target)
+    emotions = Diary.objects.values_list(
+        'emotion', flat=True).filter(created_at__month=target)
     data = {
         'emotions': emotions
     }
     return Response(data, status=status.HTTP_200_OK)
+
 
 
 # Get: 월별 일기 모아보기
@@ -131,9 +234,16 @@ def monthEmotion(request, month):
 def monthDiary(request, month):
     # int형 month를 두자리 string형으로 변환
     target = str(month)
-    if len(target)==1:
+    if len(target) == 1:
         target = '0'+target
 
     diaries = Diary.objects.filter(created_at__month=target)
+
+    key = hashlib.sha256(settings.SECRET_KEY.encode('utf-8')).digest()
+    ciper = AESCipher(bytes(key))
+    for diary in diaries:
+        diary.title = ciper.decrypt_str(diary.title)
+        diary.content = ciper.decrypt_str(diary.content)
+
     serializer = DiarySerializer(diaries, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
