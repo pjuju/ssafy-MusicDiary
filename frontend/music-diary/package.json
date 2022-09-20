@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nivo/core": "^0.80.0",
+    "@nivo/radar": "^0.80.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.1",
     "classnames": "^2.3.2",
+    "jquery": "^3.6.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
@@ -17,6 +20,7 @@
     "sass": "^1.54.9",
     "scss": "^0.2.4",
     "styled-components": "^5.3.5",
+    "vara": "^1.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
