@@ -23,7 +23,7 @@ export const googleLoginApi = async(success, fail) => {
 
 // 회원정보 가져오기
 export const getUserInfoApi = async (user_id, success, fail) => {
-    return await api.get(`/manager/${user_id}`)
+    return await api.get(`/user/${user_id}`)
   }
 
 

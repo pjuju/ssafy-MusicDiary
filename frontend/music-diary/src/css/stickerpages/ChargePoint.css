@@ -1,0 +1,146 @@
+.point-charge-wrapper {
+
+}
+
+
+.point-charge-wrapper .sticker-page-header {
+    font-size: 40px;
+    color: black;
+}
+
+/* 스티커 전체 영역 */
+.point-charge-wrapper .sticker-wrapper {
+
+
+    width: 60%;
+    height: 550px;
+    
+    margin-left: 30%;
+}
+
+/* 스티커 이름 검색, 상점 header영역 */
+.point-charge-wrapper .header {
+    display: flex;
+    
+    width: 100%;
+
+    margin-top: 5%;
+    margin-bottom: 3%;
+
+    font-size: 22px;
+    color: black;
+
+}
+
+/* 이름 검색 */
+.point-charge-wrapper .header-left {
+    justify-content: start;
+
+    margin-right: 50%;
+    width: 50%;
+}
+
+/* 상점 */
+.point-charge-wrapper .header-right {
+    justify-content: end;
+    width: 30%;
+}
+
+.point-charge-wrapper .header-right:hover {
+    border-radius: 10px;
+    background-color: rgb(200, 210, 200);
+}
+
+
+/* 보유한 스티커 리스트 영역 */
+.point-charge-wrapper .list-wrapper {
+    background-color: #E9E0D6;
+    /* display: flex; */
+
+    width: 100%;
+    height: 500px;
+
+    padding-top: 5%;
+    padding-left: 5%;
+
+}
+
+
+/* 개별 스티커팩 부분 */
+.point-charge-wrapper .sticker-info {
+    display: flex;
+
+    width: 80%;
+    height: 30%;
+
+    margin-left: 2%;
+    margin-right: 2.5%;
+}
+
+.point-charge-wrapper .sticker-info .sticker-left-img {
+    width: 50%;
+}
+
+.point-charge-wrapper .sticker-info .sticker-right-info {
+    width: 50%;
+    /* display: flex; */
+}
+
+.point-charge-wrapper .sticker-name {
+
+    width: 90%;
+
+    margin-right: 40px;
+    margin-left: -30%;
+    margin-top: 5%;
+    
+    
+    color : black;
+    font-size: 30px;
+}
+
+.point-charge-wrapper .list-wrapper .sticker-list-wrapper {
+
+    width: 90%;
+    height: 55%;
+
+    margin-left: 3%;
+    margin-top: 5%;
+
+    background-color: rgb(228, 235, 216);
+}
+
+.point-charge-wrapper .sticker-list-wrapper img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* 스티커 가격, 버튼 영역 */
+.point-charge-wrapper .sticker-info .sticker-buy-charge-wrapper {
+    display: flex;
+    margin-top: 5%;
+
+    /* 영역 확인용*/
+    /* background-color: aliceblue;  */
+
+    color: black;
+}
+
+.sticker-info .sticker-buy-charge-wrapper .sticker-buy-btn {
+    margin-left: 5%;
+
+
+}
+
+.sticker-info .sticker-buy-charge-wrapper .sticker-point-charge {
+    margin-left: 5%;
+}
+
+.sticker-info .sticker-buy-charge-wrapper Button {
+    width: 70px;
+
+    font-size: 18px;
+}
+
