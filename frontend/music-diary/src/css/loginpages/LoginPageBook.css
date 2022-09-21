@@ -1,0 +1,168 @@
+
+.login-info-wrapper html,
+.login-info-wrapper body {
+  height: 100%;
+}
+
+.login-info-wrapper body {
+  /* background: #fff4d3; */ /* 전체 백그라운드 주황색깔 부분*/
+  text-align: center;
+  font-family: "alsongdalsong";
+  overflow: hidden;
+  font-size: 16px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.login-info-wrapper .v-center {
+  display: inline-block;     
+  vertical-align: middle;
+  height: 100%;
+  width: 0;
+}
+
+.login-info-wrapper .closed-book {
+  transform-style: preserve-3d;
+/*   transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg); */
+  transition: transform 1s;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 10%;
+  margin: auto;
+  width: 30em; /* 이거 바꾸면 좌우 이동..*/
+  height: 35em; /* 상하 이동*/
+}
+
+
+.login-info-wrapper .closed-book .paper,
+.login-info-wrapper .closed-book .shadow {
+  width: 38em; /* 공책 : 넓이 부분 조절*/
+  height: 38em;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 덮인 책 : 그림자 부분 */
+.login-info-wrapper .closed-book .shadow {
+  background: transparent;
+  transform: translateZ(-3em);
+  box-shadow: -1em 1em 3px 3px #bebec1;
+  z-index: 1;
+}
+
+.login-info-wrapper .closed-book .page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-transform: translateZ(0px);
+  transform: translateZ(0px);
+}
+
+/* 책 표지 색깔 */
+.login-info-wrapper .closed-book .first .page {
+  background: #FAF3EB;
+}
+
+.login-info-wrapper .closed-book .intro {
+  position: absolute;
+  width: 90%;
+  width: calc(100% - 3em);
+  height: 100%;
+  /* height: calc(100% - 3em); */
+  border-left: 2em solid #AC5050;
+  left: 0;
+  top: 1;
+  right: 30;
+  bottom: 1;
+  margin: auto;
+}
+
+.login-info-wrapper .closed-book .intro h1 {
+  /* 상우하좌*/
+  padding: 3em  0.20em 0.5em 1.2em;
+  font-size: 3.3em; /* 알쏭달쏭 부분 글자 크기*/
+  color: black; /* 알쏭달쏭 부분 글자 색깔*/
+  word-break: break-all;
+}
+
+.login-info-wrapper .closed-book .intro h2 {
+  padding: 0.5em 0.5em;
+  font-size: 1.5em;
+  color: black; /* DIARY 글씨 부분 색깔*/
+  word-break: break-all;
+  text-align: center;
+  letter-spacing: 5px;
+}
+
+.login-info-wrapper .closed-book .intro .answer {
+  display: inline;
+
+  width: 100px;
+  height: inherit;
+}
+
+.login-info-wrapper hr {
+  color: black;
+}
+
+@media (max-width: 700px) {
+  .login-info-wrapper .closed-book {
+    left: 50%;
+  }
+}
+
+
+/* 직접 추가하는 CSS : SHY */
+
+/* 회원가입폼 : input태그 부분 */
+.login-info-wrapper .login-form-wrapper input {
+  display: block;
+  margin-bottom: 1rem;
+  margin-left: 40%;
+
+  background-color: #FAF3EB;
+  padding-left: 10px;
+}
+
+/* 로그인 폼: next-btn Login버튼 부분 */
+.login-info-wrapper Button {
+  margin-left: 50px;
+  margin-top: 2rem;
+}
+
+.login-info-wrapper hr {
+  width: 70%;
+  color: grey;
+
+  margin-left: 20%;
+  margin-right: 10%;
+}
+
+
+/* 카카오 로그인 버튼, 구글 로그인 버튼 이미지 */
+
+.login-info-wrapper .kakao-btn-img {
+  display: block;
+  
+  width: 225px;
+  margin-left: 33%;
+  margin-bottom: 3%;
+
+}
+
+.login-info-wrapper .google-btn-img {
+  display: block;
+  
+  width: 255px;
+  margin-left: 30%;
+  margin-bottom: 3%;
+
+
+}
+

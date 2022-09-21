@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     # my app
     'accounts',
     'diaries',
+    'musics',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -173,3 +175,5 @@ SIMPLE_JWT = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SECRET_KEY = 'testkey'

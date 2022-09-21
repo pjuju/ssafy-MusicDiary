@@ -11,6 +11,10 @@ function OpenIntroPageTwo() {
     navigate('/intro/open/three')
   }
 
+  const moveIntroPageOne = () =>{
+    navigate('/intro/open/one')
+  }
+
   return (
     <>
       <div id="wrapper">
@@ -45,7 +49,9 @@ function OpenIntroPageTwo() {
           </section>
         </div>
         <div>
-        <Button name="다음 페이지" color="#AC5050" size="lg" onClick={moveIntroPageThree} />
+        
+        <Button className="intro-page-prev-btn" name="이전" color="#AC5050" size="sm" onClick={moveIntroPageThree} />
+        <Button className="intro-page-next-btn" name="다음" color="#AC5050" size="sm" onClick={moveIntroPageThree} />
       </div>
       </div>
 
