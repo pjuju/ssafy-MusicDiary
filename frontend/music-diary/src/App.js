@@ -17,7 +17,14 @@ import {
   SignupQuestionTwo,
   SignupQuestionThree,
   SignupQuestionFour,
-  MainLogin
+  MainLogin,
+  MySticker,
+  FeelingAnalysis,
+  Opening,
+  NewDiary,
+  StickerStore,
+  StickerDetail,
+  ChargePoint
 } from './pages/index'
 
 const reducer = (state, action) => {
@@ -91,6 +98,14 @@ function App() {
  
   return (
     <div className='App'>
+      <DiaryStateContext.Provider value={data}>
+        <DiaryDispatchContext.Provider
+            value={{
+              onCreate,
+              onEdit,
+              onRemove,
+            }}
+          >
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<ClosedIntroPage />} />
@@ -107,8 +122,17 @@ function App() {
           <Route path="/signup/question/three" element={<SignupQuestionThree />} />
           <Route path="/signup/question/four" element={<SignupQuestionFour />} />
           <Route path="/login" element={<MainLogin /> } />
+          <Route path="/analysis" element={<FeelingAnalysis />} />
+          <Route path="/opening" element={<Opening/>} />
+          <Route path="/newdiary" element={<NewDiary/>} />
+          <Route path="/mypage/mysticker" element={<MySticker />} />
+          <Route path="/sticker/store" element={<StickerStore />} />
+          <Route path="/sticker/detail/:id" element={<StickerDetail />} />
+          <Route path="/sticker/charge" element={<ChargePoint /> } />
         </Routes>
       </BrowserRouter>
+      </DiaryDispatchContext.Provider>
+    </DiaryStateContext.Provider>
     </div>
   );
 }

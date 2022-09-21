@@ -16,3 +16,13 @@ export { default as SignupQuestionThree} from './signuppages/SignupQuestionThree
 export { default as SignupQuestionFour} from './signuppages/SignupQuestionFour'
 
 export { default as MainLogin} from './loginpages/MainLogin'
+
+export { default as MySticker } from './mypages/MySticker'
+export {default as Opening } from './mypages/Opening'
+export {default as FeelingAnalysis } from './mypages/FeelingAnalysis'
+
+export {default as NewDiary } from './diary/NewDiary'
+
+export { default as StickerStore } from './stickerpages/StickerStore'
+export { default as StickerDetail } from './stickerpages/StickerDetail'
+export { default as ChargePoint } from './stickerpages/ChargePoint'
