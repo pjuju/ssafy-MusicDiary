@@ -9,7 +9,7 @@ from django.db import models
 from django.conf import settings
 
 class Music(models.Model):
-    id = models.IntegerField(null=False,primary_key=True)
+    id = models.IntegerField(null=False, primary_key=True)
     artist_name = models.TextField(blank=True, null=True)
     track_name = models.TextField(blank=True, null=True)
     track_id = models.TextField(blank=True, null=True)
@@ -17,21 +17,21 @@ class Music(models.Model):
     market = models.TextField(blank=True, null=True)
     track_popularity = models.IntegerField(blank=True, null=True)
     artist_id = models.TextField(blank=True, null=True)
+    videoid = models.TextField(db_column='videoId', blank=True, null=True)  # Field name made lowercase.
     danceability = models.FloatField(blank=True, null=True)
     energy = models.FloatField(blank=True, null=True)
-    key = models.IntegerField(blank=True, null=True)
-    loudness = models.FloatField(blank=True, null=True)
-    mode = models.IntegerField(blank=True, null=True)
-    speechiness = models.FloatField(blank=True, null=True)
-    acousticness = models.FloatField(blank=True, null=True)
-    instrumentalness = models.FloatField(blank=True, null=True)
-    liveness = models.FloatField(blank=True, null=True)
     valence = models.FloatField(blank=True, null=True)
+    loudness = models.FloatField(blank=True, null=True)
+    speechiness = models.FloatField(blank=True, null=True)
     tempo = models.FloatField(blank=True, null=True)
+    key = models.IntegerField(blank=True, null=True)
     time_signature = models.IntegerField(blank=True, null=True)
-    videoid = models.TextField(db_column='videoId', blank=True, null=True)  # Field name made lowercase.
+    instrumentalness = models.FloatField(blank=True, null=True)
+    acousticness = models.FloatField(blank=True, null=True)
+    liveness = models.FloatField(blank=True, null=True)
+    mood = models.TextField(blank=True, null=True)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='favorite_musics')
-
 
     class Meta:
         db_table = 'music'
+
