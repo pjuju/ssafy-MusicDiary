@@ -1,8 +1,8 @@
 import time
 from django.shortcuts import get_object_or_404, get_list_or_404
 
-from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializer
-from .models import Bookmark, Diary, DiaryMusic
+from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializer, ImageSerializer
+from .models import Bookmark, Diary, DiaryMusic, Image
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -14,6 +14,8 @@ from Crypto import Random
 from Crypto.Cipher import AES
 import hashlib
 from django.conf import settings
+
+from diaries import serializers
 
 
 class AESCipher:
@@ -117,18 +119,8 @@ class DiaryDetail(GenericAPIView):
     def delete(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
         diary.delete()
-        data = {
-            'delete': f'데이터 {diary_pk}번이 삭제되었습니다.'
-        }
+        data = {'delete': f'데이터 {diary_pk}번이 삭제되었습니다.'}
         return Response(data, status=status.HTTP_204_NO_CONTENT)
-
-
-#################################
-# # Post: 스티커 부착
-# @api_view(['POST'])
-# def decorate():
-#     pass
-#################################
 
 
 # Get: 일기별 플레이리스트 조회
@@ -141,7 +133,10 @@ def DiaryMusicDetail(request, diary_pk):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        playlist = stub(diary_pk)
+        diary = get_object_or_404(Diary, pk=diary_pk)
+        ciper = AESCipher()
+        emotion = ciper.decrypt_str(diary.emotion)
+        playlist = stub(emotion)
         success = 0
 
         data={'diary': diary_pk, 'music': ''}
@@ -156,18 +151,15 @@ def DiaryMusicDetail(request, diary_pk):
         return Response(success, status=status.HTTP_201_CREATED)
 
 
-def stub(diary_pk):
+def stub(emotion):
     # Todo: diary_pk 일기의 추천 음악 id를 list로 반환
-    list = [1, 2]
+    if emotion=='happy':
+        list = [1, 2]
+    elif emotion=='sad':
+        list = [6, 8]
+    else:
+        list = [10, 11]
     return list
-
-
-#################################
-# Get: 일기별 스티커 조회
-# @api_view(['GET'])
-# def monthSticker():
-#     pass
-#################################
 
 
 # Get: 책갈피 모아보기
@@ -191,9 +183,7 @@ def bookmark(request):
 def bookmark_detail(request, bookmark_pk):
     bookmark = get_object_or_404(Bookmark, pk=bookmark_pk)
     bookmark.delete()
-    data = {
-        'delete': f'데이터 {bookmark_pk}번이 삭제되었습니다.'
-    }
+    data = {'delete': f'데이터 {bookmark_pk}번이 삭제되었습니다.'}
     return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
@@ -211,9 +201,7 @@ def monthEmotion(request, month):
     for emotion in emotions:
         emotion = ciper.decrypt_str(emotion)
 
-    data = {
-        'emotions': emotions
-    }
+    data = {'emotions': emotions}
     return Response(data, status=status.HTTP_200_OK)
 
 
@@ -235,3 +223,42 @@ def monthDiary(request, month):
 
     serializer = DiarySerializer(diaries, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# # Get: 일기별 이미지 조회
+# class ImageView(GenericAPIView):
+#     serializer_class = ImageSerializer
+
+#     def get(self, request, diary_pk, format=None):
+#         images = get_list_or_404(Image, pk=diary_pk)
+#         serializer = ImageSerializer(images, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+
+#     def post(self, request, diary_pk, format=None):
+#         serializer = ImageSerializer(data=request.data)
+#         if(serializer.is_valid(raise_exception=True)):
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+#     def put(self, request, diary_pk, format=None):
+#         images = get_list_or_404(Image, pk=diary_pk)
+#         serializer = ImageSerializer(images, data=request.data)
+#         if(serializer.is_valid(raise_exception=True)):
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+#################################
+# Get: 일기별 스티커 조회
+# @api_view(['GET'])
+# def monthSticker():
+#     pass
+#################################
+
+
+#################################
+# # Post: 스티커 부착
+# @api_view(['POST'])
+# def decorate():
+#     pass
+#################################
