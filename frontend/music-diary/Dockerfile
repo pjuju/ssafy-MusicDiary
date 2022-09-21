@@ -14,5 +14,5 @@ COPY ./nginx/deploy.conf /etc/nginx/conf.d/deploy.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build-stage /app/build /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 8081
 CMD ["nginx", "-g", "daemon off;"]
