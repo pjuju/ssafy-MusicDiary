@@ -141,7 +141,10 @@ def DiaryMusicDetail(request, diary_pk):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        playlist = stub(diary_pk)
+        diary = get_object_or_404(Diary, pk=diary_pk)
+        ciper = AESCipher()
+        emotion = ciper.decrypt_str(diary.emotion)
+        playlist = stub(emotion)
         success = 0
 
         data={'diary': diary_pk, 'music': ''}
@@ -156,9 +159,14 @@ def DiaryMusicDetail(request, diary_pk):
         return Response(success, status=status.HTTP_201_CREATED)
 
 
-def stub(diary_pk):
+def stub(emotion):
     # Todo: diary_pk 일기의 추천 음악 id를 list로 반환
-    list = [1, 2]
+    if emotion=='happy':
+        list = [1, 2]
+    elif emotion=='sad':
+        list = [6, 8]
+    else:
+        list = [10, 11]
     return list
 
 
