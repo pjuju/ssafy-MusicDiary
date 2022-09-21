@@ -1,0 +1,86 @@
+.sticker-store-wrapper {
+
+}
+
+
+.sticker-store-wrapper .sticker-page-header {
+    font-size: 40px;
+    color: black;
+}
+
+/* 스티커 전체 영역 */
+.sticker-store-wrapper .sticker-wrapper {
+
+
+    width: 60%;
+    height: 550px;
+    
+    margin-left: 30%;
+}
+
+/* 스티커 이름 검색, 상점 header영역 */
+.sticker-store-wrapper .header {
+    display: flex;
+    
+    width: 100%;
+
+    margin-top: 5%;
+    margin-bottom: 3%;
+
+    font-size: 22px;
+    color: black;
+
+}
+
+/* 이름 검색 */
+.sticker-store-wrapper .header-left {
+    justify-content: start;
+
+    margin-right: 50%;
+    width: 50%;
+}
+
+/* 상점 */
+.sticker-store-wrapper .header-right {
+    justify-content: end;
+    width: 30%;
+}
+
+.sticker-store-wrapper .header-right:hover {
+    border-radius: 10px;
+    background-color: rgb(200, 210, 200);
+}
+
+
+/* 보유한 스티커 리스트 영역 */
+.sticker-store-wrapper .list-wrapper {
+    background-color: #E9E0D6;
+    display: flex;
+
+    width: 100%;
+    height: 500px;
+
+    padding-top: 5%;
+    padding-left: 5%;
+
+}
+
+
+/* 개별 스티커팩 부분 */
+.sticker-store-wrapper .sticker-info {
+    width: 50%;
+    height: 30%;
+
+    margin-left: 2%;
+    margin-right: 2.5%;
+}
+
+.sticker-store-wrapper .sticker-info .sticker-img {
+    width: 50%;
+}
+
+.sticker-store-wrapper .sticker-name {
+    color : black;
+    margin-right: 40px;
+    font-size: 18px;
+}
