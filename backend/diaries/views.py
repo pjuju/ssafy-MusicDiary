@@ -1,8 +1,8 @@
 import time
 from django.shortcuts import get_object_or_404, get_list_or_404
 
-from .serializers import DiarySerializer, BookmarkSerializer
-from .models import Bookmark, Diary
+from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializer
+from .models import Bookmark, Diary, DiaryMusic
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -121,36 +121,6 @@ class DiaryDetail(GenericAPIView):
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
-# def encrypt(txt):
-#     try:
-#         # convert integer etc to string first
-#         txt = str(txt)
-#         # get the key from settings
-#         cipher_suite = Fernet(settings.ENCRYPT_KEY) # key should be byte
-#         # #input should be byte, so convert the text to byte
-#         encrypted_text = cipher_suite.encrypt(txt.encode('utf-8'))
-#         # encode to urlsafe base64 format
-#         encrypted_text = base64.urlsafe_b64encode(encrypted_text).decode("utf-8")
-#         return encrypted_text
-#     except Exception as e:
-#         # log the error if any
-#         logging.getLogger("error_logger").error(traceback.format_exc())
-#         return None
-
-
-# def decrypt(txt):
-#     try:
-#         # base64 decode
-#         txt = base64.urlsafe_b64decode(txt)
-#         cipher_suite = Fernet(settings.ENCRYPT_KEY)
-#         decoded_text = cipher_suite.decrypt(txt).decode("utf-8")
-#         return decoded_text
-#     except Exception as e:
-#         # log the error
-#         logging.getLogger("error_logger").error(traceback.format_exc())
-#         return None
-
-
 #################################
 # # Post: 스티커 부착
 # @api_view(['POST'])
@@ -159,22 +129,35 @@ class DiaryDetail(GenericAPIView):
 #################################
 
 
-#################################
-# # Get: 일기별 플레이리스트 조회
-# # Post: 일기별 플레이리스트 생성
-# @api_view(['GET', 'POST'])
-# def playlist(request):
-#     if request.method == 'GET':
-#         diary = Diary.objects.all()
-#         serializer = DiarySerializer(diary, many=True)
-#         return Response(serializer.data)
+# Get: 일기별 플레이리스트 조회
+# Post: 일기별 플레이리스트 생성
+@api_view(['GET', 'POST'])
+def DiaryMusicDetail(request, diary_pk):
+    if request.method == 'GET':
+        playlist = get_list_or_404(DiaryMusic, diary=diary_pk)
+        serializer = DiaryMusicSerializer(playlist, many=True)
+        return Response(serializer.data)
 
-#     elif request.method == 'POST':
-#         serializer = DiarySerializer(request.data)
-#         if serializer.is_valid(raise_exception=True):
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#################################
+    elif request.method == 'POST':
+        playlist = stub(diary_pk)
+        success = 0
+
+        data={'diary': diary_pk, 'music': ''}
+        for music in playlist:
+            data['music'] = music
+            serializer = DiaryMusicSerializer(data=data)
+
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                success += 1
+                
+        return Response(success, status=status.HTTP_201_CREATED)
+
+
+def stub(diary_pk):
+    # Todo: diary_pk 일기의 추천 음악 id를 list로 반환
+    list = [1, 2]
+    return list
 
 
 #################################
