@@ -1,12 +1,14 @@
 import './DiaryItem.css'
 import Card from 'react-bootstrap/Card';
+import {useNavigate} from 'react-router-dom'
 
 const DiaryItem =({...it}) => {
     const strDate = new Date(parseInt(it.date)).toLocaleDateString();
+    const navigate = useNavigate();
 
     return (<div className="diary-item" >
         {it.bookmark !==0 ? (<>
-        <Card className='diary-item-card'>
+        <Card className='diary-item-card' onClick={()=>{navigate(`/diary/${it.id}`)}}>
             <Card.Body>
                 <div className='diary-item-header'>
                     <Card.Title className='diary-item-emotion'>{it.emotion}</Card.Title>

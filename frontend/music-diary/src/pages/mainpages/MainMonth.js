@@ -40,12 +40,6 @@ const MainMonth =() => {
 
         console.log(diaryList)
   
-
-        // diaryList.map((it)=>{
-        //   it.date = new Date(parseInt(it.date)).toLocaleDateString();
-        // })
-
-
         setData(
           diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay)
           );
@@ -72,7 +66,7 @@ const MainMonth =() => {
         <button onClick={()=>{navigate('/newdiary')}}>일기 작성</button>
         <div className="diary-items">
           {data.map((it) => (
-            <DiaryItem key={it.id} {...it} className="diary-items"/>
+            <DiaryItem key={it.id} {...it} className="diary-items" />
           ))}
         </div>
       </div>
