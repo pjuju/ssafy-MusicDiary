@@ -22,7 +22,11 @@ import {
   Opening,
   NewDiary,
   DetailDiary,
-  EditDiary
+  EditDiary,
+  MySticker,
+  StickerStore,
+  StickerDetail,
+  ChargePoint 
 } from './pages/index'
 
 const reducer = (state, action) => {
@@ -141,7 +145,10 @@ function App() {
           <Route path="/newdiary" element={<NewDiary/>} />
           <Route path="/diary/:id" element={<DetailDiary/>} />
           <Route path="/edit/:id" element={<EditDiary/>} />
-
+          <Route path="/mypage/mysticker" element={<MySticker />} />
+          <Route path="/sticker/store" element={<StickerStore />} />
+          <Route path="/sticker/detail/:id" element={<StickerDetail />} />
+          <Route path="/sticker/charge" element={<ChargePoint /> } />         
         </Routes>
       </BrowserRouter>
       </DiaryDispatchContext.Provider>

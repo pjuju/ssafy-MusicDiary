@@ -32,7 +32,7 @@ body {
 } */
 .closed-book-wrapper .closed-book {
   transform-style: preserve-3d;
-/*   transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg); */
+  /* transform: rotateX(45deg) rotateY(0deg) rotateZ(20deg); */
   transition: transform 1s;
   position: absolute;
   left: 0;
@@ -155,3 +155,19 @@ body {
 }
 
 
+/* AlsonDalsong 글자 큰거  */
+.big-text-logo-alsong{
+
+  margin-top: 10px;
+  margin-right: 900px;
+
+  font-size: 160px;
+}
+
+.big-text-logo-dalsong{
+
+  margin-top: 10px;
+  margin-left: 1100px;
+
+  font-size: 160px;
+}

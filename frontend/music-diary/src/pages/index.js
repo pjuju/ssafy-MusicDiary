@@ -23,3 +23,8 @@ export {default as FeelingAnalysis } from './mypages/FeelingAnalysis'
 export {default as NewDiary } from './diary/NewDiary'
 export {default as DetailDiary } from './diary/DetailDiary'
 export {default as EditDiary } from './diary/EditDiary'
+
+export { default as MySticker } from './mypages/MySticker'
+export { default as StickerStore } from './stickerpages/StickerStore'
+export { default as StickerDetail } from './stickerpages/StickerDetail'
+export { default as ChargePoint } from './stickerpages/ChargePoint'
