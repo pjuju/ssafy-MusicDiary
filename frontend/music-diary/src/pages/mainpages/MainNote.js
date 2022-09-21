@@ -48,7 +48,7 @@ const MainNote = () => {
                 <Dropdown.Menu>
                     <Dropdown.Item href="#/action-1">회원정보 수정</Dropdown.Item>
                     <Dropdown.Item href="#/action-2" onClick={()=>{navigate('/analysis')}}>나의 감정 분석</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">나의 스티커</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3" onClick={()=>{navigate('/mypage/mysticker')}}>나의 스티커</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
 
