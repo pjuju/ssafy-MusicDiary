@@ -47,7 +47,7 @@ const getStringDate = (date) => {
     return date.toISOString().slice(0,10)
 }
 
-const DiaryEditor =() => {
+const DiaryEditor =({ isEdit, originData }) => {
 
     const navigate = useNavigate();
 
@@ -59,12 +59,12 @@ const DiaryEditor =() => {
     const contextRef = useRef()
     const titleRef = useRef()
 
-    const {onCreate}= useContext(DiaryDispatchContext)
-
     const handleClickEmote = (emotion) => {
         console.log("emotion:", emotion)
         setEmotion(emotion)
     }
+
+    const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
 
     const handleSubmit = () => {
         if(context.length < 1) {
@@ -75,7 +75,17 @@ const DiaryEditor =() => {
             titleRef.current.focus();
             return
         }
-        onCreate(date,title,context,emotion,image)
+        if (
+            window.confirm(
+              isEdit ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?"
+            )
+          ) {
+            if (!isEdit) {
+              onCreate(date, title, context, emotion);
+            } else {
+              onEdit(originData.id, date, title, context, emotion);
+            }
+          }
         navigate('/diarylist',{replace:true})
     }
 
@@ -107,7 +117,6 @@ const DiaryEditor =() => {
 
     return (
     <div className="diary-editor">
-        <h2>일기 작성하기</h2>
         <button onClick={()=>{navigate(-1)}}>뒤로 가기</button>
         <div className='select-emotion'>
             <h4>감정 선택하기</h4>
