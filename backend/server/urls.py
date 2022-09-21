@@ -23,7 +23,7 @@ from django.urls import path
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Snippets API",
+      title="알쏭달쏭 API",
       default_version='v3',
       description="Test description",
       terms_of_service="https://www.google.com/policies/terms/",
@@ -31,7 +31,7 @@ schema_view = get_schema_view(
       license=openapi.License(name="BSD License"),
    ),
    public=True,
-   permission_classes=[permissions.AllowAny],
+#    permission_classes=[permissions.AllowAny],
 )
 
 
