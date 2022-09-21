@@ -14,3 +14,8 @@ export { default as SignupQuestionOne} from './signuppages/SignupQuestionOne'
 export { default as SignupQuestionTwo} from './signuppages/SignupQuestionTwo'
 export { default as SignupQuestionThree} from './signuppages/SignupQuestionThree'
 export { default as SignupQuestionFour} from './signuppages/SignupQuestionFour'
+
+export {default as Opening } from './mypages/Opening'
+export {default as FeelingAnalysis } from './mypages/FeelingAnalysis'
+
+export {default as NewDiary } from './diary/NewDiary'
