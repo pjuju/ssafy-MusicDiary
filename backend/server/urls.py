@@ -36,11 +36,11 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('rest/user/', include('accounts.urls')),
-    path('rest/user/', include('dj_rest_auth.urls')),
+    path('rest/admin/', admin.site.urls),
+    path('rest/accounts/', include('accounts.urls')),
+    path('rest/accounts/', include('dj_rest_auth.urls')),
     # path('accounts/', include('allauth.urls')),
-    path('rest/diary/', include('diaries.urls')),
-    path('rest/', include('musics.urls')),
-    path('swagger/', schema_view.with_ui('swagger')),
+    path('rest/diaries/', include('diaries.urls')),
+    path('rest/music/', include('musics.urls')),
+    path('rest/swagger/', schema_view.with_ui('swagger')),
 ]
