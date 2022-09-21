@@ -38,7 +38,7 @@ pipeline {
                                         | xargs -r docker container rm'
 
 
-                                sh 'docker run -d --name front -p 8081:8081 frontimg'
+                                sh 'docker run -d --name front -p 80:80 frontimg'
                                 sh 'docker run -d --name back -p 8080:8080 backimg'
                                 sh 'echo hello3'
                         }
