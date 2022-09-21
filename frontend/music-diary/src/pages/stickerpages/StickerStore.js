@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import "../../css/mypages/MySticker.css";
-import "../../css/sticker/StickerStore.css"
+import "../../css/stickerpages/StickerStore.css"
 
 import { BiPlay, BiStore } from "react-icons/bi"; // 상점 이모지
 import { getUserInfoApi } from "../../api/userApi"; // 사용자 정보 조회 
