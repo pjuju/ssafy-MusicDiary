@@ -36,6 +36,12 @@ function ClosedBook() {
     <>
     <div className="closed-book-wrapper">
       {/* <div id="closedcontainer"> */}
+      <div className="big-text-logo-alsong">
+        Alsong
+      </div>
+      <div className="big-text-logo-dalsong">
+        Dalsong
+      </div>
       <ClosedBookcontainer>
         <div className="closed-book">
           <div className="first paper">

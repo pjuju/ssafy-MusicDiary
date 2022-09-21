@@ -68,9 +68,14 @@ class SignupSirializer(serializers.ModelSerializer):
         fields = ('id', 'email','password','password2','username', 'sad', 'angry', 'depressed', 'normal', 'point', 'image_url')
     
     def validate(self, data):
+        if len(data['password']) <= 8:
+             raise serializers.ValidationError({
+                "password" : "Password is too short"
+            })
+             
         if data['password'] != data['password2']:
             raise serializers.ValidationError({
-                "password" : "Pass word fields didn't match"
+                "password" : "Password fields didn't match"
             })
         
         return data
