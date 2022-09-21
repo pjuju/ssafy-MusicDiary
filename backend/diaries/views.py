@@ -17,8 +17,8 @@ from django.conf import settings
 
 
 class AESCipher:
-    def __init__(self, key):
-        self.key = key
+    def __init__(self):
+        self.key = bytes(hashlib.sha256(settings.SECRET_KEY.encode('utf-8')).digest())
         self.BS = 16
         self.pad = lambda s: s + (self.BS - len(s.encode('utf-8')) % self.BS) * chr(self.BS - len(s.encode('utf-8')) % self.BS)
         self.unpad = lambda s : s[:-ord(s[len(s)-1:])]
@@ -26,6 +26,7 @@ class AESCipher:
     def encrypt(self, raw):
         # raw 데이터 패딩
         raw = self.pad(raw).encode('utf-8')
+        print(raw)
         iv = Random.new().read(AES.block_size)
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         return base64.b64encode(iv + cipher.encrypt(raw))
@@ -57,8 +58,7 @@ class DiaryList(GenericAPIView):
     serializer_class = DiarySerializer
 
     # key = Random.get_random_bytes(16)
-    key = hashlib.sha256(settings.SECRET_KEY.encode('utf-8')).digest()
-    ciper = AESCipher(bytes(key))
+    ciper = AESCipher()
 
     def get(self, request, format=None):
         diaries = get_list_or_404(Diary)
@@ -66,6 +66,7 @@ class DiaryList(GenericAPIView):
             diary.title = self.ciper.decrypt_str(diary.title)
             diary.content = self.ciper.decrypt_str(diary.content)
             diary.emotion = self.ciper.decrypt_str(diary.emotion)
+            print('>>>>get diary:', diary.title)
 
         serializer = DiarySerializer(diaries, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -87,8 +88,9 @@ class DiaryList(GenericAPIView):
 # Delete: 일기 삭제
 class DiaryDetail(GenericAPIView):
     serializer_class = DiarySerializer
-    key = hashlib.sha256(settings.SECRET_KEY.encode('utf-8')).digest()
-    ciper = AESCipher(bytes(key))
+    # key = hashlib.sha256(settings.SECRET_KEY.encode('utf-8')).digest()
+    # ciper = AESCipher(bytes(key))
+    ciper = AESCipher()
 
     def get(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
@@ -203,8 +205,12 @@ def monthEmotion(request, month):
     if len(target) == 1:
         target = '0'+target
 
-    emotions = Diary.objects.values_list(
-        'emotion', flat=True).filter(created_at__month=target)
+    ciper = AESCipher()
+    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__month=target)
+
+    for emotion in emotions:
+        emotion = ciper.decrypt_str(emotion)
+
     data = {
         'emotions': emotions
     }
@@ -222,8 +228,7 @@ def monthDiary(request, month):
 
     diaries = Diary.objects.filter(created_at__month=target)
 
-    key = hashlib.sha256(settings.SECRET_KEY.encode('utf-8')).digest()
-    ciper = AESCipher(bytes(key))
+    ciper = AESCipher()
     for diary in diaries:
         diary.title = ciper.decrypt_str(diary.title)
         diary.content = ciper.decrypt_str(diary.content)
