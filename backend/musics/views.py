@@ -39,3 +39,12 @@ def favorite_music(request, music_id):
         serializer = MusicSerialiezer(music)
         return Response(serializer.data)
     
+
+@api_view(['GET', 'POST', 'PUT'])
+def emotion_playlist(request, emotion):
+    print(emotion)
+    if request.method =='GET':
+        playlist = Music.objects.filter(mood=emotion)
+        playlist = get_list_or_404(Music, mood=emotion)
+        playlist = playlist[:10]
+        print(playlist)
