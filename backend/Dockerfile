@@ -1,5 +1,5 @@
 FROM python:3.7.0
-WORKDIR /var/jenkins_home/workspace/deploy/backend
+WORKDIR /var/jenkins_home/workspace/S07P22D204/backend
 COPY requirements.txt ./
 
 RUN pip install --upgrade pip
