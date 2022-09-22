@@ -75,6 +75,14 @@ function LoginInfoBook() {
   // 구글 로그인 버튼 클릭 후
   const onGoogleLoginBtn = () => {
     // googleLoginApi()
+
+    googleLoginApi()
+    .then((res)=>{
+      console.log(JSON.stringify(res.data))
+    })
+    .catch((err)=>{
+      console.log(JSON.stringify(err.data))
+    })
   }
   
 
@@ -113,7 +121,7 @@ function LoginInfoBook() {
                 {/* social login */}
                 <hr />
                 <img className="kakao-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/kakao-login-btn.png`} onClick={onKakaoLoginBtn} />
-                <img className="google-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/google-login-btn.png`} />
+                <img className="google-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/google-login-btn.png`} onClick={onGoogleLoginBtn} />
               </div>
             </div>
           </div>
