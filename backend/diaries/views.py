@@ -8,14 +8,13 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework.decorators import api_view
+# from drf_yasg.utils import openapi, swagger_auto_schema
 
 import base64
 from Crypto import Random
 from Crypto.Cipher import AES
 import hashlib
 from django.conf import settings
-
-from diaries import serializers
 
 
 class AESCipher:
@@ -72,6 +71,10 @@ class DiaryList(GenericAPIView):
         serializer = DiarySerializer(diaries, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    # @swagger_auto_schema(
+    #     request_body=DiarySerializer,
+    #     manual_parameters=[openapi.Parameter('image list', openapi.BODY, description="a header for  test", type=openapi.TYPE_STRING)]
+    # )
     def post(self, request, format=None):
         newPost = dict()
         newPost['user'] = request.user.pk
@@ -159,27 +162,40 @@ def stub(emotion):
 
 # Get: 책갈피 모아보기
 # Post: 책갈피 생성
-@api_view(['GET', 'POST'])
-def bookmarkList(request):
-    if request.method == 'GET':
+class BookmarkList(GenericAPIView):
+    queryset = Bookmark.objects.all()
+    serializer_class = BookmarkSerializer
+
+    def get(self, request, format=None):
         bookmark = get_list_or_404(Bookmark, user=request.user.pk)
         serializer = BookmarkSerializer(bookmark, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    elif request.method == 'POST':
-        serializer = BookmarkSerializer(request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    def post(self, request, format=None):
+        try:
+            bookmark = Bookmark.objects.filter(user=request.user.pk, diary=request.data['diary'])
+        except:
+            data = request.data
+            data['user'] = request.user.pk
+            serializer = BookmarkSerializer(data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        if bookmark != None:
+            data = {'post': '이미 책갈피로 등록된 게시물입니다.'}
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Delete: 북마크 삭제
-@api_view(['DELETE'])
-def bookmark_detail(request, bookmark_pk):
-    bookmark = get_object_or_404(Bookmark, pk=bookmark_pk)
-    bookmark.delete()
-    data = {'delete': f'데이터 {bookmark_pk}번이 삭제되었습니다.'}
-    return Response(data, status=status.HTTP_204_NO_CONTENT)
+class BookmarkDetail(GenericAPIView):
+    queryset = Bookmark.objects.all()
+
+    def delete(self, request, bookmark_pk, format=None):
+        bookmark = get_object_or_404(Bookmark, pk=bookmark_pk)
+        bookmark.delete()
+        data = {'delete': f'데이터 {bookmark_pk}번이 삭제되었습니다.'}
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 # Get: 월별 일기 감정 조회
