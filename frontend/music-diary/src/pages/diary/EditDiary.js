@@ -32,6 +32,8 @@ const EditDiary =() =>{
         }
     }, [id, diaryList]);
 
+    console.log(originData)
+
     return(<div className="edit-diary">
         <div className='edit'>
             {originData && <DiaryEditor isEdit={true} originData={originData} />}

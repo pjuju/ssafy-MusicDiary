@@ -1,5 +1,7 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import GoogleLogin from 'react-google-login';
+import { gapi } from 'gapi-script';
 
 import "../../css/loginpages/LoginPageBook.css"
 import Button from '../Common/Button'
@@ -85,6 +87,8 @@ function LoginInfoBook() {
     })
   }
   
+ 
+
 
   return (
     <>
