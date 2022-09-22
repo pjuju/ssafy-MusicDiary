@@ -173,7 +173,8 @@ class BookmarkList(GenericAPIView):
 
     def post(self, request, format=None):
         try:
-            bookmark = Bookmark.objects.filter(user=request.user.pk, diary=request.data['diary'])
+            bookmark = Bookmark.objects.get(user=request.user.pk, diary=request.data['diary'])
+            print(bookmark)
         except:
             data = request.data
             data['user'] = request.user.pk
@@ -183,6 +184,7 @@ class BookmarkList(GenericAPIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         if bookmark != None:
+            print(bookmark)
             data = {'post': '이미 책갈피로 등록된 게시물입니다.'}
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 

@@ -73,7 +73,7 @@ class UserStickerDetail(GenericAPIView):
     def post(self, request, user_id, format=None):
         sticker_pack = request.data['sticker_pack']
         try:
-            sticker = UserSticker.objects.filter(sticker_pack=sticker_pack, user=user_id)
+            sticker = UserSticker.objects.get(sticker_pack=sticker_pack, user=user_id)
         except:
             data = {'sticker_pack': sticker_pack, 'user': user_id}
             serializer = UserStickerSerializer(data=data)
