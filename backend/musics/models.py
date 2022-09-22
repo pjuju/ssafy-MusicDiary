@@ -34,3 +34,4 @@ class Music(models.Model):
 
     class Meta:
         db_table = 'music'
+

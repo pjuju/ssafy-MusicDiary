@@ -5,16 +5,19 @@ cffi==1.14.5
 chardet==4.0.0
 coreapi==2.3.3
 coreschema==0.0.4
+cryptography==3.4.8
 defusedxml==0.7.1
 dj-rest-auth==2.1.4
 Django==3.2
 django-allauth==0.44.0
+django-cors-headers==3.13.0
 django-filter==22.1
 django-seed==0.3.1
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.6.0
 drf-yasg==1.21.3
 Faker==14.2.0
+gunicorn==20.1.0
 idna==2.10
 inflection==0.5.1
 itypes==1.2.0
@@ -46,4 +49,3 @@ toposort==1.7
 typing_extensions==4.3.0
 uritemplate==4.1.1
 urllib3==1.26.4
-gunicorn==20.1.0

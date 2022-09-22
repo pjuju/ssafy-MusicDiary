@@ -6,7 +6,6 @@ class DiarySerializer(serializers.ModelSerializer):
     image_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     diarymusic_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     # sticker_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    # bookmark_set = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = Diary
@@ -27,13 +26,6 @@ class BookmarkSerializer(serializers.ModelSerializer):
         read_only_field = {'diary',},
 
 
-class DiaryMusicSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DiaryMusic
-        fields = '__all__'
-        read_only_field = {'diary',},
-
-
 class StickerPackSerializer(serializers.ModelSerializer):
     class Meta:
         model = StickerPack
@@ -43,5 +35,12 @@ class StickerPackSerializer(serializers.ModelSerializer):
 class StickerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sticker
+        fields = '__all__'
+        read_only_field = {'diary',},
+
+
+class DiaryMusicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiaryMusic
         fields = '__all__'
         read_only_field = {'diary',},
