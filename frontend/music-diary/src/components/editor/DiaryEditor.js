@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useRef, useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { DiaryDispatchContext } from '../../App';
 import React from "react";
@@ -12,33 +12,33 @@ env.PUBLIC_URL = env.PUBLIC_URL || '';
 const emotionList = [
     {
         emotion_id:1,
-        emotion_img : process.env.PUBLIC_URL + '/assets/img/emoji.png',
+        emotion_img : '/assets/img/happy_emoji.png',
         emotion_descript:'기쁨'
     },
     {
         emotion_id:2,
-        emotion_img : process.env.PUBLIC_URL + '/assets/img/emoji.png',
+        emotion_img : process.env.PUBLIC_URL + '/assets/img/sad_emoji.png',
         emotion_descript:'슬픔'
     },
     {
         emotion_id:3,
-        emotion_img : process.env.PUBLIC_URL + '/assets/img/emoji.png',
+        emotion_img : process.env.PUBLIC_URL + '/assets/img/normal_emoji.png',
         emotion_descript:'평온'
     },
     {
         emotion_id:4,
-        emotion_img : process.env.PUBLIC_URL + '/assets/img/emoji.png',
-        emotion_descript:'기쁨'
+        emotion_img : process.env.PUBLIC_URL + '/assets/img/depressed_emoji.png',
+        emotion_descript:'우울'
     },
     {
         emotion_id:5,
-        emotion_img : process.env.PUBLIC_URL + '/assets/img/emoji.png',
-        emotion_descript:'슬픔'
+        emotion_img : process.env.PUBLIC_URL + '/assets/img/angry_emoji.png',
+        emotion_descript:'화남'
     },
     {
         emotion_id:6,
-        emotion_img : process.env.PUBLIC_URL + '/assets/img/emoji.png',
-        emotion_descript:'평온'
+        emotion_img : process.env.PUBLIC_URL + '/assets/img/anxious_emoji.png',
+        emotion_descript:'놀람'
     },
 ]
 
@@ -50,21 +50,28 @@ const getStringDate = (date) => {
 const DiaryEditor =({ isEdit, originData }) => {
 
     const navigate = useNavigate();
+    // const image_url= process.env.PUBLIC_URL + ''
 
     const [date,setDate] = useState(getStringDate(new Date()))
     const [context, setContext] = useState('')
     const [title, setTitle] = useState('')
-    const [emotion, setEmotion] = useState(1)
-    const [image, setImage] = useState()
+    const [emotion, setEmotion] = useState('')
+    const [image, setImage] = useState("")
     const contextRef = useRef()
     const titleRef = useRef()
+    const emotionRef = useRef()
+    const [emotionIsClick,setEmotionIsClick] = useState(false)
+    const [bookmark, setBookmark] = useState(false)
+
+    const emotionClick = () => {
+        setEmotionIsClick(!emotionIsClick)
+    }
 
     const handleClickEmote = (emotion) => {
-        console.log("emotion:", emotion)
         setEmotion(emotion)
     }
 
-    const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
+    const { onCreate, onEdit, onBookmark } = useContext(DiaryDispatchContext);
 
     const handleSubmit = () => {
         if(context.length < 1) {
@@ -75,20 +82,26 @@ const DiaryEditor =({ isEdit, originData }) => {
             titleRef.current.focus();
             return
         }
+        if(!emotionIsClick) {
+            emotionRef.current.focus();
+            return
+        }
+
         if (
             window.confirm(
-              isEdit ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?"
+                isEdit ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?"
             )
           ) {
-            if (!isEdit) {
-              onCreate(date, title, context, emotion);
-            } else {
-              onEdit(originData.id, date, title, context, emotion);
+              if (!isEdit) {
+                  onCreate(date, title, context, emotion, image,bookmark);
+                  onBookmark(bookmark)
+                } else {
+                    onEdit(originData.id, date, title, context, emotion,image,bookmark);
+                    onBookmark(originData.id, bookmark)
+                }
             }
-          }
-        navigate('/diarylist',{replace:true})
+            navigate('/diarylist',{replace:true})
     }
-
 
     const [imageUrl, setImageUrl] = useState(null);
     const imgRef = useRef();
@@ -106,13 +119,22 @@ const DiaryEditor =({ isEdit, originData }) => {
 
       setImage(reader.result)
       console.log(image)
-      let anser = reader.result
-      console.log(typeof anser)
+
     };
   
     const onClickFileBtn = (e) => {
       imgRef.current.click();
     };
+
+    useEffect(() => {
+        if (isEdit) {
+          setDate(getStringDate(new Date(parseInt(originData.date))));
+          setEmotion(originData.emotion);
+          setTitle(originData.title);
+          setContext(originData.context);
+          setBookmark(originData.bookmark);
+        }
+      }, [isEdit, originData]);
 
 
     return (
@@ -120,8 +142,10 @@ const DiaryEditor =({ isEdit, originData }) => {
         <button onClick={()=>{navigate(-1)}}>뒤로 가기</button>
         <div className='select-emotion'>
             <h4>감정 선택하기</h4>
-            {emotionList.map((it)=> <div >
-                <img src={it.emotion_img} className="emoji-img" onClick={()=>handleClickEmote(it.emotion_id)} key={it.emotion_id}/></div>)}
+            <div style={{width:'30vw',height:'6vh'}} ref={emotionRef} onClick={emotionClick}>
+            {emotionList.map((it)=> <div>
+                <img src={it.emotion_img} className="emoji-img" onClick={()=>handleClickEmote(it.emotion_img)} key={it.emotion_img}/></div>)}
+            </div>
         </div>
 
         <div className='left-section'>
@@ -156,8 +180,7 @@ const DiaryEditor =({ isEdit, originData }) => {
             <button
                 onClick={() => {
                 onClickFileBtn();
-                }}
-            >
+                }}>
                 이미지 업로드
             </button>
             </React.Fragment>
