@@ -2,7 +2,7 @@ import api from './api'
 
 
 export const signUpApi = async (userInfo, success, fail) => {
-    return await api.post("/accounts/signUp", userInfo)
+    return await api.post("/accounts/signUp/", userInfo)
   };
 
 export const loginApi = async (userInfo, success, fail) => {
@@ -13,25 +13,25 @@ export const loginApi = async (userInfo, success, fail) => {
 
 //  카카오 로그인
 export const kakaoLoginApi = async(success, fail) => {
-    return await api.post('/accounts/kakao/login')
+    return await api.post('/accounts/kakao/login/')
 }
 
 //  구글
 export const googleLoginApi = async(success, fail) => {
-    return await api.post('/accounts/google/login')
+    return await api.post('/accounts/google/login/')
 }
 
 
 // 회원정보 가져오기
 export const getUserInfoApi = async (user_id, success, fail) => {
-    return await api.get(`/accounts/${user_id}`)
+    return await api.get(`/accounts/${user_id}/`)
   }
 
 
 //   전체 정보 수정
 export const putUserInfoApi = async (userInfo, user_id, success, fail) => {
     return await api
-      .put(`/accounts/${user_id}`, userInfo, {
+      .put(`/accounts/${user_id}/`, userInfo, {
         header: {
           "Content-Type": `application/json`,
         },
@@ -43,7 +43,7 @@ export const putUserInfoApi = async (userInfo, user_id, success, fail) => {
 //  일부정보 수정
   export const patchUserInfoApi = async (userInfo, username, success, fail) => {
     return await api
-      .put(`/accounts/${username}`, userInfo, {
+      .put(`/accounts/${username}/`, userInfo, {
         header: {
           "Content-Type": `application/json`,
         },
