@@ -26,7 +26,8 @@ import {
   MySticker,
   StickerStore,
   StickerDetail,
-  ChargePoint 
+  ChargePoint,
+  MainPage
 } from './pages/index'
 
 const reducer = (state, action) => {
@@ -126,7 +127,8 @@ function App() {
           >
     <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ClosedIntroPage />} />
+          {/* <Route path="/" element={<ClosedIntroPage />} /> */}
+          <Route path="/" element={<MainPage />} />
           <Route path="/calender" element={<MainCalender />} />
           <Route path="/diarylist" element={<MainMonth />} />
           <Route path="/intro/open/one" element={<OpenIntroPage />} />
@@ -148,7 +150,7 @@ function App() {
           <Route path="/mypage/mysticker" element={<MySticker />} />
           <Route path="/sticker/store" element={<StickerStore />} />
           <Route path="/sticker/detail/:id" element={<StickerDetail />} />
-          <Route path="/sticker/charge" element={<ChargePoint /> } />         
+          <Route path="/sticker/charge" element={<ChargePoint /> } />                 
         </Routes>
       </BrowserRouter>
       </DiaryDispatchContext.Provider>

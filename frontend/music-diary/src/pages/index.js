@@ -28,3 +28,5 @@ export { default as MySticker } from './mypages/MySticker'
 export { default as StickerStore } from './stickerpages/StickerStore'
 export { default as StickerDetail } from './stickerpages/StickerDetail'
 export { default as ChargePoint } from './stickerpages/ChargePoint'
+
+export { default as MainPage } from './intropages/MainPage'
