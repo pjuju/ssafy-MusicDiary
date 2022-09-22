@@ -1,5 +1,7 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import GoogleLogin from 'react-google-login';
+import { gapi } from 'gapi-script';
 
 import "../../css/loginpages/LoginPageBook.css"
 import Button from '../Common/Button'
@@ -7,6 +9,7 @@ import Button from '../Common/Button'
 import styled from 'styled-components'
 
 import { loginApi, kakaoLoginApi, googleLoginApi } from "../../api/userApi";
+import GoogleButton from "../GoogleLogin/GoogleButton";
 
 const LoginInfoBookcontainer = styled.div`
   width: 60%;
@@ -56,6 +59,8 @@ function LoginInfoBook() {
     // googleLoginApi()
   }
   
+ 
+
 
   return (
     <>
@@ -92,7 +97,7 @@ function LoginInfoBook() {
                 {/* social login */}
                 <hr />
                 <img className="kakao-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/kakao-login-btn.png`} />
-                <img className="google-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/google-login-btn.png`} />
+                {/* <GoogleButton></GoogleButton> */}
               </div>
             </div>
           </div>
