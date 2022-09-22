@@ -156,7 +156,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = '__all__'
-        fields = ('id', 'username', 'email', 'sad', 'depressed', 'normal', 'angry', 'point', 'favorite_musics')
+        fields = ('id', 'username', 'email', 'sad', 'depressed', 'normal', 'angry', 'point', 'image_url', 'favorite_musics')
 
     # def update(self, instance, validated_data): 
     #     instance.username = validated_data.get('username', instance.username)
