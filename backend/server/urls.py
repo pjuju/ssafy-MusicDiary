@@ -31,7 +31,7 @@ schema_view = get_schema_view(
       license=openapi.License(name="BSD License"),
    ),
    public=True,
-#    permission_classes=[permissions.AllowAny],
+   permission_classes=[permissions.AllowAny],
 )
 
 
@@ -41,6 +41,6 @@ urlpatterns = [
     path('rest/accounts/', include('dj_rest_auth.urls')),
     # path('accounts/', include('allauth.urls')),
     path('rest/diaries/', include('diaries.urls')),
-    path('rest/music/', include('musics.urls')),
+    path('rest/', include('musics.urls')),
     path('rest/swagger/', schema_view.with_ui('swagger')),
 ]
