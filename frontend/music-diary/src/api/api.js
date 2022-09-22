@@ -1,7 +1,7 @@
 import baseAxios from "axios";
 
 const api = baseAxios.create({
-  baseURL: "https://i7d204.p.ssafy.io/rest",
+  baseURL: "http://j7d204.p.ssafy.io:8080/rest",
   headers: {
     Authorization: "Bearer" + sessionStorage.getItem("accessToken"),
   },
