@@ -14,8 +14,9 @@ const DetailDiary =() => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [context, setContext] = useState('');
-    const [emotion, setEmotion] = useState(0);
+    const [emotion, setEmotion] = useState('');
     const [date, setDate] = useState('');
+    const [bookmark, setBookmark] = useState(false)
 
     useEffect(() => {
         const titleElement = document.getElementsByTagName("title")[0];
@@ -34,6 +35,7 @@ const DetailDiary =() => {
                     setContext(targetDiary.context)
                     setEmotion(targetDiary.emotion)
                     setDate(targetDiary.date)
+                    setBookmark(targetDiary.bookmark)
                 } else {
                     // 일기가 없을 때
                     alert("없는 일기입니다.");
@@ -53,16 +55,39 @@ const DetailDiary =() => {
           navigate("/diarylist", { replace: true });
         }
       };
+/////////////////////////////////////////////////////
+    const targetDiary = diaryList.find(
+          (it) => parseInt(it.id) === parseInt(id)
+          );
 
-      console.log(diaryList)
+    const handleBookmark =() =>{
+        console.log('이 일기의 북마크',targetDiary.bookmark)
+        setBookmark(!targetDiary.bookmark)
+        // if (targetDiary.bookmark === false) {
+            //     setBookmark(!targetDiary.bookmark)
+            //     // targetDiary.bookmark = true
+            // }
+            // if (targetDiary.bookmark === true) {
+                //     setBookmark(!targetDiary.bookmark)
+                
+                //     // targetDiary.bookmark = false
+                // }
+                console.log('이 일기의 북마크',targetDiary.bookmark)
+        console.log('그냥 북마크',bookmark)
+    }
+
+
         
     return (<div className='detail-diary'>
         <div className='detail-diary-item'>
             <button onClick={()=>{navigate(`/diarylist`)}}>돌아가기</button>
             <p>날짜 : {strDate}</p>
-            <p>감정 : {emotion}</p>
+            <p>감정 : <img src={emotion}></img></p>
             <p>제목 : {title}</p>
             <p>내용 : {context}</p>
+            <div style={{width:'5vw',height:'10vh',backgroundColor:'green'}}
+                onClick={handleBookmark}
+            ></div>
             <button onClick={()=>{navigate(`/edit/${id}`)}}>수정하기</button>
             <button onClick={handleRemove}>삭제하기</button>
         </div>

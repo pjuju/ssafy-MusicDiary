@@ -79,7 +79,7 @@ function App() {
 
   const dataId = useRef(0);
   // CREATE
-  const onCreate = (date, title,context, emotion,image) => {
+  const onCreate = (date, title,context, emotion,image, bookmark) => {
     dispatch({
       type:'CREATE',
       data:{
@@ -88,7 +88,8 @@ function App() {
         title,
         context,
         emotion,
-        image
+        image,
+        bookmark
       }
     })
     dataId.current += 1
@@ -100,7 +101,7 @@ function App() {
   }
 
   // EDIT
-  const onEdit = (targetId, date, title,context, emotion,image) => {
+  const onEdit = (targetId, date, title,context, emotion,image, bookmark) => {
     dispatch({
       type:'EDIT',
       data:{
@@ -109,7 +110,19 @@ function App() {
         title,
         context,
         emotion,
-        image
+        image,
+        bookmark
+      }
+    })
+  }
+
+  // BOOKMARK
+  const onBookmark = (targetId, bookmark) => {
+    dispatch({
+      type:'BOOKMARK',
+      data:{
+        id: targetId,
+        bookmark
       }
     })
   }
@@ -122,6 +135,7 @@ function App() {
               onCreate,
               onEdit,
               onRemove,
+              onBookmark
             }}
           >
     <BrowserRouter>
