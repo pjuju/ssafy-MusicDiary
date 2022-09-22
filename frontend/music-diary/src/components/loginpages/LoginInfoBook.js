@@ -7,6 +7,7 @@ import Button from '../Common/Button'
 import styled from 'styled-components'
 
 import { loginApi, kakaoLoginApi, googleLoginApi } from "../../api/userApi";
+import axios from 'axios';
 
 const LoginInfoBookcontainer = styled.div`
   width: 60%;
@@ -30,20 +31,36 @@ function LoginInfoBook() {
   }
 
   // 일반 로그인 버튼 클릭 후 
-  const onLoginBtn = () => {
+  const onLoginBtn = async () => {
+    
+    console.log("email:", email)
+    console.log("password:", password)
 
     const loginInfo = {
       email,
       password,
     }
 
-    loginApi(loginInfo)
-    .then((res)=>{
-      console.log(JSON.stringify(res.data))
-    })
-    .catch((err)=>{
-      console.log(JSON.stringify(err))
-    })
+    await axios
+      .post("http://j7d204.p.ssafy.io/rest/accounts/login", loginInfo)
+      .then((res)=>{
+        console.log(res.data)
+      })
+      .catch((err)=>{
+        console.log("err")
+      })
+
+
+    // loginApi(loginInfo)
+    // .then((res)=>{
+    //   console.log(JSON.stringify(res.data))
+    // })
+    // .catch((err)=>{
+    //   console.log(JSON.stringify(err))
+    // })
+
+
+
   }
 
   // 카카오로그인 버튼 클릭 후
