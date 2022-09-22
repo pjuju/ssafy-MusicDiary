@@ -1,11 +1,10 @@
-from dataclasses import field
 from rest_framework import serializers
-from .models import Bookmark, Diary, DiaryMusic, Image, StickerPack, Sticker
+from .models import Bookmark, Diary, DiaryMusic, Image, DiarySticker
 
 class DiarySerializer(serializers.ModelSerializer):
     image_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     diarymusic_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    # sticker_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    diarysticker_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Diary
@@ -26,21 +25,15 @@ class BookmarkSerializer(serializers.ModelSerializer):
         read_only_field = {'diary',},
 
 
-class StickerPackSerializer(serializers.ModelSerializer):
+class DiaryMusicSerializer(serializers.ModelSerializer):
     class Meta:
-        model = StickerPack
-        fields = '__all__'
-
-
-class StickerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Sticker
+        model = DiaryMusic
         fields = '__all__'
         read_only_field = {'diary',},
 
 
-class DiaryMusicSerializer(serializers.ModelSerializer):
+class DiaryStickerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DiaryMusic
+        model = DiarySticker
         fields = '__all__'
         read_only_field = {'diary',},
