@@ -9,7 +9,7 @@ import Button from '../Common/Button'
 import styled from 'styled-components'
 
 import { loginApi, kakaoLoginApi, googleLoginApi } from "../../api/userApi";
-import GoogleButton from "../GoogleLogin/GoogleButton";
+import axios from 'axios';
 
 const LoginInfoBookcontainer = styled.div`
   width: 60%;
@@ -33,7 +33,10 @@ function LoginInfoBook() {
   }
 
   // 일반 로그인 버튼 클릭 후 
-  const onLoginBtn = () => {
+  const onLoginBtn = async () => {
+    
+    console.log("email:", email)
+    console.log("password:", password)
 
     const loginInfo = {
       email,
@@ -43,6 +46,15 @@ function LoginInfoBook() {
     loginApi(loginInfo)
     .then((res)=>{
       console.log(JSON.stringify(res.data))
+
+      // access 토큰, refresh 토큰, user id 정보 담기
+      console.log("accessToken:", res.data.data.token.access_token)
+      console.log("refreshToken:",res.data.data.token.refresh_token)
+      console.log("id:",res.data.data.id)
+
+      sessionStorage.setItem("accessToken", res.data.data.token.access_token)
+      sessionStorage.setItem("refreshToken", res.data.data.token.refresh_token)
+      sessionStorage.setItem("user_id", res.data.data.id)
     })
     .catch((err)=>{
       console.log(JSON.stringify(err))
@@ -52,11 +64,27 @@ function LoginInfoBook() {
   // 카카오로그인 버튼 클릭 후
   const onKakaoLoginBtn = () => {
     // kakaoLoginApi()
+
+    kakaoLoginApi()
+    .then((res)=>{
+      console.log(JSON.stringify(res.data))
+    })
+    .catch((err)=>{
+      console.log(JSON.stringify(err.data))
+    })
   }
 
   // 구글 로그인 버튼 클릭 후
   const onGoogleLoginBtn = () => {
     // googleLoginApi()
+
+    googleLoginApi()
+    .then((res)=>{
+      console.log(JSON.stringify(res.data))
+    })
+    .catch((err)=>{
+      console.log(JSON.stringify(err.data))
+    })
   }
   
  
@@ -96,8 +124,8 @@ function LoginInfoBook() {
                 </div>
                 {/* social login */}
                 <hr />
-                <img className="kakao-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/kakao-login-btn.png`} />
-                {/* <GoogleButton></GoogleButton> */}
+                <img className="kakao-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/kakao-login-btn.png`} onClick={onKakaoLoginBtn} />
+                <img className="google-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/google-login-btn.png`} onClick={onGoogleLoginBtn} />
               </div>
             </div>
           </div>
