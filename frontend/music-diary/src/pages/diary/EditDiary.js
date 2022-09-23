@@ -30,7 +30,7 @@ const EditDiary =() =>{
             navigate("/", { replace: true });
         }
         }
-    }, [id, diaryList]);
+    }, [id, diaryList]); 
 
     console.log(originData)
 
