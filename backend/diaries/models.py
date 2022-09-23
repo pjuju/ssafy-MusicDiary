@@ -19,7 +19,6 @@ class Image(models.Model):
 class Bookmark(models.Model):
     user = models.ForeignKey("accounts.User", null=False, on_delete=models.CASCADE)
     diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
-    color = models.CharField(max_length=10)
 
     class Meta:
         constraints = [
@@ -30,6 +29,8 @@ class Bookmark(models.Model):
 class DiarySticker(models.Model):
     diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
     sticker = models.ForeignKey("stickers.Sticker", null=False, on_delete=models.CASCADE)
+    sticker_x = models.FloatField(null=False)
+    sticker_y = models.FloatField(null=False)
     
 
 class DiaryMusic(models.Model):

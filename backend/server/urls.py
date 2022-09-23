@@ -23,7 +23,7 @@ from django.urls import path
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="알쏭달쏭 API",
+      title="Snippets API",
       default_version='v3',
       description="Test description",
       terms_of_service="https://www.google.com/policies/terms/",
@@ -40,7 +40,7 @@ urlpatterns = [
     path('rest/accounts/', include('accounts.urls')),
     path('rest/accounts/', include('dj_rest_auth.urls')),
     # path('accounts/', include('allauth.urls')),
-    path('rest/music/', include('musics.urls')),
+    path('rest/', include('musics.urls')),
     path('rest/diary/', include('diaries.urls')),
     path('rest/sticker/', include('stickers.urls')),
     path('rest/swagger/', schema_view.with_ui('swagger')),
