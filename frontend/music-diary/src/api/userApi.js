@@ -2,7 +2,8 @@ import api from './api'
 
 
 export const signUpApi = async (userInfo, success, fail) => {
-    return await api.post("/accounts/signUp/", userInfo)
+    console.log("in signUpApi:", JSON.stringify(userInfo))
+    return await api.post("/accounts/signup/", userInfo)
   };
 
 export const loginApi = async (userInfo, success, fail) => {

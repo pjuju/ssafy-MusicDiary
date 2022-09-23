@@ -26,7 +26,8 @@ import {
   MySticker,
   StickerStore,
   StickerDetail,
-  ChargePoint 
+  ChargePoint,
+  IntroScrollPage
 } from './pages/index'
 
 const reducer = (state, action) => {
@@ -127,6 +128,7 @@ function App() {
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<ClosedIntroPage />} />
+          <Route path="/test" element={<IntroScrollPage />} />
           <Route path="/calender" element={<MainCalender />} />
           <Route path="/diarylist" element={<MainMonth />} />
           <Route path="/intro/open/one" element={<OpenIntroPage />} />

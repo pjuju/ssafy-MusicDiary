@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Asap", sans-serif;
+}
+
+/* 
+body {
+  background: #42455a;
+}
+ */
+
+.intro-main-page-wrapper {
+
+}
+
+.intro-main-page-wrapper section{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.intro-main-page-wrapper section:nth-child(1){
+  color: #e0ffff;
+  }
+  .intro-main-page-wrapper section:nth-child(2){
+  color: #42455a;
+  background: #e0ffff;
+} 
+.intro-main-page-wrapper section:nth-child(3){
+  color: #e0ffff;
+}
+.intro-main-page-wrapper section:nth-child(4){
+  color: #42455a;
+  background: #e0ffff;
+}
+.intro-main-page-wrapper section .container{
+  margin: 100px;
+}
+.intro-main-page-wrapper section h1{
+  font-size: 3rem;
+  margin: 20px;
+}
+.intro-main-page-wrapper section h2{
+  font-size: 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.intro-main-page-wrapper section .text-container{
+   display: flex;
+}
+.intro-main-page-wrapper section .text-container .text-box{
+  margin: 20px;
+  padding: 20px;
+  background: #00c2cb;
+}
+.intro-main-page-wrapper section .text-container .text-box h3{
+  font-size: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 900px){
+  .intro-main-page-wrapper section h1{
+    font-size: 2rem;
+    text-align: center;
+  }
+  .intro-main-page-wrapper section .text-container{
+    flex-direction: column;
+  }
+}
+
+.intro-main-page-wrapper .reveal{
+  position: relative;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: 1s all ease;
+}
+
+.intro-main-page-wrapper .reveal.active{
+  transform: translateY(0);
+  opacity: 1;
+}
