@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../css/loginpages/LoginPageBook.css"
@@ -8,6 +8,8 @@ import styled from 'styled-components'
 
 import { loginApi, kakaoLoginApi, googleLoginApi } from "../../api/userApi";
 import axios from 'axios';
+
+import { useSelector} from 'react-redux'
 
 const LoginInfoBookcontainer = styled.div`
   width: 60%;
@@ -21,6 +23,11 @@ function LoginInfoBook() {
   const [password, setPassword] = useState()
 
   const navigate = useNavigate()
+
+  const test = useSelector((state)=>{
+    return state.user
+  })
+
 
   const onEmailHandler = (e) => {
     setEmail(e.target.value)
@@ -125,7 +132,7 @@ function LoginInfoBook() {
           <div className="first paper">
             <div className="page front contents">
               <div className="intro">
-                <h1>Login</h1>
+                <h1>Login{test}</h1>
                 <div className="login-form-wrapper">
                 <input 
                   placeholder="이메일"

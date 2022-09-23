@@ -129,7 +129,7 @@ function SignupInfoBook() {
                   color="#AC5050"
                   size="lg"
                   // onClick={moveQuestionOne}
-                  onClick={onSignUpBtn}
+                  onClick={moveQuestionOne}
                 />
                 </div>
               </div>
