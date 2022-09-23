@@ -62,7 +62,6 @@ class DiaryList(GenericAPIView):
             diary.title = self.ciper.decrypt_str(diary.title)
             diary.content = self.ciper.decrypt_str(diary.content)
             diary.emotion = self.ciper.decrypt_str(diary.emotion)
-            # print('>>>>get diary:', diary.title)
 
         serializer = DiarySerializer(diaries, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -138,9 +137,10 @@ class DiaryList(GenericAPIView):
 
 
 # Get: 일기 상세보기
-# Put: 일기 수정
+# Put, Patch: 일기 수정
 # Delete: 일기 삭제
 class DiaryDetail(GenericAPIView):
+    queryset = Diary.objects.all()
     serializer_class = DiarySerializer
     ciper = AESCipher()
 
@@ -164,6 +164,17 @@ class DiaryDetail(GenericAPIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+    def patch(self, request, diary_pk, format=None):
+        diary = get_object_or_404(Diary, pk=diary_pk)
+        
+        newPost = dict()       
+        newPost['title'] = self.ciper.encrypt_str(request.data['title'])
+        newPost['content'] = self.ciper.encrypt_str(request.data['content'])
+        newPost['emotion'] = self.ciper.encrypt_str(request.data['emotion'])
+
+        serializer = DiarySerializer(Diary, data=diary, partial=True)
+
 
     def delete(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
@@ -256,7 +267,7 @@ def monthEmotion(request, month):
         str_month = '0'+str_month
 
     ciper = AESCipher()
-    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__month=str_month)
+    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_date__month=str_month)
 
     for emotion in emotions:
         emotion = ciper.decrypt_str(emotion)
@@ -273,7 +284,7 @@ def monthDiary(request, month):
     if len(str_month) == 1:
         str_month = '0'+str_month
 
-    diaries = Diary.objects.filter(created_at__month=str_month)
+    diaries = Diary.objects.filter(created_date__month=str_month)
 
     ciper = AESCipher()
     for diary in diaries:

@@ -8,20 +8,20 @@ class DiarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Diary
-        fields = '__all__'
+        exclude = ['user']
         
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = '__all__'
+        exclude = ['user']
         read_only_field = {'diary',},
         
 
 class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
-        fields = '__all__'
+        exclude = ['user']
         read_only_field = {'diary',},
 
 
