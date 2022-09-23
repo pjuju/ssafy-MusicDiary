@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'accounts',
     'diaries',
     'musics',
+    'stickers',
     
     'corsheaders',
     'django.contrib.admin',

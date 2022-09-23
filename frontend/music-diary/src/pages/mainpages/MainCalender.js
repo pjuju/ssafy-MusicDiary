@@ -39,7 +39,9 @@ const MainCalender =() => {
                                 
                                 if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. DD.'))
                                   // todayemotion = it.date
-                                return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>{it.emotion}</div>
+                                return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
+                                <img src={it.emotion} style={{width:'4vw'}}></img>
+                                </div>
                               }
                               )}
                               오늘
@@ -54,7 +56,9 @@ const MainCalender =() => {
                           {diaryList.map(it=> {
                               
                               if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. DD.'))
-                              return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>{it.emotion}</div>
+                              return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
+                                <img src={it.emotion} style={{width:'4vw'}}></img>
+                                </div>
                             }
                             )}
                           <span>{days.format('D')}</span>
@@ -67,7 +71,9 @@ const MainCalender =() => {
                             {diaryList.map(it=> {
                               
                               if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. DD.'))
-                              return <div style={{color:"red"}} onClick={()=>{navigate(`/diary/${it.id}`)}}>{it.emotion}</div>
+                              return <div style={{color:"red"}} onClick={()=>{navigate(`/diary/${it.id}`)}}>
+                                <img src={it.emotion} style={{width:'4vw'}}></img>
+                              </div>
                             }
                             )}
                           <span>{days.format('D')}</span>

@@ -11,7 +11,7 @@ const DiaryItem =({...it}) => {
         <Card className='diary-item-card' onClick={()=>{navigate(`/diary/${it.id}`)}}>
             <Card.Body>
                 <div className='diary-item-header'>
-                    <Card.Title className='diary-item-emotion'>{it.emotion}</Card.Title>
+                    <Card.Title className='diary-item-emotion'><img src={it.emotion} style={{width:'4vw'}}></img></Card.Title>
                     <Card.Title className='diary-item-title'>{it.title}</Card.Title>
                 </div>
                 <Card.Text className='diary-item-context'>{strDate}</Card.Text>
@@ -25,7 +25,7 @@ const DiaryItem =({...it}) => {
             <div className='bookmark-paper'></div>
                 <Card.Body>
                     <div className='diary-item-header'>
-                        <Card.Title className='diary-item-emotion'>{it.emotion}</Card.Title>
+                        <Card.Title className='diary-item-emotion'><img src={it.emotion} style={{width:'4vw'}}></img></Card.Title>
                         <Card.Title className='diary-item-title'>{it.title}</Card.Title>
                     </div>
                     <Card.Text className='diary-item-context'>{strDate}</Card.Text>
