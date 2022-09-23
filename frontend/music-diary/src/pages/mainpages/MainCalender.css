@@ -149,3 +149,15 @@
   transform: translate(0%, 0%);
   opacity: 1;
 }
+
+
+
+
+/*  */
+.main-calender .calender-emoji {
+  position: absolute;
+  z-index: 1;
+  width: 4vw;
+  margin-left: -1vw;
+  margin-top: 1vh;
+}
