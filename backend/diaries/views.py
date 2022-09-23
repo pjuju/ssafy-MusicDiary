@@ -1,22 +1,24 @@
-import time
 from django.shortcuts import get_object_or_404, get_list_or_404
 
-from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializer, DiaryStickerSerializer, ImageSerializer
-from .models import Bookmark, Diary, DiaryMusic, Image
+from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializer, DiaryStickerSerializer, DiaryImageSerializer, ImageSerializer
+from .models import Bookmark, Diary, DiaryMusic, DiaryImage
+from django.views.generic import View
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework.decorators import api_view
-# from drf_yasg.utils import openapi, swagger_auto_schema
 
 import base64
-import random
 from Crypto import Random
 from Crypto.Cipher import AES
 import hashlib
-from django.conf import settings
 
+from django.conf import settings
+from .storages import FileUpload, s3_client
+
+
+import random
 
 class AESCipher:
     def __init__(self):
@@ -47,14 +49,14 @@ class AESCipher:
             enc = str.encode(enc)
         return self.decrypt(enc).decode('utf-8')
 
+# AES Encrypt
+ciper = AESCipher()
 
 # Get: 일기 전체 리스트 보기
 # Post: 일기 작성
 class DiaryList(GenericAPIView):
     queryset = Diary.objects.all()
     serializer_class = DiarySerializer
-
-    ciper = AESCipher()
 
     def get(self, request, format=None):
         diaries = get_list_or_404(Diary, user=request.user.pk)
@@ -65,11 +67,6 @@ class DiaryList(GenericAPIView):
 
         serializer = DiarySerializer(diaries, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-    # @swagger_auto_schema(
-    #     request_body=DiarySerializer,
-    #     manual_parameters=[openapi.Parameter('image list', openapi.BODY, description="a header for  test", type=openapi.TYPE_STRING)]
-    # )
 
     def post(self, request, format=None):
         newPost = dict()
@@ -101,9 +98,9 @@ class DiaryList(GenericAPIView):
                 # 각각의 이미지를 image 테이블에 넣어줌
                 for url in images:
                     image['image_url'] = url
-                    imageSerializer = ImageSerializer(data=image)
-                    if imageSerializer.is_valid(raise_exception=True):
-                        imageSerializer.save()
+                    diaryImageSerializer = DiaryImageSerializer(data=image)
+                    if diaryImageSerializer.is_valid(raise_exception=True):
+                        diaryImageSerializer.save()
 
             # 일기에 첨부된 스티커가 있을 경우
             if ('stickers' in request.data) and (request.data['stickers']!=""):
@@ -136,13 +133,30 @@ class DiaryList(GenericAPIView):
             return "depressed"
 
 
+class ImageDetail(GenericAPIView):
+    serializer_class = ImageSerializer
+    def post(self, request, format=None):
+        file = request.FILES['image']
+        profile_image_url = FileUpload(s3_client).upload(file)
+        if profile_image_url != None:
+            return Response(profile_image_url, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def delete(self, request, format=None):
+        file_id = request.data['file_id']
+        print(file_id)
+        ret = FileUpload(s3_client).delete(file_id)
+        if ret=="SUCCESS":
+            return Response({'result': ret}, status=status.HTTP_204_NO_CONTENT)
+        return Response({'result': ret}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 # Get: 일기 상세보기
 # Put, Patch: 일기 수정
 # Delete: 일기 삭제
 class DiaryDetail(GenericAPIView):
     queryset = Diary.objects.all()
     serializer_class = DiarySerializer
-    ciper = AESCipher()
 
     def get(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
@@ -194,7 +208,6 @@ def DiaryMusicDetail(request, diary_pk):
 
     elif request.method == 'POST':
         diary = get_object_or_404(Diary, pk=diary_pk)
-        ciper = AESCipher()
         emotion = ciper.decrypt_str(diary.emotion)
         playlist = stubPlaylist(emotion)
 
@@ -266,7 +279,6 @@ def monthEmotion(request, month):
     if len(str_month) == 1:
         str_month = '0'+str_month
 
-    ciper = AESCipher()
     emotions = Diary.objects.values_list('emotion', flat=True).filter(created_date__month=str_month)
 
     for emotion in emotions:
@@ -286,7 +298,6 @@ def monthDiary(request, month):
 
     diaries = Diary.objects.filter(created_date__month=str_month)
 
-    ciper = AESCipher()
     for diary in diaries:
         diary.title = ciper.decrypt_str(diary.title)
         diary.content = ciper.decrypt_str(diary.content)

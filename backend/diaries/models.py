@@ -11,11 +11,6 @@ class Diary(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
 
 
-class Image(models.Model):
-    diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
-    image_url = models.TextField(null=False)
-
-
 class Bookmark(models.Model):
     user = models.ForeignKey("accounts.User", null=False, on_delete=models.CASCADE)
     diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
@@ -26,6 +21,11 @@ class Bookmark(models.Model):
         ]
 
 
+class DiaryMusic(models.Model):
+    diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
+    music = models.ForeignKey("musics.Music", null=False, on_delete=models.CASCADE)
+
+
 class DiarySticker(models.Model):
     diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
     sticker = models.ForeignKey("stickers.Sticker", null=False, on_delete=models.CASCADE)
@@ -33,7 +33,17 @@ class DiarySticker(models.Model):
     sticker_y = models.FloatField(null=False)
     
 
-class DiaryMusic(models.Model):
+class DiaryImage(models.Model):
     diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
-    music = models.ForeignKey("musics.Music", null=False, on_delete=models.CASCADE)
+    image_id = models.CharField(max_length=50)
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['image_id', 'diary'], name='unique_image'),
+        ]
+
+
+class Image(models.Model):
+    image = models.FileField(blank=True, default='')
+    image_id = models.CharField(max_length=50)
 

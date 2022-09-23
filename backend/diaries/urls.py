@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:diary_pk>/bookmark/', views.BookmarkDetail.as_view()),
     path('month/<int:month>/emotion/', views.monthEmotion),
     path('month/<int:month>/', views.monthDiary),
+    path('image/', views.ImageDetail.as_view()),
 ]
