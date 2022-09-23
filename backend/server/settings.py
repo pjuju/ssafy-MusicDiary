@@ -83,7 +83,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-
+        'rest_framework.authentication.TokenAuthentication',
     ),
 }
 
@@ -183,5 +183,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SECRET_KEY = 'testkey'
 
 
-CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:3000', 'http://localhost:3000', 'http://j7d204.p.ssafy.io')
+# CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:3000', 'http://localhost:3000', 'http://j7d204.p.ssafy.io')
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
