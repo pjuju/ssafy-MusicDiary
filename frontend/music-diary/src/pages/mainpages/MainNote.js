@@ -6,23 +6,14 @@ const MainNote = () => {
     const navigate = useNavigate();
     return(<div className='main-note'>
         <div className='left-page'>
-            {/* <div className='profile'>
-                <img src='/assets/main/human.png' className='profile-image'></img>
-                <p>회쏘경수</p>
-            </div> */}
-            {/* <figure class="snip1082 profile"><img src="https://images.chosun.com/resizer/isdog_htxCDUvvjr_QFnRf9sOrs=/530x669/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/CSJLDK7W7ACCYCSNQTO5BU63OU.jpg" alt="sample2"/>
-                <h3>회쏘경수</h3>
-                <div>오늘도 좋은 하루 보내세요!</div>
-            </figure> */}
-            <figure class="snip1500 profile">
-                <img src="https://images.chosun.com/resizer/isdog_htxCDUvvjr_QFnRf9sOrs=/530x669/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/CSJLDK7W7ACCYCSNQTO5BU63OU.jpg" alt="sq-sample14" />
-                <figcaption>
-                    <div>
-                    <h2>회쏘경수</h2>
-                    </div>
-                </figcaption>
-                <a href="#"></a>
-                </figure>
+
+            <img src="https://images.chosun.com/resizer/isdog_htxCDUvvjr_QFnRf9sOrs=/530x669/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/CSJLDK7W7ACCYCSNQTO5BU63OU.jpg" alt="sq-sample14"
+                className='profile-image'
+                style={{width:"7vw"}}
+            />
+
+            <h5>회쏘경수</h5>
+
 
             <div className='profile-menu' >
                 <ul class="snip1250" onClick={()=>{navigate('/calender')}}>
@@ -53,7 +44,7 @@ const MainNote = () => {
             </Dropdown>
 
         </div>
-        <img src="/assets/img/book4.png" className='book-background'/>
+        <img src="/assets/img/background.png" className='book-background'/>
     </div>)
 }
 

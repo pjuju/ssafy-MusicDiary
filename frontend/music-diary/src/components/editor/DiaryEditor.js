@@ -47,7 +47,7 @@ const getStringDate = (date) => {
     return date.toISOString().slice(0,10)
 }
 
-const DiaryEditor =({ isEdit, originData }) => {
+const DiaryEditor = ({ isEdit, originData }) => {
 
     const navigate = useNavigate();
     // const image_url= process.env.PUBLIC_URL + ''
@@ -71,7 +71,7 @@ const DiaryEditor =({ isEdit, originData }) => {
         setEmotion(emotion)
     }
 
-    const { onCreate, onEdit, onBookmark } = useContext(DiaryDispatchContext);
+    const { onCreate, onEdit } = useContext(DiaryDispatchContext);
 
     const handleSubmit = () => {
         if(context.length < 1) {
@@ -90,14 +90,13 @@ const DiaryEditor =({ isEdit, originData }) => {
         if (
             window.confirm(
                 isEdit ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?"
-            )
+            ) 
           ) {
               if (!isEdit) {
                   onCreate(date, title, context, emotion, image,bookmark);
-                  onBookmark(bookmark)
                 } else {
                     onEdit(originData.id, date, title, context, emotion,image,bookmark);
-                    onBookmark(originData.id, bookmark)
+
                 }
             }
             navigate('/diarylist',{replace:true})
@@ -126,6 +125,7 @@ const DiaryEditor =({ isEdit, originData }) => {
       imgRef.current.click();
     };
 
+    // 원래 일기 정보 보여주는 로직
     useEffect(() => {
         if (isEdit) {
           setDate(getStringDate(new Date(parseInt(originData.date))));

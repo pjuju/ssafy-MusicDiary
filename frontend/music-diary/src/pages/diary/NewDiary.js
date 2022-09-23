@@ -5,10 +5,11 @@ import './NewDiary.css'
 import DiaryEditor from "../../components/editor/DiaryEditor";
 
 
-const NewDiary =() => {
+const NewDiary = () => {
 
     return(
     <div className="new">
+
         <DiaryEditor className="diary-editor"></DiaryEditor>
         <MainNote className="main-note"></MainNote>
     </div>)
