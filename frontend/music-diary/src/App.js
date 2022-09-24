@@ -60,7 +60,7 @@ const reducer = (state, action) => {
 };
 
 export const DiaryStatecontent = React.createContext();
-export const DiaryDispatchcontent = React.createContext();
+export const DiaryDispatchContext = React.createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, []);
@@ -122,7 +122,7 @@ function App() {
   return (
     <div className='App'>
             <DiaryStatecontent.Provider value={data}>
-        <DiaryDispatchcontent.Provider
+        <DiaryDispatchContext.Provider
             value={{
               onCreate,
               onEdit,
@@ -157,7 +157,7 @@ function App() {
           <Route path="/sticker/charge" element={<ChargePoint /> } />         
         </Routes>
       </BrowserRouter>
-      </DiaryDispatchcontent.Provider>
+      </DiaryDispatchContext.Provider>
     </DiaryStatecontent.Provider>
     </div>
   );

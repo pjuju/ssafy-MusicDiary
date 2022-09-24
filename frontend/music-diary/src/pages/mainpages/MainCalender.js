@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import moment from 'moment';
 import { DiaryStatecontent } from "../../App";
 import { getStringDate } from "../../util/date";
-import { DiaryDispatchcontent } from "../../App.js";
+import { DiaryDispatchContext } from "../../App.js";
 
 import './MainCalender.css'
 import MainNote from './MainNote';
