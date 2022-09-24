@@ -48,7 +48,7 @@ const DetailDiary =() => {
     const getMonth = new Date().getMonth() + 1
 
     useEffect(()=> {
-      getMonthDiary(getMonth)
+      getMonthDiary(new Date().getMonth() + 1, new Date().getFullYear())
       .then((res)=> {
         setNoticeMonthData(res.data)
         console.log('과!연',res.data)
@@ -68,7 +68,6 @@ const DetailDiary =() => {
 
 // 더미 데이터
     const diaryList = useContext(DiaryStateContext);
-
     const [title, setTitle] = useState('');
     const [content, setcontent] = useState('');
     const [emotion, setEmotion] = useState('');
@@ -78,41 +77,41 @@ const DetailDiary =() => {
 
     const navigate = useNavigate();
 
-       // konva 
-       const [background] = useImage("example-image.jpg");
-       const [images, setImages] = useState([]);
-   
-       const addStickerToPanel = ({ src, width, x, y }) => {
-           setImages((currentImages) => [
-             ...currentImages,
-             {
-               width,
-               x,
-               y,
-               src,
-               resetButtonRef: createRef()
-             }
-           ]);
-         };
-       
-         const resetAllButtons = useCallback(() => {
-           images.forEach((image) => {
-             if (image.resetButtonRef.current) {
-               image.resetButtonRef.current();
-             }
-           });
-         }, [images]);
-       
-         const handleCanvasClick = useCallback(
-           (event) => {
-             if (event.target.attrs.id === "backgroundImage") {
-               resetAllButtons();
-             }
-           },
-           [resetAllButtons]
-         );
-        //////////////////////////////////////////////////////////////
-       //   useEffect
+    // konva 
+    const [background] = useImage("example-image.jpg");
+    const [images, setImages] = useState([]);
+
+    const addStickerToPanel = ({ src, width, x, y }) => {
+        setImages((currentImages) => [
+          ...currentImages,
+          {
+            width,
+            x,
+            y,
+            src,
+            resetButtonRef: createRef()
+          }
+        ]);
+      };
+    
+      const resetAllButtons = useCallback(() => {
+        images.forEach((image) => {
+          if (image.resetButtonRef.current) {
+            image.resetButtonRef.current();
+          }
+        });
+      }, [images]);
+    
+      const handleCanvasClick = useCallback(
+        (event) => {
+          if (event.target.attrs.id === "backgroundImage") {
+            resetAllButtons();
+          }
+        },
+        [resetAllButtons]
+      );
+      //////////////////////////////////////////////////////////////
+    //   useEffect
 
     useEffect(() => {
         const titleElement = document.getElementsByTagName("title")[0];
@@ -130,9 +129,9 @@ const DetailDiary =() => {
                     setNoticeTitle(targetDiary.title);
                     setNoticeContent(targetDiary.content)
                     setNoticeEmotion(targetDiary.emotion)
-                    setNoticeDate(targetDiary.created_at)
-                    setNoticeBookmark(targetDiary.bookmark)
-                    console.log(targetDiary)
+                    setNoticeDate(targetDiary.created_date)
+                    // setNoticeBookmark(targetDiary.bookmark)
+                    console.log(targetDiary.title)
                 } else {
                     // 일기가 없을 때
                     alert("없는 일기입니다.");
@@ -149,8 +148,6 @@ const DetailDiary =() => {
     const handleRemove = () => {
 
         if (window.confirm("정말 삭제하시겠습니까?")) {
-
-
         //   useEffect(()=> {
             deleteDiary(id)
             .then((res)=> {
@@ -160,7 +157,6 @@ const DetailDiary =() => {
               console.log('err',e)
             });
         //   },[])
-
           navigate("/diarylist", { replace: true });
         }
       };
@@ -186,21 +182,22 @@ const DetailDiary =() => {
           console.log('err',e)
         });
     }
-
-    
+    const targetDiary = noticeMonthData.find(
+      (it) => parseInt(it.id) === parseInt(id)
+      );
     // 이 일기가 생성될때마다 북마크의 값을 토글처럼 바꾼다!
-    useEffect(() => { 
-        // setBookmark(!bookmark)
+    // useEffect(() => { 
+    //     // setBookmark(!bookmark)
 
-        if (targetDiary.bookmark === true) {
-            bookmarkRef.current.style.backgroundColor = 'pink'
-            bookmarkRef.current.style.border = 'none'
-        }
-        if (targetDiary.bookmark === false) {
-            bookmarkRef.current.style.backgroundColor = 'white'
-            bookmarkRef.current.style.border = 'black 1px solid'
-        }
-    }, [targetDiary]);
+    //     if (targetDiary.bookmark === true) {
+    //         bookmarkRef.current.style.backgroundColor = 'pink'
+    //         bookmarkRef.current.style.border = 'none'
+    //     }
+    //     if (targetDiary.bookmark === false) {
+    //         bookmarkRef.current.style.backgroundColor = 'white'
+    //         bookmarkRef.current.style.border = 'black 1px solid'
+    //     }
+    // }, [targetDiary]);
 
 
     return (<div className='detail-diary'>
@@ -214,6 +211,7 @@ const DetailDiary =() => {
             <p className='emotion'>감정 : <img src={rightEmotion(noticeEmotion)}></img></p>
             <p className='content'>{noticeContent}</p>
         </div>
+      
         <button onClick={()=>{navigate(`/edit/${id}`)}} className="edit-button">수정하기</button>
         <button onClick={handleRemove} className="delete-button">삭제하기</button>
         {/* <button onClick={()=>{navigate(`/diarylist`)}} className="goback-button">돌아가기</button> */}
@@ -275,7 +273,6 @@ const DetailDiary =() => {
         );
       })}
         <MainNote className='main-note'></MainNote>
-
     </div>)
 }
 
