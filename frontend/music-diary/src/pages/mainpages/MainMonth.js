@@ -1,14 +1,14 @@
 import DiaryItem from "../diary/DiaryItem";
 import MainNote from "./MainNote";
 import { useEffect, useState, useContext } from "react";
-import { DiaryStateContext } from "../../App";
+import { DiaryStatecontent } from "../../App";
 import {useNavigate} from 'react-router-dom'
 import './MainMonth.css'
 
 const MainMonth =() => {
 
     const navigate = useNavigate();
-    const diaryList = useContext(DiaryStateContext);
+    const diaryList = useContext(DiaryStatecontent);
 
     // const strDate = new Date(parseInt(it.date)).toLocaleDateString();
 
