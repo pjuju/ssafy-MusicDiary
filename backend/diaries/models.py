@@ -35,11 +35,11 @@ class DiarySticker(models.Model):
 
 class DiaryImage(models.Model):
     diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
-    image_id = models.CharField(max_length=50)
+    image_url = models.CharField(max_length=50)
     
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['image_id', 'diary'], name='unique_image'),
+            models.UniqueConstraint(fields=['image_url', 'diary'], name='unique_image'),
         ]
 
 
