@@ -74,9 +74,9 @@ function LoginInfoBook() {
 
         
         // access 토큰, refresh 토큰, user id 정보 담기
-          // sessionStorage.setItem("accessToken", res.data.data.token.access_token)
-          // sessionStorage.setItem("refreshToken", res.data.data.token.refresh_token)
-          // sessionStorage.setItem("user_id", res.data.data.id)
+          sessionStorage.setItem("accessToken", res.data.data.token.access_token)
+          sessionStorage.setItem("refreshToken", res.data.data.token.refresh_token)
+          sessionStorage.setItem("user_id", res.data.data.id)
           // 설문 띄워주고, 클릭 완료 x -> 껐어 , url쳐서 들어가버리면,, 
             // 로그인은 된 상태 / 설문은 안한 상태에서 추천이 가능,,,
 

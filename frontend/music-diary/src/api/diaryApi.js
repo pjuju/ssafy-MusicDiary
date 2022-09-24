@@ -1,8 +1,8 @@
 import api from './api'
 
 // 일기 작성(POST)
-export const writeDiaryListApi = async(success, fail) => {
-    return await api.post('/diary/')
+export const writeDiaryListApi = async(diaryInfo, success, fail) => {
+    return await api.post('/diary/', diaryInfo)
 }
 
 // 일기 전체 리스트 보기(GET)
