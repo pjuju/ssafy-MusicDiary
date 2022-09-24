@@ -1,16 +1,6 @@
 from rest_framework import serializers
 from .models import Bookmark, Diary, DiaryMusic, DiaryImage, DiarySticker, Image
 
-class DiarySerializer(serializers.ModelSerializer):
-    diaryimage_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    diarymusic_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    diarysticker_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-
-    class Meta:
-        model = Diary
-        fields = '__all__'
-        # exclude = ['user']
-        
 
 class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,6 +8,11 @@ class BookmarkSerializer(serializers.ModelSerializer):
         fields = '__all__'
         # exclude = ['user']
         read_only_field = {'diary',},
+    
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['diary'] = DiarySerializer(instance.diary).data
+        return response
 
 
 class DiaryMusicSerializer(serializers.ModelSerializer):
@@ -37,6 +32,7 @@ class DiaryStickerSerializer(serializers.ModelSerializer):
 class DiaryImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiaryImage
+        fields = '__all__'
         read_only_field = {'diary',},
         
 
@@ -44,3 +40,14 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = '__all__'
+
+
+class DiarySerializer(serializers.ModelSerializer):
+    images = DiaryImageSerializer(many=True, read_only=True)
+    playlist = DiaryMusicSerializer(many=True, read_only=True)
+    stickers = DiaryStickerSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Diary
+        fields = '__all__'
+        # exclude = ['user']

@@ -4,7 +4,7 @@ from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializ
 from .models import Bookmark, Diary, DiaryMusic, DiaryImage
 from django.views.generic import View
 
-from rest_framework import status
+from rest_framework import parsers, renderers, serializers, status
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework.decorators import api_view
@@ -15,6 +15,7 @@ from Crypto.Cipher import AES
 import hashlib
 
 from django.conf import settings
+# from .storages import FileUpload, s3_client
 
 
 import random
@@ -69,9 +70,14 @@ class DiaryList(GenericAPIView):
 
     def post(self, request, format=None):
         newPost = dict()
-        newPost['user'] = request.user.pk
         newPost['title'] = ciper.encrypt_str(request.data['title'])
         newPost['content'] = ciper.encrypt_str(request.data['content'])
+
+        if ('user' in request.data) and (request.data['user']!=""):
+            newPost['user'] = request.data['user']
+        else:   
+            # 명시된 유저가 없을 경우 현재 로그인 된 유저로 자동 설정
+            newPost['user'] = request.user.pk
 
         if ('emotion' in request.data) and (request.data['emotion']!=""):
             # 명시된 감정이 있을 경우
@@ -91,12 +97,12 @@ class DiaryList(GenericAPIView):
             # 일기에 첨부된 이미지가 있을 경우
             if ('images' in request.data) and (request.data['images']!=""):
                 # 이미지 리스트
-                images = str(request.data['images']).split(',')
+                images = request.data['images']
                 image = {'diary': diary_id, 'image_url': ''}
 
                 # 각각의 이미지를 image 테이블에 넣어줌
-                for url in images:
-                    image['image_url'] = url
+                for img in images:
+                    image['image_url'] = img['image_url']
                     diaryImageSerializer = DiaryImageSerializer(data=image)
                     if diaryImageSerializer.is_valid(raise_exception=True):
                         diaryImageSerializer.save()
@@ -106,7 +112,6 @@ class DiaryList(GenericAPIView):
                 # 스티커 리스트
                 stickers = request.data['stickers']
                 sticker = {'diary': diary_id}
-                # sticker = {'diary': diary_id, 'sticker': '', 'sticker_x': '', 'sticker_y': ''}
 
                 # 각각의 스티커를 sticker 테이블에 넣어줌
                 for stckr in stickers:
@@ -132,6 +137,28 @@ class DiaryList(GenericAPIView):
             return "depressed"
 
 
+# class ImageDetail(GenericAPIView):
+#     serializer_class = ImageSerializer
+#     parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.FileUploadParser)
+#     renderer_classes = (renderers.JSONRenderer,)
+
+#     def post(self, request, format=None):
+#         file = request.FILES['image']
+#         profile_image_url = FileUpload(s3_client).upload(file)
+#         if profile_image_url != None:
+#             return Response(profile_image_url, status=status.HTTP_200_OK)
+#         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+#     def delete(self, request, format=None):
+#         image_url = request.data['image_url']
+#         file_id = image_url.split("/")[1]
+#         print(file_id)
+#         ret = FileUpload(s3_client).delete(file_id)
+#         if ret=="SUCCESS":
+#             return Response({'result': ret}, status=status.HTTP_204_NO_CONTENT)
+#         return Response({'result': ret}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 # Get: 일기 상세보기
 # Put, Patch: 일기 수정
 # Delete: 일기 삭제
@@ -149,7 +176,7 @@ class DiaryDetail(GenericAPIView):
 
     def put(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
-        newPost = dict()       
+        newPost = dict()
         newPost['title'] = ciper.encrypt_str(request.data['title'])
         newPost['content'] = ciper.encrypt_str(request.data['content'])
         newPost['emotion'] = ciper.encrypt_str(request.data['emotion'])
@@ -261,11 +288,12 @@ def monthEmotion(request, month):
         str_month = '0'+str_month
 
     emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__month=str_month)
+    ret = []
 
     for emotion in emotions:
-        emotion = ciper.decrypt_str(emotion)
+        ret.append(ciper.decrypt_str(emotion))
 
-    data = {'emotions': emotions}
+    data = {'emotions': ret}
     return Response(data, status=status.HTTP_200_OK)
 
 
