@@ -61,9 +61,9 @@ class DiaryList(GenericAPIView):
     def get(self, request, format=None):
         diaries = get_list_or_404(Diary, user=request.user.pk)
         for diary in diaries:
-            diary.title = self.ciper.decrypt_str(diary.title)
-            diary.content = self.ciper.decrypt_str(diary.content)
-            diary.emotion = self.ciper.decrypt_str(diary.emotion)
+            diary.title = ciper.decrypt_str(diary.title)
+            diary.content = ciper.decrypt_str(diary.content)
+            diary.emotion = ciper.decrypt_str(diary.emotion)
 
         serializer = DiarySerializer(diaries, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -71,8 +71,8 @@ class DiaryList(GenericAPIView):
     def post(self, request, format=None):
         newPost = dict()
         newPost['user'] = request.user.pk
-        newPost['title'] = self.ciper.encrypt_str(request.data['title'])
-        newPost['content'] = self.ciper.encrypt_str(request.data['content'])
+        newPost['title'] = ciper.encrypt_str(request.data['title'])
+        newPost['content'] = ciper.encrypt_str(request.data['content'])
 
         if ('emotion' in request.data) and (request.data['emotion']!=""):
             # 명시된 감정이 있을 경우
@@ -81,7 +81,7 @@ class DiaryList(GenericAPIView):
             # 명시된 감정이 없을 경우 텍스트 분석으로 감정 도출
             emotion = self.stubEmotion()
 
-        newPost['emotion'] = self.ciper.encrypt_str(emotion)
+        newPost['emotion'] = ciper.encrypt_str(emotion)
         diarySerializer = DiarySerializer(data=newPost)
 
         if diarySerializer.is_valid(raise_exception=True):
@@ -143,7 +143,8 @@ class ImageDetail(GenericAPIView):
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def delete(self, request, format=None):
-        file_id = request.data['file_id']
+        image_url = request.data['image_url']
+        file_id = image_url.split("/")[1]
         print(file_id)
         ret = FileUpload(s3_client).delete(file_id)
         if ret=="SUCCESS":
@@ -160,18 +161,18 @@ class DiaryDetail(GenericAPIView):
 
     def get(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
-        diary.title = self.ciper.decrypt_str(diary.title)
-        diary.content = self.ciper.decrypt_str(diary.content)
-        diary.emotion = self.ciper.decrypt_str(diary.emotion)
+        diary.title = ciper.decrypt_str(diary.title)
+        diary.content = ciper.decrypt_str(diary.content)
+        diary.emotion = ciper.decrypt_str(diary.emotion)
         serializer = DiarySerializer(diary)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
         newPost = dict()       
-        newPost['title'] = self.ciper.encrypt_str(request.data['title'])
-        newPost['content'] = self.ciper.encrypt_str(request.data['content'])
-        newPost['emotion'] = self.ciper.encrypt_str(request.data['emotion'])
+        newPost['title'] = ciper.encrypt_str(request.data['title'])
+        newPost['content'] = ciper.encrypt_str(request.data['content'])
+        newPost['emotion'] = ciper.encrypt_str(request.data['emotion'])
         
         serializer = DiarySerializer(diary, data=newPost)
 
@@ -183,9 +184,9 @@ class DiaryDetail(GenericAPIView):
         diary = get_object_or_404(Diary, pk=diary_pk)
         
         newPost = dict()       
-        newPost['title'] = self.ciper.encrypt_str(request.data['title'])
-        newPost['content'] = self.ciper.encrypt_str(request.data['content'])
-        newPost['emotion'] = self.ciper.encrypt_str(request.data['emotion'])
+        newPost['title'] = ciper.encrypt_str(request.data['title'])
+        newPost['content'] = ciper.encrypt_str(request.data['content'])
+        newPost['emotion'] = ciper.encrypt_str(request.data['emotion'])
 
         serializer = DiarySerializer(Diary, data=diary, partial=True)
 

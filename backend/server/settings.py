@@ -18,11 +18,11 @@ import sys
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 ROOT_DIR = os.path.dirname(BASE_DIR)
-SECRET_PATH = os.path.join(ROOT_DIR, '.footprint_secret')
-SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
+CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
+SECRET_BASE_FILE = os.path.join(CONFIG_SECRET_DIR, 'secrets.json')
 
 secrets = json.loads(open(SECRET_BASE_FILE).read())
 for key, value in secrets.items():
@@ -186,7 +186,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
 CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
 config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
 
@@ -205,5 +204,4 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')

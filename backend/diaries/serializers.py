@@ -8,13 +8,15 @@ class DiarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Diary
-        exclude = ['user']
+        fields = '__all__'
+        # exclude = ['user']
         
 
 class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
-        exclude = ['user']
+        fields = '__all__'
+        # exclude = ['user']
         read_only_field = {'diary',},
 
 
