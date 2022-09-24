@@ -2,7 +2,7 @@ import MainNote from '../mainpages/MainNote'
 
 import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DiaryStatecontent } from "../../App";
+import { DiaryStateContext } from "../../App";
 import { getStringDate } from "../../util/date";
 import { DiaryDispatchContext } from "../../App.js";
 
@@ -10,7 +10,7 @@ import './DetailDiary.css'
 
 const DetailDiary =() => {
     const { id } = useParams();
-    const diaryList = useContext(DiaryStatecontent);
+    const diaryList = useContext(DiaryStateContext);
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [content, setcontent] = useState('');

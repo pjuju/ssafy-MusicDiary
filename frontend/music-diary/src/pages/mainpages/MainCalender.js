@@ -1,7 +1,7 @@
 import {useState, useContext, useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
 import moment from 'moment';
-import { DiaryStatecontent } from "../../App";
+import { DiaryStateContext } from "../../App";
 import { getStringDate } from "../../util/date";
 import { DiaryDispatchContext } from "../../App.js";
 
@@ -10,7 +10,7 @@ import MainNote from './MainNote';
 
 const MainCalender =() => {
     const navigate = useNavigate();
-    const diaryList = useContext(DiaryStatecontent);
+    const diaryList = useContext(DiaryStateContext);
 
     const [getMoment, setMoment]=useState(moment());
 
