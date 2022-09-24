@@ -4,7 +4,7 @@ import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DiaryStatecontent } from "../../App";
 import { getStringDate } from "../../util/date";
-import { DiaryDispatchcontent } from "../../App.js";
+import { DiaryDispatchContext } from "../../App.js";
 
 import './DetailDiary.css'
 
@@ -46,7 +46,7 @@ const DetailDiary =() => {
         }, [id, diaryList]);
 
     const strDate = new Date(parseInt(date)).toLocaleDateString();
-    const { onRemove, onBookmark, onEdit } = useContext(DiaryDispatchcontent);
+    const { onRemove, onBookmark, onEdit } = useContext(DiaryDispatchContext);
     const handleRemove = () => {
         const targetDiary = diaryList.find(
             (it) => parseInt(it.id) === parseInt(id)
