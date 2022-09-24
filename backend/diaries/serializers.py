@@ -1,27 +1,22 @@
 from rest_framework import serializers
-from .models import Bookmark, Diary, DiaryMusic, Image, DiarySticker
+from .models import Bookmark, Diary, DiaryMusic, DiaryImage, DiarySticker, Image
 
 class DiarySerializer(serializers.ModelSerializer):
-    image_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    diaryimage_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     diarymusic_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     diarysticker_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Diary
         fields = '__all__'
-        
-
-class ImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = '__all__'
-        read_only_field = {'diary',},
+        # exclude = ['user']
         
 
 class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
         fields = '__all__'
+        # exclude = ['user']
         read_only_field = {'diary',},
 
 
@@ -37,3 +32,15 @@ class DiaryStickerSerializer(serializers.ModelSerializer):
         model = DiarySticker
         fields = '__all__'
         read_only_field = {'diary',},
+
+
+class DiaryImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiaryImage
+        read_only_field = {'diary',},
+        
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = '__all__'

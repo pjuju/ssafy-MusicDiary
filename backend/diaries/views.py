@@ -1,21 +1,23 @@
-import time
 from django.shortcuts import get_object_or_404, get_list_or_404
 
-from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializer, ImageSerializer
-from .models import Bookmark, Diary, DiaryMusic, Image
+from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializer, DiaryStickerSerializer, DiaryImageSerializer, ImageSerializer
+from .models import Bookmark, Diary, DiaryMusic, DiaryImage
+from django.views.generic import View
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework.decorators import api_view
-# from drf_yasg.utils import openapi, swagger_auto_schema
 
 import base64
 from Crypto import Random
 from Crypto.Cipher import AES
 import hashlib
+
 from django.conf import settings
 
+
+import random
 
 class AESCipher:
     def __init__(self):
@@ -46,75 +48,128 @@ class AESCipher:
             enc = str.encode(enc)
         return self.decrypt(enc).decode('utf-8')
 
+# AES Encrypt
+ciper = AESCipher()
 
-def make_pass():
-    timekey = int(time.time())
-    return str(timekey)
-
-
-# Get: 다이어리 목록 반환
-# Post: 다이어리 작성
+# Get: 일기 전체 리스트 보기
+# Post: 일기 작성
 class DiaryList(GenericAPIView):
     queryset = Diary.objects.all()
     serializer_class = DiarySerializer
 
-    ciper = AESCipher()
-
     def get(self, request, format=None):
         diaries = get_list_or_404(Diary, user=request.user.pk)
         for diary in diaries:
-            diary.title = self.ciper.decrypt_str(diary.title)
-            diary.content = self.ciper.decrypt_str(diary.content)
-            diary.emotion = self.ciper.decrypt_str(diary.emotion)
-            # print('>>>>get diary:', diary.title)
+            diary.title = ciper.decrypt_str(diary.title)
+            diary.content = ciper.decrypt_str(diary.content)
+            diary.emotion = ciper.decrypt_str(diary.emotion)
 
         serializer = DiarySerializer(diaries, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    # @swagger_auto_schema(
-    #     request_body=DiarySerializer,
-    #     manual_parameters=[openapi.Parameter('image list', openapi.BODY, description="a header for  test", type=openapi.TYPE_STRING)]
-    # )
     def post(self, request, format=None):
         newPost = dict()
         newPost['user'] = request.user.pk
-        newPost['title'] = self.ciper.encrypt_str(request.data['title'])
-        newPost['content'] = self.ciper.encrypt_str(request.data['content'])
-        newPost['emotion'] = self.ciper.encrypt_str(request.data['emotion'])
-        serializer = DiarySerializer(data=newPost)
+        newPost['title'] = ciper.encrypt_str(request.data['title'])
+        newPost['content'] = ciper.encrypt_str(request.data['content'])
 
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
+        if ('emotion' in request.data) and (request.data['emotion']!=""):
+            # 명시된 감정이 있을 경우
+            emotion = request.data['emotion']
+        else:   
+            # 명시된 감정이 없을 경우 텍스트 분석으로 감정 도출
+            emotion = self.stubEmotion()
+
+        newPost['emotion'] = ciper.encrypt_str(emotion)
+        diarySerializer = DiarySerializer(data=newPost)
+
+        if diarySerializer.is_valid(raise_exception=True):
+            diarySerializer.save()
+            # 방금 등록된 일기의 id 값
+            diary_id = diarySerializer.data['id']
+
+            # 일기에 첨부된 이미지가 있을 경우
+            if ('images' in request.data) and (request.data['images']!=""):
+                # 이미지 리스트
+                images = str(request.data['images']).split(',')
+                image = {'diary': diary_id, 'image_url': ''}
+
+                # 각각의 이미지를 image 테이블에 넣어줌
+                for url in images:
+                    image['image_url'] = url
+                    diaryImageSerializer = DiaryImageSerializer(data=image)
+                    if diaryImageSerializer.is_valid(raise_exception=True):
+                        diaryImageSerializer.save()
+
+            # 일기에 첨부된 스티커가 있을 경우
+            if ('stickers' in request.data) and (request.data['stickers']!=""):
+                # 스티커 리스트
+                stickers = request.data['stickers']
+                sticker = {'diary': diary_id}
+                # sticker = {'diary': diary_id, 'sticker': '', 'sticker_x': '', 'sticker_y': ''}
+
+                # 각각의 스티커를 sticker 테이블에 넣어줌
+                for stckr in stickers:
+                    sticker['sticker'] = stckr['sticker_id']
+                    sticker['sticker_x'] = stckr['sticker_x']
+                    sticker['sticker_y'] = stckr['sticker_y']
+                    diarystickerSerializer = DiaryStickerSerializer(data=sticker)
+                    if diarystickerSerializer.is_valid(raise_exception=True):
+                        diarystickerSerializer.save()
+            
+            serializer = DiarySerializer(Diary.objects.get(pk=diary_id))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def stubEmotion(self):
+        emotion = random.randrange(1,5)
+        if emotion==1:
+            return "sad"
+        elif emotion==2:
+            return "happy"
+        elif emotion==3:
+            return "angry"
+        else:
+            return "depressed"
 
 
 # Get: 일기 상세보기
-# Put: 일기 수정
+# Put, Patch: 일기 수정
 # Delete: 일기 삭제
 class DiaryDetail(GenericAPIView):
+    queryset = Diary.objects.all()
     serializer_class = DiarySerializer
-    ciper = AESCipher()
 
     def get(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
-        diary.title = self.ciper.decrypt_str(diary.title)
-        diary.content = self.ciper.decrypt_str(diary.content)
-        diary.emotion = self.ciper.decrypt_str(diary.emotion)
+        diary.title = ciper.decrypt_str(diary.title)
+        diary.content = ciper.decrypt_str(diary.content)
+        diary.emotion = ciper.decrypt_str(diary.emotion)
         serializer = DiarySerializer(diary)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
         newPost = dict()       
-        newPost['title'] = self.ciper.encrypt_str(request.data['title'])
-        newPost['content'] = self.ciper.encrypt_str(request.data['content'])
-        newPost['emotion'] = self.ciper.encrypt_str(request.data['emotion'])
+        newPost['title'] = ciper.encrypt_str(request.data['title'])
+        newPost['content'] = ciper.encrypt_str(request.data['content'])
+        newPost['emotion'] = ciper.encrypt_str(request.data['emotion'])
         
         serializer = DiarySerializer(diary, data=newPost)
 
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+    def patch(self, request, diary_pk, format=None):
+        diary = get_object_or_404(Diary, pk=diary_pk)
+        
+        newPost = dict()       
+        newPost['title'] = ciper.encrypt_str(request.data['title'])
+        newPost['content'] = ciper.encrypt_str(request.data['content'])
+        newPost['emotion'] = ciper.encrypt_str(request.data['emotion'])
+
+        serializer = DiarySerializer(Diary, data=diary, partial=True)
+
 
     def delete(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
@@ -134,10 +189,8 @@ def DiaryMusicDetail(request, diary_pk):
 
     elif request.method == 'POST':
         diary = get_object_or_404(Diary, pk=diary_pk)
-
-        ciper = AESCipher()
         emotion = ciper.decrypt_str(diary.emotion)
-        playlist = stub(emotion)
+        playlist = stubPlaylist(emotion)
 
         data={'diary': diary_pk, 'music': ''}
         for music in playlist:
@@ -149,7 +202,7 @@ def DiaryMusicDetail(request, diary_pk):
         return Response(playlist, status=status.HTTP_201_CREATED)
 
 
-def stub(emotion):
+def stubPlaylist(emotion):
     # Todo: diary_pk 일기의 추천 음악 id를 list로 반환
     if emotion=='happy':
         list = [1, 2]
@@ -160,8 +213,7 @@ def stub(emotion):
     return list
 
 
-# Get: 책갈피 모아보기
-# Post: 책갈피 생성
+# Get: 모든 책갈피 모아보기
 class BookmarkList(GenericAPIView):
     queryset = Bookmark.objects.all()
     serializer_class = BookmarkSerializer
@@ -171,14 +223,19 @@ class BookmarkList(GenericAPIView):
         serializer = BookmarkSerializer(bookmark, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def post(self, request, format=None):
+
+# Post: 일기장 책갈피 등록
+# Delete: 일기장 책갈피 해제
+class BookmarkDetail(GenericAPIView):
+    queryset = Bookmark.objects.all()
+    serializer_class = BookmarkSerializer
+    
+    def post(self, request, diary_pk, format=None):
         try:
-            bookmark = Bookmark.objects.get(user=request.user.pk, diary=request.data['diary'])
-            print(bookmark)
+            bookmark = Bookmark.objects.get(user=request.user.pk, diary=diary_pk)
         except:
-            data = request.data
-            data['user'] = request.user.pk
-            serializer = BookmarkSerializer(data=request.data)
+            bookmark = {'user': request.user.pk, 'diary': diary_pk}
+            serializer = BookmarkSerializer(data=bookmark)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -188,15 +245,10 @@ class BookmarkList(GenericAPIView):
             data = {'post': '이미 책갈피로 등록된 게시물입니다.'}
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
-
-# Delete: 북마크 삭제
-class BookmarkDetail(GenericAPIView):
-    queryset = Bookmark.objects.all()
-
-    def delete(self, request, bookmark_pk, format=None):
-        bookmark = get_object_or_404(Bookmark, pk=bookmark_pk)
+    def delete(self, request, diary_pk, format=None):
+        bookmark = get_object_or_404(Bookmark, user=request.user.pk, diary=diary_pk)
         bookmark.delete()
-        data = {'delete': f'데이터 {bookmark_pk}번이 삭제되었습니다.'}
+        data = {'delete': f'데이터 {diary_pk}번이 삭제되었습니다.'}
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
@@ -208,8 +260,7 @@ def monthEmotion(request, month):
     if len(str_month) == 1:
         str_month = '0'+str_month
 
-    ciper = AESCipher()
-    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__month=str_month)
+    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_date__month=str_month)
 
     for emotion in emotions:
         emotion = ciper.decrypt_str(emotion)
@@ -226,9 +277,8 @@ def monthDiary(request, month):
     if len(str_month) == 1:
         str_month = '0'+str_month
 
-    diaries = Diary.objects.filter(created_at__month=str_month)
+    diaries = Diary.objects.filter(created_date__month=str_month)
 
-    ciper = AESCipher()
     for diary in diaries:
         diary.title = ciper.decrypt_str(diary.title)
         diary.content = ciper.decrypt_str(diary.content)
@@ -236,42 +286,3 @@ def monthDiary(request, month):
 
     serializer = DiarySerializer(diaries, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-# # Get: 일기별 이미지 조회
-# class ImageView(GenericAPIView):
-#     serializer_class = ImageSerializer
-
-#     def get(self, request, diary_pk, format=None):
-#         images = get_list_or_404(Image, pk=diary_pk)
-#         serializer = ImageSerializer(images, many=True)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
-
-#     def post(self, request, diary_pk, format=None):
-#         serializer = ImageSerializer(data=request.data)
-#         if(serializer.is_valid(raise_exception=True)):
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-#     def put(self, request, diary_pk, format=None):
-#         images = get_list_or_404(Image, pk=diary_pk)
-#         serializer = ImageSerializer(images, data=request.data)
-#         if(serializer.is_valid(raise_exception=True)):
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-
-
-#################################
-# Get: 일기별 스티커 조회
-# @api_view(['GET'])
-# def monthSticker():
-#     pass
-#################################
-
-
-#################################
-# # Post: 스티커 부착
-# @api_view(['POST'])
-# def decorate():
-#     pass
-#################################
