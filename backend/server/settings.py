@@ -18,11 +18,11 @@ import sys
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 ROOT_DIR = os.path.dirname(BASE_DIR)
 CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
-SECRET_BASE_FILE = os.path.join(CONFIG_SECRET_DIR, 'secrets.json')
+SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
 
 secrets = json.loads(open(SECRET_BASE_FILE).read())
 for key, value in secrets.items():
@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'drf_yasg',
     # django rest framework
     'rest_framework',
-    # 'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist',
     # dj-rest-auth
     'dj_rest_auth',
@@ -75,7 +74,7 @@ INSTALLED_APPS = [
     # django-seed
     'django_seed',
     # S3
-    'storages',
+    # 'storages',
 ]
 
 REST_FRAMEWORK = {
