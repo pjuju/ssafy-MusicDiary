@@ -22,6 +22,9 @@ export {default as FeelingAnalysis } from './mypages/FeelingAnalysis'
 
 export {default as NewDiary } from './diary/NewDiary'
 export {default as DetailDiary } from './diary/DetailDiary'
+// test
+export { default as Test} from './diary/Test'
+
 export {default as EditDiary } from './diary/EditDiary'
 
 export { default as MySticker } from './mypages/MySticker'
