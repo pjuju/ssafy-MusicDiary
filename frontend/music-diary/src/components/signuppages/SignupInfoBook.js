@@ -128,7 +128,7 @@ function SignupInfoBook() {
                   name="다음->"
                   color="#AC5050"
                   size="lg"
-                  // onClick={moveQuestionOne}
+                  // onClick={onSignUpBtn}
                   onClick={moveQuestionOne}
                 />
                 </div>
