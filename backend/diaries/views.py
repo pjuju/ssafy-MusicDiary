@@ -1,7 +1,10 @@
+from ast import Return
+from functools import partial
+from webbrowser import get
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializer, DiaryStickerSerializer, DiaryImageSerializer, ImageSerializer
-from .models import Bookmark, Diary, DiaryMusic, DiaryImage
+from .models import Bookmark, Diary, DiaryMusic, DiaryImage, DiarySticker
 from django.views.generic import View
 
 from rest_framework import parsers, renderers, serializers, status
@@ -69,19 +72,25 @@ class DiaryList(GenericAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
+        data = request.data
         newPost = dict()
-        newPost['title'] = ciper.encrypt_str(request.data['title'])
-        newPost['content'] = ciper.encrypt_str(request.data['content'])
+        newPost['title'] = ciper.encrypt_str(data['title'])
+        newPost['content'] = ciper.encrypt_str(data['content'])
 
-        if ('user' in request.data) and (request.data['user']!=""):
-            newPost['user'] = request.data['user']
-        else:   
-            # 명시된 유저가 없을 경우 현재 로그인 된 유저로 자동 설정
+        # 유저 정보
+        if 'user' in data:
+            newPost['user'] = data['user']
+        else:
             newPost['user'] = request.user.pk
 
-        if ('emotion' in request.data) and (request.data['emotion']!=""):
+        # 작성일 정보
+        if 'created_at' in data:
+            newPost['created_at'] = data['created_at']
+
+        # 감정 정보
+        if 'emotion' in data:
             # 명시된 감정이 있을 경우
-            emotion = request.data['emotion']
+            emotion = data['emotion']
         else:   
             # 명시된 감정이 없을 경우 텍스트 분석으로 감정 도출
             emotion = self.stubEmotion()
@@ -92,13 +101,13 @@ class DiaryList(GenericAPIView):
         if diarySerializer.is_valid(raise_exception=True):
             diarySerializer.save()
             # 방금 등록된 일기의 id 값
-            diary_id = diarySerializer.data['id']
+            diary_pk = diarySerializer.data['id']
 
             # 일기에 첨부된 이미지가 있을 경우
-            if ('images' in request.data) and (request.data['images']!=""):
+            if 'images' in data:
                 # 이미지 리스트
-                images = request.data['images']
-                image = {'diary': diary_id, 'image_url': ''}
+                images = data['images']
+                image = {'diary': diary_pk, 'image_url': ''}
 
                 # 각각의 이미지를 image 테이블에 넣어줌
                 for img in images:
@@ -108,10 +117,10 @@ class DiaryList(GenericAPIView):
                         diaryImageSerializer.save()
 
             # 일기에 첨부된 스티커가 있을 경우
-            if ('stickers' in request.data) and (request.data['stickers']!=""):
+            if 'stickers' in data:
                 # 스티커 리스트
-                stickers = request.data['stickers']
-                sticker = {'diary': diary_id}
+                stickers = data['stickers']
+                sticker = {'diary': diary_pk}
 
                 # 각각의 스티커를 sticker 테이블에 넣어줌
                 for stckr in stickers:
@@ -122,7 +131,7 @@ class DiaryList(GenericAPIView):
                     if diarystickerSerializer.is_valid(raise_exception=True):
                         diarystickerSerializer.save()
             
-            serializer = DiarySerializer(Diary.objects.get(pk=diary_id))
+            serializer = DiarySerializer(Diary.objects.get(pk=diary_pk))
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     def stubEmotion(self):
@@ -176,26 +185,124 @@ class DiaryDetail(GenericAPIView):
 
     def put(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
-        newPost = dict()
-        newPost['title'] = ciper.encrypt_str(request.data['title'])
-        newPost['content'] = ciper.encrypt_str(request.data['content'])
-        newPost['emotion'] = ciper.encrypt_str(request.data['emotion'])
-        
-        serializer = DiarySerializer(diary, data=newPost)
+        data = request.data
 
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        newPost = dict()
+        newPost['title'] = ciper.encrypt_str(data['title'])
+        newPost['content'] = ciper.encrypt_str(data['content'])
+        newPost['emotion'] = ciper.encrypt_str(data['emotion'])
+        newPost['created_at'] = data.get('created_at', diary.created_at)
+        
+        diarySerializer = DiarySerializer(diary, data=newPost)
+        if diarySerializer.is_valid(raise_exception=True):
+            diarySerializer.save()
+
+            # 이미지 수정
+            if 'images' in data:
+                # 기존 이미지들 삭제
+                try:
+                    oldImages = DiaryImage.objects.get(diary=diary_pk)
+                    if oldImages != None:
+                        oldImages.delete()
+                except:
+                    pass
+
+                newImages = data['images']
+                image = {'diary': diary_pk}
+
+                # 각각의 이미지를 image 테이블에 넣어줌
+                for img in newImages:
+                    image['image_url'] = img['image_url']
+                    diaryImageSerializer = DiaryImageSerializer(data=image)
+                    if diaryImageSerializer.is_valid(raise_exception=True):
+                        diaryImageSerializer.save()
+
+            # 스티커 수정
+            if 'stickers' in data:
+                # 기존 스티커들 삭제
+                try:
+                    oldStickers = DiarySticker.objects.get(diary=diary_pk)
+                    if oldStickers != None:
+                        oldStickers.delete()
+                except:
+                    pass
+
+                newStickers = data['stickers']
+                sticker = {'diary': diary_pk}
+
+                # 각각의 스티커를 sticker 테이블에 넣어줌
+                for stckr in newStickers:
+                    sticker['sticker'] = stckr['sticker_id']
+                    sticker['sticker_x'] = stckr['sticker_x']
+                    sticker['sticker_y'] = stckr['sticker_y']
+                    diarystickerSerializer = DiaryStickerSerializer(data=sticker)
+                    if diarystickerSerializer.is_valid(raise_exception=True):
+                        diarystickerSerializer.save()
+
+            serializer = DiarySerializer(Diary.objects.get(pk=diary_pk))
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def patch(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
+        data = request.data
         
-        newPost = dict()       
-        newPost['title'] = ciper.encrypt_str(request.data['title'])
-        newPost['content'] = ciper.encrypt_str(request.data['content'])
-        newPost['emotion'] = ciper.encrypt_str(request.data['emotion'])
+        newPost = dict()
+        if 'title' in data:
+            newPost['title'] = ciper.encrypt_str(data.get('title'))
+        if 'content' in data:
+            newPost['content'] = ciper.encrypt_str(data.get('content'))
+        if 'emotion' in data:
+            newPost['emotion'] = ciper.encrypt_str(data.get('emotion'))
+        newPost['created_at'] = data.get('created_at', diary.created_at)
 
-        serializer = DiarySerializer(Diary, data=diary, partial=True)
+        diarySerializer = DiarySerializer(diary, data=newPost, partial=True)
+        if diarySerializer.is_valid(raise_exception=True):
+            diarySerializer.save()
+
+            # 이미지 수정
+            if 'images' in data:
+                # 기존 이미지들 삭제
+                try:
+                    oldImages = DiaryImage.objects.get(diary=diary_pk)
+                    if oldImages != None:
+                        oldImages.delete()
+                except:
+                    pass
+
+                newImages = data['images']
+                image = {'diary': diary_pk}
+
+                # 각각의 이미지를 image 테이블에 넣어줌
+                for img in newImages:
+                    image['image_url'] = img['image_url']
+                    diaryImageSerializer = DiaryImageSerializer(data=image)
+                    if diaryImageSerializer.is_valid(raise_exception=True):
+                        diaryImageSerializer.save()
+
+            # 스티커 수정
+            if 'stickers' in data:
+                # 기존 스티커들 삭제
+                try:
+                    oldStickers = DiarySticker.objects.get(diary=diary_pk)
+                    if oldStickers != None:
+                        oldStickers.delete()
+                except:
+                    pass
+
+                newStickers = data['stickers']
+                sticker = {'diary': diary_pk}
+
+                # 각각의 스티커를 sticker 테이블에 넣어줌
+                for stckr in newStickers:
+                    sticker['sticker'] = stckr['sticker_id']
+                    sticker['sticker_x'] = stckr['sticker_x']
+                    sticker['sticker_y'] = stckr['sticker_y']
+                    diarystickerSerializer = DiaryStickerSerializer(data=sticker)
+                    if diarystickerSerializer.is_valid(raise_exception=True):
+                        diarystickerSerializer.save()
+
+            serializer = DiarySerializer(Diary.objects.get(pk=diary_pk))
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
     def delete(self, request, diary_pk, format=None):
