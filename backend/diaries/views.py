@@ -15,7 +15,7 @@ from Crypto.Cipher import AES
 import hashlib
 
 from django.conf import settings
-from .storages import FileUpload, s3_client
+# from .storages import FileUpload, s3_client
 
 
 import random
@@ -137,26 +137,26 @@ class DiaryList(GenericAPIView):
             return "depressed"
 
 
-class ImageDetail(GenericAPIView):
-    serializer_class = ImageSerializer
-    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.FileUploadParser)
-    renderer_classes = (renderers.JSONRenderer,)
+# class ImageDetail(GenericAPIView):
+#     serializer_class = ImageSerializer
+#     parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.FileUploadParser)
+#     renderer_classes = (renderers.JSONRenderer,)
 
-    def post(self, request, format=None):
-        file = request.FILES['image']
-        profile_image_url = FileUpload(s3_client).upload(file)
-        if profile_image_url != None:
-            return Response(profile_image_url, status=status.HTTP_200_OK)
-        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#     def post(self, request, format=None):
+#         file = request.FILES['image']
+#         profile_image_url = FileUpload(s3_client).upload(file)
+#         if profile_image_url != None:
+#             return Response(profile_image_url, status=status.HTTP_200_OK)
+#         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def delete(self, request, format=None):
-        image_url = request.data['image_url']
-        file_id = image_url.split("/")[1]
-        print(file_id)
-        ret = FileUpload(s3_client).delete(file_id)
-        if ret=="SUCCESS":
-            return Response({'result': ret}, status=status.HTTP_204_NO_CONTENT)
-        return Response({'result': ret}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#     def delete(self, request, format=None):
+#         image_url = request.data['image_url']
+#         file_id = image_url.split("/")[1]
+#         print(file_id)
+#         ret = FileUpload(s3_client).delete(file_id)
+#         if ret=="SUCCESS":
+#             return Response({'result': ret}, status=status.HTTP_204_NO_CONTENT)
+#         return Response({'result': ret}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # Get: 일기 상세보기
