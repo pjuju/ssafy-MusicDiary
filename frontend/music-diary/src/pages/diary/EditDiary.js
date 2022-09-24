@@ -1,7 +1,7 @@
 import MainNote from '../mainpages/MainNote'
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DiaryStateContext } from "../../App";
+import { DiaryStatecontent } from "../../App";
 import DiaryEditor from "../../components/editor/DiaryEditor";
 import './EditDiary.css'
 
@@ -10,7 +10,7 @@ const EditDiary =() =>{
     const navigate = useNavigate();
     const { id } = useParams();
   
-    const diaryList = useContext(DiaryStateContext);
+    const diaryList = useContext(DiaryStatecontent);
 
     useEffect(() => {
         const titleElement = document.getElementsByTagName("title")[0];
