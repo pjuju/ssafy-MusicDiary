@@ -260,7 +260,7 @@ def monthEmotion(request, month):
     if len(str_month) == 1:
         str_month = '0'+str_month
 
-    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_date__month=str_month)
+    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__month=str_month)
 
     for emotion in emotions:
         emotion = ciper.decrypt_str(emotion)
@@ -277,7 +277,7 @@ def monthDiary(request, month):
     if len(str_month) == 1:
         str_month = '0'+str_month
 
-    diaries = Diary.objects.filter(created_date__month=str_month)
+    diaries = Diary.objects.filter(created_at__month=str_month)
 
     for diary in diaries:
         diary.title = ciper.decrypt_str(diary.title)
