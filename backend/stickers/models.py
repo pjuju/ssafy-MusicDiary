@@ -9,7 +9,7 @@ class StickerPack(models.Model):
 
 
 class Sticker(models.Model):
-    sticker_pack = models.ForeignKey("stickers.StickerPack", null=False, on_delete=models.CASCADE)
+    sticker_pack = models.ForeignKey("stickers.StickerPack", related_name="stickers", null=False, on_delete=models.CASCADE)
     image_url = models.CharField(null=False, max_length=176)
     
     class Meta:
