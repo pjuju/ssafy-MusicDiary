@@ -1,7 +1,8 @@
 import { useContext, useRef, useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
-import { DiaryDispatchContext } from '../../App';
+import { DiaryDispatchcontent } from '../../App';
 import React from "react";
+import { writeDiaryListApi } from '../../api/diaryApi';
 
 import './DiaryEditor.css'
 
@@ -43,7 +44,7 @@ const emotionList = [
 ]
 
 // 오늘 날짜 그대로 출력하기
-const getStringDate = (date) => {
+const getStringdate = (date) => {
     return date.toISOString().slice(0,10)
 }
 
@@ -52,12 +53,12 @@ const DiaryEditor = ({ isEdit, originData }) => {
     const navigate = useNavigate();
     // const image_url= process.env.PUBLIC_URL + ''
 
-    const [date,setDate] = useState(getStringDate(new Date()))
-    const [context, setContext] = useState('')
+    const [date,setDate] = useState(getStringdate(new Date()))
+    const [content, setcontent] = useState('')
     const [title, setTitle] = useState('')
     const [emotion, setEmotion] = useState('')
     const [image, setImage] = useState("")
-    const contextRef = useRef()
+    const contentRef = useRef()
     const titleRef = useRef()
     const emotionRef = useRef()
     const [emotionIsClick,setEmotionIsClick] = useState(false)
@@ -69,13 +70,29 @@ const DiaryEditor = ({ isEdit, originData }) => {
 
     const handleClickEmote = (emotion) => {
         setEmotion(emotion)
-    }
+    }  
 
-    const { onCreate, onEdit } = useContext(DiaryDispatchContext);
+    const { onCreate, onEdit } = useContext(DiaryDispatchcontent);
 
     const handleSubmit = () => {
-        if(context.length < 1) {
-            contextRef.current.focus();
+        const diaryInfo = {
+            title,
+            content,
+            emotion
+            
+        }
+        console.log(diaryInfo)
+
+        writeDiaryListApi(diaryInfo)
+        .then((res)=>{
+            console.log(JSON.stringify(res.data))
+        })
+        .catch((err)=>{
+            console.log(JSON.stringify(err.data))
+        })
+
+        if(content.length < 1) {
+            contentRef.current.focus();
             return
         }
         if(title.length < 1) {
@@ -93,9 +110,9 @@ const DiaryEditor = ({ isEdit, originData }) => {
             ) 
           ) {
               if (!isEdit) {
-                  onCreate(date, title, context, emotion, image,bookmark);
+                  onCreate(date, title, content, emotion, image,bookmark);
                 } else {
-                    onEdit(originData.id, date, title, context, emotion,image,bookmark);
+                    onEdit(originData.id, date, title, content, emotion,image,bookmark);
 
                 }
             }
@@ -128,10 +145,10 @@ const DiaryEditor = ({ isEdit, originData }) => {
     // 원래 일기 정보 보여주는 로직
     useEffect(() => {
         if (isEdit) {
-          setDate(getStringDate(new Date(parseInt(originData.date))));
+          setDate(getStringdate(new Date(parseInt(originData.date))));
           setEmotion(originData.emotion);
           setTitle(originData.title);
-          setContext(originData.context);
+          setcontent(originData.content);
           setBookmark(originData.bookmark);
         }
       }, [isEdit, originData]);
@@ -161,10 +178,10 @@ const DiaryEditor = ({ isEdit, originData }) => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             ></textarea>
-            <textarea className='diary-textarea-context' placeholder='내용을 입력하세요'
-                ref={contextRef}
-                value={context}
-                onChange={(e) => setContext(e.target.value)}
+            <textarea className='diary-textarea-content' placeholder='내용을 입력하세요'
+                ref={contentRef}
+                value={content}
+                onChange={(e) => setcontent(e.target.value)}
             ></textarea>
         </div>
         <div className='right-section'>

@@ -1,32 +1,33 @@
 import api from './api'
 
 // 일기 작성(POST)
-export const writeDiaryListApi = async(success, fail) => {
-    return await api.post('/diary/')
+export const writeDiaryListApi = async(diaryInfo, success, fail) => {
+    console.log(diaryInfo)
+    return await api.post('/diary/', diaryInfo).then(success).catch(fail);
 }
 
 // 일기 전체 리스트 보기(GET)
-export const getDiaryListApi = async(success, fail) => {
+export const getDiaryListApi = async(diaryList,success, fail) => {
     return await api.get('/diary/')
 }
 
 // 책갈피 전체 리스트 보기(GET)
-export const getBookmarkList = async(success, fail) => {
+export const getBookmarkList = async(bookmarkList,success, fail) => {
     return await api.get('/diary/boookmark')
 }
 
 // 일기 상세 보기(GET)
-export const getDetailDiary = async(diary_id, success, fail) => {
+export const getDetailDiary = async(diary_id, diaryInfo,success, fail) => {
     return await api.get(`/diary/${diary_id}`)
 }
 
 // 일기 수정(PUT)
-export const modifyDiary = async(diary_id, success, fail) => {
+export const modifyDiary = async(diary_id, diaryInfo,success, fail) => {
     return await api.get(`/diary/${diary_id}`)
 }
 
 // 일기 개별 수정(PATCH)
-export const modifyDiaryItem = async(diary_id, success, fail ) => {
+export const modifyDiaryItem = async(diary_id, diaryInfo,success, fail ) => {
     return await api.patch(`/diary/${diary_id}`)
 }
 
