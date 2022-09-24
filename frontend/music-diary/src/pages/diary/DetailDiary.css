@@ -1,80 +1,80 @@
 .detail-diary {
-    position: relative;
+  position: relative;
 }
 
 .detail-diary .detail-diary-item {
-  /* 이건 모든 페이지들이 공용으로 설정할 값 */
-  width: 64vw;
-  height: 93.5vh;
-  margin-top: 6vh;
-  margin-left: 24vw;
+/* 이건 모든 페이지들이 공용으로 설정할 값 */
+width: 64vw;
+height: 93.5vh;
+margin-top: 6vh;
+margin-left: 24vw;
 
-  position: absolute;
-  z-index: 1;
-  color: black;
+position: absolute;
+z-index: 1;
+color: black;
 
-  overflow:auto;
-  -ms-overflow-style: none;
-  /* background-color: green; */
+overflow:auto;
+-ms-overflow-style: none;
+/* background-color: green; */
 }
 
 
 .detail-diary .detail-diary-item::-webkit-scrollbar{
-  display:none;
+display:none;
 }
 
 .detail-diary .main-note {
-    position: absolute;
+  position: absolute;
 }
 
 
 /* 버튼들 */
 .detail-diary .goback-button {
-  margin-top: 8vh;
-  margin-left: -24vw;
-  position: absolute;
+margin-top: 8vh;
+margin-left: -24vw;
+position: absolute;
 }
 
 .detail-diary .edit-button {
-  margin-top: 8vh;
-  margin-left: 27vw;
-  position: absolute;
-  cursor: pointer;
-  z-index: 100;
+margin-top: 8vh;
+margin-left: 27vw;
+position: absolute;
+cursor: pointer;
+z-index: 100;
 }
 
 .detail-diary .delete-button {
-  margin-top: 8vh;
-  margin-left: 32vw;
-  position: absolute;
-  z-index: 100;
-  cursor: pointer;
+margin-top: 8vh;
+margin-left: 32vw;
+position: absolute;
+z-index: 100;
+cursor: pointer;
 }
 
 .detail-diary .bookmark {
-  width: 3vw;
-  height: 15vh;
-  background-color: white;
-  margin-left: 25vw;
-  margin-top: 6.1vh;
-  border: 1px solid black;
-  position: absolute;
-  cursor: pointer;
-  z-index: 100;
+width: 3vw;
+height: 15vh;
+background-color: white;
+margin-left: 25vw;
+margin-top: 6.1vh;
+border: 1px solid black;
+position: absolute;
+cursor: pointer;
+z-index: 100;
 }
 
 .detail-diary .date {
-  display: flex;
-  justify-content: end;
-  margin-right: 5vw;
+display: flex;
+justify-content: end;
+margin-right: 5vw;
 }
 
 .detail-diary .title {
-  margin-top: 6vh;
+margin-top: 6vh;
 }
 
 .detail-diary .date {
-  margin-top: 3vh;
+margin-top: 3vh;
 }
 
 .detail-diary .emotion {
@@ -82,4 +82,14 @@
 }
 
 .detail-diary .content {
+}
+
+.z-index-1 {
+  z-index: 1;
+}
+
+.z-index-2 {
+  z-index: 2;
+  margin-top: 800px;
+  background-color: grey;
 }

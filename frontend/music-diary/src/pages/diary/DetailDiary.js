@@ -1,6 +1,6 @@
 import MainNote from '../mainpages/MainNote'
 
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect, useRef, createRef, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DiaryStateContext } from "../../App";
 import { getStringDate } from "../../util/date";
@@ -8,6 +8,15 @@ import { DiaryDispatchContext } from "../../App.js";
 import {getBookmarkList,getMonthDiary, deleteDiary,makeBookmark} from '../../api/diaryApi';
 
 import './DetailDiary.css'
+
+//  konva 
+import { Image as KonvaImage, Layer, Stage } from "react-konva";
+import useImage from "use-image";
+
+import { IndividualSticker } from "../sticker-data/individualSticker.tsx";
+import { stickersData } from "../sticker-data/stickers.data.ts"
+
+// import "./styles.css"
 
 const DetailDiary =() => {
     const { id } = useParams();
@@ -59,6 +68,7 @@ const DetailDiary =() => {
 
 // 더미 데이터
     const diaryList = useContext(DiaryStateContext);
+
     const [title, setTitle] = useState('');
     const [content, setcontent] = useState('');
     const [emotion, setEmotion] = useState('');
@@ -67,6 +77,42 @@ const DetailDiary =() => {
     const [image,setImage] = useState('')
 
     const navigate = useNavigate();
+
+       // konva 
+       const [background] = useImage("example-image.jpg");
+       const [images, setImages] = useState([]);
+   
+       const addStickerToPanel = ({ src, width, x, y }) => {
+           setImages((currentImages) => [
+             ...currentImages,
+             {
+               width,
+               x,
+               y,
+               src,
+               resetButtonRef: createRef()
+             }
+           ]);
+         };
+       
+         const resetAllButtons = useCallback(() => {
+           images.forEach((image) => {
+             if (image.resetButtonRef.current) {
+               image.resetButtonRef.current();
+             }
+           });
+         }, [images]);
+       
+         const handleCanvasClick = useCallback(
+           (event) => {
+             if (event.target.attrs.id === "backgroundImage") {
+               resetAllButtons();
+             }
+           },
+           [resetAllButtons]
+         );
+        //////////////////////////////////////////////////////////////
+       //   useEffect
 
     useEffect(() => {
         const titleElement = document.getElementsByTagName("title")[0];
@@ -171,7 +217,65 @@ const DetailDiary =() => {
         <button onClick={()=>{navigate(`/edit/${id}`)}} className="edit-button">수정하기</button>
         <button onClick={handleRemove} className="delete-button">삭제하기</button>
         {/* <button onClick={()=>{navigate(`/diarylist`)}} className="goback-button">돌아가기</button> */}
+        <hr />
+        <hr />
+        <Stage
+        className='z-index-2'
+        width={600}
+        height={400}
+        onClick={handleCanvasClick}
+        onTap={handleCanvasClick}
+      >
+        <Layer>
+          <KonvaImage
+            image={background}
+            height={400}
+            width={600}
+            id="backgroundImage"
+          />
+          {images.map((image, i) => {
+            return (
+              <IndividualSticker
+                onDelete={() => {
+                  const newImages = [...images];
+                  newImages.splice(i, 1);
+                  setImages(newImages);
+                }}
+                onDragEnd={(event) => {
+                  image.x = event.target.x();
+                  image.y = event.target.y();
+
+                  // console.log("image.x :", image.x)
+                  // console.log("image.y:", image.y)
+                }}
+                key={i}
+                image={image}
+              />
+            );
+          })}
+        </Layer>
+      </Stage>
+      <h4 className="heading">Click/Tap to add sticker to photo!</h4>
+      {stickersData.map((sticker) => {
+        return (
+          <button
+            className="button"
+            onMouseDown={() => {
+              addStickerToPanel({
+                src: sticker.url,
+                width: sticker.width,
+                // 처음에 스티커 생성되는 좌표 위치임
+                x: 100,
+                y: 300
+              });
+            }}
+          >
+            <img alt={sticker.alt} src={sticker.url} width={sticker.width} />
+          </button>
+        );
+      })}
         <MainNote className='main-note'></MainNote>
+
     </div>)
 }
 

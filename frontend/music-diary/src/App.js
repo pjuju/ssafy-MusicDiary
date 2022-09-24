@@ -27,7 +27,8 @@ import {
   StickerStore,
   StickerDetail,
   ChargePoint,
-  IntroScrollPage
+  IntroScrollPage,
+  Test
 } from './pages/index'
 
 const reducer = (state, action) => {
@@ -131,6 +132,7 @@ function App() {
           >
     <BrowserRouter>
         <Routes>
+        <Route path="/konva" element={<Test />} />
           <Route path="/" element={<ClosedIntroPage />} />
           <Route path="/test" element={<IntroScrollPage />} />
           <Route path="/calender" element={<MainCalender />} />
