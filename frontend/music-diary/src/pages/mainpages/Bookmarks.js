@@ -2,13 +2,13 @@ import Bookmark from "../diary/Bookmark";
 import MainNote from "./MainNote";
 import {  useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { DiaryStateContext } from "../../App";
+import { DiaryStatecontent } from "../../App";
 
 import './Bookmarks.css'
 
 const Bookmarks =() => {
     const navigate = useNavigate();
-    let diaryList = useContext(DiaryStateContext);
+    let diaryList = useContext(DiaryStatecontent);
     console.log(diaryList)
 
     return (

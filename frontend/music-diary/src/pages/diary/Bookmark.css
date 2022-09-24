@@ -50,19 +50,19 @@
     margin-left: 0.5vw;
 }
 
-.bookmark .bookmark-created-date {
+.bookmark .bookmark-date {
     margin-right: -40vw;
     margin-top: -3vh;
 }
 
 /* 사진이 없는 경우 일기 내용만 보이면 된다 */
-.bookmark .bookmark-context {
+.bookmark .bookmark-content {
     margin-left: 5vw;
     width: 52vw;
 }
 
 /* 사진이 있는 경우 사진이랑 나란히 보여야한다*/
-.bookmark .bookmark-img-context {
+.bookmark .bookmark-img-content {
     margin-left: 5vw;
     width: 35vw;
     position: absolute;

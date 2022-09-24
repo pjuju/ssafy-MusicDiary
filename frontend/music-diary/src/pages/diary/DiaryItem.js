@@ -14,9 +14,9 @@ const DiaryItem =({...it}) => {
                     <Card.Title className='diary-item-emotion'><img src={it.emotion} style={{width:'4vw'}}></img></Card.Title>
                     <Card.Title className='diary-item-title'>{it.title}</Card.Title>
                 </div>
-                <Card.Text className='diary-item-context'>{strDate}</Card.Text>
-                <Card.Text className='diary-item-context'>{it.context}</Card.Text>
-                <Card.Text className='diary-item-context'>
+                <Card.Text className='diary-item-content'>{strDate}</Card.Text>
+                <Card.Text className='diary-item-content'>{it.content}</Card.Text>
+                <Card.Text className='diary-item-content'>
                     <img src={it.image}></img></Card.Text>
             </Card.Body>
         </Card>
@@ -28,9 +28,9 @@ const DiaryItem =({...it}) => {
                         <Card.Title className='diary-item-emotion'><img src={it.emotion} style={{width:'4vw'}}></img></Card.Title>
                         <Card.Title className='diary-item-title'>{it.title}</Card.Title>
                     </div>
-                    <Card.Text className='diary-item-context'>{strDate}</Card.Text>
-                    <Card.Text className='diary-item-context'>{it.context}</Card.Text>
-                    <Card.Text className='diary-item-context'>
+                    <Card.Text className='diary-item-content'>{strDate}</Card.Text>
+                    <Card.Text className='diary-item-content'>{it.content}</Card.Text>
+                    <Card.Text className='diary-item-content'>
                     <img src={it.image}></img></Card.Text>
                 </Card.Body>
             </Card>
