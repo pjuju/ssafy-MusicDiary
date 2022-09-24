@@ -22,24 +22,24 @@ class Bookmark(models.Model):
 
 
 class DiaryMusic(models.Model):
-    diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
+    diary = models.ForeignKey("diaries.Diary", related_name='playlist', null=False, on_delete=models.CASCADE)
     music = models.ForeignKey("musics.Music", null=False, on_delete=models.CASCADE)
 
 
 class DiarySticker(models.Model):
-    diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
+    diary = models.ForeignKey("diaries.Diary", related_name='stickers', null=False, on_delete=models.CASCADE)
     sticker = models.ForeignKey("stickers.Sticker", null=False, on_delete=models.CASCADE)
     sticker_x = models.FloatField(null=False)
     sticker_y = models.FloatField(null=False)
     
 
 class DiaryImage(models.Model):
-    diary = models.ForeignKey("diaries.Diary", null=False, on_delete=models.CASCADE)
-    image_id = models.CharField(max_length=50)
+    diary = models.ForeignKey("diaries.Diary", related_name='images', null=False, on_delete=models.CASCADE)
+    image_url = models.CharField(max_length=50)
     
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['image_id', 'diary'], name='unique_image'),
+            models.UniqueConstraint(fields=['image_url', 'diary'], name='unique_image'),
         ]
 
 
