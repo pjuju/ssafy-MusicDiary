@@ -36,11 +36,11 @@ const MainCalender =() => {
                         <td key={index} >
                               {/* TODAY */}
                               {diaryList.map(it=> {
-                                
-                                if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. DD.'))
+
+                                if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. D.'))
                                   // todayemotion = it.date
                                 return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={it.emotion} style={{width:'4vw'}}></img>
+                                <img src={it.emotion} className="calender-emoji"></img>
                                 </div>
                               }
                               )}
@@ -54,10 +54,10 @@ const MainCalender =() => {
                     return(
                         <td key={index} style={{backgroundColor:'gray'}} >
                           {diaryList.map(it=> {
-                              
-                              if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. DD.'))
+    
+                              if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. D.'))
                               return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={it.emotion} style={{width:'4vw'}}></img>
+                                <img src={it.emotion} className="calender-emoji"></img>
                                 </div>
                             }
                             )}
@@ -69,10 +69,9 @@ const MainCalender =() => {
                     return(
                         <td key={index}>
                             {diaryList.map(it=> {
-                              
-                              if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. DD.'))
+                              if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. D.'))
                               return <div style={{color:"red"}} onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={it.emotion} style={{width:'4vw'}}></img>
+                                <img src={it.emotion} className="calender-emoji"></img>
                               </div>
                             }
                             )}

@@ -1,4 +1,5 @@
 import baseAxios from "axios";
+import axios from "axios";
 
 const api = baseAxios.create({
   baseURL: "http://j7d204.p.ssafy.io:8080/rest",
@@ -13,5 +14,6 @@ api.interceptors.request.use((config) => {
   )}`;
   return config;
 });
+
 
 export default api;

@@ -26,7 +26,8 @@ import {
   MySticker,
   StickerStore,
   StickerDetail,
-  ChargePoint 
+  ChargePoint,
+  IntroScrollPage
 } from './pages/index'
 
 const reducer = (state, action) => {
@@ -49,6 +50,7 @@ const reducer = (state, action) => {
       );
       break;
     }
+
     default:
       return state;
   }
@@ -79,14 +81,14 @@ function App() {
 
   const dataId = useRef(0);
   // CREATE
-  const onCreate = (date, title,context, emotion,image, bookmark) => {
+  const onCreate = (date, title,content, emotion,image, bookmark) => {
     dispatch({
       type:'CREATE',
       data:{
         id:dataId.current,
         date : new Date(date).getTime(),
         title,
-        context,
+        content,
         emotion,
         image,
         bookmark
@@ -101,14 +103,14 @@ function App() {
   }
 
   // EDIT
-  const onEdit = (targetId, date, title,context, emotion,image, bookmark) => {
+  const onEdit = (targetId, date, title,content, emotion,image, bookmark) => {
     dispatch({
       type:'EDIT',
       data:{
         id : targetId,
         date : new Date(date).getTime(),
         title,
-        context,
+        content,
         emotion,
         image,
         bookmark
@@ -116,16 +118,6 @@ function App() {
     })
   }
 
-  // BOOKMARK
-  const onBookmark = (targetId, bookmark) => {
-    dispatch({
-      type:'BOOKMARK',
-      data:{
-        id: targetId,
-        bookmark
-      }
-    })
-  }
  
   return (
     <div className='App'>
@@ -135,12 +127,12 @@ function App() {
               onCreate,
               onEdit,
               onRemove,
-              onBookmark
             }}
           >
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<ClosedIntroPage />} />
+          <Route path="/test" element={<IntroScrollPage />} />
           <Route path="/calender" element={<MainCalender />} />
           <Route path="/diarylist" element={<MainMonth />} />
           <Route path="/intro/open/one" element={<OpenIntroPage />} />

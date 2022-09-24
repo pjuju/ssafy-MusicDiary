@@ -17,3 +17,11 @@
 .detail-diary .main-note {
     position: absolute;
 }
+
+.detail-diary .bookmark {
+  width: 3vw;
+  height: 10vh;
+  background-color: white;
+  margin-left: 50vw;
+  border: 1px solid black;
+}

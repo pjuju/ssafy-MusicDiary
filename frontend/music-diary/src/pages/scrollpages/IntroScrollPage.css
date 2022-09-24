@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+.scroll-test-wrapper {
+  /* background: #42455a; */
+  font-family: "alsongdalsong";
+}
+
+.scroll-test-wrapper section{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scroll-test-wrapper section:nth-child(1){
+  /* color: #051e1e; */
+  }
+.scroll-test-wrapper section:nth-child(2){
+  color: #42455a;
+  /* 어 근데 뭔가 느낌있는 듯?*/
+  /* background: #033030;  */
+} 
+.scroll-test-wrapper section:nth-child(3){
+  color: #7c095a;
+}
+.scroll-test-wrapper section:nth-child(4){
+  color: #42455a;
+  /* background: #16024e; */
+}
+.scroll-test-wrapper section .container{
+  margin: 100px;
+}
+.scroll-test-wrapper section h1{
+  font-size: 3rem;
+  margin: 20px;
+}
+.scroll-test-wrapper section h2{
+  font-size: 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.scroll-test-wrapper section .text-container{
+   display: flex;
+}
+.scroll-test-wrapper section .text-container .text-box{
+  margin: 20px;
+  padding: 20px;
+  /* background: #00c2cb; */
+}
+.scroll-test-wrapper section .text-container .text-box h3{
+  font-size: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 900px){
+  .scroll-test-wrapper section h1{
+    font-size: 2rem;
+    text-align: center;
+  }
+  .scroll-test-wrapper section .text-container{
+    flex-direction: column;
+  }
+}
+
+.reveal{
+  position: relative;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: 1.5s all ease;
+}
+
+.reveal.active{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/*  */
+.scroll-test-wrapper .logo-title-Alsong {
+  font-size: 150px;
+  color: #AC5050;
+
+  margin-left: 200px;
+  margin-top: -300px;
+}
+
+.scroll-test-wrapper .logo-title-Dalsong {
+  font-size: 150px;
+  color: #AC5050;
+
+  /* margin-left: 50px; */
+  margin-top: -150px;
+}
+
+.test-closed-book-wrapper {
+  z-index:3;
+}
+
+.z-index-1 {
+  z-index: 1;
+
+}
+
+.z-index-2 {
+  z-index: 2;
+}
+
+/* 두 번째 설명 section 부분 */
+#intro-second-section{
+  color: rgb(212, 199, 199);
+  /* background-color: #033030; */
+}
+
+/* 
+#intro-second-section .container {
+  background-color: aliceblue;
+} 
+*/
+/* 두 번째 설명란 : 왼쪽 텍스트 설명 div 부분 */
+#intro-second-section .left-box {
+  background-color: aliceblue;
+}
