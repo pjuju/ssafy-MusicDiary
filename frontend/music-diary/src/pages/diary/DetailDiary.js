@@ -2,18 +2,18 @@ import MainNote from '../mainpages/MainNote'
 
 import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DiaryStateContext } from "../../App";
+import { DiaryStatecontent } from "../../App";
 import { getStringDate } from "../../util/date";
-import { DiaryDispatchContext } from "../../App.js";
+import { DiaryDispatchcontent } from "../../App.js";
 
 import './DetailDiary.css'
 
 const DetailDiary =() => {
     const { id } = useParams();
-    const diaryList = useContext(DiaryStateContext);
+    const diaryList = useContext(DiaryStatecontent);
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
-    const [context, setContext] = useState('');
+    const [content, setcontent] = useState('');
     const [emotion, setEmotion] = useState('');
     const [date, setDate] = useState('');
     const [bookmark, setBookmark] = useState(false)
@@ -33,7 +33,7 @@ const DetailDiary =() => {
                 if (targetDiary) {
                     // 일기가 존재할 때
                     setTitle(targetDiary.title);
-                    setContext(targetDiary.context)
+                    setcontent(targetDiary.content)
                     setEmotion(targetDiary.emotion)
                     setDate(targetDiary.date)
                     setBookmark(targetDiary.bookmark)
@@ -46,7 +46,7 @@ const DetailDiary =() => {
         }, [id, diaryList]);
 
     const strDate = new Date(parseInt(date)).toLocaleDateString();
-    const { onRemove, onBookmark, onEdit } = useContext(DiaryDispatchContext);
+    const { onRemove, onBookmark, onEdit } = useContext(DiaryDispatchcontent);
     const handleRemove = () => {
         const targetDiary = diaryList.find(
             (it) => parseInt(it.id) === parseInt(id)
@@ -69,7 +69,7 @@ const DetailDiary =() => {
     const handleBookmark =() =>{
         // setBookmark(!bookmark)
         // onEdit을 사용해서 이 일기의 전체 정보를 다시 날려줍니다
-        onEdit(targetDiary.id, date, title, context, emotion,image,bookmark)
+        onEdit(targetDiary.id, date, title, content, emotion,image,bookmark)
 
         // 여기서부터 true면 분홍색으로, false면 색이 없는 것으로
         // if (targetDiary.bookmark === false) {
@@ -88,7 +88,7 @@ const DetailDiary =() => {
     useEffect(() => { 
         setBookmark(!bookmark)
         // targetDiary.bookmark = bookmark
-        // onEdit(targetDiary.id, date, title, context, emotion,image,bookmark)
+        // onEdit(targetDiary.id, date, title, content, emotion,image,bookmark)
         if (targetDiary.bookmark === true) {
             bookmarkRef.current.style.backgroundColor = 'pink'
             bookmarkRef.current.style.border = 'none'
@@ -105,7 +105,7 @@ const DetailDiary =() => {
             <p>날짜 : {strDate}</p>
             <p>감정 : <img src={emotion}></img></p>
             <p>제목 : {title}</p>
-            <p>내용 : {context}</p>
+            <p>내용 : {content}</p>
             <div className='bookmark'
                 ref= {bookmarkRef}
                 onClick={()=>{handleBookmark()}}

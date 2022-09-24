@@ -59,8 +59,8 @@ const reducer = (state, action) => {
   return newState;
 };
 
-export const DiaryStateContext = React.createContext();
-export const DiaryDispatchContext = React.createContext();
+export const DiaryStatecontent = React.createContext();
+export const DiaryDispatchcontent = React.createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, []);
@@ -81,14 +81,14 @@ function App() {
 
   const dataId = useRef(0);
   // CREATE
-  const onCreate = (date, title,context, emotion,image, bookmark) => {
+  const onCreate = (date, title,content, emotion,image, bookmark) => {
     dispatch({
       type:'CREATE',
       data:{
         id:dataId.current,
         date : new Date(date).getTime(),
         title,
-        context,
+        content,
         emotion,
         image,
         bookmark
@@ -103,14 +103,14 @@ function App() {
   }
 
   // EDIT
-  const onEdit = (targetId, date, title,context, emotion,image, bookmark) => {
+  const onEdit = (targetId, date, title,content, emotion,image, bookmark) => {
     dispatch({
       type:'EDIT',
       data:{
         id : targetId,
         date : new Date(date).getTime(),
         title,
-        context,
+        content,
         emotion,
         image,
         bookmark
@@ -121,8 +121,8 @@ function App() {
  
   return (
     <div className='App'>
-            <DiaryStateContext.Provider value={data}>
-        <DiaryDispatchContext.Provider
+            <DiaryStatecontent.Provider value={data}>
+        <DiaryDispatchcontent.Provider
             value={{
               onCreate,
               onEdit,
@@ -157,8 +157,8 @@ function App() {
           <Route path="/sticker/charge" element={<ChargePoint /> } />         
         </Routes>
       </BrowserRouter>
-      </DiaryDispatchContext.Provider>
-    </DiaryStateContext.Provider>
+      </DiaryDispatchcontent.Provider>
+    </DiaryStatecontent.Provider>
     </div>
   );
 }
