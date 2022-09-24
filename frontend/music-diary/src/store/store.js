@@ -58,4 +58,5 @@ export default configureStore ({
 })
 
 // 선언한 state 변경함수 export
-export let { setNormalChoiceValue, setSadChoiceValue, setAngryChoiceValue, setDepressedChoiceValue}  = user.actions
+export let { setNormalChoiceValue, setSadChoiceValue, setAngryChoiceValue, setDepressedChoiceValue, setUserEmail, 
+                setUserPassword, setUserPassword2, setUserName}  = user.actions

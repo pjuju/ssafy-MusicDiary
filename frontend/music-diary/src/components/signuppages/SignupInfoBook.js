@@ -9,6 +9,10 @@ import { signUpApi } from "../../api/userApi";
 
 import axios from 'axios'
 
+import { useSelector } from "react-redux";
+import { setUserEmail, setUserPassword, setUserPassword2, setUserName} from '../../store/store'
+import { useDispatch } from "react-redux";
+
 const SignupInfoBookcontainer = styled.div`
   width: 60%;
   margin: 20px auto;
@@ -23,6 +27,8 @@ function SignupInfoBook() {
   const [password2, setPassword2] = useState()
 
   const navigate = useNavigate()
+
+  const dispatch = useDispatch();
 
   const onEmailHandler = (e) => {
     setEmail(e.target.value)
@@ -40,9 +46,13 @@ function SignupInfoBook() {
     setPassword2(e.target.value)
   }
 
+  // 다음 설문조사로 이동
   const moveQuestionOne = () => {
 
-
+    dispatch(setUserEmail(email))
+    dispatch(setUserName(username))
+    dispatch(setUserPassword(password))
+    dispatch(setUserPassword2(password2))
     
     navigate('/signup/question/one')
   }
@@ -59,7 +69,6 @@ function SignupInfoBook() {
       normal:1,
       point:1,
       image_url:"null"
-
     }
 
     axios

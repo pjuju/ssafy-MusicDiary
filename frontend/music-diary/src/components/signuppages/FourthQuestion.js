@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "../../css/signuppages/SignupPageBook.css";
 import "../../css/signuppages/QuestionBox.css";
 import Button from "../Common/Button";
-
 import styled from "styled-components";
 
+import axios from 'axios'
 // redux
 import { useSelector } from "react-redux";
 import { setDepressedChoiceValue } from "../../store/store";
@@ -45,6 +45,22 @@ function FourthQuestion() {
   const storeDepressed = useSelector((state) => {
     return state.user.depressedChoice;
   });
+
+  const storeEmail = useSelector((state)=>{
+    return state.user.email
+  })
+
+  const storePassword = useSelector((state=>{
+    return state.user.password
+  }))
+
+  const storePassword2 = useSelector((state=>{
+    return state.user.password2
+  }))
+
+  const storeUserName = useSelector((state=>{
+    return state.user.username
+  }))
 
   // store의 state바꾸기
   const dispatch = useDispatch();
@@ -94,7 +110,37 @@ function FourthQuestion() {
   };
 
   // 회원가입 완료
-  const onRegsiterBtn = () => {};
+  const onSignUpBtn = () => {
+    const userInfo = {
+      email : storeEmail,
+      password : storePassword, 
+      password2: storePassword2,
+      username : storeUserName,
+      normal: storeNormal,
+      sad: storeSad,
+      angry: storeAngry,
+      depressed: storeDepressed,
+      point: 0,
+      image_url:"NULL"
+    }
+
+    console.log("회원가입 직전:", JSON.stringify(userInfo))
+
+    axios
+    .post("http://j7d204.p.ssafy.io:8080/rest/accounts/signup/", userInfo)
+    .then((res)=>{
+      console.log(JSON.stringify(res.data))
+
+      alert("회원가입 성공! 로그인페이지로 이동합니다")
+
+      navigate('/')
+    })
+    .catch((err)=>{
+      console.log(err.data)
+    })
+
+
+  };
 
   return (
     <>
@@ -146,7 +192,7 @@ function FourthQuestion() {
                       size="lg"
                       onClick={onMoveBack}
                     />
-                    <Button name="가입완료!" color="#AC5050" size="lg" />
+                    <Button name="가입완료!" color="#AC5050" size="lg" onClick={onSignUpBtn}/>
                   </div>
                 </div>
               </div>
