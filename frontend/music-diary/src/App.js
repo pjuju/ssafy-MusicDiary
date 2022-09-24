@@ -50,6 +50,7 @@ const reducer = (state, action) => {
       );
       break;
     }
+
     default:
       return state;
   }
@@ -117,16 +118,6 @@ function App() {
     })
   }
 
-  // BOOKMARK
-  const onBookmark = (targetId, bookmark) => {
-    dispatch({
-      type:'BOOKMARK',
-      data:{
-        id: targetId,
-        bookmark
-      }
-    })
-  }
  
   return (
     <div className='App'>
@@ -136,7 +127,6 @@ function App() {
               onCreate,
               onEdit,
               onRemove,
-              onBookmark
             }}
           >
     <BrowserRouter>

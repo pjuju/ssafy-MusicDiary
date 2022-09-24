@@ -24,7 +24,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
-BASE_URL = 'http://localhost:8000/'
+BASE_URL = 'http://j7d204.p.ssafy.io:8080/rest/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'accounts/google/callback/'
 KAKAO_CALLBACK_URI = BASE_URL + 'accounts/kakao/callback/'
 GITHUB_CALLBACK_URI = BASE_URL + 'accounts/github/callback/'
