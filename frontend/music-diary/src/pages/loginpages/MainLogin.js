@@ -1,11 +1,13 @@
 import React from 'react'
-import LoginInfoBook from '../../components/loginpages/LoginInfoBook'
+
+import MainLoginBook from './MainLoginBook'
+
 
 function MainLogin() {
   return (
     <>
-        <LoginInfoBook />
-    
+        {/* <LoginInfoBook /> */}
+        <MainLoginBook />
     </>
   )
 }
