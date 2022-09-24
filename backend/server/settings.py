@@ -74,7 +74,7 @@ INSTALLED_APPS = [
     # django-seed
     'django_seed',
     # S3
-    'storages',
+    # 'storages',
 ]
 
 REST_FRAMEWORK = {
