@@ -7,6 +7,7 @@ class Diary(models.Model):
     title = models.CharField(null=False, max_length=176)
     content = models.TextField()
     emotion = models.CharField(max_length=50)
+    created_date = models.CharField(null=False, max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     bookmarked = models.BooleanField(null=False, default=False)

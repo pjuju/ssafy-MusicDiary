@@ -6,7 +6,6 @@ class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
         fields = '__all__'
-        # exclude = ['user']
         read_only_field = {'diary',},
     
     def to_representation(self, instance):
@@ -50,4 +49,3 @@ class DiarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Diary
         fields = '__all__'
-        # exclude = ['user']
