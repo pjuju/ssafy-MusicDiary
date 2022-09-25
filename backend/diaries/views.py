@@ -63,6 +63,7 @@ class DiaryList(GenericAPIView):
 
     def get(self, request, format=None):
         diaries = get_list_or_404(Diary, user=request.user.pk)
+        # 복호화
         for diary in diaries:
             diary.title = ciper.decrypt_str(diary.title)
             diary.content = ciper.decrypt_str(diary.content)
@@ -76,16 +77,13 @@ class DiaryList(GenericAPIView):
         newPost = dict()
         newPost['title'] = ciper.encrypt_str(data['title'])
         newPost['content'] = ciper.encrypt_str(data['content'])
+        newPost['created_date'] = data['created_date']
 
         # 유저 정보
         if 'user' in data:
             newPost['user'] = data['user']
         else:
             newPost['user'] = request.user.pk
-
-        # 작성일 정보
-        if 'created_at' in data:
-            newPost['created_at'] = data['created_at']
 
         # 감정 정보
         if 'emotion' in data:
@@ -191,7 +189,7 @@ class DiaryDetail(GenericAPIView):
         newPost['title'] = ciper.encrypt_str(data['title'])
         newPost['content'] = ciper.encrypt_str(data['content'])
         newPost['emotion'] = ciper.encrypt_str(data['emotion'])
-        newPost['created_at'] = data.get('created_at', diary.created_at)
+        newPost['created_date'] = data.get('created_date', diary.created_date)
         
         diarySerializer = DiarySerializer(diary, data=newPost)
         if diarySerializer.is_valid(raise_exception=True):
@@ -253,7 +251,7 @@ class DiaryDetail(GenericAPIView):
             newPost['content'] = ciper.encrypt_str(data.get('content'))
         if 'emotion' in data:
             newPost['emotion'] = ciper.encrypt_str(data.get('emotion'))
-        newPost['created_at'] = data.get('created_at', diary.created_at)
+        newPost['created_date'] = data.get('created_date', diary.created_date)
 
         diarySerializer = DiarySerializer(diary, data=newPost, partial=True)
         if diarySerializer.is_valid(raise_exception=True):
@@ -397,15 +395,16 @@ class BookmarkDetail(GenericAPIView):
 
 # Get: 월별 일기 감정 조회
 @api_view(['GET'])
-def monthEmotion(request, month):
+def monthEmotion(request, year, month):
     # int형 month를 두자리 string형으로 변환
     str_month = str(month)
     if len(str_month) == 1:
         str_month = '0'+str_month
 
-    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_at__month=str_month)
+    search = f'{year}-{str_month}-'
+    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_date__contains=search)
+    
     ret = []
-
     for emotion in emotions:
         ret.append(ciper.decrypt_str(emotion))
 
@@ -415,13 +414,14 @@ def monthEmotion(request, month):
 
 # Get: 월별 일기 모아보기
 @api_view(['GET'])
-def monthDiary(request, month):
+def monthDiary(request, year, month):
     # int형 month를 두자리 string형으로 변환
     str_month = str(month)
     if len(str_month) == 1:
         str_month = '0'+str_month
 
-    diaries = Diary.objects.filter(created_at__month=str_month)
+    search = f'{year}-{str_month}-'
+    diaries = Diary.objects.filter(created_date__contains=search)
 
     for diary in diaries:
         diary.title = ciper.decrypt_str(diary.title)
