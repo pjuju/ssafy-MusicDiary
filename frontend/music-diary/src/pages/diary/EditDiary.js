@@ -3,40 +3,69 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DiaryStateContext } from "../../App";
 import DiaryEditor from "../../components/editor/DiaryEditor";
+import { writeDiaryListApi, modifyDiary,getMonthDiary } from '../../api/diaryApi';
 import './EditDiary.css'
 
 const EditDiary =() =>{
+    // api 연결
+    const [noticeMonthData, setNoticeMonthData] = useState([])
+    const getMonth = new Date().getMonth() + 1
+
+    useEffect(()=> {
+      getMonthDiary(getMonth)
+      .then((res)=> {
+        setNoticeMonthData(res.data)
+        console.log('과!연',res.data)
+        // console.log('이달의 전체 일기 일단 모으기',noticeMonthData)
+      })
+      .catch((e)=> {
+        console.log('err',e)
+      });
+    },[])
+
+
     const [originData, setOriginData] = useState();
     const navigate = useNavigate();
     const { id } = useParams();
   
     const diaryList = useContext(DiaryStateContext);
-
+    const targetDiary = noticeMonthData.find(
+        (it) => parseInt(it.id) === parseInt(id)
+    );
     useEffect(() => {
         const titleElement = document.getElementsByTagName("title")[0];
         titleElement.innerHTML = `감정 일기장 - ${id}번 일기 수정`;
       }, []);
 
     useEffect(() => {
-        if (diaryList.length >= 1) {
-        const targetDiary = diaryList.find(
-            (it) => parseInt(it.id) === parseInt(id)
-        );
-
-        if (targetDiary) {
-            setOriginData(targetDiary);
-        } else {
-            alert("없는 일기입니다.");
-            navigate("/", { replace: true });
+        if (noticeMonthData.length >= 1) {
+            if (targetDiary) {
+                console.log(targetDiary)
+            } else {
+                alert("없는 일기입니다.");
+                navigate("/", { replace: true });
         }
-        }
-    }, [id, diaryList]); 
+    }
+}, [id, targetDiary]); 
+// console.log(targetDiary.title)
 
-    console.log(originData)
+// const diaryInfo = {
+//     title : targetDiary.title,
+//     content : targetDiary.content,
+//     emotion : targetDiary.emotion
+// }
+// modifyDiary(id)
+// .then((res)=>{
+//     console.log(JSON.stringify(res.data))
+//     console.log(res.data)
+// })
+// .catch((err)=>{
+//     console.log(JSON.stringify(err.data))
+// })
 
     return(<div className="edit-diary">
         <div className='edit'>
-            {originData && <DiaryEditor isEdit={true} originData={originData} />}
+            {targetDiary && <DiaryEditor isEdit={true} originData={targetDiary} />}
         </div>
         <MainNote className="main-note"></MainNote>
     </div>)
