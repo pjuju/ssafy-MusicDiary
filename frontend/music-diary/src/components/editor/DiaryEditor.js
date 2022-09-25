@@ -53,7 +53,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
     const navigate = useNavigate();
     // const image_url= process.env.PUBLIC_URL + ''
 
-    const [date,setDate] = useState(getStringdate(new Date()))
+    const [created_date,setCreated_date] = useState(getStringdate(new Date()))
     const [content, setcontent] = useState('')
     const [title, setTitle] = useState('')
     const [emotion, setEmotion] = useState('')
@@ -87,6 +87,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
             emotionRef.current.focus();
             return
         }
+        // console.log(date)
 
         // if (
         //     window.confirm(
@@ -94,11 +95,12 @@ const DiaryEditor = ({ isEdit, originData }) => {
         //     ) 
         //   ) {
               if (!isEdit) {
-                  onCreate(date, title, content, emotion, image,bookmark);
+                  onCreate(created_date, title, content, emotion, image,bookmark);
                   const diaryInfo = {
                     title,
                     content,
-                    emotion
+                    emotion,
+                    created_date
                 }
         
                 writeDiaryListApi(diaryInfo)
@@ -113,11 +115,11 @@ const DiaryEditor = ({ isEdit, originData }) => {
                 
             if (isEdit) {
                     onEdit(originData.id, date, title, content, emotion,image,bookmark);
-                    console.log('되는건가')
                     const diaryInfo = {
                         title,
                         content,
-                        emotion
+                        emotion,
+                        created_date
                     }
                     modifyDiaryItem(originData.id,diaryInfo)
                     .then((res)=>{
@@ -159,22 +161,22 @@ const DiaryEditor = ({ isEdit, originData }) => {
     // 원래 일기 정보 보여주는 로직
     useEffect(() => {
         if (isEdit) {
-          setDate(getStringdate(new Date(originData.created_at)));
+          setCreated_date(getStringdate(new Date(originData.created_date)));
           setEmotion(originData.emotion);
           setTitle(originData.title);
           setcontent(originData.content);
-          setBookmark(originData.bookmark);
+        //   setBookmark(originData.bookmark);
         }
       }, [isEdit, originData]);
 
 
     return (
     <div className="diary-editor">
-        <div ref={emotionRef} onClick={emotionClick} className='select-emotion'>
-        {emotionList.map((it)=> <div>
+        <div ref={emotionRef} className='select-emotion'>
+        {emotionList.map((it)=> <div onClick={emotionClick}>
             <img src={it.emotion_img} className="emoji-img" onClick={()=>handleClickEmote(it.emotion_descript)} key={it.emotion_descript}/></div>)}
-        <input value={date}
-            onChange={(e) => setDate(e.target.value)}
+        <input value={created_date}
+            onChange={(e) => setCreated_date(e.target.value)}
             type="date"
             className='input-date'></input>
         </div>
