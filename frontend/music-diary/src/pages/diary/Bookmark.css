@@ -22,7 +22,7 @@
 
 .bookmark-item::-webkit-scrollbar{
     display:none;
-  }
+  } 
 
 .real-bookmark {
     width: 3vw;
@@ -38,7 +38,7 @@
 }
 
 .bookmark .bookmark-title {
-    margin-left: 1vw;
+    margin-left: 5vw;
     margin-top: 1vh;
     /* background-color: red; */
 }

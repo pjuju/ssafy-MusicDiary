@@ -5,13 +5,60 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DiaryStateContext } from "../../App";
 import { getStringDate } from "../../util/date";
 import { DiaryDispatchContext } from "../../App.js";
+import {getBookmarkList,getMonthDiary, deleteDiary,makeBookmark} from '../../api/diaryApi';
 
 import './DetailDiary.css'
 
 const DetailDiary =() => {
     const { id } = useParams();
+
+    // 이모티콘 옳게 부착하기
+    const rightEmotion =(emotion) => {
+      if(emotion === '행복') {
+        return '/assets/img/happy_emoji.png'
+      }
+      if(emotion === '슬픔') {
+        return '/assets/img/sad_emoji.png'
+      }
+      if(emotion === '평온') {
+        return '/assets/img/normal_emoji.png'
+      }
+      if(emotion === '우울') {
+        return '/assets/img/depressed_emoji.png'
+      }
+      if(emotion === '화남') {
+        return '/assets/img/angry_emoji.png'
+      }
+      if(emotion === '놀람') {
+        return '/assets/img/anxious_emoji.png'
+      }
+    }
+
+    // 이달의 전체 일기 정보
+    const [noticeMonthData, setNoticeMonthData] = useState([])
+    const getMonth = new Date().getMonth() + 1
+
+    useEffect(()=> {
+      getMonthDiary(getMonth)
+      .then((res)=> {
+        setNoticeMonthData(res.data)
+        console.log('과!연',res.data)
+        console.log('이달의 전체 일기 일단 모으기',noticeMonthData)
+      })
+      .catch((e)=> {
+        console.log('err',e)
+      });
+    },[])
+
+    const [noticeTitle, setNoticeTitle] = useState('')
+    const [noticeContent, setNoticeContent] = useState('')
+    const [noticeEmotion, setNoticeEmotion] = useState('')
+    const [noticeDate, setNoticeDate] = useState('')
+    const [noticeBookmark, setNoticeBookmark] = useState(false)
+    const [noticeImage, setNoticeImage] = useState('')
+
+// 더미 데이터
     const diaryList = useContext(DiaryStateContext);
-    const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [content, setcontent] = useState('');
     const [emotion, setEmotion] = useState('');
@@ -19,49 +66,64 @@ const DetailDiary =() => {
     const [bookmark, setBookmark] = useState(false)
     const [image,setImage] = useState('')
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const titleElement = document.getElementsByTagName("title")[0];
         titleElement.innerHTML = `감정 일기장 - ${id}번 일기`;
     }, []);
     
     useEffect(() => {
-        if (diaryList.length >= 1) {
-            const targetDiary = diaryList.find(
+        if (noticeMonthData.length >= 1) {
+            const targetDiary = noticeMonthData.find(
                 (it) => parseInt(it.id) === parseInt(id)
                 );
                 
                 if (targetDiary) {
                     // 일기가 존재할 때
-                    setTitle(targetDiary.title);
-                    setcontent(targetDiary.content)
-                    setEmotion(targetDiary.emotion)
-                    setDate(targetDiary.date)
-                    setBookmark(targetDiary.bookmark)
+                    setNoticeTitle(targetDiary.title);
+                    setNoticeContent(targetDiary.content)
+                    setNoticeEmotion(targetDiary.emotion)
+                    setNoticeDate(targetDiary.created_at)
+                    setNoticeBookmark(targetDiary.bookmark)
+                    console.log(targetDiary)
                 } else {
                     // 일기가 없을 때
                     alert("없는 일기입니다.");
                     navigate("/calender", { replace: true });
+                    
                 }
             }
-        }, [id, diaryList]);
+        }, [id, noticeMonthData]);
 
-    const strDate = new Date(parseInt(date)).toLocaleDateString();
-    const { onRemove, onBookmark, onEdit } = useContext(DiaryDispatchContext);
+        
+
+    const strDate = new Date(noticeDate).toLocaleDateString();
+    const { onRemove, onEdit } = useContext(DiaryDispatchContext);
     const handleRemove = () => {
-        const targetDiary = diaryList.find(
-            (it) => parseInt(it.id) === parseInt(id)
-            );
+
         if (window.confirm("정말 삭제하시겠습니까?")) {
-          onRemove(targetDiary.id);
+
+
+        //   useEffect(()=> {
+            deleteDiary(id)
+            .then((res)=> {
+              console.log(res.data)
+            })
+            .catch((e)=> {
+              console.log('err',e)
+            });
+        //   },[])
+
           navigate("/diarylist", { replace: true });
         }
       };
 
     // 북마크 True or False
     // 지금 내가 열고 있는 페이지의 일기 정보
-    const targetDiary = diaryList.find(
-          (it) => parseInt(it.id) === parseInt(id)
-          );
+    // const targetDiary = noticeDatas.find(
+    //       (it) => parseInt(it.id) === parseInt(id)
+    //       );
           
     const bookmarkRef= useRef()
 
@@ -69,26 +131,21 @@ const DetailDiary =() => {
     const handleBookmark =() =>{
         // setBookmark(!bookmark)
         // onEdit을 사용해서 이 일기의 전체 정보를 다시 날려줍니다
-        onEdit(targetDiary.id, date, title, content, emotion,image,bookmark)
-
-        // 여기서부터 true면 분홍색으로, false면 색이 없는 것으로
-        // if (targetDiary.bookmark === false) {
-        //     bookmarkRef.current.style.backgroundColor = 'pink'
-        //     bookmarkRef.current.style.border = 'none'
-        // }
-        // if (targetDiary.bookmark === true) {
-        //     bookmarkRef.current.style.backgroundColor = 'white'
-        //     bookmarkRef.current.style.border = 'black 1px solid'
-        // }
-        
-        console.log('북마크 상태',targetDiary.bookmark)
+        // onEdit(noticeData.id, date, title, content, emotion,image,bookmark)
+        makeBookmark(id)
+        .then((res)=> {
+          console.log(res.data)
+        })
+        .catch((e)=> {
+          console.log('err',e)
+        });
     }
+
     
     // 이 일기가 생성될때마다 북마크의 값을 토글처럼 바꾼다!
     useEffect(() => { 
-        setBookmark(!bookmark)
-        // targetDiary.bookmark = bookmark
-        // onEdit(targetDiary.id, date, title, content, emotion,image,bookmark)
+        // setBookmark(!bookmark)
+
         if (targetDiary.bookmark === true) {
             bookmarkRef.current.style.backgroundColor = 'pink'
             bookmarkRef.current.style.border = 'none'
@@ -99,20 +156,21 @@ const DetailDiary =() => {
         }
     }, [targetDiary]);
 
+
     return (<div className='detail-diary'>
-        <div className='detail-diary-item'>
-            <button onClick={()=>{navigate(`/diarylist`)}}>돌아가기</button>
-            <p>날짜 : {strDate}</p>
-            <p>감정 : <img src={emotion}></img></p>
-            <p>제목 : {title}</p>
-            <p>내용 : {content}</p>
             <div className='bookmark'
                 ref= {bookmarkRef}
                 onClick={()=>{handleBookmark()}}
             ></div>
-            <button onClick={()=>{navigate(`/edit/${id}`)}}>수정하기</button>
-            <button onClick={handleRemove}>삭제하기</button>
+        <div className='detail-diary-item'>
+            <h2 className='title'>{noticeTitle}</h2>
+            <p className='date'>작성일자 : {strDate}</p>
+            <p className='emotion'>감정 : <img src={rightEmotion(noticeEmotion)}></img></p>
+            <p className='content'>{noticeContent}</p>
         </div>
+        <button onClick={()=>{navigate(`/edit/${id}`)}} className="edit-button">수정하기</button>
+        <button onClick={handleRemove} className="delete-button">삭제하기</button>
+        {/* <button onClick={()=>{navigate(`/diarylist`)}} className="goback-button">돌아가기</button> */}
         <MainNote className='main-note'></MainNote>
     </div>)
 }
