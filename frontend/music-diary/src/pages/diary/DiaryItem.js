@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import {useNavigate} from 'react-router-dom'
 
 const DiaryItem =({...it}) => {
-    const strDate = new Date(it.created_at).toLocaleDateString();
+    const strDate = new Date(it.created_date).toLocaleDateString();
     const navigate = useNavigate();
 
     const rightEmotion =(emotion) => {
