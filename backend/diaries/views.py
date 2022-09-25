@@ -173,13 +173,13 @@ def stub(mood, user):
     print(liked_musics)
     for l_m in liked_musics:
         liked_ids.append(l_m['id'])
-    print(len(liked_ids))
+    # print(len(liked_ids))
 
     # 2. 전체 음악에서 감정으로 거른 음악들 (좋아한 음악들 제외)
     all_musics = Music.objects.filter(mood=mood).exclude(id__in=liked_ids).values()   
     all_musics_df = pd.DataFrame(list(all_musics))  
-    print(all_musics)
-    print(len(all_musics))
+    # print(all_musics)
+    # print(len(all_musics))
 
     # 음악 분류기
     
