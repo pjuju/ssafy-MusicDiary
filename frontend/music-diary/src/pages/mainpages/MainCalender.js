@@ -20,10 +20,9 @@ const MainCalender =() => {
     const lastWeek = today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
   
     // api 연결하기
-
     const [noticeData, setNoticeData] = useState([])
     useEffect(()=> {
-      getMonthDiary(new Date().getMonth() + 1)
+      getMonthDiary(new Date().getMonth() + 1, new Date().getFullYear())
       .then((res)=> {
         setNoticeData(res.data)
         console.log(res.data)
@@ -74,8 +73,7 @@ const MainCalender =() => {
                         <td key={index} >
                               {/* TODAY */}
                               {noticeData.map(it=> {
-
-                                if (new Date(it.created_at).toLocaleDateString() == days.format('YYYY. M. D.'))
+                                if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY-MM-DD'))
                                   // todayemotion = it.date
                                 return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
                                 <img src={rightEmotion(it.emotion)} className="calender-emoji"></img>
@@ -93,9 +91,9 @@ const MainCalender =() => {
                         <td key={index} style={{backgroundColor:'#CAD8B5'}} >
                           {noticeData.map(it=> {
     
-                              if (new Date(it.created_at).toLocaleDateString() == days.format('YYYY. M. D.'))
+                              if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY. M. D.'))
                               return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={rightEmotion} className="calender-emoji"></img>
+                                <img src={rightEmotion(it.emotion)} className="calender-emoji"></img>
                                 </div>
                             }
                             )}
@@ -107,9 +105,9 @@ const MainCalender =() => {
                     return(
                         <td key={index}>
                             {noticeData.map(it=> {
-                              if (new Date(it.created_at).toLocaleDateString() == days.format('YYYY. M. D.'))
+                              if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY. M. D.'))
                               return <div style={{color:"red"}} onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={rightEmotion} className="calender-emoji"></img>
+                                <img src={rightEmotion(it.emotion)} className="calender-emoji"></img>
                               </div>
                             }
                             )}

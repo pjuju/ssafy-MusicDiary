@@ -39,7 +39,7 @@ const DetailDiary =() => {
     const getMonth = new Date().getMonth() + 1
 
     useEffect(()=> {
-      getMonthDiary(getMonth)
+      getMonthDiary(new Date().getMonth() + 1, new Date().getFullYear())
       .then((res)=> {
         setNoticeMonthData(res.data)
         console.log('과!연',res.data)
@@ -84,9 +84,9 @@ const DetailDiary =() => {
                     setNoticeTitle(targetDiary.title);
                     setNoticeContent(targetDiary.content)
                     setNoticeEmotion(targetDiary.emotion)
-                    setNoticeDate(targetDiary.created_at)
-                    setNoticeBookmark(targetDiary.bookmark)
-                    console.log(targetDiary)
+                    setNoticeDate(targetDiary.created_date)
+                    // setNoticeBookmark(targetDiary.bookmark)
+                    console.log(targetDiary.title)
                 } else {
                     // 일기가 없을 때
                     alert("없는 일기입니다.");
@@ -103,8 +103,6 @@ const DetailDiary =() => {
     const handleRemove = () => {
 
         if (window.confirm("정말 삭제하시겠습니까?")) {
-
-
         //   useEffect(()=> {
             deleteDiary(id)
             .then((res)=> {
@@ -114,7 +112,6 @@ const DetailDiary =() => {
               console.log('err',e)
             });
         //   },[])
-
           navigate("/diarylist", { replace: true });
         }
       };
@@ -140,21 +137,22 @@ const DetailDiary =() => {
           console.log('err',e)
         });
     }
-
-    
+    const targetDiary = noticeMonthData.find(
+      (it) => parseInt(it.id) === parseInt(id)
+      );
     // 이 일기가 생성될때마다 북마크의 값을 토글처럼 바꾼다!
-    useEffect(() => { 
-        // setBookmark(!bookmark)
+    // useEffect(() => { 
+    //     // setBookmark(!bookmark)
 
-        if (targetDiary.bookmark === true) {
-            bookmarkRef.current.style.backgroundColor = 'pink'
-            bookmarkRef.current.style.border = 'none'
-        }
-        if (targetDiary.bookmark === false) {
-            bookmarkRef.current.style.backgroundColor = 'white'
-            bookmarkRef.current.style.border = 'black 1px solid'
-        }
-    }, [targetDiary]);
+    //     if (targetDiary.bookmark === true) {
+    //         bookmarkRef.current.style.backgroundColor = 'pink'
+    //         bookmarkRef.current.style.border = 'none'
+    //     }
+    //     if (targetDiary.bookmark === false) {
+    //         bookmarkRef.current.style.backgroundColor = 'white'
+    //         bookmarkRef.current.style.border = 'black 1px solid'
+    //     }
+    // }, [targetDiary]);
 
 
     return (<div className='detail-diary'>
