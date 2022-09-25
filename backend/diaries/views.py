@@ -149,15 +149,56 @@ def DiaryMusicDetail(request, diary_pk):
         return Response(playlist, status=status.HTTP_201_CREATED)
 
 
-def stub(emotion):
+
+from musics.models import Music
+import pandas
+# 노래 감정, 유저를 넣어주세용
+def stub(mood, user):    
+    # mood : 일기의 emotion -> user의 취향 ( emotion 별 노래 mood)
+    # user : requesqt.user
+
     # Todo: diary_pk 일기의 추천 음악 id를 list로 반환
-    if emotion=='happy':
-        list = [1, 2]
-    elif emotion=='sad':
-        list = [6, 8]
-    else:
-        list = [10, 11]
-    return list
+
+    # 1. 감정별로 내가 좋아한 음악들 리스트
+    liked_musics = user.favorite_musics.filter(mood=mood)
+
+    # 평균치를 내야 함.
+    liked_ids = []
+    for l_m in liked_musics:
+        liked_ids.append(l_m.id)
+    print(len(liked_ids))
+
+    # 1. 전체 음악에서 감정으로 거른 음악들 (좋아한 음악들 제외)
+    all_musics = Music.objects.filter(mood=mood).exclude(id__in=liked_ids)   
+    print(len(all_musics))
+
+    # 음악 분류기
+
+    # 3. 유사한 음악들 200개
+
+    # 4. 그 중에서 10개 추출
+
+    return liked_ids
+
+
+
+from django.contrib.auth import get_user_model
+@api_view(['GET'])
+def test(request):
+    # 유저 확보
+    User = get_user_model()
+    user = User.objects.get(pk=1)
+    print(user)
+    # 감정 -> 노래 감정 파악
+    mood = "Energetic"
+    
+    # 플레이리스트 생성
+    playlist = stub(mood, user)
+
+    # print(playlist)
+
+    data = {'emotions': 'ddd'}
+    return Response(data, status=status.HTTP_200_OK)
 
 
 # Get: 책갈피 모아보기
