@@ -5,8 +5,8 @@ export const writeDiaryListApi = async(diaryInfo, success, fail) => {
     console.log(diaryInfo)
     return await api.post('/diary/', diaryInfo)
 }
- 
-// 일기 전체 리스트 보기(GET) X
+  
+// 일기 전체 리스트 보기(GET) API 북마크에서 사용
 export const getDiaryListApi = async(diariesInfo,success, fail) => {
     return await api.get('/diary/', diariesInfo)
 }
@@ -56,12 +56,12 @@ export const getPlaylist = async(diary_id, success, fail) => {
     return await api.get(`/diary/${diary_id}/playlist`)
 }
 
-// 월별 일기 감정 조회(GET) API 완성 / HTML
+// 월별 일기 감정 조회(GET) dds
 export const getMonthEmotion = async(month, success, fail) => {
     return await api.get(`/diary/month/${month}/emotion/`)
 }
 
 // 월별 일기 모아보기(GET) API 완성 / HTML
-export const getMonthDiary = async(month, success, fail) => {
-    return await api.get(`/diary/month/${month}/`)
+export const getMonthDiary = async(month, year,success, fail) => {
+    return await api.get(`/diary/month/${year}/${month}/`)
 }
