@@ -369,10 +369,15 @@ class BookmarkDetail(GenericAPIView):
             bookmark = Bookmark.objects.get(user=request.user.pk, diary=diary_pk)
         except:
             bookmark = {'user': request.user.pk, 'diary': diary_pk}
-            serializer = BookmarkSerializer(data=bookmark)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            bookmarkSerializer = BookmarkSerializer(data=bookmark)
+
+            if bookmarkSerializer.is_valid(raise_exception=True):
+                bookmarkSerializer.save()
+
+                diary = Diary.objects.get(pk=diary_pk)
+                diary.bookmarked = True
+                diary.save()
+                return Response(bookmarkSerializer.data, status=status.HTTP_201_CREATED)
         
         if bookmark != None:
             print(bookmark)
@@ -380,9 +385,13 @@ class BookmarkDetail(GenericAPIView):
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, diary_pk, format=None):
+        diary = Diary.objects.get(pk=diary_pk)
+        diary.bookmarked = False
+        diary.save()
+
         bookmark = get_object_or_404(Bookmark, user=request.user.pk, diary=diary_pk)
         bookmark.delete()
-        data = {'delete': f'데이터 {diary_pk}번이 삭제되었습니다.'}
+        data = {'북마크에서 해제되었습니다.'}
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
