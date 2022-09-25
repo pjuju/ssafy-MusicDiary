@@ -84,12 +84,19 @@ margin-top: 3vh;
 .detail-diary .content {
 }
 
-.z-index-1 {
-  z-index: 1;
+.stage-area {
+  /* background-color: aqua; */
+
+  /* margin-top: 800px; */
+  position: absolute;
+  z-index: 1000;
 }
 
-.z-index-2 {
-  z-index: 2;
-  margin-top: 800px;
-  background-color: grey;
+.individual-sticker {
+  position: absolute;
+  z-index: 1400;
+}
+
+.sticker-choice-area {
+  margin-top: 900px;
 }

@@ -114,7 +114,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
                 } 
                 
             if (isEdit) {
-                    onEdit(originData.id, date, title, content, emotion,image,bookmark);
+                    // onEdit(originData.id, date, title, content, emotion,image,bookmark);
                     const diaryInfo = {
                         title,
                         content,
