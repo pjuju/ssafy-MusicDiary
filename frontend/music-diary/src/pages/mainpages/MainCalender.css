@@ -4,10 +4,10 @@
 
 .main-calender .calender {
   /* 이건 모든 페이지들이 공용으로 설정할 값 */
-  width: 77vw;
-  height: 90vh;
-  margin-top: 6vh;
-  margin-left: 18vw;
+  width: 64vw;
+  height: 93vh;
+  margin-top: 7vh;
+  margin-left: 24vw;
   /* background-color: green; */
 
   position: absolute;
@@ -32,7 +32,7 @@
 
 .main-calender table{
   width:50vw;
-  margin-left: 13vw;
+  margin-left: 7vw;
 }
 
 .main-calender table tbody{
@@ -61,6 +61,7 @@
   border: none;
   background-color: transparent;
   color: black;
+  cursor: pointer;
 }
 
 .main-calender .year-change{
@@ -85,7 +86,7 @@
   letter-spacing: 1px;
   border: none;
   display: flex;
-  margin-left: 60vw;
+  margin-left: 53vw;
   margin-top: 2vh;
   color: black;
 }
@@ -124,16 +125,16 @@
 .snip1241 a:before {
   right: 0;
   top: 0;
-  border-right: 3px solid #9b59b6;
-  border-top: 3px solid #9b59b6;
+  border-right: 3px solid #CAD8B5;
+  border-top: 3px solid #CAD8B5;
   -webkit-transform: translate(-100%, 50%);
   transform: translate(-100%, 50%);
 }
 .snip1241 a:after {
   left: 0;
   bottom: 0;
-  border-left: 3px solid #9b59b6;
-  border-bottom: 3px solid #9b59b6;
+  border-left: 3px solid #CAD8B5;
+  border-bottom: 3px solid #CAD8B5;
   -webkit-transform: translate(100%, -50%);
   transform: translate(100%, -50%);
 }
@@ -160,4 +161,8 @@
   width: 4vw;
   margin-left: -1vw;
   margin-top: 1vh;
+}
+
+.main-calender .diary-editor-button {
+  
 }

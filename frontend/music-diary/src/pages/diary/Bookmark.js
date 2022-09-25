@@ -27,7 +27,7 @@ const Bookmark =({...it}) => {
 
             </Card.Body>
         </Card>
-    </div>)
+    </div>) 
 }
 
 export default Bookmark
