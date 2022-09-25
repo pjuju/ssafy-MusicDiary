@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DiaryStateContext } from "../../App";
 import DiaryEditor from "../../components/editor/DiaryEditor";
-import { writeDiaryListApi, modifyDiary,getMonthDiary } from '../../api/diaryApi';
+import { writeDiaryListApi, modifyDiary, getMonthDiary } from '../../api/diaryApi';
 import './EditDiary.css'
 
 const EditDiary =() =>{
