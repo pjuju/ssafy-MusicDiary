@@ -4,12 +4,13 @@ import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
-function Auth() {
+function GoogleAuth() {
 
-    const REST_API_KEY = "f742e07d1059ec8cd0050f305986a8a4"
-    const REDIRECT_URI = "http://j7d204.p.ssafy.io/kakao/login/callback";
-    // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;   
-    // const CLIENT_SECRET = "upBn6BfX6M7ycktPVn59NpwPBqccaIhU"
+  const scope = "https://www.googleapis.com/auth/userinfo.email"
+  const GOOGLE_CLIENT_ID = "421385414738-hlk6fqfkbur8k03nuh1ftjftukoo8umd.apps.googleusercontent.com"
+  // const GOOGLE_SECRET_KEY = "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"
+  GOOGLE_CALLBACK_URI = 'http://j7d204.p.ssafy.io/google/login/callback/'
+  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&response_type=code&redirect_uri=${GOOGLE_CALLBACK_URI}&scope=${scope}`
     
     // 인가코드 요청받기를 통해 얻은 인가코드
     const code = new URL(window.location.href).searchParams.get("code");
@@ -19,13 +20,13 @@ function Auth() {
     // 토큰 요청에 있어서 Parameter
     const payload = qs.stringify({
       grant_type: "authorization_code",
-      client_id: REST_API_KEY,
-      redirect_uri: REDIRECT_URI,
+      client_id: GOOGLE_CLIENT_ID,
+      redirect_uri: GOOGLE_CALLBACK_URI,
       code: code,
       // client_secret: CLIENT_SECRET, // 필수는 아닌 Parameter
     });
       await axios.post(
-        "http://j7d204.p.ssafy.io:8080/rest/accounts/kakao/callback2/", payload
+        "http://j7d204.p.ssafy.io:8080/rest/accounts/google/callback2/", payload
       )
       .then((res) => {
         console.log(JSON.stringify(res.data));
@@ -72,4 +73,4 @@ function Auth() {
   )
 }
 
-export default Auth
+export default GoogleAuth
