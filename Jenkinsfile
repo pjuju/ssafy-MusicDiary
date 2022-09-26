@@ -7,20 +7,20 @@ pipeline {
                         steps { 
                                 
                                 // sh 'echo "REACT_APP_KAKAO_REST_API_KEY=${REACT_APP_KAKAO_REST_API_KEY}\nREACT_APP_KAKAO_REDIRECT_URI=${REACT_APP_KAKAO_REDIRECT_URI}\nREACT_APP_GOOGLE_CLIENT_ID=${REACT_APP_GOOGLE_CLIENT_ID}\nREACT_APP_GOOGLE_REDIRECT_URI=${REACT_APP_GOOGLE_REDIRECT_URI}\nREACT_APP_FB_API_KEY=${REACT_APP_FB_API_KEY}\nREACT_APP_FB_AUTH_DOMAIN=${REACT_APP_FB_AUTH_DOMAIN}\nREACT_APP_FB_PROJECT_ID=${REACT_APP_FB_PROJECT_ID}\nREACT_APP_FB_STORAGE_BUCKET=${REACT_APP_FB_STORAGE_BUCKET}\nREACT_APP_FB_MESSAGE_ID=${REACT_APP_FB_MESSAGE_ID}\nREACT_APP_FB_APP_ID=${REACT_APP_FB_APP_ID}\n" > .env'
-                                sh 'rm -r backend/.config_secrets'
+                                sh 'rmdir -r backend/.config_secrets'
                                 sh 'mkdir backend/.config_secrets' 
                                 
-                                sh 'rm secrets.json'
+                                // sh 'rm secrets.json' 
                                 sh 'echo "${secrets_json}" > secrets.json'
                                 sh 'cat secrets.json'
                                 sh 'ls -al'
-                                sh 'cp secrets.json backend/.config_secrets'
+                                sh 'mv secrets.json backend/.config_secrets'
                                 
-                                sh 'rm settings_common.json'
+                                // sh 'rm settings_common.json'
                                 sh 'echo "${settings_common}" > settings_common.json'
                                 sh 'cat settings_common.json'
                                 sh 'ls -al'
-                                sh 'cp settings_common.json backend/.config_secrets'
+                                sh 'mv settings_common.json backend/.config_secrets'
                                 // sh 'cp -r /home/ubuntu/docker-volume backend'
                                 
                         }
