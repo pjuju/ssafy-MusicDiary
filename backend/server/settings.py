@@ -15,6 +15,13 @@ from pathlib import Path
 import os
 import json
 import sys
+import pickle
+import torch
+import io
+from kobert.pytorch_kobert import get_pytorch_kobert_model
+from kobert.utils import get_tokenizer
+import gluonnlp as nlp
+from manage import BERTClassifier, BERTDataset
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -187,6 +194,38 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 SECRET_KEY = 'testkey'
+
+# class CPU_Unpickler(pickle.Unpickler):
+#     def find_class(self, module, name):
+#         if module == 'torch.storage' and name == '_load_from_bytes':
+#             return lambda b: torch.load(io.BytesIO(b), map_location='cpu')
+#         else: return super().find_class(module, name)
+
+# #contents = pickle.load(f) becomes...
+# with open( "data.pickle", "rb" ) as file:
+#     loaded_data = CPU_Unpickler(file).load()
+
+PATH = './'
+loaded_data = torch.load(PATH + '6emotions_model.pt', map_location='cpu')  # 전체 모델을 통째로 불러옴, 클래스 선언 필수
+loaded_data.load_state_dict(torch.load(PATH + '6emotions_model_state_dict.pt', map_location='cpu'))
+
+# class get_model():
+#     def __init__(self):
+#         self.device = torch.device("cpu")
+#         # model load
+#         self.bertmodel, self.vocab = get_pytorch_kobert_model()
+#         self.tokenizer = get_tokenizer()
+#         self.tok = nlp.data.BERTSPTokenizer(self.tokenizer, self.vocab, lower=False)
+
+#         ##=================모델설정
+#         # 좀더 봐야함
+#         self.max_len = 64
+#         self.batch_size = 64
+
+#         # model load
+#         self.loaded_data = BERTClassifier(self.bertmodel, num_classes=6, dr_rate=0.5).to(self.device)
+#         self.loaded_data.load_state_dict(torch.load("6emotions_model_state_dict.pt", map_location=torch.device('cpu')))
+
 
 # CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
 # config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
