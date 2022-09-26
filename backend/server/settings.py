@@ -18,11 +18,11 @@ import sys
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 ROOT_DIR = os.path.dirname(BASE_DIR)
 CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
-SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
+SECRET_BASE_FILE = os.path.join(CONFIG_SECRET_DIR, 'secrets.json')
 
 secrets = json.loads(open(SECRET_BASE_FILE).read())
 for key, value in secrets.items():
@@ -186,24 +186,22 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-SECRET_KEY = 'testkey'
+CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
+config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
 
-# CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
-# config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
+# AES key
+SECRET_KEY = config_secret['aes']['secret_key']
 
-# # AES key
-# SECRET_KEY = config_secret['aes']['secret_key']
+# AWS Access
+AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
+AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
+AWS_STORAGE_BUCKET_NAME = config_secret['aws']['storage_bucket_name']
+AWS_REGION = config_secret['aws']['region']
 
-# # AWS Access
-# AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
-# AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
-# AWS_STORAGE_BUCKET_NAME = config_secret['aws']['storage_bucket_name']
-# AWS_REGION = config_secret['aws']['region']
-
-# # S3 Storages
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
+# S3 Storages
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
