@@ -136,7 +136,8 @@ def kakao_login(request):
 def kakao_callback(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
     code = request.GET.get("code")
-    redirect_uri = KAKAO_CALLBACK_URI
+    redirect_uri = "http://j7d204.p.ssafy.io/kakao/login/callback"
+
     """
     Access Token Request
     """
@@ -248,7 +249,7 @@ class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destro
     def delete(self,request):
         pass
     
-    def put(self, request, pk):
+    def patch(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         reqData = request.data
         serializer = UserSerializer(user, data=reqData, partial=True)

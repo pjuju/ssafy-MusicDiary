@@ -1,3 +1,4 @@
+from hashlib import blake2b
 from django.db import models
 
 # Create your models here.
@@ -42,7 +43,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     username = models.CharField(max_length=255, null=True, blank=True)
-    email = models.EmailField(unique=True, max_length=255)
+    email = models.EmailField(unique=True, max_length=255,null=True, blank=True)
     sad = models.IntegerField(null=True, blank=True)
     angry = models.IntegerField(null=True, blank=True)
     depressed = models.IntegerField(null=True, blank=True)
