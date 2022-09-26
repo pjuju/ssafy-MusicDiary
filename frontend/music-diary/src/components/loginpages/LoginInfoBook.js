@@ -165,7 +165,7 @@ function LoginInfoBook() {
   };
   
   const REST_API_KEY = "f742e07d1059ec8cd0050f305986a8a4"
-  const REDIRECT_URI = "http://localhost:3000/kakao/login/callback";
+  const REDIRECT_URI = "http://j7d204.p.ssafy.io//kakao/login/callback";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;   
 
   return (
