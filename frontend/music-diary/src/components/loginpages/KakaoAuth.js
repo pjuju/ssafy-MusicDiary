@@ -4,7 +4,7 @@ import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
 
-function Auth() {
+function KakaoAuth() {
 
     const REST_API_KEY = "f742e07d1059ec8cd0050f305986a8a4"
     const REDIRECT_URI = "http://j7d204.p.ssafy.io/kakao/login/callback";
@@ -72,4 +72,4 @@ function Auth() {
   )
 }
 
-export default Auth
+export default KakaoAuth
