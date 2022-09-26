@@ -1,11 +1,8 @@
-from ast import Return
-from functools import partial
 from webbrowser import get
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializer, DiaryStickerSerializer, DiaryImageSerializer, ImageSerializer
 from .models import Bookmark, Diary, DiaryMusic, DiaryImage, DiarySticker
-from django.views.generic import View
 
 from rest_framework import parsers, renderers, serializers, status
 from rest_framework.response import Response
@@ -21,6 +18,17 @@ from django.conf import settings
 from musics.models import Music
 import pandas as pd
 import numpy as np
+
+
+import pandas as pd
+import numpy as np
+from manage import BERTClassifier, BERTDataset
+import torch
+import gluonnlp as nlp
+import numpy as np
+from kobert.utils import get_tokenizer
+from kobert.pytorch_kobert import get_pytorch_kobert_model
+from server.settings import loaded_data
 # from .storages import FileUpload, s3_client
 
 # ddd
@@ -57,12 +65,67 @@ class AESCipher:
 
 # AES Encrypt
 ciper = AESCipher()
+device = torch.device("cpu")
+bertmodel, vocab = get_pytorch_kobert_model()
+
+# Setting parameters
+max_len = 64
+batch_size = 32
+warmup_ratio = 0.1
+num_epochs = 20
+max_grad_norm = 1
+log_interval = 100
+learning_rate =  5e-5
+
+#토큰화
+tokenizer = get_tokenizer()
+tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
 
 # Get: 일기 전체 리스트 보기
 # Post: 일기 작성
 class DiaryList(GenericAPIView):
     queryset = Diary.objects.all()
     serializer_class = DiarySerializer
+
+    def predict(self, predict_sentence):
+
+        data = [predict_sentence, '0']
+        dataset_another = [data]
+
+        another_test = BERTDataset(dataset_another, 0, 1, tok, max_len, True, False)
+        test_dataloader = torch.utils.data.DataLoader(another_test, batch_size=batch_size, num_workers=5)
+        
+        loaded_data.eval()
+
+        for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(test_dataloader): 
+            token_ids = token_ids.long().to(device)
+            segment_ids = segment_ids.long().to(device)
+
+            valid_length= valid_length
+            label = label.long().to(device)
+
+            out = loaded_data(token_ids, valid_length, segment_ids)
+            
+            test_eval=[]
+            for i in out:
+                logits=i
+                logits = logits.detach().cpu().numpy()
+
+                if np.argmax(logits) == 0:
+                    test_eval.append("기쁨")
+                elif np.argmax(logits) == 1:
+                    test_eval.append("불안")
+                elif np.argmax(logits) == 2:
+                    test_eval.append("슬픔")
+                elif np.argmax(logits) == 3:
+                    test_eval.append("분노")
+                elif np.argmax(logits) == 4:
+                    test_eval.append("편안함")
+                elif np.argmax(logits) == 5:
+                    test_eval.append("분노")
+            print(test_eval, 555555555)
+                    
+            return test_eval[0]
 
     def get(self, request, format=None):
         diaries = get_list_or_404(Diary, user=request.user.pk)
@@ -77,9 +140,9 @@ class DiaryList(GenericAPIView):
 
     def post(self, request, format=None):
         data = request.data
-
+        print('00000000000000000')
         print(data)
-
+        print('00000000000000000')
         newPost = dict()
         newPost['title'] = ciper.encrypt_str(data['title'])
         newPost['content'] = ciper.encrypt_str(data['content'])
@@ -94,10 +157,17 @@ class DiaryList(GenericAPIView):
         # 감정 정보
         if 'emotion' in data:
             # 명시된 감정이 있을 경우
+            result = ""
+            for s in data['content']:
+                result += s + " "
             emotion = data['emotion']
+            print('11111111111111111')
+            emotion = self.predict(data['content'])
+            print('22222222222222222')
+            print(data['content'])
         else:   
             # 명시된 감정이 없을 경우 텍스트 분석으로 감정 도출
-            emotion = self.stubEmotion()
+            emotion = self.predict(str(data['content']))
 
         newPost['emotion'] = ciper.encrypt_str(emotion)
         diarySerializer = DiarySerializer(data=newPost)
@@ -145,16 +215,6 @@ class DiaryList(GenericAPIView):
             # print('모두 등록 성공!!!')
             return DiaryDetail.get(self=DiaryDetail, request=request, diary_pk=diary_pk)
     
-    def stubEmotion(self):
-        emotion = random.randrange(1,5)
-        if emotion==1:
-            return "sad"
-        elif emotion==2:
-            return "happy"
-        elif emotion==3:
-            return "angry"
-        else:
-            return "depressed"
 
 
 # class ImageDetail(GenericAPIView):

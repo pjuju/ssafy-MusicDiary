@@ -15,6 +15,8 @@ from pathlib import Path
 import os
 import json
 import sys
+import torch
+from manage import BERTClassifier, BERTDataset
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -207,3 +209,9 @@ SECRET_KEY = 'testkey'
 # }
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
+
+
+
+PATH = './'
+loaded_data = torch.load(PATH + '6emotions_model.pt', map_location='cpu')  # 전체 모델을 통째로 불러옴, 클래스 선언 필수
+loaded_data.load_state_dict(torch.load(PATH + '6emotions_model_state_dict.pt', map_location='cpu'))
