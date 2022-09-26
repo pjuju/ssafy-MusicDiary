@@ -25,7 +25,7 @@ function Auth() {
       // client_secret: CLIENT_SECRET, // 필수는 아닌 Parameter
     });
       await axios.post(
-        "http://j7d204.p.ssafy.io/:8080/rest/accounts/kakao/callback2/", payload
+        "http://j7d204.p.ssafy.io:8080/rest/accounts/kakao/callback2/", payload
       )
       .then((res) => {
         console.log(JSON.stringify(res.data));
