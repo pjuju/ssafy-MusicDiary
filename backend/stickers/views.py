@@ -2,6 +2,7 @@ from warnings import catch_warnings
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from stickers import serializers
+from accounts.models import User
 
 from .serializers import StickerPackSerializer, StickerSerializer, UserStickerSerializer
 from .models import StickerPack, Sticker, UserSticker
@@ -26,9 +27,9 @@ class StickerPackList(GenericAPIView):
         newStickerPack = {
             'name': request.data['name'],
             'price': request.data['price'],
-            'user': request.user.pk
+            'user': request.data.get('user', request.user.pk)
         }
-        serializer = StickerPackSerializer(newStickerPack)
+        serializer = StickerPackSerializer(data=newStickerPack)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -68,16 +69,29 @@ class UserStickerDetail(GenericAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request, user_id, format=None):
-        sticker_pack = request.data['sticker_pack']
+        stickerPack_pk = request.data['sticker_pack']
+
         try:
-            sticker = UserSticker.objects.get(sticker_pack=sticker_pack, user=user_id)
+            user = get_object_or_404(User, pk=user_id)
+            stickerPack = get_object_or_404(StickerPack, pk=stickerPack_pk)
+            # 포인트가 부족하지 않은지 체크
+            if user.point < stickerPack.price:
+                return Response("포인트가 부족합니다.", status=status.HTTP_406_NOT_ACCEPTABLE)
         except:
-            data = {'sticker_pack': sticker_pack, 'user': user_id}
+            return Response("유효하지 않은 user_pk와 stickerpack_pk 입니다.", status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # 이미 구매한 스티커 팩인지 체크
+            sticker = UserSticker.objects.get(sticker_pack=stickerPack_pk, user=user_id)
+        except:
+            # 구매한 적 없음 (구매 성공)
+            data = {'sticker_pack': stickerPack_pk, 'user': user_id}
             serializer = UserStickerSerializer(data=data)
+            # Todo: 사용자 포인트 차감
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-        if sticker != None:
-            data = {'post': '이미 구매한 항목입니다.'}
-            return Response(data, status=status.HTTP_400_BAD_REQUEST)
+        # 이미 구매한 스티커팩 (구매 실패)
+        data = {'post': '이미 구매한 항목입니다.'}
+        return Response(data, status=status.HTTP_400_BAD_REQUEST)

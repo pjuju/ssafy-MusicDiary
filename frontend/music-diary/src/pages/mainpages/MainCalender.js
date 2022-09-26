@@ -4,6 +4,7 @@ import moment from 'moment';
 import { DiaryStateContext } from "../../App";
 import { getStringDate } from "../../util/date";
 import { DiaryDispatchContext } from "../../App.js";
+import { getMonthEmotion,getMonthDiary } from '../../api/diaryApi';
 
 import './MainCalender.css'
 import MainNote from './MainNote';
@@ -18,6 +19,42 @@ const MainCalender =() => {
     const firstWeek = today.clone().startOf('month').week();
     const lastWeek = today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
   
+    // api 연결하기
+    const [noticeData, setNoticeData] = useState([])
+    useEffect(()=> {
+      getMonthDiary(new Date().getMonth() + 1, new Date().getFullYear())
+      .then((res)=> {
+        setNoticeData(res.data)
+        console.log(res.data)
+        console.log('이달의 일기 잘 모아지나',noticeData)
+      })
+      .catch((e)=> {
+        console.log('err',e)
+      });
+    },[])
+
+    const rightEmotion =(emotion) => {
+      if(emotion === '행복') {
+        return '/assets/img/happy_emoji.png'
+      }
+      if(emotion === '슬픔') {
+        return '/assets/img/sad_emoji.png'
+      }
+      if(emotion === '평온') {
+        return '/assets/img/normal_emoji.png'
+      }
+      if(emotion === '우울') {
+        return '/assets/img/depressed_emoji.png'
+      }
+      if(emotion === '화남') {
+        return '/assets/img/angry_emoji.png'
+      }
+      if(emotion === '놀람') {
+        return '/assets/img/anxious_emoji.png'
+      }
+    }
+
+
       const calendarArr=()=>{
         let result = [];
         let week = firstWeek;
@@ -35,12 +72,11 @@ const MainCalender =() => {
                       return(
                         <td key={index} >
                               {/* TODAY */}
-                              {diaryList.map(it=> {
-
-                                if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. D.'))
+                              {noticeData.map(it=> {
+                                if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY-MM-DD'))
                                   // todayemotion = it.date
                                 return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={it.emotion} className="calender-emoji"></img>
+                                <img src={rightEmotion(it.emotion)} className="calender-emoji"></img>
                                 </div>
                               }
                               )}
@@ -52,12 +88,12 @@ const MainCalender =() => {
                   // 이 달이 아닌 경우(지난달, 다음달의 날짜)
                   }else if(days.format('MM') !== today.format('MM')){
                     return(
-                        <td key={index} style={{backgroundColor:'gray'}} >
-                          {diaryList.map(it=> {
+                        <td key={index} style={{backgroundColor:'#CAD8B5'}} >
+                          {noticeData.map(it=> {
     
-                              if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. D.'))
+                              if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY. M. D.'))
                               return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={it.emotion} className="calender-emoji"></img>
+                                <img src={rightEmotion(it.emotion)} className="calender-emoji"></img>
                                 </div>
                             }
                             )}
@@ -68,10 +104,10 @@ const MainCalender =() => {
                   }else{
                     return(
                         <td key={index}>
-                            {diaryList.map(it=> {
-                              if (new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. D.'))
+                            {noticeData.map(it=> {
+                              if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY. M. D.'))
                               return <div style={{color:"red"}} onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={it.emotion} className="calender-emoji"></img>
+                                <img src={rightEmotion(it.emotion)} className="calender-emoji"></img>
                               </div>
                             }
                             )}
@@ -87,7 +123,6 @@ const MainCalender =() => {
         return result;
       }
 
-      
   
     return (
       <div className="main-calender">
@@ -104,9 +139,11 @@ const MainCalender =() => {
               <button onClick={()=>{ setMoment(getMoment.clone().add(1, 'month')) }} className="time-change-button" >&nbsp; &#10093;	</button>
             </div>
           </div>
+          <button onClick={()=>{navigate('/newdiary')}} className="diary-editor-button">일기 작성</button>
           <ul onClick={()=>{navigate('/diarylist')}} className="snip1241">
             <li><a href="#">모아보기</a></li>
-          </ul>          <table>
+          </ul>          
+          <table>
             <tbody>
               <div className='days'>
                 <p>Sun</p>

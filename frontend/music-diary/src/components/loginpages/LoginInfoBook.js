@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import GoogleLogin from 'react-google-login';
 import { gapi } from 'gapi-script';
 
 import "../../css/loginpages/LoginPageBook.css";
@@ -103,36 +102,45 @@ function LoginInfoBook() {
     // })
   };
 
+
   // 카카오로그인 버튼 클릭 후
-  const onKakaoLoginBtn = () => {
-    // kakaoLoginApi()
+  // const onKakaoLoginBtn = () => {
+  //   // kakaoLoginApi()
 
-    axios
-      .post("http://j7d204.p.ssafy.io:8080/rest/accounts/kakao/callback/")
-      .then((res) => {
-        console.log(JSON.stringify(res.data));
-      })
-      .catch((err) => {
-        console.log(err.data);
-      });
 
-    // axios
-    // .post("http://j7d204.p.ssafy.io:8080/rest/accounts/kakao/login/")
-    // .then((res)=>{
-    //   console.log(JSON.stringify(res.data))
-    // })
-    // .catch((err)=>{
-    //   console.log(err.data)
-    // })
+  //   const code = new URL(window.location.href).searchParams.get("code");
 
-    // kakaoLoginApi()
-    // .then((res)=>{
-    //   console.log(JSON.stringify(res.data))
-    // })
-    // .catch((err)=>{
-    //   console.log(JSON.stringify(err.data))
-    // })
-  };
+  //     axios
+  //       .post("http://localhost:8000/rest/accounts/kakao/callback2/", code)
+  //       console.log(code)
+  //       .then((res) => {
+  //         console.log(JSON.stringify(res.data));
+  //       })
+  //       .catch((err) => {
+  //         console.log(err.data);
+  //       });
+
+  //   // useEffect(() =>{
+  //   //   postCode();
+  //   // }, []);
+
+  //   // axios
+  //   // .post("http://j7d204.p.ssafy.io:8080/rest/accounts/kakao/login/")
+  //   // .then((res)=>{
+  //   //   console.log(JSON.stringify(res.data))
+  //   // })
+  //   // .catch((err)=>{
+  //   //   console.log(err.data)
+  //   // })
+
+  //   // kakaoLoginApi()
+  //   // .then((res)=>{
+  //   //   console.log(JSON.stringify(res.data))
+  //   // })
+  //   // .catch((err)=>{
+  //   //   console.log(JSON.stringify(err.data))
+  //   // })
+  // };
 
   // 구글 로그인 버튼 클릭 후
   const onGoogleLoginBtn = () => {
@@ -146,6 +154,10 @@ function LoginInfoBook() {
         console.log(JSON.stringify(err.data));
       });
   };
+  
+  const REST_API_KEY = "f742e07d1059ec8cd0050f305986a8a4"
+  const REDIRECT_URI = "http://localhost:3000/kakao/login/callback";
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;   
 
   return (
     <>
@@ -181,15 +193,18 @@ function LoginInfoBook() {
                   </div>
                   {/* social login */}
                   <hr />
+                  <a href={KAKAO_AUTH_URL}>
                   <img
                     className="kakao-btn-img"
                     alt="#"
                     src={`${process.env.PUBLIC_URL}/assets/img/kakao-login-btn.png`}
-                    onClick={onKakaoLoginBtn}
+                    // onClick={onKakaoLoginBtn}
                   />
+                  </a>
                   {/* <a href="https://kauth.kakao.com/oauth/authorize?client_id=f742e07d1059ec8cd0050f305986a8a4&redirect_uri=http://j7d204.p.ssafy.io:8080/rest/accounts/kakao/callback/&response_type=code"> */}
                   {/* <img className="kakao-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/kakao-login-btn.png`}  /> */}
                   {/* </a> */}
+
                   <img
                     className="google-btn-img"
                     alt="#"

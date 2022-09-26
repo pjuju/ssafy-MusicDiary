@@ -1,6 +1,6 @@
 .diary-item {
-    width: 80vw;
-    padding-left: 4vw;
+    /* width: 80vw; */
+    padding-left: 0vw;
 }
 
 .diary-item .diary-item-header {
@@ -8,11 +8,11 @@
 }
 
 .diary-item .diary-item-card {
-    width: 20vw;
+    width: 18vw;
     height: 20vh;
     float: left;
     margin-left: 2vw;
-    margin-top: 3vh;
+    margin-top: 3vh; 
     cursor: pointer;
     transition: 0.06s linear;
     overflow:auto;
@@ -38,8 +38,14 @@
 }
 
 .diary-item .diary-item-title {
-    margin-left: 3vw;
+    margin-left: 2vw;
 }
 
 .diary-item .diary-item-content {
+    /* margin-left: 0vw; */
+}
+
+.diary-item .diary-item-date {
+    margin-left: 12vw;
+    font-size: 1.5vh;
 }

@@ -1,16 +1,24 @@
 /* 상단 이모티콘 고르기 */
 .diary-editor .select-emotion {
-    width: 30vw;
-    height: 8vh;
-    /* background-color: purple; */
-    margin-left: 3vw;
+    width: 40vw;
+    height: 7vh;
+    margin-left: 5vw;
+    margin-top: 6vh;
+    display: flex;
+
 }
 
 .diary-editor .emoji-img {
-    width: 10%;
+    width: 4vw;
     float: left;
     margin-left: 1vw;
     cursor: pointer;
+}
+
+.diary-editor .input-date {
+    margin-left: 2vw;
+    margin-top: 3vh;
+    /* background-color: green; */
 }
 
 
@@ -19,7 +27,7 @@
     width: 45vw;
     height: 65vh;
     /* background-color: pink; */
-    margin-top: 3vh;
+    margin-top: 7vh;
     position: absolute;
     margin-left: 3vw;
 }
@@ -48,9 +56,20 @@
 .diary-editor .right-section {
     width: 20vw;
     height: 60vh;
-    background-color: green;
-
     position: absolute;
-    margin-left: 50vw;
-    margin-top: 3vh;
+    margin-left: 47vw;
+    margin-top: 7vh;
+    /* background-color: black; */
+}
+
+.diary-editor .submit-button {
+    position: absolute;
+    margin-top: 70vh;
+    margin-left: -3vw;
+}
+
+.diary-editor .back-button {
+    position: absolute;
+    margin-top: 70vh;
+    margin-left: -11vw;
 }
