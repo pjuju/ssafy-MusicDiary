@@ -316,14 +316,10 @@ const DetailDiary = () => {
           <button onClick={handleRemove} className="delete-button">삭제하기</button>
         </div>
         {/* <button onClick={()=>{navigate(`/diarylist`)}} className="goback-button">돌아가기</button> */}
-
-
-        </div>
-
         {/* 4. stage 영역 */}
-        {/* <Stage
+        <Stage
           className="stage-area"
-          width={1300}
+          width={600}
           height={400}
           onClick={handleCanvasClick}
           onTap={handleCanvasClick}
@@ -352,10 +348,14 @@ const DetailDiary = () => {
               );
             })}
           </Layer>
-        </Stage> */}
+        </Stage>
+
+        </div>
+
+
 
         {/* 5. 스티커 선택창 */}
-        {/* <div className="sticker-choice-area">
+        <div className="sticker-choice-area">
           <h4 className="heading">Click/Tap to add sticker to photo!</h4>
           {stickerInfo.map((sticker) => {
             return (
@@ -367,7 +367,7 @@ const DetailDiary = () => {
                     src: sticker.image_url,
                     width: 100,
                     // 처음에 스티커 생성되는 좌표 위치임
-                    x: 980,
+                    x: 500,
                     y: 300,
                     sticker_id: sticker.id,
                   });
@@ -377,7 +377,7 @@ const DetailDiary = () => {
               </button>
             );
           })}
-        </div> */}
+        </div>
 
         {/* 6. 스티커 위치 저장 완료 버튼,,@ */}
         {/* <button onClick={onSaveStickerPos}>스티커 위치 저장 완료!</button> */}

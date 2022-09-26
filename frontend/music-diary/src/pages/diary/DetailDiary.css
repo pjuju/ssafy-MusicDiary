@@ -10,13 +10,13 @@
   margin-top: 25vh;
   margin-left: 24vw; 
 
-position: absolute;
-z-index: 1;
-color: black;
+  position: absolute;
+  z-index: 1;
+  color: black;
 
   overflow:auto;
   -ms-overflow-style: none;
-  background-color: green;
+  /* background-color: green; */
   white-space : nowrap
 }
 
@@ -106,6 +106,10 @@ margin-top: 3vh;
 
 .stage-area {
   /* background-color: aqua; */
+  width: 40vw;
+  height: 60vh;
+  margin-top: 25vh;
+  margin-left: 24vw; 
 
   /* margin-top: 800px; */
   position: absolute;
@@ -118,7 +122,9 @@ margin-top: 3vh;
 }
 
 .sticker-choice-area {
-  margin-top: 900px;
+  position: absolute;
+  z-index: 1300;
+
 }
 .detail-diary .detail-diary-playlist {
   width: 20vw;
