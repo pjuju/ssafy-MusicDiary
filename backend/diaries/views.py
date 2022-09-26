@@ -165,13 +165,19 @@ def stub(mood, user):
 
     # 1. 감정별로 내가 좋아한 음악들 리스트
     liked_musics = user.favorite_musics.filter(mood=mood).values()    
-    liked_musics_df = pd.DataFrame(list(liked_musics))    
+    liked_musics_df = pd.DataFrame(list(liked_musics), columns=['id','year', 'track_popularity', 'danceability',
+       'acousticness', 'energy', 'liveness', 'valence',
+       'loudness', 'speechiness', 'tempo'])    
+    liked_musics_df.set_index('id', inplace=True)
+   
 
     print(liked_musics_df)
     print(len(liked_musics_df))
+
     # 평균치를 내야 함.    
-    # mean_music_df = liked_musics_df.mean(axis='rows')
-    # median_music_df = liked_musics_df.median(axis='rows')
+    mean_music_df = liked_musics_df.mean(axis='rows')
+    median_music_df = liked_musics_df.median(axis='rows')
+    print(mean_music_df)
 
     liked_ids = []
     # print(liked_musics)
@@ -181,9 +187,12 @@ def stub(mood, user):
 
     # 2. 전체 음악에서 감정으로 거른 음악들 (좋아한 음악들 제외)
     all_musics = Music.objects.filter(mood=mood).exclude(id__in=liked_ids).values()   
-    all_musics_df = pd.DataFrame(list(all_musics), columns=['id','year'])  
-    print(all_musics_df)
+    all_musics_df = pd.DataFrame(list(all_musics), columns=['id','year', 'track_popularity', 'danceability',
+       'acousticness', 'energy', 'liveness', 'valence',
+       'loudness', 'speechiness', 'tempo'])   
+    
     all_musics_df.set_index('id', inplace=True)
+    print(all_musics_df)
     # print(all_musics)
     # print(len(all_musics))
 
