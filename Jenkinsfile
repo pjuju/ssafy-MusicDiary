@@ -10,7 +10,7 @@ pipeline {
                                 // sh 'cat .env'
                                 // sh 'ls -al'
                                 // sh 'cp .env frontend'
-                                sh 'cp /home/ubuntu/.config_secret backend'
+                                sh 'cp /home/ubuntu/config_secret backend'
                                 
                         }
                 }
