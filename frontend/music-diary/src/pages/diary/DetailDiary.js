@@ -323,6 +323,8 @@ const DetailDiary = () => {
           height={400}
           onClick={handleCanvasClick}
           onTap={handleCanvasClick}
+
+          id="backgroundImage"
         >
           <Layer>
             {images.map((image, i) => {
