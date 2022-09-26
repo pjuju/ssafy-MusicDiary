@@ -26,7 +26,7 @@ django-filter==22.1
 django-rest-auth==0.9.5
 django-seed==0.3.1
 djangorestframework==3.12.4
-djangorestframework-jwt==1.11.0
+# djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==4.6.0
 drf-yasg==1.21.3
 Faker==14.2.0
