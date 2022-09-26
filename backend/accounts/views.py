@@ -135,7 +135,7 @@ def kakao_login(request):
 
 def kakao_callback(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
-    code = request.GET.get("code")
+    code = request.POST.get("code")
     redirect_uri = "http://j7d204.p.ssafy.io/kakao/login/callback"
 
     """
