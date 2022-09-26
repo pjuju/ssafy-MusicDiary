@@ -18,6 +18,9 @@ from Crypto.Cipher import AES
 import hashlib
 
 from django.conf import settings
+from musics.models import Music
+import pandas as pd
+import numpy as np
 # from .storages import FileUpload, s3_client
 
 
@@ -74,6 +77,9 @@ class DiaryList(GenericAPIView):
 
     def post(self, request, format=None):
         data = request.data
+
+        print(data)
+
         newPost = dict()
         newPost['title'] = ciper.encrypt_str(data['title'])
         newPost['content'] = ciper.encrypt_str(data['content'])
@@ -98,11 +104,15 @@ class DiaryList(GenericAPIView):
 
         if diarySerializer.is_valid(raise_exception=True):
             diarySerializer.save()
+            # print('일기 등록 성공!!!')
+
             # 방금 등록된 일기의 id 값
             diary_pk = diarySerializer.data['id']
+            # print("diary_pk >>>>>>>>", diary_pk)
 
             # 일기에 첨부된 이미지가 있을 경우
             if 'images' in data:
+                # print('이미지 존재!!!')
                 # 이미지 리스트
                 images = data['images']
                 image = {'diary': diary_pk, 'image_url': ''}
@@ -113,9 +123,11 @@ class DiaryList(GenericAPIView):
                     diaryImageSerializer = DiaryImageSerializer(data=image)
                     if diaryImageSerializer.is_valid(raise_exception=True):
                         diaryImageSerializer.save()
+                        # print('이미지 등록 성공!!!')
 
             # 일기에 첨부된 스티커가 있을 경우
             if 'stickers' in data:
+                # print('스티커 존재!!!')
                 # 스티커 리스트
                 stickers = data['stickers']
                 sticker = {'diary': diary_pk}
@@ -128,9 +140,10 @@ class DiaryList(GenericAPIView):
                     diarystickerSerializer = DiaryStickerSerializer(data=sticker)
                     if diarystickerSerializer.is_valid(raise_exception=True):
                         diarystickerSerializer.save()
-            
-            serializer = DiarySerializer(Diary.objects.get(pk=diary_pk))
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+                        # print('스티커 등록 성공!!!')
+
+            # print('모두 등록 성공!!!')
+            return DiaryDetail.get(self=DiaryDetail, request=request, diary_pk=diary_pk)
     
     def stubEmotion(self):
         emotion = random.randrange(1,5)
@@ -320,9 +333,18 @@ def DiaryMusicDetail(request, diary_pk):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        # 기존 음악 존재하면 삭제
+        try:
+            oldPlaylist = get_list_or_404(DiaryMusic, diary=diary_pk)
+            oldPlaylist.delete()
+        except:
+            pass
+
         diary = get_object_or_404(Diary, pk=diary_pk)
+
         emotion = ciper.decrypt_str(diary.emotion)
-        playlist = stubPlaylist(emotion)
+        mood = 'sad'
+        playlist = stubPlaylist(mood, request.user)
 
         data={'diary': diary_pk, 'music': ''}
         for music in playlist:
@@ -330,19 +352,81 @@ def DiaryMusicDetail(request, diary_pk):
             serializer = DiaryMusicSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
+        
+        liked_musics = request.user.favorite_musics.values()
+        liked_ids = []
+        for l_m in liked_musics:
+            liked_ids.append(l_m['id'])
+
+        # print(serializer)
+        # for music in serializer.data:
+        #     music['like_flag'] = False
+        #     if music['id'] in liked_ids:
+        #         music['like_flag'] = True
+
+        # 유튜브 아이디, 곡 아이디, 노래 제목, 가수, 좋아요..
                 
-        return Response(playlist, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_201_CREATED)
 
 
-def stubPlaylist(emotion):
+# 노래 감정, 유저를 넣어주세용
+def stubPlaylist(mood, user):
+    
+    # mood : 일기의 emotion -> user의 취향 ( emotion 별 노래 mood)
+    # user : requesqt.user
+
     # Todo: diary_pk 일기의 추천 음악 id를 list로 반환
-    if emotion=='happy':
-        list = [1, 2]
-    elif emotion=='sad':
-        list = [6, 8]
-    else:
-        list = [10, 11]
-    return list
+
+    # 1. 감정별로 내가 좋아한 음악들 리스트
+    liked_musics = user.favorite_musics.filter(mood=mood).values()    
+    liked_musics_df = pd.DataFrame(list(liked_musics))    
+
+    # 평균치를 내야 함.    
+    mean_music_df = liked_musics_df.mean(axis='rows')
+
+    liked_ids = []
+    # print(liked_musics)
+    for l_m in liked_musics:
+        liked_ids.append(l_m['id'])
+        
+
+    # 2. 전체 음악에서 감정으로 거른 음악들 (좋아한 음악들 제외)
+    all_musics = Music.objects.filter(mood=mood).exclude(id__in=liked_ids).values()   
+    all_musics_df = pd.DataFrame(list(all_musics))  
+    # print(all_musics)
+    # print(len(all_musics))
+
+    # 음악 분류기
+    
+    
+    # 3. 유사한 음악들 200개
+
+    # 4. 그 중에서 10개 추출
+    reco_musics_df = all_musics_df.sort_values(by="track_popularity").head(10)
+    reco_musics_list = list(reco_musics_df.index)
+    # df.sort_values(by="val", ascending=False).groupby("grp").head(3)
+
+    # return liked_ids
+    return reco_musics_list
+
+
+# from django.contrib.auth import get_user_model
+# @api_view(['GET'])
+# def test(request):
+#     # 유저 확보
+#     User = get_user_model()
+#     user = User.objects.get(pk=1)
+#     print(user)
+#     # 감정 -> 노래 감정 파악
+#     mood = "Sad"
+    
+#     # 플레이리스트 생성
+#     playlist = stub(mood, user)
+
+#     # print(playlist)
+
+#     data = {'emotions': 'ddd'}
+#     return Response(data, status=status.HTTP_200_OK)
 
 
 # Get: 모든 책갈피 모아보기

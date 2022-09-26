@@ -1,7 +1,7 @@
 from warnings import catch_warnings
 from django.shortcuts import get_object_or_404, get_list_or_404
 
-from diaries import serializers
+from stickers import serializers
 
 from .serializers import StickerPackSerializer, StickerSerializer, UserStickerSerializer
 from .models import StickerPack, Sticker, UserSticker
@@ -22,30 +22,27 @@ class StickerPackList(GenericAPIView):
         serializer = StickerPackSerializer(stickerpacks, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
         
-    # def post(self, request, format=None):
-    #     # request.data = {
-    #     #   name: "",
-    #     #   price: "",
-    #     #   sticker: ["..", ".."]
-    #     # }
-    #     newStickerPack = {
-    #         'name': request.data['name'],
-    #         'price': request.data['price']
-    #     }
-    #     serializer = StickerSerializer(data)
-    #     if serializer.is_valid(raise_exception=True):
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    def post(self, request, format=None):
+        newStickerPack = {
+            'name': request.data['name'],
+            'price': request.data['price'],
+            'user': request.user.pk
+        }
+        serializer = StickerPackSerializer(newStickerPack)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 # Get: 특정 스티커팩 전체 스티커 조회
 class StickerPackDetail(GenericAPIView):
-    queryset = Sticker.objects.all()
+    queryset = StickerPack.objects.all()
     serializer_class = StickerPackSerializer
 
     def get(self, request, stickerpack_id, format=None):
-        stickers = get_list_or_404(Sticker, sticker_pack=stickerpack_id)
-        serializer = StickerSerializer(data=stickers, many=True)
+        stickerpack = get_object_or_404(StickerPack, pk=stickerpack_id)
+        serializer = StickerPackSerializer(stickerpack)
+        # if serializer.is_valid(raise_exception=True):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -56,7 +53,7 @@ class StickerDetail(GenericAPIView):
 
     def get(self, request, sticker_id, format=None):
         sticker = get_object_or_404(Sticker, pk=sticker_id)
-        serializer = StickerSerializer(data=sticker)
+        serializer = StickerSerializer(sticker)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
