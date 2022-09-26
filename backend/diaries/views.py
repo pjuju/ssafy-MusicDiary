@@ -269,16 +269,18 @@ def DiaryMusicDetail(request, diary_pk):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        # 기존 음악 존재하면 삭제
         try:
+            # 기존 플레이리스트 존재하면 삭제
             oldPlaylist = get_list_or_404(DiaryMusic, diary=diary_pk)
             oldPlaylist.delete()
         except:
             pass
 
         diary = get_object_or_404(Diary, pk=diary_pk)
-
         emotion = ciper.decrypt_str(diary.emotion)
+
+        # Todo: emotion -> mood
+
         mood = 'sad'
         playlist = stubPlaylist(mood, request.user)
 
