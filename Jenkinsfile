@@ -16,7 +16,7 @@ pipeline {
                                 sh 'ls -al'
                                 sh 'cp secrets.json backend/.config_secrets'
                                 
-                                sh 'rm secrets.json'
+                                sh 'rm settings_common.json'
                                 sh 'echo "${settings_common}" > settings_common.json'
                                 sh 'cat settings_common.json'
                                 sh 'ls -al'
