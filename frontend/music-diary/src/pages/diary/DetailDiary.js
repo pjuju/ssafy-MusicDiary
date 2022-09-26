@@ -131,35 +131,38 @@ const DetailDiary = () => {
     }
   }, [id, monthData]);
   //
-  useEffect(() => {
-    // 이 다이어리가 새로 렌더링될 때마다 bookmark 정보 바꿔주기
-    const diaryInfo = {
-      title,
-      content,
-      emotion,
-      bookmark,
-    };
-    modifyDiaryItem(id, diaryInfo)
-      .then((res) => {
-        console.log(res.data);
-        console.log(diaryInfo);
-      })
-      .catch((err) => {
-        console.log(JSON.stringify(err.data));
-      });
-    const targetDiary = monthData.find(
-      (it) => parseInt(it.id) === parseInt(id)
-    );
-    console.log(targetDiary);
-    if (targetDiary.bookmarked === false) {
-      bookmarkRef.current.style.backgroundColor = "yellow";
-      bookmarkRef.current.style.border = "none";
-    }
-    if (targetDiary.bookmarked === true) {
-      bookmarkRef.current.style.backgroundColor = "white";
-      bookmarkRef.current.style.border = "black 1px solid";
-    }
-  }, [targetDiary]);
+  // useEffect(() => {
+  //   // 이 다이어리가 새로 렌더링될 때마다 bookmark 정보 바꿔주기
+  //   const diaryInfo = {
+  //     title,
+  //     content,
+  //     emotion,
+  //     bookmark,
+  //   };
+  //   modifyDiaryItem(id, diaryInfo)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       console.log(diaryInfo);
+  //     })
+  //     .catch((err) => {
+  //       console.log(JSON.stringify(err.data));
+  //     });
+
+  //   const targetDiary = monthData.find(
+  //     (it) => parseInt(it.id) === parseInt(id)
+  //   );
+
+  //   console.log(targetDiary);
+
+  //   if (targetDiary.bookmarked === false) {
+  //     bookmarkRef.current.style.backgroundColor = "yellow";
+  //     bookmarkRef.current.style.border = "none";
+  //   }
+  //   if (targetDiary.bookmarked === true) {
+  //     bookmarkRef.current.style.backgroundColor = "white";
+  //     bookmarkRef.current.style.border = "black 1px solid";
+  //   }
+  // }, [targetDiary]);
 
   // 
 
@@ -316,11 +319,9 @@ const DetailDiary = () => {
 
 
         </div>
-        <hr />
-        <hr />
 
         {/* 4. stage 영역 */}
-        <Stage
+        {/* <Stage
           className="stage-area"
           width={1300}
           height={400}
@@ -351,10 +352,10 @@ const DetailDiary = () => {
               );
             })}
           </Layer>
-        </Stage>
+        </Stage> */}
 
         {/* 5. 스티커 선택창 */}
-        <div className="sticker-choice-area">
+        {/* <div className="sticker-choice-area">
           <h4 className="heading">Click/Tap to add sticker to photo!</h4>
           {stickerInfo.map((sticker) => {
             return (
@@ -376,10 +377,10 @@ const DetailDiary = () => {
               </button>
             );
           })}
-        </div>
+        </div> */}
 
         {/* 6. 스티커 위치 저장 완료 버튼,,@ */}
-        <button onClick={onSaveStickerPos}>스티커 위치 저장 완료!</button>
+        {/* <button onClick={onSaveStickerPos}>스티커 위치 저장 완료!</button> */}
 
         {/* 7. MainNote창 */}
         <div>

@@ -9,10 +9,9 @@ import './EditDiary.css'
 const EditDiary =() =>{
     // api 연결
     const [noticeMonthData, setNoticeMonthData] = useState([])
-    const getMonth = new Date().getMonth() + 1
 
     useEffect(()=> {
-      getMonthDiary(getMonth)
+      getMonthDiary( new Date().getMonth() + 1, new Date().getFullYear)
       .then((res)=> {
         setNoticeMonthData(res.data)
         console.log('과!연',res.data)
@@ -27,15 +26,10 @@ const EditDiary =() =>{
     const [originData, setOriginData] = useState();
     const navigate = useNavigate();
     const { id } = useParams();
-  
-    const diaryList = useContext(DiaryStateContext);
+
     const targetDiary = noticeMonthData.find(
         (it) => parseInt(it.id) === parseInt(id)
     );
-    useEffect(() => {
-        const titleElement = document.getElementsByTagName("title")[0];
-        titleElement.innerHTML = `감정 일기장 - ${id}번 일기 수정`;
-      }, []);
 
     useEffect(() => {
         if (noticeMonthData.length >= 1) {
