@@ -21,7 +21,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 BASE_DIR = Path(__file__).resolve().parent
 
 ROOT_DIR = os.path.dirname(BASE_DIR)
-CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
+CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secrets')
 SECRET_BASE_FILE = os.path.join(CONFIG_SECRET_DIR, 'secrets.json')
 
 secrets = json.loads(open(SECRET_BASE_FILE).read())
