@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { signUpApi } from "../../api/userApi";
 
 import axios from 'axios'
-
+// redux store 
 import { useSelector } from "react-redux";
 import { setUserEmail, setUserPassword, setUserPassword2, setUserName} from '../../store/store'
 import { useDispatch } from "react-redux";

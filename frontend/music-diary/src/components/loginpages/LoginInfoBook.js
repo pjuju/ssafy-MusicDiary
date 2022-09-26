@@ -4,13 +4,20 @@ import { gapi } from 'gapi-script';
 
 import "../../css/loginpages/LoginPageBook.css";
 import Button from "../Common/Button";
-
 import styled from "styled-components";
-
 import { loginApi, kakaoLoginApi, googleLoginApi } from "../../api/userApi";
 import axios from "axios";
 
-// import { useSelector } from "react-redux";
+// redux store
+import { useSelector } from "react-redux";
+import {
+  setNormalChoiceValue,
+  setSadChoiceValue,
+  setAngryChoiceValue,
+  setDepressedChoiceValue,
+  setUserEmail
+} from "../../store/store";
+import { useDispatch } from "react-redux";
 
 const LoginInfoBookcontainer = styled.div`
   width: 60%;
@@ -24,6 +31,7 @@ function LoginInfoBook() {
   const [password, setPassword] = useState();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // const test = useSelector((state) => {
   //   return state.user;
@@ -63,7 +71,7 @@ function LoginInfoBook() {
     axios
       .post("http://j7d204.p.ssafy.io:8080/rest/accounts/login/", loginInfo)
       .then((res) => {
-        console.log(JSON.stringify(res.data));
+        console.log("로그인한 유저 정보:", JSON.stringify(res.data));
 
         // 이메일을 입력 -> 이메일로 회원정보 GET -> 
         // -> 회원정보에서 감정 라벨링상태 판단 
@@ -76,6 +84,7 @@ function LoginInfoBook() {
           sessionStorage.setItem("accessToken", res.data.data.token.access_token)
           sessionStorage.setItem("refreshToken", res.data.data.token.refresh_token)
           sessionStorage.setItem("user_id", res.data.data.id)
+          dispatch(setUserEmail(res.data.data.email))
           // 설문 띄워주고, 클릭 완료 x -> 껐어 , url쳐서 들어가버리면,, 
             // 로그인은 된 상태 / 설문은 안한 상태에서 추천이 가능,,,
 
