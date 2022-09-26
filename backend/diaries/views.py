@@ -277,12 +277,25 @@ def DiaryMusicDetail(request, diary_pk):
         except:
             pass
 
+        # 대상 일기
         diary = get_object_or_404(Diary, pk=diary_pk)
+        # 일기의 감정
         emotion = ciper.decrypt_str(diary.emotion)
+        # 작성 유저
+        user = request.user
+        # 추천할 음악 분위기
+        mood_str = emotion.lower()
+        if user.get(mood_str) == 1:
+            mood = "Sad"
+        elif user.get(mood_str) == 2:
+            mood = "Happy"
+        elif user.get(mood_str) == 3:
+            mood = "Energetic"
+        elif user.get(mood_str) == 4:
+            mood = "Calm"
+        else:
+            return Response("잘못된 음악 선호도 값", status=status.HTTP_400_BAD_REQUEST)
 
-        # Todo: emotion -> mood
-
-        mood = 'sad'
         playlist = stubPlaylist(mood, request.user)
 
         data={'diary': diary_pk, 'music': ''}
@@ -431,7 +444,7 @@ def monthEmotion(request, year, month):
         str_month = '0'+str_month
 
     search = f'{year}-{str_month}-'
-    emotions = Diary.objects.values_list('emotion', flat=True).filter(created_date__contains=search)
+    emotions = Diary.objects.values_list('emotion', flat=True).filter(user=request.user.pk, created_date__contains=search)
     
     ret = []
     for emotion in emotions:
@@ -450,7 +463,7 @@ def monthDiary(request, year, month):
         str_month = '0'+str_month
 
     search = f'{year}-{str_month}-'
-    diaries = Diary.objects.filter(created_date__contains=search)
+    diaries = Diary.objects.filter(user=request.user.pk, created_date__contains=search)
 
     for diary in diaries:
         diary.title = ciper.decrypt_str(diary.title)
