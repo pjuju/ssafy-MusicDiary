@@ -44,9 +44,9 @@ export const putUserInfoApi = async (userInfo, user_id, success, fail) => {
   };
 
 //  일부정보 수정
-  export const patchUserInfoApi = async (userInfo, username, success, fail) => {
+  export const patchUserInfoApi = async (userInfo, user_id, success, fail) => {
     return await api
-      .put(`/accounts/${username}/`, userInfo, {
+      .patch(`/accounts/${user_id}/`, userInfo, {
         header: {
           "Content-Type": `application/json`,
         },
