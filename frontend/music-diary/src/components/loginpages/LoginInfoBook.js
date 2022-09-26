@@ -168,6 +168,12 @@ function LoginInfoBook() {
   const REDIRECT_URI = "http://j7d204.p.ssafy.io/kakao/login/callback";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;   
 
+  const scope = "https://www.googleapis.com/auth/userinfo.email"
+  const GOOGLE_CLIENT_ID = "421385414738-hlk6fqfkbur8k03nuh1ftjftukoo8umd.apps.googleusercontent.com"
+  // const GOOGLE_SECRET_KEY = "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"
+  GOOGLE_CALLBACK_URI = 'http://j7d204.p.ssafy.io/google/login/callback/'
+  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&response_type=code&redirect_uri=${GOOGLE_CALLBACK_URI}&scope=${scope}`
+
   return (
     <>
       <div className="login-info-wrapper">
@@ -213,13 +219,14 @@ function LoginInfoBook() {
                   {/* <a href="https://kauth.kakao.com/oauth/authorize?client_id=f742e07d1059ec8cd0050f305986a8a4&redirect_uri=http://j7d204.p.ssafy.io:8080/rest/accounts/kakao/callback/&response_type=code"> */}
                   {/* <img className="kakao-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/kakao-login-btn.png`}  /> */}
                   {/* </a> */}
-
+                  <a href={GOOGLE_AUTH_URL}>
                   <img
                     className="google-btn-img"
                     alt="#"
                     src={`${process.env.PUBLIC_URL}/assets/img/google-login-btn.png`}
-                    onClick={onGoogleLoginBtn}
+                    // onClick={onGoogleLoginBtn}
                   />
+                  </a>
                 </div>
               </div>
             </div>
