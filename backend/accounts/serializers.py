@@ -60,6 +60,8 @@ class SignupSirializer(serializers.ModelSerializer):
     
     image_url = serializers.CharField(
         write_only = True,
+        required=True,
+
     )    
     password2 = serializers.CharField(write_only = True, required=True)
     
@@ -142,6 +144,7 @@ class SigninSirializer(serializers.ModelSerializer):
             'point' : user.point,
             'angry' : user.angry,
             'user' : user.id,
+            'image_url' : user.image_url,
             'token' : {
                 'refresh_token' : str(token),
                 'access_token' : str(token.access_token)    
@@ -152,16 +155,18 @@ class SigninSirializer(serializers.ModelSerializer):
     
 class UserSerializer(serializers.ModelSerializer):
     
-    favorite_musics = MusicSerialiezer(many=True)
+    favorite_musics = MusicSerialiezer(many=True, read_only=True)
     class Meta:
         model = get_user_model()
-        fields = '__all__'
-        fields = ('id', 'username', 'email', 'sad', 'depressed', 'normal', 'angry', 'point', 'image_url', 'favorite_musics')
+        # fields = '__all__'
+        fields = ('id', 'username', 'email', 'sad', 'depressed', 'normal', 'angry', 'point', 'image_url', 'favorite_musics',)
+        read_only_fields = ('id','point','favorite_musics',)
+
 
     # def update(self, instance, validated_data): 
     #     instance.username = validated_data.get('username', instance.username)
+    #     instance.content = validated_data.get('sad', instance.sad)
     #     return instance
-        # instance.content = validated_data.get('content', instance.title)
 
 # class UserUpdateSerializer(serializers.ModelSerializer):
 #     class Meta:

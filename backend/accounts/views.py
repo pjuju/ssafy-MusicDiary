@@ -27,10 +27,10 @@ from rest_framework.decorators import api_view
 
 
 
-BASE_URL = 'http://localhost:8000/rest/'
+BASE_URL = 'http://j7d204.p.ssafy.io:8080/rest/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'accounts/google/callback/'
-KAKAO_CALLBACK_URI = BASE_URL + 'accounts/kakao/callback2/'
-# GITHUB_CALLBACK_URI = BASE_URL + 'accounts/github/callback/'
+KAKAO_CALLBACK_URI = BASE_URL + 'accounts/kakao/callback/'
+GITHUB_CALLBACK_URI = BASE_URL + 'accounts/github/callback/'
 
 state = getattr(settings, 'STATE')
 
@@ -135,10 +135,8 @@ def kakao_login(request):
 
 def kakao_callback(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
-    code = request.POST.get("code")
-    print(request.POST)
-    print("Code :::::", code)
-    redirect_uri = "http://localhost:3000/kakao/login/callback"
+    code = request.GET.get("code")
+    redirect_uri = KAKAO_CALLBACK_URI
     """
     Access Token Request
     """
@@ -188,11 +186,7 @@ def kakao_callback(request):
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
         accept_json = accept.json()
-        accept_json.pop('user', None)
-        print()
-        print()
-        print()
-        print(accept_json)
+        # accept_json.pop('user', None)
         return JsonResponse(accept_json)
     except User.DoesNotExist:
         # 기존에 가입된 유저가 없으면 새로 가입
@@ -204,7 +198,7 @@ def kakao_callback(request):
             return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
         # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
         accept_json = accept.json()
-        accept_json.pop('user', None)
+        # accept_json.pop('user', None)
         return JsonResponse(accept_json)
 
 
@@ -239,45 +233,49 @@ class SigninView(generics.GenericAPIView):
     #     print(data)
     #     return Response({"data":data}, status=status.HTTP_200_OK)
     
-@api_view(['GET', 'PUT', 'DELETE', 'PATCH'])
-def UserView(request,pk):
-
-    def get():
+# @api_view(['GET', 'PUT', 'DELETE', 'PATCH'])
+class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+    def get(self, request ,pk):
         user = get_object_or_404(User, id=pk)
         serializer = UserSerializer(user)
         data = serializer.data
         return Response({"data":data}, status=status.HTTP_200_OK)
 
-    def delete():
-        user = get_object_or_404(User,id=pk)
-        if request.user == user:
-            user.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+    def delete(self,request):
+        pass
     
-    def put():
-        print('asdfas')
+    def put(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         reqData = request.data
-        print(reqData)
-        serializer = UserSerializer(user, data=reqData)
+        serializer = UserSerializer(user, data=reqData, partial=True)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
-    
-    def patch():
-        user = get_object_or_404(User, id=pk)
-        serializer = UserSerializer(user, data=request.data, partial=True) # set partial=True to update a data partially
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(code=201, data=serializer.data)
-        return JsonResponse(code=400, data="wrong parameters")
 
-    if request.method == 'GET':
-        return get()
-    elif request.method == 'PUT':
-        return put()
-    elif request.method == 'PATCH':
-        return patch()
-    elif request.method == 'DELETE':
-        return delete()    
+
+
+        # return self.update(request, pk)
+    
+    
+    # def patch(self, request, pk):
+    #     user = get_object_or_404(User, id=pk)
+    #     serializer = UserSerializer(user, data=request.data, partial=True) # set partial=True to update a data partially
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return JsonResponse(code=201, data=serializer.data)
+    #     return JsonResponse(code=400, data="wrong parameters")
+
+
+    # if request.method == 'GET':
+    #     return get()
+    # elif request.method == 'PUT':
+    #     return put()
+    # elif request.method == 'PATCH':
+    #     return patch()
+    # elif request.method == 'DELETE':
+    #     return delete()    
