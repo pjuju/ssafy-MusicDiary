@@ -49,14 +49,36 @@ let test  = createSlice({
     initialState: 'test_initial_state'
 })
 
+let diarySlice = createSlice({
+    name: 'diarySlice',
+    initialState: {diaryBookmark: 'false'},
+
+    // reducers : {
+    //     // 1. sad 감정 정보 숫자로 받아서 설정하는 부분
+    //     setNormalChoiceValue(state, action){
+    //         console.log("in reducers, Normal: ", action.payload)
+    //         state.normalChoice = action.payload
+    //     },
+
+    reducers : {
+        setDiaryBookmarkValue(state, action){
+            console.log("in bookmark reducers : ", action.payload)
+            state.diaryBookmark = action.payload
+        }
+    }
+})
 
 export default configureStore ({
     reducer :{
         user: user.reducer,
-        test : test.reducer
+        test : test.reducer,
+        diarySlice : diarySlice.reducer,
     }
 })
 
 // 선언한 state 변경함수 export
 export let { setNormalChoiceValue, setSadChoiceValue, setAngryChoiceValue, setDepressedChoiceValue, setUserEmail, 
                 setUserPassword, setUserPassword2, setUserName}  = user.actions
+
+
+export let { setDiaryBookmarkValue } = diarySlice.actions

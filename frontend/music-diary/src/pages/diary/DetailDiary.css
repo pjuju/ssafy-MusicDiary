@@ -80,6 +80,7 @@ cursor: pointer;
 z-index: 100;
 }
 
+
 .detail-diary .date {
 display: flex;
 justify-content: end;

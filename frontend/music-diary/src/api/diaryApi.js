@@ -33,6 +33,7 @@ export const modifyDiaryItem = async(diary_id,diaryInfo, success, fail ) => {
 
 // 일기 삭제(DELETE) API / HTML
 export const deleteDiary = async(diary_id, success, fail) => {
+    console.log("in Delete:", diary_id)
     return await api.delete(`/diary/${diary_id}/`)
 }
 

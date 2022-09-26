@@ -18,8 +18,13 @@ import {
   modifyDiaryItem,
 } from "../../api/diaryApi";
 import { getTotalStickerListApi } from "../../api/stickerApi";
-
 import "./DetailDiary.css";
+
+// Redux
+import { useSelector } from "react-redux";
+import { setDiaryBookmarkValue } from "../../store/store";
+import { useDispatch } from "react-redux";
+
 
 //  konva
 import { Image as KonvaImage, Layer, Stage } from "react-konva";
@@ -35,6 +40,7 @@ import { stickersData } from "../sticker-data/stickers.data.ts";
 const DetailDiary = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // diary
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -46,6 +52,13 @@ const DetailDiary = () => {
   const [monthData, setmonthData] = useState([]); // 이달의 전체 일기 정보
 
   const strDate = new Date(date).toLocaleDateString();
+
+    // redux : bookmark 
+    // store의 state 값 확인중
+    const storeBookmark = useSelector((state) => {
+      return state.diarySlice.diaryBookmark;
+    });
+  
 
   // konva //
   const [background] = useImage("example-image.jpg");
@@ -109,7 +122,6 @@ const DetailDiary = () => {
       });
 
 
-
     if (monthData.length >= 1) {
       const targetDiary = monthData.find(
         (it) => parseInt(it.id) === parseInt(id)
@@ -122,6 +134,10 @@ const DetailDiary = () => {
         setemotion(targetDiary.emotion);
         setDate(targetDiary.created_date);
         setBookmark(targetDiary.bookmarked);
+
+        // redux : actions
+        dispatch(setDiaryBookmarkValue(bookmark))
+
         console.log("현재 보고 있는 일기는...", targetDiary);
       } else {
         // 일기가 없을 때
@@ -129,7 +145,7 @@ const DetailDiary = () => {
         navigate("/calender", { replace: true });
       }
     }
-  }, [id, monthData]);
+  }, [id, monthData, bookmark]);
   //
   // useEffect(() => {
   //   // 이 다이어리가 새로 렌더링될 때마다 bookmark 정보 바꿔주기
@@ -187,19 +203,26 @@ const DetailDiary = () => {
     (it) => parseInt(it.id) === parseInt(id)
     );
 
+  // 북마크 다루기 ////////////////////////////////////////
   const handleBookmark = () => {
-    if (targetDiary.bookmarked === false) {
-      console.log(targetDiary.bookmarked);
+    console.log("storeBookmark:", storeBookmark)
+    if (storeBookmark === false) {
+      console.log("북마크 state:", bookmark);
+      dispatch(setDiaryBookmarkValue(true));
       makeBookmark(id)
         .then((res) => {
-          console.log(res.data);
+          console.log(JSON.stringify(res.data));
           // 만약 북마크가 false라면 makeBookmark api를 활용하여 북마크 등록
         })
         .catch((e) => {
           console.log("err", e);
         });
     }
-    if (targetDiary.bookmarked === true) {
+
+
+    if (storeBookmark=== true) {
+      console.log("북마크 state:", bookmark);
+      dispatch(setDiaryBookmarkValue(false));
       deleteBookmark(id)
         .then((res) => {
           console.log(res.data);
@@ -209,6 +232,8 @@ const DetailDiary = () => {
           console.log("err", e);
         });
     }
+
+    
   };
 
   ///////////////////////////////////////////////////////////////////////////////////////
@@ -289,11 +314,26 @@ const DetailDiary = () => {
     <>
       <div className="detail-diary">
         {/* 상단의 북마크 설정 */}
-        <div className='bookmark'
-              ref= {bookmarkRef}
-              onClick={()=>{handleBookmark()}}
-          >
-          </div>
+        {
+          storeBookmark === true ? 
+          (
+            <div className='bookmark'
+                style={{backgroundColor: "green"}}
+                ref= {bookmarkRef}
+                onClick={()=>handleBookmark()}
+            >
+            </div>
+          ) : 
+          (
+            <div className='bookmark'
+                style={{backgroundColor: "blue"}}
+                ref= {bookmarkRef}
+                onClick={()=>handleBookmark()}
+            >
+            </div>
+          )
+        }
+        
           {/* 상단의 일기 제목 고정으로 */}
           <div className='fix-top'>
             <h2 className='title'>{title}</h2>
@@ -312,7 +352,7 @@ const DetailDiary = () => {
       
         {/* 우측상단의 수정, 삭제 버튼 */}
         <div className="btn-area">
-          <button onClick={()=>{navigate(`/edit/${id}`)}} className="edit-button">수정하기</button>
+          <button onClick={()=>{navigate(`/edit/${id}`)}} className="edit-button">{storeBookmark}</button>
           <button onClick={handleRemove} className="delete-button">삭제하기</button>
         </div>
         {/* <button onClick={()=>{navigate(`/diarylist`)}} className="goback-button">돌아가기</button> */}
