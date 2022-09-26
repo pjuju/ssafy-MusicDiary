@@ -10,7 +10,7 @@ pipeline {
                                 // sh 'cat .env'
                                 // sh 'ls -al'
                                 // sh 'cp .env frontend'
-                                sh 'cp -r /home/ubuntu/docker-volume backend'
+                                // sh 'cp -r /home/ubuntu/docker-volume backend'
                                 
                         }
                 }
