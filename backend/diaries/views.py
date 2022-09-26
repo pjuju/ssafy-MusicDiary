@@ -172,9 +172,8 @@ class ImageDetail(GenericAPIView):
     @swagger_auto_schema(request_body=ImageSerializer)
     def delete(self, request, format=None):
         image_url = request.data['image_url']
-        file_id = image_url.split("/")[1]
-        print(file_id)
-        ret = FileUpload(s3_client).delete(file_id)
+        image_id = image_url.split('com/')[1]
+        ret = FileUpload(s3_client).delete(image_id)
         if ret=="SUCCESS":
             return Response({'result': ret}, status=status.HTTP_204_NO_CONTENT)
         return Response({'result': ret}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
