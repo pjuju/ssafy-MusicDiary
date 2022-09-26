@@ -47,7 +47,7 @@ class User(AbstractUser):
     angry = models.IntegerField(null=True, blank=True)
     depressed = models.IntegerField(null=True, blank=True)
     normal = models.IntegerField(null=True, blank=True)
-    point = models.IntegerField(null=True, blank=True)
+    point = models.IntegerField(blank=True, default=0)
     image_url = models.CharField(max_length=255)
     
     USERNAME_FIELD = 'email'
