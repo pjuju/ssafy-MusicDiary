@@ -1,7 +1,8 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import React, { useEffect, useReducer, useRef } from "react";
-import Auth from './components/loginpages/Auth'
+import KakaoAuth from './components/loginpages/KakaoAuth'
+import GoogleAuth from './components/loginpages/GoogleAuth'
 
 import {
   ClosedIntroPage,
@@ -158,7 +159,8 @@ function App() {
           <Route path="/sticker/store" element={<StickerStore />} />
           <Route path="/sticker/detail/:id" element={<StickerDetail />} />
           <Route path="/sticker/charge" element={<ChargePoint /> } /> 
-          <Route path="/kakao/login/callback" element={<Auth />} /> 
+          <Route path="/kakao/login/callback" element={<KakaoAuth />} /> 
+          <Route path="/google/login/callback" element={<GoogleAuth />} /> 
         
         </Routes>
       </BrowserRouter>
