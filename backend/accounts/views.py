@@ -28,7 +28,8 @@ from rest_framework.decorators import api_view
 
 
 BASE_URL = 'http://j7d204.p.ssafy.io:8080/rest/'
-GOOGLE_CALLBACK_URI = BASE_URL + 'accounts/google/callback/'
+# GOOGLE_CALLBACK_URI = BASE_URL + 'accounts/google/callback2/'
+GOOGLE_CALLBACK_URI = 'http://j7d204.p.ssafy.io/google/login/callback/'
 KAKAO_CALLBACK_URI = BASE_URL + 'accounts/kakao/callback2/'
 GITHUB_CALLBACK_URI = BASE_URL + 'accounts/github/callback/'
 
@@ -50,7 +51,7 @@ def google_callback(request):
     print("calllback")
     client_id = getattr(settings, "SOCIAL_AUTH_GOOGLE_CLIENT_ID")
     client_secret = getattr(settings, "SOCIAL_AUTH_GOOGLE_SECRET")
-    code = request.GET.get('code')
+    code = request.POST.get('code')
     """
     Access Token Request
     """
