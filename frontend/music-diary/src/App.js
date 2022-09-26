@@ -1,6 +1,7 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import React, { useEffect, useReducer, useRef } from "react";
+import Auth from './components/loginpages/Auth'
 
 import {
   ClosedIntroPage,
@@ -156,7 +157,9 @@ function App() {
           <Route path="/mypage/mysticker" element={<MySticker />} />
           <Route path="/sticker/store" element={<StickerStore />} />
           <Route path="/sticker/detail/:id" element={<StickerDetail />} />
-          <Route path="/sticker/charge" element={<ChargePoint /> } />         
+          <Route path="/sticker/charge" element={<ChargePoint /> } /> 
+          <Route path="/kakao/login/callback" element={<Auth />} /> 
+        
         </Routes>
       </BrowserRouter>
       </DiaryDispatchContext.Provider>

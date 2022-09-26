@@ -27,10 +27,10 @@ from rest_framework.decorators import api_view
 
 
 
-BASE_URL = 'http://j7d204.p.ssafy.io:8080/rest/'
+BASE_URL = 'http://localhost:8000/rest/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'accounts/google/callback/'
-KAKAO_CALLBACK_URI = BASE_URL + 'accounts/kakao/callback/'
-GITHUB_CALLBACK_URI = BASE_URL + 'accounts/github/callback/'
+KAKAO_CALLBACK_URI = BASE_URL + 'accounts/kakao/callback2/'
+# GITHUB_CALLBACK_URI = BASE_URL + 'accounts/github/callback/'
 
 state = getattr(settings, 'STATE')
 
@@ -135,8 +135,10 @@ def kakao_login(request):
 
 def kakao_callback(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
-    code = request.GET.get("code")
-    redirect_uri = KAKAO_CALLBACK_URI
+    code = request.POST.get("code")
+    print(request.POST)
+    print("Code :::::", code)
+    redirect_uri = "http://localhost:3000/kakao/login/callback"
     """
     Access Token Request
     """
@@ -186,7 +188,11 @@ def kakao_callback(request):
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
         accept_json = accept.json()
-        # accept_json.pop('user', None)
+        accept_json.pop('user', None)
+        print()
+        print()
+        print()
+        print(accept_json)
         return JsonResponse(accept_json)
     except User.DoesNotExist:
         # 기존에 가입된 유저가 없으면 새로 가입
@@ -198,7 +204,7 @@ def kakao_callback(request):
             return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
         # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
         accept_json = accept.json()
-        # accept_json.pop('user', None)
+        accept_json.pop('user', None)
         return JsonResponse(accept_json)
 
 

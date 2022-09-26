@@ -5,7 +5,6 @@ function MainLogin() {
   return (
     <>
         <LoginInfoBook />
-    
     </>
   )
 }
