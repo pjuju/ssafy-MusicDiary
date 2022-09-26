@@ -1,13 +1,9 @@
-from ast import Return
-from functools import partial
-from webbrowser import get
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 from .serializers import DiaryMusicSerializer, DiarySerializer, BookmarkSerializer, DiaryStickerSerializer, DiaryImageSerializer, ImageSerializer
 from .models import Bookmark, Diary, DiaryMusic, DiaryImage, DiarySticker
-from django.views.generic import View
 
-from rest_framework import parsers, renderers, serializers, status
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework.decorators import api_view
@@ -194,65 +190,6 @@ class DiaryDetail(GenericAPIView):
         serializer = DiarySerializer(diary)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def put(self, request, diary_pk, format=None):
-        diary = get_object_or_404(Diary, pk=diary_pk)
-        data = request.data
-
-        newPost = dict()
-        newPost['title'] = ciper.encrypt_str(data['title'])
-        newPost['content'] = ciper.encrypt_str(data['content'])
-        newPost['emotion'] = ciper.encrypt_str(data['emotion'])
-        newPost['created_date'] = data.get('created_date', diary.created_date)
-        
-        diarySerializer = DiarySerializer(diary, data=newPost)
-        if diarySerializer.is_valid(raise_exception=True):
-            diarySerializer.save()
-
-            # 이미지 수정
-            if 'images' in data:
-                # 기존 이미지들 삭제
-                try:
-                    oldImages = DiaryImage.objects.get(diary=diary_pk)
-                    if oldImages != None:
-                        oldImages.delete()
-                except:
-                    pass
-
-                newImages = data['images']
-                image = {'diary': diary_pk}
-
-                # 각각의 이미지를 image 테이블에 넣어줌
-                for img in newImages:
-                    image['image_url'] = img['image_url']
-                    diaryImageSerializer = DiaryImageSerializer(data=image)
-                    if diaryImageSerializer.is_valid(raise_exception=True):
-                        diaryImageSerializer.save()
-
-            # 스티커 수정
-            if 'stickers' in data:
-                # 기존 스티커들 삭제
-                try:
-                    oldStickers = DiarySticker.objects.get(diary=diary_pk)
-                    if oldStickers != None:
-                        oldStickers.delete()
-                except:
-                    pass
-
-                newStickers = data['stickers']
-                sticker = {'diary': diary_pk}
-
-                # 각각의 스티커를 sticker 테이블에 넣어줌
-                for stckr in newStickers:
-                    sticker['sticker'] = stckr['sticker_id']
-                    sticker['sticker_x'] = stckr['sticker_x']
-                    sticker['sticker_y'] = stckr['sticker_y']
-                    diarystickerSerializer = DiaryStickerSerializer(data=sticker)
-                    if diarystickerSerializer.is_valid(raise_exception=True):
-                        diarystickerSerializer.save()
-
-            serializer = DiarySerializer(Diary.objects.get(pk=diary_pk))
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
     def patch(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
         data = request.data
@@ -312,8 +249,7 @@ class DiaryDetail(GenericAPIView):
                     if diarystickerSerializer.is_valid(raise_exception=True):
                         diarystickerSerializer.save()
 
-            serializer = DiarySerializer(Diary.objects.get(pk=diary_pk))
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return DiaryDetail.get(self=DiaryDetail, request=request, diary_pk=diary_pk)
 
 
     def delete(self, request, diary_pk, format=None):
@@ -435,8 +371,14 @@ class BookmarkList(GenericAPIView):
     serializer_class = BookmarkSerializer
 
     def get(self, request, format=None):
-        bookmark = get_list_or_404(Bookmark, user=request.user.pk)
-        serializer = BookmarkSerializer(bookmark, many=True)
+        bookmarks = get_list_or_404(Bookmark, user=request.user.pk)
+        # 복호화
+        for bookmark in bookmarks:
+            diary = bookmark.diary
+            bookmark.diary.title = ciper.decrypt_str(diary.title)
+            bookmark.diary.content = ciper.decrypt_str(diary.content)
+            bookmark.diary.emotion = ciper.decrypt_str(diary.emotion)
+        serializer = BookmarkSerializer(bookmarks, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -459,7 +401,7 @@ class BookmarkDetail(GenericAPIView):
                 diary = Diary.objects.get(pk=diary_pk)
                 diary.bookmarked = True
                 diary.save()
-                return Response(bookmarkSerializer.data, status=status.HTTP_201_CREATED)
+                return DiaryDetail.get(DiaryDetail, request, diary_pk=diary_pk)
         
         if bookmark != None:
             print(bookmark)
