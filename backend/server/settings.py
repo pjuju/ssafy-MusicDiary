@@ -200,7 +200,6 @@ AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
 AWS_STORAGE_BUCKET_NAME = config_secret['aws']['storage_bucket_name']
 AWS_REGION = config_secret['aws']['region']
 
-<<<<<<< HEAD
 # # AWS Access
 # AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
 # AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
@@ -220,12 +219,3 @@ AWS_REGION = config_secret['aws']['region']
 PATH = './'
 loaded_data = torch.load(PATH + '6emotions_model.pt', map_location='cpu')  # 전체 모델을 통째로 불러옴, 클래스 선언 필수
 loaded_data.load_state_dict(torch.load(PATH + '6emotions_model_state_dict.pt', map_location='cpu'))
-=======
-# S3 Storages
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
->>>>>>> bc22fb0adb810850b9169f93209599b68aa5d5a3
