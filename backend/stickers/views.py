@@ -43,7 +43,6 @@ class StickerPackDetail(GenericAPIView):
     def get(self, request, stickerpack_id, format=None):
         stickerpack = get_object_or_404(StickerPack, pk=stickerpack_id)
         serializer = StickerPackSerializer(stickerpack)
-        # if serializer.is_valid(raise_exception=True):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -90,6 +89,8 @@ class UserStickerDetail(GenericAPIView):
             # Todo: 사용자 포인트 차감
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
+                user.point -= stickerPack.price
+                user.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         # 이미 구매한 스티커팩 (구매 실패)

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Bookmark, Diary, DiaryMusic, DiaryImage, DiarySticker, Image
+from stickers.serializers import StickerSerializer
 
 
 class BookmarkSerializer(serializers.ModelSerializer):
@@ -26,6 +27,11 @@ class DiaryStickerSerializer(serializers.ModelSerializer):
         model = DiarySticker
         fields = '__all__'
         read_only_field = {'diary',},
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['sticker'] = StickerSerializer(instance.sticker).data
+        return response
 
 
 class DiaryImageSerializer(serializers.ModelSerializer):

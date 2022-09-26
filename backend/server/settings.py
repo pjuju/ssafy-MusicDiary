@@ -15,14 +15,16 @@ from pathlib import Path
 import os
 import json
 import sys
+import torch
+from manage import BERTClassifier, BERTDataset
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 ROOT_DIR = os.path.dirname(BASE_DIR)
-CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
-SECRET_BASE_FILE = os.path.join(BASE_DIR, 'secrets.json')
+CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secrets')
+SECRET_BASE_FILE = os.path.join(CONFIG_SECRET_DIR, 'secrets.json')
 
 secrets = json.loads(open(SECRET_BASE_FILE).read())
 for key, value in secrets.items():
@@ -186,13 +188,17 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-SECRET_KEY = 'testkey'
+CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
+config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
 
-# CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
-# config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
+# AES key
+SECRET_KEY = config_secret['aes']['secret_key']
 
-# # AES key
-# SECRET_KEY = config_secret['aes']['secret_key']
+# AWS Access
+AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
+AWS_SECRET_ACCESS_KEY = config_secret['aws']['secret_access_key']
+AWS_STORAGE_BUCKET_NAME = config_secret['aws']['storage_bucket_name']
+AWS_REGION = config_secret['aws']['region']
 
 # # AWS Access
 # AWS_ACCESS_KEY_ID = config_secret['aws']['access_key_id']
@@ -207,3 +213,9 @@ SECRET_KEY = 'testkey'
 # }
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
+
+
+
+PATH = './'
+loaded_data = torch.load(PATH + '6emotions_model.pt', map_location='cpu')  # 전체 모델을 통째로 불러옴, 클래스 선언 필수
+loaded_data.load_state_dict(torch.load(PATH + '6emotions_model_state_dict.pt', map_location='cpu'))

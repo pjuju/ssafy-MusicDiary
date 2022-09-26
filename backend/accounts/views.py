@@ -29,7 +29,7 @@ from rest_framework.decorators import api_view
 
 BASE_URL = 'http://j7d204.p.ssafy.io:8080/rest/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'accounts/google/callback/'
-KAKAO_CALLBACK_URI = BASE_URL + 'accounts/kakao/callback/'
+KAKAO_CALLBACK_URI = BASE_URL + 'accounts/kakao/callback2/'
 GITHUB_CALLBACK_URI = BASE_URL + 'accounts/github/callback/'
 
 state = getattr(settings, 'STATE')
@@ -135,8 +135,9 @@ def kakao_login(request):
 
 def kakao_callback(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
-    code = request.GET.get("code")
-    redirect_uri = KAKAO_CALLBACK_URI
+    code = request.POST.get("code")
+    redirect_uri = "http://j7d204.p.ssafy.io/kakao/login/callback"
+
     """
     Access Token Request
     """
@@ -248,7 +249,7 @@ class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destro
     def delete(self,request):
         pass
     
-    def put(self, request, pk):
+    def patch(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         reqData = request.data
         serializer = UserSerializer(user, data=reqData, partial=True)

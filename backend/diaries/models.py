@@ -37,7 +37,7 @@ class DiarySticker(models.Model):
 
 class DiaryImage(models.Model):
     diary = models.ForeignKey("diaries.Diary", related_name='images', null=False, on_delete=models.CASCADE)
-    image_url = models.CharField(max_length=50)
+    image_url = models.CharField(max_length=256)
     
     class Meta:
         constraints = [
@@ -47,5 +47,5 @@ class DiaryImage(models.Model):
 
 class Image(models.Model):
     image = models.FileField(blank=True, default='')
-    image_id = models.CharField(max_length=50)
+    image_url = models.CharField(max_length=256)
 
