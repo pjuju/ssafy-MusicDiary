@@ -1,27 +1,136 @@
 .detail-diary {
-    position: relative;
+  position: relative;
 }
 
 .detail-diary .detail-diary-item {
-  /* 이건 모든 페이지들이 공용으로 설정할 값 */
-  width: 77vw;
-  height: 90vh;
-  margin-top: 6vh;
-  margin-left: 18vw;
 
+  /* 이건 모든 페이지들이 공용으로 설정할 값 */
+  width: 40vw;
+  height: 60vh;
+  margin-top: 25vh;
+  margin-left: 24vw; 
+
+position: absolute;
+z-index: 1;
+color: black;
+
+  overflow:auto;
+  -ms-overflow-style: none;
+  background-color: green;
+  white-space : nowrap
+}
+
+.detail-diary .fix-top {
   position: absolute;
   z-index: 1;
   color: black;
+  margin-top: 6vh;
+  margin-left: 35vw;
+}
+
+.detail-diary .detail-diary-item::-webkit-scrollbar{
+display:none;
+}
+
+.detail-diary .detail-diary-item .content {
+  overflow:auto;
+  -ms-overflow-style: none;
+}
+
+.detail-diary .detail-diary-item .content::-webkit-scrollbar{
+  display:none;
 }
 
 .detail-diary .main-note {
-    position: absolute;
+  position: absolute;
+}
+
+/* 버튼들 */
+.detail-diary .goback-button {
+margin-top: 8vh;
+margin-left: -24vw;
+position: absolute;
+}
+
+.detail-diary .edit-button {
+margin-top: 8vh;
+margin-left: 27vw;
+position: absolute;
+cursor: pointer;
+z-index: 100;
+}
+
+.detail-diary .delete-button {
+margin-top: 8vh;
+margin-left: 32vw;
+position: absolute;
+z-index: 100;
+cursor: pointer;
 }
 
 .detail-diary .bookmark {
-  width: 3vw;
-  height: 10vh;
-  background-color: white;
-  margin-left: 50vw;
-  border: 1px solid black;
+width: 3vw;
+height: 15vh;
+background-color: white;
+margin-left: 25vw;
+margin-top: 6.3vh;
+border: 1px solid black;
+position: absolute;
+cursor: pointer;
+z-index: 100;
+}
+
+.detail-diary .date {
+display: flex;
+justify-content: end;
+margin-right: 5vw;
+}
+
+.detail-diary .title {
+margin-top: 6vh;
+}
+
+.detail-diary .date {
+margin-top: 3vh;
+}
+
+.detail-diary .emotion {
+  width: 5vw;
+  margin-top: -20vh;
+  margin-left: -17vw;
+}
+
+
+.detail-diary .content {
+}
+
+.stage-area {
+  /* background-color: aqua; */
+
+  /* margin-top: 800px; */
+  position: absolute;
+  z-index: 1000;
+}
+
+.individual-sticker {
+  position: absolute;
+  z-index: 1400;
+}
+
+.sticker-choice-area {
+  margin-top: 900px;
+}
+.detail-diary .detail-diary-playlist {
+  width: 20vw;
+  height: 77vh;
+  background-color: lightblue;
+  position: absolute;
+  margin-left: 65vw;
+  margin-top: 20vh;
+  z-index: 2;
+  color: black;
+
+  /* overflow:auto;
+  -ms-overflow-style: none; */
+
 }

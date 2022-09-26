@@ -1,0 +1,11 @@
+{
+  "aes": {
+    "secret_key": "testkey"
+  },
+  "aws": {
+    "access_key_id": "AKIA6MBPCHDHM6S54FGJ",
+    "secret_access_key": "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",
+    "storage_bucket_name": "ssafy-d204-alsongdalsong",
+    "region": "ap-northeast-2"
+  }
+}

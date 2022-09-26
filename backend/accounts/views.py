@@ -21,12 +21,15 @@ from rest_framework import generics, status, mixins
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+
+
 
 
 
 BASE_URL = 'http://j7d204.p.ssafy.io:8080/rest/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'accounts/google/callback/'
-KAKAO_CALLBACK_URI = BASE_URL + 'accounts/kakao/callback/'
+KAKAO_CALLBACK_URI = BASE_URL + 'accounts/kakao/callback2/'
 GITHUB_CALLBACK_URI = BASE_URL + 'accounts/github/callback/'
 
 state = getattr(settings, 'STATE')
@@ -133,7 +136,8 @@ def kakao_login(request):
 def kakao_callback(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
     code = request.GET.get("code")
-    redirect_uri = KAKAO_CALLBACK_URI
+    redirect_uri = "http://j7d204.p.ssafy.io/kakao/login/callback"
+
     """
     Access Token Request
     """
@@ -230,6 +234,7 @@ class SigninView(generics.GenericAPIView):
     #     print(data)
     #     return Response({"data":data}, status=status.HTTP_200_OK)
     
+# @api_view(['GET', 'PUT', 'DELETE', 'PATCH'])
 class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
     
     queryset = User.objects.all()
@@ -244,12 +249,10 @@ class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destro
     def delete(self,request):
         pass
     
-    def put(self, request, pk):
-        print('asdfas')
+    def patch(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         reqData = request.data
-        print(reqData)
-        serializer = UserSerializer(user, data=reqData)
+        serializer = UserSerializer(user, data=reqData, partial=True)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
@@ -260,31 +263,20 @@ class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destro
         # return self.update(request, pk)
     
     
-    def patch(self, request, pk):
-        user = get_object_or_404(User, id=pk)
-        serializer = UserSerializer(user, data=request.data, partial=True) # set partial=True to update a data partially
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(code=201, data=serializer.data)
-        return JsonResponse(code=400, data="wrong parameters")
-    
-    # def post(self, request):
+    # def patch(self, request, pk):
+    #     user = get_object_or_404(User, id=pk)
+    #     serializer = UserSerializer(user, data=request.data, partial=True) # set partial=True to update a data partially
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return JsonResponse(code=201, data=serializer.data)
+    #     return JsonResponse(code=400, data="wrong parameters")
 
-    #     response = Response({
-    #         "message": "Logout success"
-    #         }, status=status.HTTP_202_ACCEPTED)
-    #     response.delete_cookie('refreshtoken')
-    
-    
-# class EmailUniqueCheck(generics.CreateAPIView):
-#     serializer_class = EmailUniqueCheckSerializer
 
-#     def post(self, request, format=None):
-#         serializer = self.get_serializer(data=request.data, context={'request': request})
-
-#         if serializer.is_valid():
-#             return Response(data={'detail':['You can use this email']}, status=status.HTTP_200_OK)
-#         else:
-#             detail = dict()
-#             detail['detail'] = serializer.errors['email']
-#             return Response(data=detail, status=status.HTTP_400_BAD_REQUEST)
+    # if request.method == 'GET':
+    #     return get()
+    # elif request.method == 'PUT':
+    #     return put()
+    # elif request.method == 'PATCH':
+    #     return patch()
+    # elif request.method == 'DELETE':
+    #     return delete()    

@@ -2,7 +2,7 @@ import { useContext, useRef, useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
 import { DiaryDispatchContext } from '../../App';
 import React from "react";
-import { writeDiaryListApi } from '../../api/diaryApi';
+import { writeDiaryListApi, modifyDiaryItem } from '../../api/diaryApi';
 
 import './DiaryEditor.css'
 
@@ -14,7 +14,7 @@ const emotionList = [
     {
         emotion_id:1,
         emotion_img : '/assets/img/happy_emoji.png',
-        emotion_descript:'기쁨'
+        emotion_descript:'행복'
     },
     {
         emotion_id:2,
@@ -53,7 +53,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
     const navigate = useNavigate();
     // const image_url= process.env.PUBLIC_URL + ''
 
-    const [date,setDate] = useState(getStringdate(new Date()))
+    const [created_date,setCreated_date] = useState(getStringdate(new Date()))
     const [content, setcontent] = useState('')
     const [title, setTitle] = useState('')
     const [emotion, setEmotion] = useState('')
@@ -75,22 +75,6 @@ const DiaryEditor = ({ isEdit, originData }) => {
     const { onCreate, onEdit } = useContext(DiaryDispatchContext);
 
     const handleSubmit = () => {
-        const diaryInfo = {
-            title,
-            content,
-            emotion:"aaa"
-            
-        }
-        console.log(diaryInfo)
-
-        writeDiaryListApi(diaryInfo)
-        .then((res)=>{
-            console.log(JSON.stringify(res.data))
-        })
-        .catch((err)=>{
-            console.log(JSON.stringify(err.data))
-        })
-
         if(content.length < 1) {
             contentRef.current.focus();
             return
@@ -103,21 +87,53 @@ const DiaryEditor = ({ isEdit, originData }) => {
             emotionRef.current.focus();
             return
         }
+        // console.log(date)
 
-        if (
-            window.confirm(
-                isEdit ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?"
-            ) 
-          ) {
+        // if (
+        //     window.confirm(
+        //         isEdit ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?"
+        //     ) 
+        //   ) {
               if (!isEdit) {
-                  onCreate(date, title, content, emotion, image,bookmark);
-                } else {
-                    onEdit(originData.id, date, title, content, emotion,image,bookmark);
-
+                  onCreate(created_date, title, content, emotion, image,bookmark);
+                  const diaryInfo = {
+                    title,
+                    content,
+                    emotion,
+                    created_date
                 }
-            }
+        
+                writeDiaryListApi(diaryInfo)
+                .then((res)=>{
+                    console.log('일기 생성',JSON.stringify(res.data))
+                    console.log(res.data)
+                })
+                .catch((err)=>{
+                    console.log(JSON.stringify(err.data))
+                })
+                } 
+                
+            if (isEdit) {
+                    // onEdit(originData.id, date, title, content, emotion,image,bookmark);
+                    const diaryInfo = {
+                        title,
+                        content,
+                        emotion,
+                        created_date
+                    }
+                    modifyDiaryItem(originData.id,diaryInfo)
+                    .then((res)=>{
+                        console.log(res.data)
+                        console.log(diaryInfo)
+                    })
+                    .catch((err)=>{
+                        console.log(JSON.stringify(err.data))
+                    })
+                }
+            // }
             navigate('/diarylist',{replace:true})
     }
+
 
     const [imageUrl, setImageUrl] = useState(null);
     const imgRef = useRef();
@@ -145,33 +161,28 @@ const DiaryEditor = ({ isEdit, originData }) => {
     // 원래 일기 정보 보여주는 로직
     useEffect(() => {
         if (isEdit) {
-          setDate(getStringdate(new Date(parseInt(originData.date))));
+          setCreated_date(getStringdate(new Date(originData.created_date)));
           setEmotion(originData.emotion);
           setTitle(originData.title);
           setcontent(originData.content);
-          setBookmark(originData.bookmark);
+        //   setBookmark(originData.bookmark);
         }
       }, [isEdit, originData]);
 
 
     return (
     <div className="diary-editor">
-        <button onClick={()=>{navigate(-1)}}>뒤로 가기</button>
-        <div className='select-emotion'>
-            <h4>감정 선택하기</h4>
-            <div style={{width:'30vw',height:'6vh'}} ref={emotionRef} onClick={emotionClick}>
-            {emotionList.map((it)=> <div>
-                <img src={it.emotion_img} className="emoji-img" onClick={()=>handleClickEmote(it.emotion_img)} key={it.emotion_img}/></div>)}
-            </div>
+        <div ref={emotionRef} className='select-emotion'>
+        {emotionList.map((it)=> <div onClick={emotionClick}>
+            <img src={it.emotion_img} className="emoji-img" onClick={()=>handleClickEmote(it.emotion_descript)} key={it.emotion_descript}/></div>)}
+        <input value={created_date}
+            onChange={(e) => setCreated_date(e.target.value)}
+            type="date"
+            className='input-date'></input>
         </div>
 
         <div className='left-section'>
             <div style={{display:'flex', marginLeft:'3vw'}}>
-                <h2>날짜</h2>
-                <input value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    type="date"
-                    className='input-date'></input>
             </div>
             <textarea className='diary-textarea-title' placeholder='제목을 입력하세요'
                 ref={titleRef}
@@ -196,13 +207,14 @@ const DiaryEditor = ({ isEdit, originData }) => {
             ></input>
             <button
                 onClick={() => {
-                onClickFileBtn();
+                    onClickFileBtn();
                 }}>
                 이미지 업로드
             </button>
             </React.Fragment>
-            <button onClick={handleSubmit}>작성 완료</button>
         </div>
+        <button onClick={handleSubmit} className="submit-button">작성 완료</button>
+        <button onClick={()=>{navigate(-1)}} className="back-button">작성 취소</button>
 
     </div>)
 }
