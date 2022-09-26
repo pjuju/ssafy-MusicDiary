@@ -54,6 +54,9 @@ const DetailDiary = () => {
   const [stickerInfo, setStickerInfo] = useState([]);
   const bookmarkRef = useRef();
 
+  // stickers
+  const [originStickers, setOriginStickers] = useState([])
+
   // 이모티콘 옳게 부착하기
   const rightEmotion = (emotion) => {
     if (emotion === "행복") {
@@ -122,7 +125,8 @@ const DetailDiary = () => {
         setemotion(targetDiary.emotion);
         setDate(targetDiary.created_date);
         setBookmark(targetDiary.bookmarked);
-        console.log("현재 보고 있는 일기는...", targetDiary);
+        setOriginStickers(targetDiary.stickers)
+        console.log("현재 보고 있는 일기는...", JSON.stringify(targetDiary));
       } else {
         // 일기가 없을 때
         alert("없는 일기입니다.");
@@ -304,6 +308,7 @@ const DetailDiary = () => {
            {/* 일기 content */}
         <div className='detail-diary-item'>
             <div className='content'>{content}</div>
+     
         </div>
 
           {/* 일기별 플레이리스트 */}
@@ -319,7 +324,7 @@ const DetailDiary = () => {
         {/* 4. stage 영역 */}
         <Stage
           className="stage-area"
-          width={600}
+          width={700}
           height={400}
           onClick={handleCanvasClick}
           onTap={handleCanvasClick}
@@ -353,11 +358,27 @@ const DetailDiary = () => {
         </Stage>
 
         </div>
+ {/* sticker 배치 */}
+        <div>
+          {originStickers.map((ele, i)=>{
+            return (
+              <>
+                <img alt="#" src={ele.sticker.image_url} 
+                    style={{position:"absolute", width:"100px"
+                  , top:"`{ele.sticker.sticker_x}`px", left:"`{ele.sticker.sticker_x}`px"}}  
+                />
+              </>
+            )
+          })}
+        </div>
 
 
+   
 
-        {/* 5. 스티커 선택창 */}
-        <div className="sticker-choice-area">
+        {/* 6. 스티커 위치 저장 완료 버튼,,@ */}
+        <button onClick={onSaveStickerPos} >스티커 위치 저장 완료!</button>
+     {/* 5. 스티커 선택창 */}
+     <div className="sticker-choice-area" style={{position:"absolute", marginTop:"90vh"}}>
           <h4 className="heading">Click/Tap to add sticker to photo!</h4>
           {stickerInfo.map((sticker) => {
             return (
@@ -380,10 +401,6 @@ const DetailDiary = () => {
             );
           })}
         </div>
-
-        {/* 6. 스티커 위치 저장 완료 버튼,,@ */}
-        {/* <button onClick={onSaveStickerPos}>스티커 위치 저장 완료!</button> */}
-
         {/* 7. MainNote창 */}
         <div>
           <MainNote className="main-note"></MainNote>
