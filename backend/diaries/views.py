@@ -152,6 +152,7 @@ def DiaryMusicDetail(request, diary_pk):
 
 from musics.models import Music
 import pandas
+from sklearn.preprocessing import MinMaxScaler
 # 노래 감정, 유저를 넣어주세용
 def stub(mood, user):    
     import pandas as pd
@@ -166,30 +167,49 @@ def stub(mood, user):
     liked_musics = user.favorite_musics.filter(mood=mood).values()    
     liked_musics_df = pd.DataFrame(list(liked_musics))    
 
+    print(liked_musics_df)
+    print(len(liked_musics_df))
     # 평균치를 내야 함.    
-    print(liked_musics_df.mean(axis='rows'))
+    # mean_music_df = liked_musics_df.mean(axis='rows')
+    # median_music_df = liked_musics_df.median(axis='rows')
 
     liked_ids = []
-    print(liked_musics)
+    # print(liked_musics)
     for l_m in liked_musics:
         liked_ids.append(l_m['id'])
     # print(len(liked_ids))
 
     # 2. 전체 음악에서 감정으로 거른 음악들 (좋아한 음악들 제외)
     all_musics = Music.objects.filter(mood=mood).exclude(id__in=liked_ids).values()   
-    all_musics_df = pd.DataFrame(list(all_musics))  
+    all_musics_df = pd.DataFrame(list(all_musics), columns=['id','year'])  
+    print(all_musics_df)
+    all_musics_df.set_index('id', inplace=True)
     # print(all_musics)
     # print(len(all_musics))
 
-    # 음악 분류기
     
+    
+    # 정규화 작업
+    scaler = MinMaxScaler()
+    # print(all_musics_df)
+    # scaler.fit(all_musics_df)
+    # all_musics_df = scaler.transform(all_musics_df)
+    # mean_music_df = scaler.transform(mean_music_df) 
+
+
+    # pd.DataFrame(X_train, columns = df.columns[:-1]).head()
+
+    # 음악 분류기
     
     # 3. 유사한 음악들 200개
 
     # 4. 그 중에서 10개 추출
+    reco_musics_df = all_musics_df.sort_values(by="track_popularity").head(10)
+    reco_musics_list = list(reco_musics_df.index)
+    # df.sort_values(by="val", ascending=False).groupby("grp").head(3)
 
     # return liked_ids
-    return 1
+    return reco_musics_list
 
 
 from django.contrib.auth import get_user_model
@@ -205,7 +225,7 @@ def test(request):
     # 플레이리스트 생성
     playlist = stub(mood, user)
 
-    # print(playlist)
+    print(playlist)
 
     data = {'emotions': 'ddd'}
     return Response(data, status=status.HTTP_200_OK)
