@@ -381,8 +381,8 @@ class DiaryMusicDetail(GenericAPIView):
             serializer = DiaryMusicSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-                
-        return Response(status=status.HTTP_201_CREATED)
+        
+        return self.get(request, diary_pk)
 
     def convertToMood(self, mood_id):
         if mood_id == 1:
