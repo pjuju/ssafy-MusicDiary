@@ -25,8 +25,8 @@ django-extensions==3.1.5
 django-filter==22.1
 django-rest-auth==0.9.5
 django-seed==0.3.1
+django-storages==1.13.1
 djangorestframework==3.12.4
-# djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==4.6.0
 drf-yasg==1.21.3
 Faker==14.2.0
@@ -58,6 +58,7 @@ pandas==1.1.5
 pathspec==0.9.0
 Pillow==9.2.0
 platformdirs==2.4.1
+psycopg2==2.9.3
 pycodestyle==2.9.1
 pycparser==2.20
 pycryptodome==3.15.0
@@ -75,12 +76,16 @@ ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.6
 s3transfer==0.6.0
 sacremoses==0.0.53
+scikit-learn==1.0.2
+scipy==1.7.3
 seaborn==0.12.0
 sentencepiece==0.1.97
 shellescape==3.8.1
 six==1.16.0
+sklearn==0.0
 soupsieve==2.3.1
 sqlparse==0.4.1
+threadpoolctl==3.1.0
 tokenizers==0.10.3
 toml==0.10.2
 tomli==1.2.3
