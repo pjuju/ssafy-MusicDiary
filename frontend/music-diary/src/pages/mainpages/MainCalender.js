@@ -11,7 +11,6 @@ import MainNote from './MainNote';
 
 const MainCalender =() => {
     const navigate = useNavigate();
-    const diaryList = useContext(DiaryStateContext);
 
     const [getMoment, setMoment]=useState(moment());
 
@@ -22,7 +21,7 @@ const MainCalender =() => {
     // api 연결하기
     const [noticeData, setNoticeData] = useState([])
     useEffect(()=> {
-      getMonthDiary(new Date().getMonth() + 1, new Date().getFullYear())
+      getMonthDiary(today.format('M'), new Date().getFullYear())
       .then((res)=> {
         setNoticeData(res.data)
         console.log(res.data)
@@ -31,7 +30,7 @@ const MainCalender =() => {
       .catch((e)=> {
         console.log('err',e)
       });
-    },[])
+    },[today.format('M')])
 
     const rightEmotion =(emotion) => {
       if(emotion === '행복') {
@@ -65,22 +64,18 @@ const MainCalender =() => {
                 let days = today.clone().startOf('year').week(week).startOf('week').add(index, 'day'); //d로해도되지만 직관성
                 // 오늘 날짜
                 if(moment().format('YYYYMMDD') === days.format('YYYYMMDD')){      
-                  // {diaryList.map((it)=> {
-                  //   console.log(days.format('YYYY. M. DD.'))         
-                  //   console.log(new Date(parseInt(it.date)).toLocaleDateString())
-                  //   if(new Date(parseInt(it.date)).toLocaleDateString() == days.format('YYYY. M. DD.')){
                       return(
                         <td key={index} >
                               {/* TODAY */}
                               {noticeData.map(it=> {
-                                if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY-MM-DD'))
+                                if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY. M. D.'))
                                   // todayemotion = it.date
                                 return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={rightEmotion(it.emotion)} className="calender-emoji"></img>
+                                <img src={rightEmotion(it.emotion)} className="calender-emoji" style={{cursor:'pointer'}}></img>
                                 </div>
                               }
                               )}
-                              오늘
+                              <p style={{fontSize:"1vw", marginTop:'3vh'}}>TODAY</p>
                             </td>
                         );
                   //   }
@@ -93,7 +88,7 @@ const MainCalender =() => {
     
                               if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY. M. D.'))
                               return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={rightEmotion(it.emotion)} className="calender-emoji"></img>
+                                <img src={rightEmotion(it.emotion)} className="calender-emoji" style={{cursor:'pointer'}}></img>
                                 </div>
                             }
                             )}
@@ -107,7 +102,7 @@ const MainCalender =() => {
                             {noticeData.map(it=> {
                               if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY. M. D.'))
                               return <div style={{color:"red"}} onClick={()=>{navigate(`/diary/${it.id}`)}}>
-                                <img src={rightEmotion(it.emotion)} className="calender-emoji"></img>
+                                <img src={rightEmotion(it.emotion)} className="calender-emoji animate__animated animate__bounceIn" style={{cursor:'pointer'}}></img>
                               </div>
                             }
                             )}
@@ -139,7 +134,7 @@ const MainCalender =() => {
               <button onClick={()=>{ setMoment(getMoment.clone().add(1, 'month')) }} className="time-change-button" >&nbsp; &#10093;	</button>
             </div>
           </div>
-          <button onClick={()=>{navigate('/newdiary')}} className="diary-editor-button">일기 작성</button>
+          <button class="btn-hover color-1 diary-editor-button" onClick={()=>{navigate('/newdiary')}}>일기 작성</button>
           <ul onClick={()=>{navigate('/diarylist')}} className="snip1241">
             <li><a href="#">모아보기</a></li>
           </ul>          

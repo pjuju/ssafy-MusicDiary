@@ -1,8 +1,7 @@
 import { useContext, useRef, useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom'
-import { DiaryDispatchContext } from '../../App';
 import React from "react";
-import { writeDiaryListApi, modifyDiaryItem } from '../../api/diaryApi';
+import { writeDiaryListApi, modifyDiaryItem,getDiaryImage } from '../../api/diaryApi';
 
 import './DiaryEditor.css'
 
@@ -72,8 +71,6 @@ const DiaryEditor = ({ isEdit, originData }) => {
         setEmotion(emotion)
     }  
 
-    const { onCreate, onEdit } = useContext(DiaryDispatchContext);
-
     const handleSubmit = () => {
         if(content.length < 1) {
             contentRef.current.focus();
@@ -87,7 +84,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
             emotionRef.current.focus();
             return
         }
-        // console.log(date)
+
 
         // if (
         //     window.confirm(
@@ -95,14 +92,15 @@ const DiaryEditor = ({ isEdit, originData }) => {
         //     ) 
         //   ) {
               if (!isEdit) {
-                  onCreate(created_date, title, content, emotion, image,bookmark);
+                //   onCreate(created_date, title, content, emotion, image,bookmark);
                   const diaryInfo = {
                     title,
                     content,
                     emotion,
-                    created_date
+                    created_date,
+                    // image
                 }
-        
+        // 일기 작성하기
                 writeDiaryListApi(diaryInfo)
                 .then((res)=>{
                     console.log('일기 생성',JSON.stringify(res.data))
@@ -112,14 +110,24 @@ const DiaryEditor = ({ isEdit, originData }) => {
                     console.log(JSON.stringify(err.data))
                 })
                 } 
+                // 이미지 업로드하기
+                // getDiaryImage(image)
+                // .then((res)=> {
+                //     console.log(res.data)
+                // })
+                // .catch((err)=> {
+                //     console.log(err.data)
+                // })
+
                 
             if (isEdit) {
-                    // onEdit(originData.id, date, title, content, emotion,image,bookmark);
+                // 일기 수정하기
                     const diaryInfo = {
                         title,
                         content,
                         emotion,
                         created_date
+                        
                     }
                     modifyDiaryItem(originData.id,diaryInfo)
                     .then((res)=>{
@@ -135,13 +143,14 @@ const DiaryEditor = ({ isEdit, originData }) => {
     }
 
 
+    // 이미지 업로드 코드
     const [imageUrl, setImageUrl] = useState(null);
     const imgRef = useRef();
+    const [imageFile, setImageFile] = useState()
   
     const onChangeImage = () => {
       const reader = new FileReader();
       const file = imgRef.current.files[0];
-      console.log(file);
   
       reader.readAsDataURL(file);
       reader.onloadend = () => {
@@ -149,14 +158,34 @@ const DiaryEditor = ({ isEdit, originData }) => {
         // console.log("이미지주소", reader.result);
       };
 
-      setImage(reader.result)
-      console.log(image)
+      setImageUrl(reader.result)
+      console.log(imageUrl) // 아무것도 없음
+      console.log(file)     // 파일 정보가 다 들어옴
 
+      setImageFile(file)
     };
   
     const onClickFileBtn = (e) => {
       imgRef.current.click();
     };
+
+    const onClickDelete = () => {
+        URL.revokeObjectURL(imageUrl);
+        setImageUrl("")
+    }
+
+    const uploadImage =() => {
+        console.log(imageUrl) // 이제 엄청 긴 경로가 하나 들어옴
+        console.log(imageFile)  // 사진 데이터 정보
+        getDiaryImage(imageUrl)
+            .then((res)=>{
+                console.log(res.data)
+                // setImage(imageUrl)
+            })
+            .catch((err)=>{
+                console.log(err.data)
+            })
+    }
 
     // 원래 일기 정보 보여주는 로직
     useEffect(() => {
@@ -165,10 +194,26 @@ const DiaryEditor = ({ isEdit, originData }) => {
           setEmotion(originData.emotion);
           setTitle(originData.title);
           setcontent(originData.content);
-        //   setBookmark(originData.bookmark);
+          setImage(originData.image) 
         }
       }, [isEdit, originData]);
 
+
+
+      // 트라이트라이
+    // const [myImage, sestMyImage] = useState([])
+    // const addImage = (e) => {
+    //     const nowSelectImageList = e.target.files;
+    //     const nowImageURLList = [...myImage]
+    //     for (let i = 0; i < nowSelectImageList.length; i+= 1) {
+    //         const nowImageUrl = URL.createObjectURL(nowSelectImageList[i])
+    //         nowImageURLList.push(nowImageUrl)
+    //     }
+    //     sestMyImage(nowImageURLList)
+    // }
+
+
+    // 한 번 츄라이
 
     return (
     <div className="diary-editor">
@@ -196,22 +241,67 @@ const DiaryEditor = ({ isEdit, originData }) => {
             ></textarea>
         </div>
         <div className='right-section'>
+
         <React.Fragment>
             <img src={imageUrl ? imageUrl : "http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg"} style={{width:'20vw'}}></img>
             <input
                 type="file"
+                multiple="multiple"
                 ref={imgRef}
                 onChange={onChangeImage}
                 style={{ display: "none" }}
-                value={image}
+                // value={image}
             ></input>
+            {imageUrl? (<>
+                <button onClick={onClickDelete} > 삭제 </button>
+                <button onClick={uploadImage}>업로드</button>
+            </>) :(<>
             <button
                 onClick={() => {
                     onClickFileBtn();
                 }}>
-                이미지 업로드
+                사진 선택
             </button>
-            </React.Fragment>
+            </>)}
+        </React.Fragment>
+
+        {/* <div>
+            <label
+                htmlFor='input-file'
+                className='OOTDWrite-input-file'
+                onChange={addImage}
+            >
+            <input
+                type="file"
+                multiple="multiple"
+                id="input-file"
+                // style={{display:'none'}}
+                accept=".jpg,.jpeg,.png"
+            ></input>
+            </label>
+        </div> */}
+
+        {/* <div style={{
+              alignItems: "center",
+              justifyContent: "center", }} >
+              <input
+                  name="imggeUpload"
+                  type="file"
+                  accept="image/*"
+                  onChange={saveFileImage} />
+            </div>
+                <div>{fileImage && ( <div><img alt="sample" src={fileImage}
+                                           style={{ width: '20vw'}} /></div> )}
+                {fileImage ? (<>
+                    <button style={{
+                    width: "50px",
+                    height: "30px",
+                    cursor: "pointer", }}
+                    onClick={() => deleteFileImage()} > 삭제 </button>
+                    <button onClick={()=> deleteFileImage()}>이미지 업로드</button>
+                </>) : (<></>)}
+              </div> */}
+            
         </div>
         <button onClick={handleSubmit} className="submit-button">작성 완료</button>
         <button onClick={()=>{navigate(-1)}} className="back-button">작성 취소</button>

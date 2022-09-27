@@ -69,3 +69,8 @@ export const getMonthEmotion = async(month, success, fail) => {
 export const getMonthDiary = async(month, year,success, fail) => {
     return await api.get(`/diary/month/${year}/${month}/`)
 }
+
+// 이미지 등록(POST)
+export const getDiaryImage = async(imageFile,success,fail) => {
+    return await api.post(`/diary/image/`,imageFile)
+}

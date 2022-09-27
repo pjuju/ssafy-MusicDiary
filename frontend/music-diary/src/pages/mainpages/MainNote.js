@@ -22,10 +22,10 @@ const MainNote = () => {
                 <ul class="snip1250" onClick={()=>{navigate('/bookmarks')}}>
                     <li ><a href="#" data-hover="책갈피">책갈피</a></li>
                 </ul>
-                <ul class="snip1250">
+                <ul class="snip1250" onClick={()=>{navigate('/myplaylist')}}>
                     <li><a href="#" data-hover="My playlist">My playlist</a></li>
                 </ul>
-                <ul class="snip1250">
+                <ul class="snip1250" onClick={()=>{navigate('/musicrecommendation')}}>
                     <li><a href="#" data-hover="음악 추천">음악 추천</a></li>
                 </ul>
             </div>
