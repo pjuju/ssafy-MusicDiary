@@ -17,7 +17,7 @@ import {
   deleteBookmark,
   modifyDiaryItem,
 } from "../../api/diaryApi";
-import { getTotalStickerListApi } from "../../api/stickerApi";
+
 import "./DetailDiary.css";
 
 // Redux
@@ -53,20 +53,22 @@ const DetailDiary = () => {
 
   const strDate = new Date(date).toLocaleDateString();
 
-    // redux : bookmark 
+      // redux : bookmark 
     // store의 state 값 확인중
     const storeBookmark = useSelector((state) => {
       return state.diarySlice.diaryBookmark;
     });
+
   
+    // konva //
+    const [background] = useImage("example-image.jpg");
+    const [images, setImages] = useState([]);
 
-  // konva //
-  const [background] = useImage("example-image.jpg");
-  const [images, setImages] = useState([]);
+    const [stickerInfo, setStickerInfo] = useState([]);
+    const bookmarkRef = useRef();
 
-  const [stickerInfo, setStickerInfo] = useState([]);
-  const bookmarkRef = useRef();
-
+    // stickers
+    const [originStickers, setOriginStickers] = useState([])
   // 이모티콘 옳게 부착하기
   const rightEmotion = (emotion) => {
     if (emotion === "행복") {
@@ -122,6 +124,7 @@ const DetailDiary = () => {
       });
 
 
+ 
     if (monthData.length >= 1) {
       const targetDiary = monthData.find(
         (it) => parseInt(it.id) === parseInt(id)
@@ -134,53 +137,19 @@ const DetailDiary = () => {
         setemotion(targetDiary.emotion);
         setDate(targetDiary.created_date);
         setBookmark(targetDiary.bookmarked);
+        setOriginStickers(targetDiary.stickers)
 
         // redux : actions
         dispatch(setDiaryBookmarkValue(bookmark))
 
-        console.log("현재 보고 있는 일기는...", targetDiary);
+        console.log("현재 보고 있는 일기는...", JSON.stringify(targetDiary));
       } else {
         // 일기가 없을 때
         alert("없는 일기입니다.");
         navigate("/calender", { replace: true });
       }
     }
-  }, [id, monthData, bookmark]);
-  //
-  // useEffect(() => {
-  //   // 이 다이어리가 새로 렌더링될 때마다 bookmark 정보 바꿔주기
-  //   const diaryInfo = {
-  //     title,
-  //     content,
-  //     emotion,
-  //     bookmark,
-  //   };
-  //   modifyDiaryItem(id, diaryInfo)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       console.log(diaryInfo);
-  //     })
-  //     .catch((err) => {
-  //       console.log(JSON.stringify(err.data));
-  //     });
-
-  //   const targetDiary = monthData.find(
-  //     (it) => parseInt(it.id) === parseInt(id)
-  //   );
-
-  //   console.log(targetDiary);
-
-  //   if (targetDiary.bookmarked === false) {
-  //     bookmarkRef.current.style.backgroundColor = "yellow";
-  //     bookmarkRef.current.style.border = "none";
-  //   }
-  //   if (targetDiary.bookmarked === true) {
-  //     bookmarkRef.current.style.backgroundColor = "white";
-  //     bookmarkRef.current.style.border = "black 1px solid";
-  //   }
-  // }, [targetDiary]);
-
-  // 
+  }, [id, monthData]);
 
   //////////////////////////////////////////////////////////////////////////////
   // 다이어리 remove 함수
@@ -233,7 +202,6 @@ const DetailDiary = () => {
         });
     }
 
-    
   };
 
   ///////////////////////////////////////////////////////////////////////////////////////
@@ -333,7 +301,7 @@ const DetailDiary = () => {
             </div>
           )
         }
-        
+
           {/* 상단의 일기 제목 고정으로 */}
           <div className='fix-top'>
             <h2 className='title'>{title}</h2>
@@ -355,18 +323,15 @@ const DetailDiary = () => {
           <button onClick={()=>{navigate(`/edit/${id}`)}} className="edit-button">{storeBookmark}</button>
           <button onClick={handleRemove} className="delete-button">삭제하기</button>
         </div>
-        {/* <button onClick={()=>{navigate(`/diarylist`)}} className="goback-button">돌아가기</button> */}
-
-
-        </div>
-
-        {/* 4. stage 영역 */}
-        {/* <Stage
+     {/* 4. stage 영역 */}
+     <Stage
           className="stage-area"
-          width={1300}
+          width={700}
           height={400}
           onClick={handleCanvasClick}
           onTap={handleCanvasClick}
+
+          id="backgroundImage"
         >
           <Layer>
             {images.map((image, i) => {
@@ -392,10 +357,30 @@ const DetailDiary = () => {
               );
             })}
           </Layer>
-        </Stage> */}
+        </Stage>
 
-        {/* 5. 스티커 선택창 */}
-        {/* <div className="sticker-choice-area">
+        </div>
+ {/* sticker 배치 */}
+        <div>
+          {originStickers.map((ele, i)=>{
+            return (
+              <>
+                <img alt="#" src={ele.sticker.image_url} 
+                    style={{position:"absolute", width:"100px"
+                  , top:"`{ele.sticker.sticker_x}`px", left:"`{ele.sticker.sticker_x}`px"}}  
+                />
+              </>
+            )
+          })}
+        </div>
+
+
+   
+
+        {/* 6. 스티커 위치 저장 완료 버튼,,@ */}
+        <button onClick={onSaveStickerPos} >스티커 위치 저장 완료!</button>
+     {/* 5. 스티커 선택창 */}
+     <div className="sticker-choice-area" style={{position:"absolute", marginTop:"90vh"}}>
           <h4 className="heading">Click/Tap to add sticker to photo!</h4>
           {stickerInfo.map((sticker) => {
             return (
@@ -407,7 +392,7 @@ const DetailDiary = () => {
                     src: sticker.image_url,
                     width: 100,
                     // 처음에 스티커 생성되는 좌표 위치임
-                    x: 980,
+                    x: 500,
                     y: 300,
                     sticker_id: sticker.id,
                   });
@@ -417,11 +402,7 @@ const DetailDiary = () => {
               </button>
             );
           })}
-        </div> */}
-
-        {/* 6. 스티커 위치 저장 완료 버튼,,@ */}
-        {/* <button onClick={onSaveStickerPos}>스티커 위치 저장 완료!</button> */}
-
+        </div>
         {/* 7. MainNote창 */}
         <div>
           <MainNote className="main-note"></MainNote>

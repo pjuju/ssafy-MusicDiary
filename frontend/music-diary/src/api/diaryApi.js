@@ -28,6 +28,9 @@ export const modifyDiary = async(diary_id, diaryInfo, success, fail) => {
 
 // 일기 개별 수정(PATCH) API / HTML
 export const modifyDiaryItem = async(diary_id,diaryInfo, success, fail ) => {
+
+    console.log("in API:", diary_id, ",", JSON.stringify(diaryInfo))
+
     return await api.patch(`/diary/${diary_id}/`,diaryInfo)
 }
 
