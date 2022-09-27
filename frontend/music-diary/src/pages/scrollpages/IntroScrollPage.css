@@ -11,6 +11,51 @@
   font-family: "alsongdalsong";
 }
 
+/* 상단 로그인, 회원가입 버튼 부분 */
+.scroll-test-wrapper .login-signup-btn-wrapper {
+  display: flex;
+
+  width: 10%;
+  margin-left: 90%;
+}
+
+/* 로그인 버튼 */
+.scroll-test-wrapper .login-btn {
+  background-color: grey;
+
+  text-align: center;
+  
+  width: 50%;
+
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+
+  padding: 3%;
+  margin-left: 3%;
+  justify-content: start;
+}
+
+/* 회원가입 버튼 */
+.scroll-test-wrapper .signup-btn {
+  background-color:rgb(212, 199, 199);
+
+  text-align: center;
+
+  width: 50%;
+
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+
+  padding: 3%;
+  justify-content: end;
+}
+
+
+
+
+
 .scroll-test-wrapper section{
   min-height: 100vh;
   display: flex;
@@ -127,3 +172,4 @@
 #intro-second-section .left-box {
   background-color: aliceblue;
 }
+
