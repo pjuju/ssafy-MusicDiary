@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 from rest_framework.validators import UniqueValidator
 
-from musics.serializers import MusicSerialiezer
+from musics.serializers import MusicSerializer
 
 # class CustomTokenRefreshSerializer(serializers.Serializer):
 #     refresh_token = serializers.CharField()
@@ -155,7 +155,7 @@ class SigninSirializer(serializers.ModelSerializer):
     
 class UserSerializer(serializers.ModelSerializer):
     
-    favorite_musics = MusicSerialiezer(many=True, read_only=True)
+    favorite_musics = MusicSerializer(many=True, read_only=True)
     class Meta:
         model = get_user_model()
         # fields = '__all__'

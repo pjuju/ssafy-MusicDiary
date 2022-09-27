@@ -1,6 +1,8 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from .models import Bookmark, Diary, DiaryMusic, DiaryImage, DiarySticker, Image
 from stickers.serializers import StickerSerializer
+from musics.serializers import MusicSerializer
 
 
 class BookmarkSerializer(serializers.ModelSerializer):
@@ -20,6 +22,11 @@ class DiaryMusicSerializer(serializers.ModelSerializer):
         model = DiaryMusic
         fields = '__all__'
         read_only_field = {'diary',},
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['music'] = MusicSerializer(instance.music).data
+        return response
 
 
 class DiaryStickerSerializer(serializers.ModelSerializer):
