@@ -17,6 +17,7 @@ import {
   deleteBookmark,
   modifyDiaryItem,
 } from "../../api/diaryApi";
+import { getTotalStickerListApi } from "../../api/stickerApi";
 
 import "./DetailDiary.css";
 
