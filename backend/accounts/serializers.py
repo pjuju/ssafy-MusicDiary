@@ -27,41 +27,34 @@ from rest_framework.response import Response
 class SignupSirializer(serializers.ModelSerializer):
     email = serializers.EmailField(
         required = True,
-    ),
+    )
     password = serializers.CharField(
         required=True,
         write_only = True,
     )
-    
     username = serializers.CharField(
         required=True,
         write_only = True,
     )
-    
     sad = serializers.IntegerField(
         required=True,
         write_only = True,
     )
-    
     angry = serializers.IntegerField(
         required=True,
         write_only = True,
     )
-    
     depressed = serializers.IntegerField(
         required=True,
         write_only = True,
     )
-    
     normal = serializers.IntegerField(
         required=True,
         write_only = True,
     )
-    
     image_url = serializers.CharField(
         write_only = True,
         required=True,
-
     )    
     password2 = serializers.CharField(write_only = True, required=True)
     
@@ -92,15 +85,11 @@ class SignupSirializer(serializers.ModelSerializer):
             depressed = validated_data['depressed'],
             normal = validated_data['normal'],
             image_url = validated_data['image_url']
-
-
-            
         )
         token = RefreshToken.for_user(user)
         user.set_password(validated_data['password'])
         user.refreshtoken = token
         user.save()
-    
         return user
     
     
@@ -154,7 +143,6 @@ class SigninSirializer(serializers.ModelSerializer):
     
     
 class UserSerializer(serializers.ModelSerializer):
-    
     favorite_musics = MusicSerializer(many=True, read_only=True)
     class Meta:
         model = get_user_model()

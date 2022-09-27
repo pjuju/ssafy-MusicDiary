@@ -75,9 +75,9 @@ class UserStickerDetail(GenericAPIView):
             stickerPack = get_object_or_404(StickerPack, pk=stickerPack_pk)
             # 포인트가 부족하지 않은지 체크
             if user.point < stickerPack.price:
-                return Response("포인트가 부족합니다.", status=status.HTTP_406_NOT_ACCEPTABLE)
+                return Response({'error': '포인트가 부족합니다'}, status=status.HTTP_406_NOT_ACCEPTABLE)
         except:
-            return Response("유효하지 않은 user_pk와 stickerpack_pk 입니다.", status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': '유효하지 않은 user_pk와 stickerpack_pk 입니다'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             # 이미 구매한 스티커 팩인지 체크
@@ -94,5 +94,5 @@ class UserStickerDetail(GenericAPIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         # 이미 구매한 스티커팩 (구매 실패)
-        data = {'post': '이미 구매한 항목입니다.'}
+        data = {'error': '이미 구매한 항목입니다.'}
         return Response(data, status=status.HTTP_400_BAD_REQUEST)

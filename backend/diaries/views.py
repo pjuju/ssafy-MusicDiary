@@ -31,7 +31,6 @@ from server.settings import loaded_data
 from .storages import FileUpload, s3_client
 from drf_yasg.utils import swagger_auto_schema
 
-import random
 
 class AESCipher:
     def __init__(self):
@@ -367,7 +366,7 @@ class DiaryMusicDetail(GenericAPIView):
             # 설문을 통해 mood 도출
             mood = self.convertToMood(mood_id)
             if mood == 'ERROR':
-                return Response("잘못된 음악 선호도 값", status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': '유효하지 않은 음악 선호도 값'}, status=status.HTTP_400_BAD_REQUEST)
 
         print(mood)
 
@@ -515,7 +514,7 @@ class BookmarkDetail(GenericAPIView):
         
         if bookmark != None:
             print(bookmark)
-            data = {'post': '이미 책갈피로 등록된 게시물입니다.'}
+            data = {'error': '이미 책갈피로 등록된 게시물입니다.'}
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, diary_pk, format=None):
@@ -525,7 +524,7 @@ class BookmarkDetail(GenericAPIView):
 
         bookmark = get_object_or_404(Bookmark, user=request.user.pk, diary=diary_pk)
         bookmark.delete()
-        data = {'북마크에서 해제되었습니다.'}
+        data = {'msg': '북마크에서 해제되었습니다.'}
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
