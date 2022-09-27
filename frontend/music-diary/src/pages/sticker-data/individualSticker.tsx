@@ -7,7 +7,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }) => {
   const imageRef = useRef(null);
   const isHovered = useHoverDirty(imageRef);
   const [stickerImage] = useImage(image.src);
-  const [deleteImage] = useImage("cancel.svg");
+  const [deleteImage] = useImage("/assets/img/angry_emoji.png");
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const onLongPress = () => {
     setShowDeleteButton(true);
@@ -25,8 +25,12 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }) => {
     : 0;
 
   useEffect(() => {
-    if (isHovered) {
+
+    console.log("individualSticker.tsx: ", isHovered)
+    if (isHovered === true) {
+      console.log("isHoverd:", isHovered)
       setShowDeleteButton(true);
+      console.log("setShowDeleteButton:", showDeleteButton)
     } else {
       setTimeout(() => {
         setShowDeleteButton(false);
@@ -53,6 +57,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }) => {
         {...longPressEvent}
       />
       {showDeleteButton && !isDragging && (
+        
         <KonvaImage
           onTouchStart={onDelete}
           onClick={onDelete}

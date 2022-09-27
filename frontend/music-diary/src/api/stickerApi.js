@@ -3,7 +3,7 @@ import api from './api'
 
 // DB에 저장된 모든 스티커팩 전체를 조회
 export const getTotalStickerListApi = async( success, fail) => {
-    return await api.get('/sticker/')
+    return await api.get('/sticker/pack/')
 }
 
 

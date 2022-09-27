@@ -30,7 +30,10 @@ import {
   StickerDetail,
   ChargePoint,
   IntroScrollPage,
-  Test
+  Test,
+  MyPlaylistDetail,
+  MyPlaylist,
+  MusicRecommendation
 } from './pages/index'
 
 const reducer = (state, action) => {
@@ -161,7 +164,10 @@ function App() {
           <Route path="/sticker/charge" element={<ChargePoint /> } /> 
           <Route path="/kakao/login/callback" element={<KakaoAuth />} /> 
           <Route path="/google/login/callback" element={<GoogleAuth />} /> 
-        
+          <Route path='myplaylistdetail' element={<MyPlaylistDetail />} />
+          <Route path='myplaylist' element={<MyPlaylist />} />
+          <Route path='musicrecommendation' element={<MusicRecommendation />} />
+  
         </Routes>
       </BrowserRouter>
       </DiaryDispatchContext.Provider>

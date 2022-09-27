@@ -18,7 +18,7 @@ from django.conf import settings
 from musics.models import Music
 import pandas as pd
 import numpy as np
-from manage import BERTClassifier, BERTDataset
+from manage import BERTDataset
 import torch
 import gluonnlp as nlp
 import numpy as np
@@ -116,12 +116,11 @@ class DiaryList(GenericAPIView):
                 elif np.argmax(logits) == 3:
                     test_eval.append("분노")
                 elif np.argmax(logits) == 4:
-                    test_eval.append("편안함")
+                    test_eval.append("평온")
                 elif np.argmax(logits) == 5:
-                    test_eval.append("분노")
-            print(test_eval, 555555555)
+                    test_eval.append("우울")
                     
-            return test_eval[0]
+        return test_eval[0]
 
     def get(self, request, format=None):
         diaries = get_list_or_404(Diary, user=request.user.pk)
@@ -136,9 +135,6 @@ class DiaryList(GenericAPIView):
 
     def post(self, request, format=None):
         data = request.data
-        print('00000000000000000')
-        print(data)
-        print('00000000000000000')
         newPost = dict()
         newPost['title'] = ciper.encrypt_str(data['title'])
         newPost['content'] = ciper.encrypt_str(data['content'])
@@ -153,17 +149,10 @@ class DiaryList(GenericAPIView):
         # 감정 정보
         if 'emotion' in data:
             # 명시된 감정이 있을 경우
-            result = ""
-            for s in data['content']:
-                result += s + " "
             emotion = data['emotion']
-            print('11111111111111111')
-            emotion = self.predict(data['content'])
-            print('22222222222222222')
-            print(data['content'])
         else:   
             # 명시된 감정이 없을 경우 텍스트 분석으로 감정 도출
-            emotion = self.predict(str(data['content']))
+            emotion = self.predict(data['content'])
 
         newPost['emotion'] = ciper.encrypt_str(emotion)
         diarySerializer = DiarySerializer(data=newPost)
@@ -321,14 +310,25 @@ class DiaryDetail(GenericAPIView):
 
 # Get: 일기별 플레이리스트 조회
 # Post: 일기별 플레이리스트 생성
-@api_view(['GET', 'POST'])
-def DiaryMusicDetail(request, diary_pk):
-    if request.method == 'GET':
+class DiaryMusicDetail(GenericAPIView):
+    queryset = DiaryMusic.objects.all()
+    serializer_class = DiaryMusicSerializer
+
+    def get(self, request, diary_pk, format=None):
         playlist = get_list_or_404(DiaryMusic, diary=diary_pk)
+        # 플레이리스트 속 곡들의 좋군요 정보 업데이트
+        for i in range(len(playlist)):
+            msc = get_object_or_404(Music, pk=playlist[i].music.id)
+            if msc.like_users.filter(pk=request.user.pk).exists():
+                playlist[i].like = True
+            else:
+                playlist[i].like = False
+            print("updated", msc.track_name, playlist[i].like)
+            playlist[i].save()
         serializer = DiaryMusicSerializer(playlist, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request, diary_pk, format=None):
         try:
             # 기존 플레이리스트 존재하면 삭제
             oldPlaylist = get_list_or_404(DiaryMusic, diary=diary_pk)
@@ -342,40 +342,45 @@ def DiaryMusicDetail(request, diary_pk):
         emotion = ciper.decrypt_str(diary.emotion)
         # 작성 유저
         user = request.user
-        # 추천할 음악 분위기
-        mood_str = emotion.lower()
-        if user.get(mood_str) == 1:
-            mood = "Sad"
-        elif user.get(mood_str) == 2:
-            mood = "Happy"
-        elif user.get(mood_str) == 3:
-            mood = "Energetic"
-        elif user.get(mood_str) == 4:
-            mood = "Calm"
+        # 6가지 감정을 4가지로 분류, mood 도출
+        ## 기본 감정
+        if emotion == '기쁨':
+            mood = 'Happy'
+        elif emotion == '불안':
+            mood = 'Calm'
         else:
-            return Response("잘못된 음악 선호도 값", status=status.HTTP_400_BAD_REQUEST)
+            ## 설문을 참고해야 하는 감정
+            if emotion == '슬픔':
+                emotion = 'sad'
+            elif emotion == '분노':
+                emotion = 'angry'
+            elif emotion == '우울':
+                emotion = 'depressed'
+            elif emotion == '평온':
+                emotion = 'normal'
 
+            # 설문을 통해 mood 도출
+            if user.get(emotion) == 1:
+                mood = "Sad"
+            elif user.get(emotion) == 2:
+                mood = "Happy"
+            elif user.get(emotion) == 3:
+                mood = "Energetic"
+            elif user.get(emotion) == 4:
+                mood = "Calm"
+            else:
+                return Response("잘못된 음악 선호도 값", status=status.HTTP_400_BAD_REQUEST)
+
+        # [1, 4, 5, 16, 23]
         playlist = stubPlaylist(mood, request.user)
 
-        data={'diary': diary_pk, 'music': ''}
+        # 생성된 플레이리스트 테이블에 저장
+        data={'diary': diary_pk}
         for music in playlist:
             data['music'] = music
             serializer = DiaryMusicSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-        
-        liked_musics = request.user.favorite_musics.values()
-        liked_ids = []
-        for l_m in liked_musics:
-            liked_ids.append(l_m['id'])
-
-        # print(serializer)
-        # for music in serializer.data:
-        #     music['like_flag'] = False
-        #     if music['id'] in liked_ids:
-        #         music['like_flag'] = True
-
-        # 유튜브 아이디, 곡 아이디, 노래 제목, 가수, 좋아요..
                 
         return Response(status=status.HTTP_201_CREATED)
 

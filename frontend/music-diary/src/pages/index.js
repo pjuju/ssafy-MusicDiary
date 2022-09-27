@@ -33,3 +33,6 @@ export { default as StickerDetail } from './stickerpages/StickerDetail'
 export { default as ChargePoint } from './stickerpages/ChargePoint'
 
 export { default as IntroScrollPage } from './scrollpages/IntroScrollPage'
+export {default as MyPlaylistDetail} from './music/MyPlaylistDetail'
+export {default as MyPlaylist} from './music/MyPlaylist'
+export { default as MusicRecommendation} from './music/MusicRecommendation'

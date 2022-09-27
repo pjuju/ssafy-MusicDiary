@@ -16,12 +16,13 @@ const Bookmarks =() => {
     
     // 모든 일기 정보를 다 모으기
     const [noticeData, setNoticeData] = useState([])
+
     useEffect(()=> {
       getDiaryListApi()
       .then((res)=> {
         setNoticeData(res.data)
-      console.log(res.data)
-      console.log('모든 일기 잘 모아지나',noticeData)
+        console.log("모든 일기:", JSON.stringify(res.data))
+        // console.log('모든 일기 잘 모아지나',noticeData)
     })
     .catch((e)=> {
       console.log('err',e)
@@ -29,10 +30,9 @@ const Bookmarks =() => {
   },[])
   
   // 북마크 리스트 불러오기
-  let bookmark = noticeData.filter(it=> it.bookmark === true).map(it=> it)
-  const bookmarkList = {
-  bookmark
-}
+  let bookmark = noticeData.filter(it=> it.bookmarked === true)
+
+  console.log("let bookmark:", JSON.stringify(bookmark));
   useEffect(()=> {
     getBookmarkList()
       .then((res)=>{
@@ -48,7 +48,7 @@ const Bookmarks =() => {
       <div className="diary-list">
       <h2 className="bookmarks-page-title">책갈피 모아보기</h2>
         <div className="bookmark-items">
-          {diaryList.filter(it=> it.bookmark === true).map((it)=> (
+          {bookmark.map((it)=> (
             <Bookmark key={it.id} {...it}></Bookmark>
           ))}
         
