@@ -7,7 +7,7 @@ const DiaryItem =({...it}) => {
     const navigate = useNavigate();
 
     const rightEmotion =(emotion) => {
-        if(emotion === '행복') {
+        if(emotion === '기쁨') {
           return '/assets/img/happy_emoji.png'
         }
         if(emotion === '슬픔') {
@@ -19,10 +19,10 @@ const DiaryItem =({...it}) => {
         if(emotion === '우울') {
           return '/assets/img/depressed_emoji.png'
         }
-        if(emotion === '화남') {
+        if(emotion === '분노') {
           return '/assets/img/angry_emoji.png'
         }
-        if(emotion === '놀람') {
+        if(emotion === '불안') {
           return '/assets/img/anxious_emoji.png'
         }
       }

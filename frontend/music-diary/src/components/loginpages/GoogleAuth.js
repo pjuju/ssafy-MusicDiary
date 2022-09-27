@@ -10,7 +10,7 @@ function GoogleAuth() {
     "421385414738-hlk6fqfkbur8k03nuh1ftjftukoo8umd.apps.googleusercontent.com";
   // const GOOGLE_SECRET_KEY = "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"
   const GOOGLE_CALLBACK_URI = "http://j7d204.p.ssafy.io/google/login/callback/";
-  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&response_type=code&redirect_uri=${GOOGLE_CALLBACK_URI}&scope=${scope}`;
+  // const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&response_type=code&redirect_uri=${GOOGLE_CALLBACK_URI}&scope=${scope}`;
 
   // 인가코드 요청받기를 통해 얻은 인가코드
   const code = new URL(window.location.href).searchParams.get("code");
