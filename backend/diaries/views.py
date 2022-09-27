@@ -18,7 +18,7 @@ from django.conf import settings
 from musics.models import Music
 import pandas as pd
 import numpy as np
-from manage import BERTClassifier, BERTDataset
+from manage import BERTDataset
 import torch
 import gluonnlp as nlp
 import numpy as np
@@ -119,7 +119,6 @@ class DiaryList(GenericAPIView):
                     test_eval.append("평온")
                 elif np.argmax(logits) == 5:
                     test_eval.append("우울")
-            print(test_eval, 555555555)
                     
             return test_eval[0]
 
@@ -150,10 +149,10 @@ class DiaryList(GenericAPIView):
         # 감정 정보
         if 'emotion' in data:
             # 명시된 감정이 있을 경우
-            print(data['content'])
+            emotion = data['content']
         else:   
             # 명시된 감정이 없을 경우 텍스트 분석으로 감정 도출
-            emotion = self.predict(str(data['content']))
+            emotion = self.predict(data['content'])
 
         newPost['emotion'] = ciper.encrypt_str(emotion)
         diarySerializer = DiarySerializer(data=newPost)
