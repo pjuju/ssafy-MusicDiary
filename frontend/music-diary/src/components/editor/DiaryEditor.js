@@ -3,7 +3,6 @@ import {useNavigate} from 'react-router-dom'
 import { DiaryDispatchContext } from '../../App';
 import React from "react";
 import { writeDiaryListApi, modifyDiaryItem } from '../../api/diaryApi';
-
 import './DiaryEditor.css'
 
 const env = process.env;
@@ -42,6 +41,7 @@ const emotionList = [
         emotion_descript:'놀람'
     },
 ]
+
 
 // 오늘 날짜 그대로 출력하기
 const getStringdate = (date) => {
@@ -215,7 +215,6 @@ const DiaryEditor = ({ isEdit, originData }) => {
         </div>
         <button onClick={handleSubmit} className="submit-button">작성 완료</button>
         <button onClick={()=>{navigate(-1)}} className="back-button">작성 취소</button>
-
     </div>)
 }
 

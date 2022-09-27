@@ -45,7 +45,7 @@
     top: 40vh;
     /* background-color: yellow; */
     color: black;
-    z-index: 100;
+    z-index: 10000000;
     margin-left: -3vw;
 }
 
