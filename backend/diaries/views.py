@@ -149,7 +149,7 @@ class DiaryList(GenericAPIView):
         # 감정 정보
         if 'emotion' in data:
             # 명시된 감정이 있을 경우
-            emotion = data['content']
+            emotion = data['emotion']
         else:   
             # 명시된 감정이 없을 경우 텍스트 분석으로 감정 도출
             emotion = self.predict(data['content'])
