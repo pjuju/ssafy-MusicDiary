@@ -18,7 +18,7 @@ from django.conf import settings
 from musics.models import Music
 import pandas as pd
 import numpy as np
-from manage import BERTClassifier, BERTDataset
+from manage import BERTDataset
 import torch
 import gluonnlp as nlp
 import numpy as np
@@ -116,10 +116,9 @@ class DiaryList(GenericAPIView):
                 elif np.argmax(logits) == 3:
                     test_eval.append("분노")
                 elif np.argmax(logits) == 4:
-                    test_eval.append("편안함") #평온
+                    test_eval.append("평온")
                 elif np.argmax(logits) == 5:
-                    test_eval.append("분노") #우울
-            print(test_eval, 555555555)
+                    test_eval.append("우울")
                     
         return test_eval[0]
 
@@ -136,9 +135,6 @@ class DiaryList(GenericAPIView):
 
     def post(self, request, format=None):
         data = request.data
-        print('00000000000000000')
-        print(data)
-        print('00000000000000000')
         newPost = dict()
         newPost['title'] = ciper.encrypt_str(data['title'])
         newPost['content'] = ciper.encrypt_str(data['content'])
@@ -153,17 +149,10 @@ class DiaryList(GenericAPIView):
         # 감정 정보
         if 'emotion' in data:
             # 명시된 감정이 있을 경우
-            result = ""
-            for s in data['content']:
-                result += s + " "
             emotion = data['emotion']
-            print('11111111111111111')
-            emotion = self.predict(data['content'])
-            print('22222222222222222')
-            print(data['content'])
         else:   
             # 명시된 감정이 없을 경우 텍스트 분석으로 감정 도출
-            emotion = self.predict(str(data['content']))
+            emotion = self.predict(data['content'])
 
         newPost['emotion'] = ciper.encrypt_str(emotion)
         diarySerializer = DiarySerializer(data=newPost)

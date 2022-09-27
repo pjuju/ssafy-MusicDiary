@@ -3,21 +3,20 @@
 }
 
 .detail-diary .detail-diary-item {
-
-  /* 이건 모든 페이지들이 공용으로 설정할 값 */
-  width: 40vw;
-  height: 60vh;
-  margin-top: 25vh;
-  margin-left: 24vw; 
+/* 이건 모든 페이지들이 공용으로 설정할 값 */
+width: 64vw;
+height: 93.5vh;
+margin-top: 6vh;
+margin-left: 24vw;
 
 position: absolute;
 z-index: 1;
 color: black;
 
-  overflow:auto;
-  -ms-overflow-style: none;
-  background-color: green;
-  white-space : nowrap
+overflow:auto;
+-ms-overflow-style: none;
+/* background-color: green; */
+white-space : nowrap
 }
 
 .detail-diary .fix-top {
@@ -80,6 +79,7 @@ cursor: pointer;
 z-index: 100;
 }
 
+
 .detail-diary .date {
 display: flex;
 justify-content: end;
@@ -103,9 +103,13 @@ margin-top: 3vh;
 
 .detail-diary .content {
 }
-
+ 
 .stage-area {
-  /* background-color: aqua; */
+  background-color: aqua;
+  width: 40vw;
+  height: 60vh;
+  margin-top: 25vh;
+  margin-left: 24vw; 
 
   /* margin-top: 800px; */
   position: absolute;
@@ -118,8 +122,11 @@ margin-top: 3vh;
 }
 
 .sticker-choice-area {
-  margin-top: 900px;
+  position: absolute;
+  z-index: 1300;
+
 }
+
 .detail-diary .detail-diary-playlist {
   width: 20vw;
   height: 77vh;

@@ -28,11 +28,15 @@ export const modifyDiary = async(diary_id, diaryInfo, success, fail) => {
 
 // 일기 개별 수정(PATCH) API / HTML
 export const modifyDiaryItem = async(diary_id,diaryInfo, success, fail ) => {
+
+    console.log("in API:", diary_id, ",", JSON.stringify(diaryInfo))
+
     return await api.patch(`/diary/${diary_id}/`,diaryInfo)
 }
 
 // 일기 삭제(DELETE) API / HTML
 export const deleteDiary = async(diary_id, success, fail) => {
+    console.log("in Delete:", diary_id)
     return await api.delete(`/diary/${diary_id}/`)
 }
 
@@ -64,4 +68,9 @@ export const getMonthEmotion = async(month, success, fail) => {
 // 월별 일기 모아보기(GET) API 완성 / HTML
 export const getMonthDiary = async(month, year,success, fail) => {
     return await api.get(`/diary/month/${year}/${month}/`)
+}
+
+// 이미지 등록(POST)
+export const getDiaryImage = async(imageFile,success,fail) => {
+    return await api.post(`/diary/image/`,imageFile)
 }
