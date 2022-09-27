@@ -21,6 +21,10 @@
     /* background-color: green; */
 }
 
+.clicked {
+    width: 5vw;
+}
+
 
 /* 왼쪽 */
 .diary-editor .left-section {

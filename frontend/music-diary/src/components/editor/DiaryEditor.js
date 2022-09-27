@@ -13,7 +13,7 @@ const emotionList = [
     {
         emotion_id:1,
         emotion_img : '/assets/img/happy_emoji.png',
-        emotion_descript:'행복'
+        emotion_descript:'기쁨'
     },
     {
         emotion_id:2,
@@ -33,13 +33,13 @@ const emotionList = [
     {
         emotion_id:5,
         emotion_img : process.env.PUBLIC_URL + '/assets/img/angry_emoji.png',
-        emotion_descript:'화남'
+        emotion_descript:'분노'
     },
     {
         emotion_id:6,
         emotion_img : process.env.PUBLIC_URL + '/assets/img/anxious_emoji.png',
-        emotion_descript:'놀람'
-    },
+        emotion_descript:'불안'
+    }
 ]
 
 // 오늘 날짜 그대로 출력하기
@@ -60,14 +60,9 @@ const DiaryEditor = ({ isEdit, originData }) => {
     const contentRef = useRef()
     const titleRef = useRef()
     const emotionRef = useRef()
-    const [emotionIsClick,setEmotionIsClick] = useState(false)
-    const [bookmark, setBookmark] = useState(false)
-
-    const emotionClick = () => {
-        setEmotionIsClick(!emotionIsClick)
-    }
 
     const handleClickEmote = (emotion) => {
+        console.log(emotion)
         setEmotion(emotion)
     }  
 
@@ -78,10 +73,6 @@ const DiaryEditor = ({ isEdit, originData }) => {
         }
         if(title.length < 1) {
             titleRef.current.focus();
-            return
-        }
-        if(!emotionIsClick) {
-            emotionRef.current.focus();
             return
         }
 
@@ -212,19 +203,64 @@ const DiaryEditor = ({ isEdit, originData }) => {
     //     sestMyImage(nowImageURLList)
     // }
 
+    // init();
 
-    // 한 번 츄라이
+    // 감정 선택하면 변하기
+    const emotionHappyRef = useRef()
+    const emotionSadRef = useRef()
+    const emotionDepressedRef = useRef()
+    const emotionNormalRef = useRef()
+    const emotionAngryRef = useRef()
+    const emotionAnxiousRef = useRef()
+      useEffect(()=> {
+          if (emotion == '기쁨') {
+            emotionHappyRef.current.classList.add = '5vw'
+          } else {
+            emotionHappyRef.current.style.width = '4vw'
+          }
+          if (emotion == '슬픔') {
+            emotionSadRef.current.style.width = '5vw'
+          } else {
+            emotionSadRef.current.style.width = '4vw'
+          }
+          if (emotion == '우울') {
+            emotionDepressedRef.current.style.width = '5vw'
+          } else {
+            emotionDepressedRef.current.style.width = '4vw'
+          }
+          if (emotion == '평온') {
+            emotionNormalRef.current.style.width = '5vw'
+          } else {
+            emotionNormalRef.current.style.width = '4vw'
+          }
+          if (emotion == '분노') {
+            emotionAngryRef.current.style.width = '5vw'
+          } else {
+            emotionAngryRef.current.style.width = '4vw'
+          }
+          if (emotion == '불안') {
+            emotionAnxiousRef.current.style.width = '5vw'
+          } else {
+            emotionAnxiousRef.current.style.width = '4vw'
+          }
+      },[emotion])
 
     return (
     <div className="diary-editor">
+
         <div ref={emotionRef} className='select-emotion'>
-        {emotionList.map((it)=> <div onClick={emotionClick}>
-            <img src={it.emotion_img} className="emoji-img" onClick={()=>handleClickEmote(it.emotion_descript)} key={it.emotion_descript}/></div>)}
+        <img src='/assets/img/happy_emoji.png'className="emoji-img animate__animated animate__bounceIn" onClick={()=>handleClickEmote('기쁨')} ref={emotionHappyRef}></img>
+        <img src='/assets/img/sad_emoji.png'className="emoji-img animate__animated animate__bounceIn" onClick={()=>handleClickEmote('슬픔')} ref={emotionSadRef}></img>
+        <img src='/assets/img/depressed_emoji.png'className="emoji-img animate__animated animate__bounceIn" onClick={()=>handleClickEmote('우울')} ref={emotionDepressedRef}></img>
+        <img src='/assets/img/normal_emoji.png'className="emoji-img animate__animated animate__bounceIn" onClick={()=>handleClickEmote('평온')} ref={emotionNormalRef}></img>
+        <img src='/assets/img/angry_emoji.png'className="emoji-img animate__animated animate__bounceIn" onClick={()=>handleClickEmote('분노')} ref={emotionAngryRef}></img>
+        <img src='/assets/img/anxious_emoji.png'className="emoji-img animate__animated animate__bounceIn" onClick={()=>handleClickEmote('불안')} ref={emotionAnxiousRef}></img>
+        <div onClick={()=>setEmotion('')}>랜덤</div>
+        </div>
         <input value={created_date}
             onChange={(e) => setCreated_date(e.target.value)}
             type="date"
             className='input-date'></input>
-        </div>
 
         <div className='left-section'>
             <div style={{display:'flex', marginLeft:'3vw'}}>
