@@ -4,7 +4,29 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 
 const Bookmark =({...it}) => {
-    const strDate = new Date(parseInt(it.date)).toLocaleDateString();
+
+    const rightEmotion =(emotion) => {
+        if(emotion === '행복') {
+          return '/assets/img/happy_emoji.png'
+        }
+        if(emotion === '슬픔') {
+          return '/assets/img/sad_emoji.png'
+        }
+        if(emotion === '평온') {
+          return '/assets/img/normal_emoji.png'
+        }
+        if(emotion === '우울') {
+          return '/assets/img/depressed_emoji.png'
+        }
+        if(emotion === '화남') {
+          return '/assets/img/angry_emoji.png'
+        }
+        if(emotion === '놀람') {
+          return '/assets/img/anxious_emoji.png'
+        }
+      }
+
+    const strDate = new Date(it.created_date).toLocaleDateString();
     const navigate = useNavigate();
     return (
     <div className="bookmark"  onClick={()=>{navigate(`/diary/${it.id}`)}}>
@@ -13,7 +35,7 @@ const Bookmark =({...it}) => {
             <Card.Body>
                 <div className='bookmark-item-header'>
                     <Card.Title className='bookmark-emotion'>
-                        <img src={it.emotion} className='bookmark-emotion'/>
+                        <img src={rightEmotion(it.emotion)} className='bookmark-emotion'/>
                     </Card.Title>
                     <Card.Title className='bookmark-title'>{it.title}</Card.Title>
                 </div>

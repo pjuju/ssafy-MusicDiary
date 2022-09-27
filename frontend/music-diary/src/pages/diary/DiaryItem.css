@@ -17,6 +17,8 @@
     transition: 0.06s linear;
     overflow:auto;
     -ms-overflow-style: none;
+    background-color: rgb(235, 240, 241);
+    border: none;
 }
 
 .diary-item .diary-item-card::-webkit-scrollbar{
@@ -24,7 +26,7 @@
   }
 
 .diary-item .diary-item-card:hover {
-    background-color: rgb(225, 225, 225);
+    background-color: rgb(228, 240, 250);
     transform: scale(102%);
 }
 
@@ -39,6 +41,7 @@
 
 .diary-item .diary-item-title {
     margin-left: 2vw;
+    text-overflow:ellipsis;
 }
 
 .diary-item .diary-item-content {
