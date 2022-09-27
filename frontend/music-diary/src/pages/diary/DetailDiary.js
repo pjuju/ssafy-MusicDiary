@@ -65,8 +65,8 @@ const DetailDiary = () => {
     const [background] = useImage("example-image.jpg");
     const [images, setImages] = useState([]);
 
-    const [stickerInfo, setStickerInfo] = useState([]);
-    const bookmarkRef = useRef();
+  const [stickerInfo, setStickerInfo] = useState([]);
+  const bookmarkRef = useRef();
 
     // stickers
     const [originStickers, setOriginStickers] = useState([])
@@ -105,7 +105,6 @@ const DetailDiary = () => {
   }, []);
   //
   useEffect(() => {
-
     // 전체 스티커팩 조회
     getTotalStickerListApi()
       .then((res) => {
@@ -125,7 +124,7 @@ const DetailDiary = () => {
       });
 
 
- 
+
     if (monthData.length >= 1) {
       const targetDiary = monthData.find(
         (it) => parseInt(it.id) === parseInt(id)
@@ -169,9 +168,7 @@ const DetailDiary = () => {
     }
   };
 
-  const targetDiary = monthData.find(
-    (it) => parseInt(it.id) === parseInt(id)
-    );
+  const targetDiary = monthData.find((it) => parseInt(it.id) === parseInt(id));
 
   // 북마크 다루기 ////////////////////////////////////////
   const handleBookmark = () => {
@@ -228,6 +225,7 @@ const DetailDiary = () => {
       }
     });
   }, [images]);
+
 
   const handleCanvasClick = useCallback(
     (event) => {
@@ -302,7 +300,6 @@ const DetailDiary = () => {
             </div>
           )
         }
-
           {/* 상단의 일기 제목 고정으로 */}
           <div className='fix-top'>
             <h2 className='title'>{title}</h2>
@@ -315,28 +312,38 @@ const DetailDiary = () => {
             <div className='content'>{content}</div>
         </div>
 
-          {/* 일기별 플레이리스트 */}
-        <div className='detail-diary-playlist'>
-        </div>
-      
+        {/* 일기별 플레이리스트 */}
+        <div className="detail-diary-playlist"></div>
+
         {/* 우측상단의 수정, 삭제 버튼 */}
         <div className="btn-area">
-          <button onClick={()=>{navigate(`/edit/${id}`)}} className="edit-button">{storeBookmark}</button>
-          <button onClick={handleRemove} className="delete-button">삭제하기</button>
+          <button
+            onClick={() => {
+              navigate(`/edit/${id}`);
+            }}
+            className="edit-button"
+            style={{zIndex:'9999999999'}}
+          >
+            수정하기
+          </button>
+          <button onClick={handleRemove} className="delete-button" style={{zIndex:'9999999999'}}>
+            삭제하기
+          </button>
         </div>
+        {/* <button onClick={()=>{navigate(`/diarylist`)}} className="goback-button">돌아가기</button> */}
      {/* 4. stage 영역 */}
      <Stage
           className="stage-area"
-          width={700}
-          height={400}
+          width={1530}
+          height={700}
           onClick={handleCanvasClick}
           onTap={handleCanvasClick}
-
           id="backgroundImage"
         >
           <Layer>
             {images.map((image, i) => {
               return (
+                <div>
                 <IndividualSticker
                   className="individual-sticker"
                   onDelete={() => {
@@ -355,59 +362,82 @@ const DetailDiary = () => {
                   key={i}
                   image={image}
                 />
+              </div>
               );
             })}
           </Layer>
         </Stage>
 
-        </div>
- {/* sticker 배치 */}
-        <div>
-          {originStickers.map((ele, i)=>{
-            return (
-              <>
-                <img alt="#" src={ele.sticker.image_url} 
-                    style={{position:"absolute", width:"100px"
-                  , top:"`{ele.sticker.sticker_x}`px", left:"`{ele.sticker.sticker_x}`px"}}  
-                />
-              </>
-            )
-          })}
-        </div>
+    {/* 저장됐었던 sticker 배치 */}
+    <div>
+        {originStickers.map((ele, i) => {
+          console.log("origin:", JSON.stringify(ele))
+          
+         
+          console.log("x:", ele.sticker_x)
 
-
-   
-
-        {/* 6. 스티커 위치 저장 완료 버튼,,@ */}
-        <button onClick={onSaveStickerPos} >스티커 위치 저장 완료!</button>
-     {/* 5. 스티커 선택창 */}
-     <div className="sticker-choice-area" style={{position:"absolute", marginTop:"90vh"}}>
-          <h4 className="heading">Click/Tap to add sticker to photo!</h4>
-          {stickerInfo.map((sticker) => {
-            return (
-              <button
-                className="button"
-                onClick={() => console.log("스티커목록의 스티커클릭")}
-                onMouseDown={() => {
-                  addStickerToPanel({
-                    src: sticker.image_url,
-                    width: 100,
-                    // 처음에 스티커 생성되는 좌표 위치임
-                    x: 500,
-                    y: 300,
-                    sticker_id: sticker.id,
-                  });
+          return (
+            <div style={{position:"relative"}}>
+            <div style={{width:"1530", height:"700", position:"absolute", zIndex:'999999999999999'}}>
+              <img
+                alt="#"
+                src={ele.sticker.image_url}
+                style={{
+                  // position: "absolute",
+                  width: "100px",
+                  marginLeft: `${ele.sticker_x}px`,
+                  marginTop: `${ele.sticker_y}px`,
+                  zIndex:"2000"
                 }}
-              >
-                <img alt="#" src={sticker.image_url} width="100" />
-              </button>
-            );
-          })}
-        </div>
-        {/* 7. MainNote창 */}
-        <div>
-          <MainNote className="main-note"></MainNote>
-        </div>
+                onClick={()=>console.log(`${ele.sticker_x} px`)}
+              />
+              </div>
+
+            </div>
+          );
+        })}
+      </div>
+
+
+      </div>
+
+ 
+
+      {/* 6. 스티커 위치 저장 완료 버튼,,@ */}
+      <button onClick={onSaveStickerPos} style={{position:'absolute', zIndex:'99999999999999999999'}}>스티커 위치 저장 완료!</button>
+      {/* 5. 스티커 선택창 */}
+      <div
+        className="sticker-choice-area"
+        style={{ position: "absolute", marginTop: "80vh" }}
+      >
+        <h4 className="heading">Click/Tap to add sticker to photo!</h4>
+        {stickerInfo.map((sticker) => {
+          return (
+            <button
+              className="button"
+              onClick={() => console.log("스티커목록의 스티커클릭")}
+              onMouseDown={() => {
+                addStickerToPanel({
+                  src: sticker.image_url,
+                  width: 100,
+                  // 처음에 스티커 생성되는 좌표 위치임
+                  x: 500,
+                  y: 300,
+                  sticker_id: sticker.id,
+                });
+              }}
+            >
+              <img alt="#" src={sticker.image_url} width="100" />
+            </button>
+          );
+        })}
+      </div>
+      {/* 7. MainNote창 */}
+      <div>
+        <MainNote className="main-note"></MainNote>
+      </div>
+
+      {/* </div> */}
     </>
   );
 };
