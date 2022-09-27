@@ -316,6 +316,15 @@ class DiaryMusicDetail(GenericAPIView):
 
     def get(self, request, diary_pk, format=None):
         playlist = get_list_or_404(DiaryMusic, diary=diary_pk)
+        # 플레이리스트 속 곡들의 좋군요 정보 업데이트
+        for i in range(len(playlist)):
+            msc = get_object_or_404(Music, pk=playlist[i].music.id)
+            if msc.like_users.filter(pk=request.user.pk).exists():
+                playlist[i].like = True
+            else:
+                playlist[i].like = False
+            print("updated", msc.track_name, playlist[i].like)
+            playlist[i].save()
         serializer = DiaryMusicSerializer(playlist, many=True)
         return Response(serializer.data)
 

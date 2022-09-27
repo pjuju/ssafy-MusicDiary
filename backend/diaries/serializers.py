@@ -56,7 +56,6 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class DiarySerializer(serializers.ModelSerializer):
     images = DiaryImageSerializer(many=True, read_only=True)
-    playlist = DiaryMusicSerializer(many=True, read_only=True)
     stickers = DiaryStickerSerializer(many=True, read_only=True)
 
     class Meta:

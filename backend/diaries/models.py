@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 
 # Create your models here.
@@ -26,6 +27,7 @@ class Bookmark(models.Model):
 class DiaryMusic(models.Model):
     diary = models.ForeignKey("diaries.Diary", related_name='playlist', null=False, on_delete=models.CASCADE)
     music = models.ForeignKey("musics.Music", null=False, on_delete=models.CASCADE)
+    like = models.BooleanField(null=False, default=False)
 
 
 class DiarySticker(models.Model):
