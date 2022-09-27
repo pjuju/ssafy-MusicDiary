@@ -15,6 +15,7 @@ from Crypto.Cipher import AES
 import hashlib
 
 from django.conf import settings
+from accounts.models import User
 from musics.models import Music
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
@@ -331,6 +332,7 @@ class DiaryMusicDetail(GenericAPIView):
         return Response(serializer.data)
 
     def post(self, request, diary_pk, format=None):
+        oldPlaylist = None
         try:
             # 기존 플레이리스트 존재하면 삭제
             oldPlaylist = get_list_or_404(DiaryMusic, diary=diary_pk)
@@ -346,35 +348,35 @@ class DiaryMusicDetail(GenericAPIView):
         # 일기의 감정
         emotion = ciper.decrypt_str(diary.emotion)
         # 작성 유저
-        user = request.user
+        user = get_object_or_404(User, pk=request.user.pk)
+
         # 6가지 감정을 4가지로 분류, mood 도출
         ## 기본 감정
+        print(emotion)
         if emotion == '기쁨':
             mood = 'Happy'
         elif emotion == '불안':
             mood = 'Calm'
         else:
             ## 설문을 참고해야 하는 감정
+            mood_id = user.normal
             if emotion == '슬픔':
-                emotion = 'sad'
+                mood_id = user.sad
             elif emotion == '분노':
-                emotion = 'angry'
+                mood_id = user.angry
             elif emotion == '우울':
-                emotion = 'depressed'
+                mood_id = user.depressed
             elif emotion == '평온':
-                emotion = 'normal'
+                mood_id = user.normal
+
+            print(mood_id)
 
             # 설문을 통해 mood 도출
-            if user.get(emotion) == 1:
-                mood = "Sad"
-            elif user.get(emotion) == 2:
-                mood = "Happy"
-            elif user.get(emotion) == 3:
-                mood = "Energetic"
-            elif user.get(emotion) == 4:
-                mood = "Calm"
-            else:
+            mood = self.convertToMood(mood_id)
+            if mood == 'ERROR':
                 return Response("잘못된 음악 선호도 값", status=status.HTTP_400_BAD_REQUEST)
+
+        print(mood)
 
         # [1, 4, 5, 16, 23]
         playlist = makePlaylist(mood, request.user)
@@ -388,6 +390,18 @@ class DiaryMusicDetail(GenericAPIView):
                 serializer.save()
                 
         return Response(status=status.HTTP_201_CREATED)
+
+    def convertToMood(self, mood_id):
+        if mood_id == 1:
+            return "Sad"
+        elif mood_id == 2:
+            return "Happy"
+        elif mood_id == 3:
+            return "Energetic"
+        elif mood_id == 4:
+            return "Calm"
+        else:
+            return "ERROR"
 
 
 # 노래 감정, 유저를 넣어주세용
