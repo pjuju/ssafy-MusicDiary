@@ -5,6 +5,7 @@ import { DiaryStateContext } from "../../App";
 import {useNavigate} from 'react-router-dom'
 import { getDiaryListApi,getMonthDiary } from "../../api/diaryApi";
 import './MainMonth.css'
+import './Dropdown.scss'
 
 
 // 날짜순, 이모티콘 순으로 정렬하기 로직
@@ -23,41 +24,50 @@ import './MainMonth.css'
     { value: "놀람", name: "놀랐던 날" }
   ];
 
-  const ControlMenu = React.memo(({ value, onChange, optionList }) => {
+  const ControlDateMenu = React.memo(({ value, onChange, optionList }) => {
     return (
-      <select
-        className="ControlMenu"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        {optionList.map((it, idx) => (
-          <option key={idx} value={it.value}>
-            {it.name}
-          </option>
-        ))}
-      </select>
+          <select
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+          >
+            {optionList.map((it, idx) => (
+              <option key={idx} value={it.value} style={{color:'black'}}>
+                {it.name}
+              </option>
+            ))}
+          </select>
     );
   });
-  
+
+  const ControlEmotionMenu = React.memo(({ value, onChange, optionList }) => {
+    return (
+      <ul class="hList" style={{listStyle:"none"}}>
+        <li>
+        <a href="#click" class="menu">
+        <h2 class="menu-title">감정별</h2>
+          <ul
+            className="menu-dropdown"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+          >
+            {optionList.map((it, idx) => (
+              <li key={idx} value={it.value} style={{color:'black'}} onClick={({e})=>{getProcessedDiaryList(e)}}>
+                {it.name}
+              </li>
+            ))}
+          </ul>
+         </a>
+         </li>
+       </ul>
+    );
+  });
 
 const MainMonth =() => {
 
   const [sortType, setSortType] = useState("latest");
   const [filter, setFilter] = useState("all");
 
-// 이달의 일기 모아보는 로직
-  const [noticeData, setNoticeData] = useState([])
-  useEffect(()=> {
-    getMonthDiary(new Date().getMonth() + 1, new Date().getFullYear())
-    .then((res)=> {
-      setNoticeData(res.data)
-      console.log(res.data)
-      console.log('이달의 일기 잘 모아지나',noticeData)
-    })
-    .catch((e)=> {
-      console.log('err',e)
-    });
-  },[])
+
 
   // 감정별, 날짜별로 분류하는 로직
   
@@ -65,7 +75,6 @@ const MainMonth =() => {
     const filterCallBack = (item) => {
       if (filter === "행복") {
         const happyDiary = item.emotion == '행복'
-        console.log('dd')
         return happyDiary
       } 
       if (filter === "슬픔") {
@@ -87,9 +96,9 @@ const MainMonth =() => {
 
     const compare = (a, b) => {
       if (sortType === "latest") {
-        return parseInt(b.created_date) - parseInt(a.created_date);
+        return b.created_date.split("-").join("") - a.created_date.split("-").join("");
       } else {
-        return parseInt(a.created_date) - parseInt(b.created_date);
+        return a.created_date.split("-").join("") - b.created_date.split("-").join("");
       }
     };
 
@@ -102,19 +111,27 @@ const MainMonth =() => {
     return sortedList;
   };
 
-
     const navigate = useNavigate();
-    const diaryList = useContext(DiaryStateContext);
 
     const [data, setData] = useState([]);
     const [curDate, setCurDate] = useState(new Date());
     const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
-    const getMonth = curDate.getMonth() + 1
     
-    useEffect(() => {
-      const titleElement = document.getElementsByTagName("title")[0];
-      titleElement.innerHTML = `감정 일기장`;
-    }, []);
+    const getMonth = curDate.getMonth() + 1
+    const getYear = curDate.getFullYear()
+    // 이달의 일기 모아보는 로직
+  const [noticeData, setNoticeData] = useState([])
+  useEffect(()=> {
+    getMonthDiary(getMonth, getYear)
+    .then((res)=> {
+      setNoticeData(res.data)
+      console.log(res.data)
+      console.log('이달의 일기 잘 모아지나',noticeData)
+    })
+    .catch((e)=> {
+      console.log('err',e)
+    });
+  },[getMonth])
   
     useEffect(() => {
       if (noticeData.length >= 1) {
@@ -138,27 +155,32 @@ const MainMonth =() => {
 
     return (
     <div className="main-month">
-      <div className="diary-list">
+        <div className="fix-top">
+
         <h2 className="diary-list-page-title">
           <div onClick={decreaseMonth} className="time-change-button">&#10092;</div>
           {headText}
           <div onClick={increaseMonth} className="time-change-button">&#10093;</div>
         </h2>
 {/* 감정별, 날짜별 분류 로직 */}
-        <ControlMenu
+        <ControlDateMenu
             value={sortType}
             onChange={setSortType}
             optionList={sortOptionList}
           />
-          <ControlMenu
+          <ControlEmotionMenu
             value={filter}
             onChange={setFilter}
             optionList={filterOptionList}
           />
+
+
         <button onClick={()=>{navigate('/newdiary')}}>일기 작성</button>
         <ul onClick={()=>{navigate('/calender')}} className="snip1241">
             <li><a href="#">달력보기</a></li>
           </ul>  
+        </div>
+      <div className="diary-list">
         <div className="diary-items">
           {getProcessedDiaryList().map((it) => (
             <DiaryItem key={it.id} {...it} className="diary-items" />

@@ -1,0 +1,23 @@
+/*  여기서부터  */
+.my-playlist-detail {
+    position: relative;
+  }
+  
+.my-playlist-detail .work-area {
+    width: 64vw;
+    height: 93vh;
+    margin-top: 7vh;
+    margin-left: 24vw;
+    /* 명시적으로 이 초록색 영역안에서 작업하면 된다 표시용 */
+    background-color: green;
+  
+    position: absolute;
+    z-index: 1;
+    color: black;
+  }
+  
+.my-playlist-detail .main-note {
+    position: absolute;
+  }
+
+/* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */

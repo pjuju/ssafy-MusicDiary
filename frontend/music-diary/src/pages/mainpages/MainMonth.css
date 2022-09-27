@@ -1,41 +1,56 @@
 .main-month {
-    position: relative;
+  position: relative;
+}
+
+/* 상단 헤더 영역 */
+.main-month .fix-top {
+position: absolute;
+color: black;
+margin-top: 6vh;
+margin-left: 24vw;
 }
 
 .main-month .diary-list {
-  /* 이건 모든 페이지들이 공용으로 설정할 값 */
-  width: 64vw;
-  height: 93vh;
-  margin-top: 7vh;
-  margin-left: 24vw;
+/* 이건 모든 페이지들이 공용으로 설정할 값 */
+width: 64vw;
+height: 70vh;
+margin-top: 27vh;
+margin-left: 24vw;
 
-  position: absolute;
-  z-index: 1;
-  color: black;
+position: absolute;
+z-index: 1;
+color: black;
+/* background-color: green; */
 
-  overflow:auto;
-  -ms-overflow-style: none;
+overflow:auto;
+-ms-overflow-style: none;
 }
 
 .main-month .diary-list::-webkit-scrollbar{
-  display:none;
+display:none;
 }
 
+.main-month .diary-items {
+overflow:auto;
+-ms-overflow-style: none;
+}
+
+
 .main-month .main-note {
-    position: absolute;
+  position: absolute;
 }
 
 .main-month .diary-list-page-title {
-  margin-top: 5vh;
-  display: flex;
-  justify-content: center;
+margin-top: 5vh;
+display: flex;
+justify-content: center;
 } 
 
 .main-month .diary-list-page-title * {
-  margin-left: 2vw;
-  margin-right: 2vw;
+margin-left: 2vw;
+margin-right: 2vw;
 }
 
 .main-month .time-change-button {
-  cursor: pointer;
+cursor: pointer;
 }
