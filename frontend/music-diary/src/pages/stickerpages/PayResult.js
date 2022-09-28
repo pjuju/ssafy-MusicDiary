@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import qs from "qs";
 
 class PayResult extends React.Component {
     constructor(props) {
@@ -40,8 +41,22 @@ class PayResult extends React.Component {
         }).then((response) => {
             // 결제 승인에 대한 응답 출력
             console.log(response);
+            
+        })
+        const pay = qs.stringify({
+            charge: 2000,
+          });
+        axios.post(
+            "http://j7d204.p.ssafy.io//rest/sticker/kakaopay/2/", pay
+          )
+          .then((res) => {
+            console.log(JSON.stringify(res.data));
+        })
+        .catch((err) => {
+            console.log(err.data);
         });
-    }
+}
+    
 
     render() {
         return (
