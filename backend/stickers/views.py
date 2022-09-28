@@ -1,7 +1,5 @@
-from warnings import catch_warnings
 from django.shortcuts import get_object_or_404, get_list_or_404
 
-from stickers import serializers
 from accounts.models import User
 
 from .serializers import StickerPackSerializer, StickerSerializer, UserStickerSerializer
@@ -43,6 +41,13 @@ class StickerPackDetail(GenericAPIView):
     def get(self, request, stickerpack_id, format=None):
         stickerpack = get_object_or_404(StickerPack, pk=stickerpack_id)
         serializer = StickerPackSerializer(stickerpack)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def patch(self, request, stickerpack_id, format=None):
+        stickerpack = get_object_or_404(StickerPack, pk=stickerpack_id)
+        serializer = StickerPackSerializer(stickerpack, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
