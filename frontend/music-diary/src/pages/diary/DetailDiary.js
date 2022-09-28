@@ -149,7 +149,7 @@ const DetailDiary = () => {
         navigate("/calender", { replace: true });
       }
     }
-  }, [id, monthData]);
+  }, [id, monthData, bookmark]);
 
   //////////////////////////////////////////////////////////////////////////////
   // 다이어리 remove 함수
@@ -285,7 +285,7 @@ const DetailDiary = () => {
           storeBookmark === true ? 
           (
             <div className='bookmark'
-                style={{backgroundColor: "green"}}
+                style={{backgroundColor: "green", zIndex:"20000000000"}}
                 ref= {bookmarkRef}
                 onClick={()=>handleBookmark()}
             >
@@ -293,7 +293,7 @@ const DetailDiary = () => {
           ) : 
           (
             <div className='bookmark'
-                style={{backgroundColor: "blue"}}
+                style={{backgroundColor: "blue", zIndex:"20000000000"}}
                 ref= {bookmarkRef}
                 onClick={()=>handleBookmark()}
             >
