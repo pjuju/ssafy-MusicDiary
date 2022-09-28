@@ -20,8 +20,9 @@ const MainCalender =() => {
   
     // api 연결하기
     const [noticeData, setNoticeData] = useState([])
+
     useEffect(()=> {
-      getMonthDiary(today.format('M'), new Date().getFullYear())
+      getMonthDiary(today.format('M'), today.format('YYYY'))
       .then((res)=> {
         setNoticeData(res.data)
         console.log(res.data)

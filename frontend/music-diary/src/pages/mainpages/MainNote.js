@@ -30,7 +30,7 @@ const MainNote = () => {
                 </ul>
             </div>
         </div>
-        {/* <div className='bookmarks'>
+        <div className='bookmarks'>
             <div className='logout'>로그아웃</div>
             <Dropdown className='my-page'>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -43,7 +43,7 @@ const MainNote = () => {
                 </Dropdown.Menu>
             </Dropdown>
 
-        </div> */}
+        </div>
         <img src="/assets/img/background.png" className='book-background'/>
     </div>)
 }
