@@ -359,7 +359,6 @@ class DiaryMusicDetail(GenericAPIView):
                 mood_id = user.depressed
             elif emotion == '평온':
                 mood_id = user.normal
-
             print(mood_id)
 
             # 설문을 통해 mood 도출
@@ -368,7 +367,6 @@ class DiaryMusicDetail(GenericAPIView):
                 return Response({'error': '유효하지 않은 음악 선호도 값'}, status=status.HTTP_400_BAD_REQUEST)
 
         print(mood)
-
         # [1, 4, 5, 16, 23]
         playlist = self.makePlaylist(mood, request.user)
 
