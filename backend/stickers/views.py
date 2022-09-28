@@ -1,8 +1,5 @@
-from functools import partial
-from warnings import catch_warnings
 from django.shortcuts import get_object_or_404, get_list_or_404
 
-from stickers import serializers
 from accounts.models import User
 
 from .serializers import StickerPackSerializer, StickerSerializer, UserStickerSerializer
