@@ -31,6 +31,8 @@ export { default as MySticker } from './mypages/MySticker'
 export { default as StickerStore } from './stickerpages/StickerStore'
 export { default as StickerDetail } from './stickerpages/StickerDetail'
 export { default as ChargePoint } from './stickerpages/ChargePoint'
+export { default as Payment } from './stickerpages/Payment'
+export { default as PayResult } from './stickerpages/PayResult'
 
 export { default as IntroScrollPage } from './scrollpages/IntroScrollPage'
 export {default as MyPlaylistDetail} from './music/MyPlaylistDetail'
