@@ -6,4 +6,5 @@ urlpatterns = [
     path('like/',views.get_all),
     path('like/<int:music_id>/',views.favorite_music),
     path('playlist/<int:emotion_id>/',views.emotion_playlist),
+    path('playlist/recommend/<int:emotion_id>/',views.emotion_recommend),
 ]

@@ -23,7 +23,6 @@ import numpy as np
 from manage import BERTDataset
 import torch
 import gluonnlp as nlp
-import numpy as np
 
 from kobert.utils import get_tokenizer
 from kobert.pytorch_kobert import get_pytorch_kobert_model
