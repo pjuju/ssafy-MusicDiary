@@ -139,9 +139,10 @@ const DiaryEditor = ({ isEdit, originData }) => {
     const imgRef = useRef();
     const [imageFile, setImageFile] = useState()
   
-    const onChangeImage = () => {
+    const onChangeImage = (event) => {
       const reader = new FileReader();
       const file = imgRef.current.files[0];
+      const filee = event.target.files[0]
   
       reader.readAsDataURL(file);
       reader.onloadend = () => {
@@ -149,11 +150,17 @@ const DiaryEditor = ({ isEdit, originData }) => {
         // console.log("이미지주소", reader.result);
       };
 
+    //   const blob = new Blob([JSON.stringify(modifiedData)], {
+    //     type: "application/json",
+    //   });
+
       setImageUrl(reader.result)
       console.log(imageUrl) // 아무것도 없음
       console.log(file)     // 파일 정보가 다 들어옴
+      console.log(filee)
 
       setImageFile(file)
+    //   if (event.target.files[0]) reader.readAsDataURL(event.target.files[0]);
     };
   
     const onClickFileBtn = (e) => {
@@ -168,7 +175,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
     const uploadImage =() => {
         console.log(imageUrl) // 이제 엄청 긴 경로가 하나 들어옴
         console.log(imageFile)  // 사진 데이터 정보
-        getDiaryImage(imageUrl)
+        getDiaryImage(imageFile)
             .then((res)=>{
                 console.log(res.data)
                 // setImage(imageUrl)
@@ -214,7 +221,8 @@ const DiaryEditor = ({ isEdit, originData }) => {
     const emotionAnxiousRef = useRef()
       useEffect(()=> {
           if (emotion == '기쁨') {
-            emotionHappyRef.current.classList.add = '5vw'
+            emotionHappyRef.current.style.scale = '120%';
+            // emotionHappyRef.current.style.height = '5vh';
           } else {
             emotionHappyRef.current.style.width = '4vw'
           }
