@@ -1,108 +1,58 @@
+//       {/* 저장됐었던 sticker 배치 */}
+//       <div>
+//         {originStickers.map((ele, i) => {
+//           return (
+//             <>
+//               <img
+//                 alt="#"
+//                 src={ele.sticker.image_url}
+//                 style={{
+//                   position: "absolute",
+//                   width: "100px",
+//                   top: "`{ele.sticker.sticker_x}`px",
+//                   left: "`{ele.sticker.sticker_x}`px",
+//                 }}
+//               />
+//             </>
+//           );
+//         })}
+//       </div>
+// //
+//   /////////////////////////
 
-
-import { useState, useContext, useEffect, useRef, createRef, useCallback } from "react";
-
-
-//  konva 
-import { Image as KonvaImage, Layer, Stage } from "react-konva";
-import useImage from "use-image";
-
-import { IndividualSticker } from "../sticker-data/individualSticker.tsx";
-import { stickersData } from "../sticker-data/stickers.data.ts"
-
-function Test() {
-    // konva 
-    const [background] = useImage("example-image.jpg");
-    const [images, setImages] = useState([]);
-
-    const addStickerToPanel = ({ src, width, x, y }) => {
-        setImages((currentImages) => [
-          ...currentImages,
-          {
-            width,
-            x,
-            y,
-            src,
-            resetButtonRef: createRef()
-          }
-        ]);
-      };
-    
-      const resetAllButtons = useCallback(() => {
-        images.forEach((image) => {
-          if (image.resetButtonRef.current) {
-            image.resetButtonRef.current();
-          }
-        });
-      }, [images]);
-    
-      const handleCanvasClick = useCallback(
-        (event) => {
-          if (event.target.attrs.id === "backgroundImage") {
-            resetAllButtons();
-          }
-        },
-        [resetAllButtons]
-      );
-
-
-  return (
-    <>
-       <Stage
-        width={600}
-        height={400}
-        onClick={handleCanvasClick}
-        onTap={handleCanvasClick}
-      >
-        <Layer>
-          <KonvaImage
-            image={background}
-            height={400}
-            width={600}
-            id="backgroundImage"
-          />
-          {images.map((image, i) => {
-            return (
-              <IndividualSticker
-                onDelete={() => {
-                  const newImages = [...images];
-                  newImages.splice(i, 1);
-                  setImages(newImages);
-                }}
-                onDragEnd={(event) => {
-                  image.x = event.target.x();
-                  image.y = event.target.y();
-
-                  // console.log("image.x :", image.x)
-                  // console.log("image.y:", image.y)
-                }}
-                key={i}
-                image={image}
-              />
-            );
-          })}
-        </Layer>
-      </Stage>
-      <h4 className="heading">Click/Tap to add sticker to photo!</h4>
-      {stickersData.map((sticker) => {
-        return (
-          <button
-            className="button"
-            onMouseDown={() => {
-              addStickerToPanel({
-                src: sticker.url,
-                width: sticker.width,
-                x: 100,
-                y: 100
-              });
-            }}
-          >
-            <img alt={sticker.alt} src={sticker.url} width={sticker.width} />
-          </button>
-        );
-      })}
-    </>
-  )
-}
-
-export default Test
+//         {/* 저장됐었던 sticker 배치 */}
+//         <div>
+//         <Stage
+//             className="stage-area"
+//             width={700}
+//             height={400}
+//             onClick={handleCanvasClick}
+//             onTap={handleCanvasClick}
+//             id="backgroundImage"
+//           >
+//             <Layer>
+//               {originStickers.map((ele, i) => {
+//                 return (
+//                   <IndividualSticker
+//                     className="individual-sticker"
+//                     onDelete={() => {
+//                       const newStickers = [...originStickers];
+//                       newStickers.splice(i, 1);
+//                       setOriginStickers(newStickers);
+//                     }}
+//                     onDragEnd={(event) => {
+//                       ele.sticker_x = event.target.x();
+//                       ele.sticker_y = event.target.y();
+//                       console.log("stage안의 스티커 선택");
+//                       console.log("image.x :", ele.sticker_x);
+//                       console.log("image.y:", ele.sticker_y);
+//                       console.log("image의id: ", ele.sticker_id);
+//                     }}
+//                     key={i}
+//                     image={ele}
+//                   />
+//                 );
+//               })}
+//             </Layer>
+//           </Stage>
+  

@@ -7,8 +7,8 @@ export const writeDiaryListApi = async(diaryInfo, success, fail) => {
 }
   
 // 일기 전체 리스트 보기(GET) API 북마크에서 사용
-export const getDiaryListApi = async(diariesInfo,success, fail) => {
-    return await api.get('/diary/', diariesInfo)
+export const getDiaryListApi = async(success, fail) => {
+    return await api.get('/diary/')
 }
 
 // 책갈피 전체 리스트 보기(GET) /////////////////////////
@@ -71,6 +71,6 @@ export const getMonthDiary = async(month, year,success, fail) => {
 }
 
 // 이미지 등록(POST)
-export const getDiaryImage = async(imageFile,success,fail) => {
-    return await api.post(`/diary/image/`,imageFile)
+export const getDiaryImage = async(image,success,fail) => {
+    return await api.post(`/diary/${image}/`)
 }

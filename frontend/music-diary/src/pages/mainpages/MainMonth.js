@@ -1,9 +1,8 @@
 import DiaryItem from "../diary/DiaryItem";
 import MainNote from "./MainNote";
 import React, { useEffect, useState, useContext } from "react";
-import { DiaryStateContext } from "../../App";
 import {useNavigate} from 'react-router-dom'
-import { getDiaryListApi,getMonthDiary } from "../../api/diaryApi";
+import { getMonthDiary } from "../../api/diaryApi";
 import './MainMonth.css'
 import './Dropdown.scss'
 
@@ -74,7 +73,7 @@ const MainMonth =() => {
   const getProcessedDiaryList = () => {
     const filterCallBack = (item) => {
       if (filter === "행복") {
-        const happyDiary = item.emotion == '행복'
+        const happyDiary = item.emotion == '기쁨'
         return happyDiary
       } 
       if (filter === "슬픔") {
@@ -87,10 +86,10 @@ const MainMonth =() => {
         return item.emotion === '우울'
       }
       if (filter === "화남") {
-        return item.emotion === '화남'
+        return item.emotion === '분노'
       }
       if (filter === "놀람") {
-        return item.emotion === '놀람'
+        return item.emotion === '불안'
       }
     };
 
@@ -131,7 +130,7 @@ const MainMonth =() => {
     .catch((e)=> {
       console.log('err',e)
     });
-  },[])
+  },[curDate.getMonth()])
   console.log('지금 일기 개수는',noticeData.length)
   
     useEffect(() => {
