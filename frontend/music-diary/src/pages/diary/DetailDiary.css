@@ -31,9 +31,17 @@ white-space : nowrap
 display:none;
 }
 
+.detail-diary .detail-diary-item {
+  width: 40vw;
+  height: 65vh;
+  /* background-color: aqua; */
+  margin-top: 20vh;
+}
+
 .detail-diary .detail-diary-item .content {
   overflow:auto;
   -ms-overflow-style: none;
+  /* background-color: green; */
 }
 
 .detail-diary .detail-diary-item .content::-webkit-scrollbar{
