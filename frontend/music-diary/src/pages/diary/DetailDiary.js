@@ -141,7 +141,7 @@ const DetailDiary = () => {
 
         // redux : actions
         dispatch(setDiaryBookmarkValue(bookmark))
-
+        console.log("json 전:", targetDiary)
         console.log("현재 보고 있는 일기는...", JSON.stringify(targetDiary));
       } else {
         // 일기가 없을 때
