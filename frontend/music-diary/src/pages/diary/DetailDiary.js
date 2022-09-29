@@ -48,7 +48,11 @@ const DetailDiary = () => {
   const [emotion, setemotion] = useState("");
   const [date, setDate] = useState("");
   const [bookmark, setBookmark] = useState(false);
+  const [returnImages, setReturnImages] = useState([])
+  const [returnImage, setReturnImage] = useState()
+
   const [image, setImage] = useState("");
+
 
   const [monthData, setmonthData] = useState([]); // 이달의 전체 일기 정보
 
@@ -132,16 +136,25 @@ const DetailDiary = () => {
 
       if (targetDiary) {
         // 일기가 존재할 때
+        const t = targetDiary.images
+        console.log("t:", t)
+        console.log("t:", t[0].image_url)
+        t.map((ele)=>{
+          return(
+            console.log("ele::::::",ele.image_url)
+          )
+        })
         setTitle(targetDiary.title);
         setContent(targetDiary.content);
         setemotion(targetDiary.emotion);
         setDate(targetDiary.created_date);
         setBookmark(targetDiary.bookmarked);
         setOriginStickers(targetDiary.stickers)
+        setReturnImages(targetDiary.images)
 
         // redux : actions
         dispatch(setDiaryBookmarkValue(bookmark))
-
+        console.log("json 전:", targetDiary)
         console.log("현재 보고 있는 일기는...", JSON.stringify(targetDiary));
       } else {
         // 일기가 없을 때
@@ -172,7 +185,7 @@ const DetailDiary = () => {
 
   // 북마크 다루기 ////////////////////////////////////////
   const handleBookmark = () => {
-    console.log("storeBookmark:", storeBookmark)
+    console.log("RETURN IMAGES:", returnImages[0].image_url)
     if (storeBookmark === false) {
       console.log("북마크 state:", bookmark);
       dispatch(setDiaryBookmarkValue(true));
@@ -304,12 +317,22 @@ const DetailDiary = () => {
           <div className='fix-top'>
             <h2 className='title'>{title}</h2>
             <p className='date'>{strDate}</p>
-            <img src={rightEmotion(emotion)} className='emotion'></img>
+            {/* <img src={rightEmotion(emotion)} className='emotion'></img> */}
           </div>
 
            {/* 일기 content */}
         <div className='detail-diary-item'>
             <div className='content'>{content}</div>
+            {
+              returnImages.map((ele,i)=>{
+                return (
+                  <>
+
+                      <img alt="#" src={"https://"+ele.image_url} style={{width:"100px"}} />
+                  </>
+                )
+              })
+            }
         </div>
 
         {/* 일기별 플레이리스트 */}
@@ -410,7 +433,7 @@ const DetailDiary = () => {
         className="sticker-choice-area"
         style={{ position: "absolute", marginTop: "80vh" }}
       >
-        <h4 className="heading">Click/Tap to add sticker to photo!</h4>
+
         {stickerInfo.map((sticker) => {
           return (
             <button
@@ -427,7 +450,7 @@ const DetailDiary = () => {
                 });
               }}
             >
-              <img alt="#" src={sticker.image_url} width="100" />
+              <img alt="#" src={sticker.image_url} width="70" />
             </button>
           );
         })}

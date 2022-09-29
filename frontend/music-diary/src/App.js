@@ -33,7 +33,9 @@ import {
   Test,
   MyPlaylistDetail,
   MyPlaylist,
-  MusicRecommendation
+  MusicRecommendation,
+  Payment,
+  PayResult
 } from './pages/index'
 
 const reducer = (state, action) => {
@@ -200,6 +202,8 @@ function App() {
           <Route path='myplaylistdetail' element={<MyPlaylistDetail />} />
           <Route path='myplaylist' element={<MyPlaylist />} />
           <Route path='musicrecommendation' element={<MusicRecommendation />} />
+          <Route path='/payment' element={<Payment />} />
+          <Route path='/payresult' element={<PayResult />} />
   
         </Routes>
       </BrowserRouter>

@@ -96,3 +96,9 @@ class UserStickerDetail(GenericAPIView):
         # 이미 구매한 스티커팩 (구매 실패)
         data = {'error': '이미 구매한 항목입니다.'}
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
+
+def KakaoPay(request,user_id):
+    user = get_object_or_404(User, id=user_id)
+    charge = request.POST.get('charge')
+    user.point += int(charge)
+    return     

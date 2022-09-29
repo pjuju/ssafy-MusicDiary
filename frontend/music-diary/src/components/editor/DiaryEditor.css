@@ -63,6 +63,7 @@
     position: absolute;
     margin-left: 47vw;
     margin-top: 7vh;
+    display: block;
     /* background-color: black; */
 }
 
@@ -76,4 +77,40 @@
     position: absolute;
     margin-top: 70vh;
     margin-left: -11vw;
+}
+
+/* 이미지 업로드 관련 */
+.diary-editor .diary-img-wrapper {
+    position: absolute;
+
+    /* width: 18vw;
+    height: 50vh; */
+    
+}
+
+.diary-editor .diary-register-img {
+   
+    width: 15vw;
+    height: 40vh;
+    
+    margin-bottom: 5%;
+    border: 1px solid black;
+}
+
+.diary-editor .find-file-btn {
+
+}
+
+.diary-editor .find-file-btn:hover {
+    background-color: antiquewhite;
+}
+
+.diary-editor .diary-register-btn {
+    margin-top: 42vh;
+    margin-right: 5vw;
+
+}
+
+.diary-editor .diary-register-btn > label {
+    margin-right: 6vw;
 }

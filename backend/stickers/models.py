@@ -5,6 +5,7 @@ from django.db import models
 class StickerPack(models.Model):
     name = models.CharField(null=False, max_length=60, unique=True)
     price = models.IntegerField()
+    thumb_url = models.CharField(null=False, max_length=176, default="https://ssafy-d204-alsongdalsong.s3.ap-northeast-2.amazonaws.com/default_thumb.png")
     user = models.ForeignKey("accounts.User", null=False, on_delete=models.CASCADE)
 
 
