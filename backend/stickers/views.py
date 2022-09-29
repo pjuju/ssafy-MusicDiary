@@ -10,6 +10,7 @@ from .models import StickerPack, Sticker, UserSticker
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
+from rest_framework.decorators import api_view
 
 # Create your views here.
 
@@ -97,8 +98,11 @@ class UserStickerDetail(GenericAPIView):
         data = {'error': '이미 구매한 항목입니다.'}
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['POST',])
 def KakaoPay(request,user_id):
     user = get_object_or_404(User, id=user_id)
     charge = request.POST.get('charge')
     user.point += int(charge)
-    return     
+    user.save()
+    return Response(status=status.HTTP_200_OK)

@@ -2,6 +2,8 @@
   "name": "music-diary",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://kapi.kakao.com",
+
   "dependencies": {
     "@nivo/core": "^0.80.0",
     "@nivo/radar": "^0.80.0",
