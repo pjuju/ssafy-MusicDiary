@@ -23,6 +23,14 @@ import './MainMonth.css'
     { value: "불안", name: "놀랐던 날" }
   ];
 
+
+
+
+const MainMonth =() => {
+
+  const [sortType, setSortType] = useState("latest");
+  const [filter, setFilter] = useState("all");
+
   const ControlDateMenu = React.memo(({ value, onChange, optionList }) => {
     return (
           <select
@@ -38,12 +46,6 @@ import './MainMonth.css'
     );
   });
 
-
-
-const MainMonth =() => {
-
-  const [sortType, setSortType] = useState("latest");
-  const [filter, setFilter] = useState("all");
 
   const ControlEmotionMenu = React.memo(({ value, onChange, optionList }) => {
     return (
