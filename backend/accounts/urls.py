@@ -14,6 +14,7 @@ urlpatterns = [
     path('signup/', views.SignupView.as_view()),   
     path('login/',views.SigninView.as_view()),
     path('<int:pk>/',views.UserView.as_view()),
+    path('change_password/<int:pk>/',views.ChangePasswordView.as_view()),
 #     path('checkEmail/email', views.EmailUniqueCheck.as_view(), name='uniquecheck_email'),
 
 ]
