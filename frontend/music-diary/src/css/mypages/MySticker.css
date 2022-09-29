@@ -1,3 +1,28 @@
+.my-sticker {
+    position: relative;
+}
+
+.my-sticker .work-area {
+    width: 64vw;
+height: 93.5vh;
+margin-top: 6vh;
+margin-left: 24vw;
+
+position: absolute;
+z-index: 1;
+color: black;
+/* background-color: green; */
+}
+
+.my-sticker .main-note {
+    position: absolute;
+}
+
+
+
+
+
+/* 혜연이 코드 */
 .mysticker-wrapper {
 
 }

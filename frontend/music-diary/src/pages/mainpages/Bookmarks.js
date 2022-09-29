@@ -13,7 +13,7 @@ const Bookmarks =() => {
 
     
     //  api
-    
+     
     // 모든 일기 정보를 다 모으기
     const [noticeData, setNoticeData] = useState([])
 
