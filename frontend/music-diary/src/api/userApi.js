@@ -45,6 +45,9 @@ export const putUserInfoApi = async (userInfo, user_id, success, fail) => {
 
 //  일부정보 수정
   export const patchUserInfoApi = async (userInfo, user_id, success, fail) => {
+
+    console.log("In API:::", JSON.stringify(userInfo))
+    
     return await api
       .patch(`/accounts/${user_id}/`, userInfo, {
         header: {

@@ -1,0 +1,88 @@
+.edit-myinfo {
+    position: relative;
+}
+
+.edit-myinfo .main-note {
+    position: absolute;
+}
+
+.edit-myinfo .myinfo {
+  /* 이건 모든 페이지들이 공용으로 설정할 값 */
+  width: 64vw;
+  height: 93vh;
+  margin-top: 7vh;
+  margin-left: 24vw;
+  /* background-color: green; */
+
+  position: absolute;
+  z-index: 1;
+  color: black;
+}
+
+.edit-myinfo .myinfo-main {
+    /* background-color: black; */
+    width: 30vw;
+    margin-top: 5vh;
+    height: 55vh;
+    margin-left: 13.5vw;
+    position: absolute;
+}
+
+.edit-myinfo .edit-myinfo-title {
+    margin-top: 5vh;
+}
+
+/* 수정폼 감싸는 부부  */
+.edit-myinfo .edit-myinfo-input {
+    /* display: block; */
+    margin-top: 15vh;
+    
+}
+
+.edit-myinfo .edit-form-input {
+    display: block;
+    
+    margin-left: 9.5vw;
+    margin-bottom: 5vh;
+
+    width: 200px;
+    height: 50px;
+
+    align-items: center;
+}
+
+.edit-myinfo .edit-btn-wrapper {
+    display: flex;
+
+    margin-top: 7vh;
+    margin-left: 8.5vw;
+}
+
+.edit-myinfo .edit-btn {
+    font-size: 18px;
+
+
+    margin-left: 1vw;
+}
+
+.feeling-analysis .analysis-time-form {
+    width: 10vw;
+    margin-left: 18vw;
+}
+
+.feeling-analysis .feeling-music-type {
+    width: 23vw;
+    height: 50vh;
+    /* background-color: green; */
+    margin-left: 35vw;
+    position: absolute;
+    margin-top: 5vh;
+}
+
+.feeling-analysis .music-research {
+    margin-bottom: 3vh;
+}
+
+.feeling-analysis .analysis-page-title {
+    margin-bottom: 6vh;
+}
