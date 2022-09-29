@@ -4,6 +4,7 @@ import "../../css/mypages/MySticker.css";
 
 import { BiStore } from "react-icons/bi"; // 상점 이모지
 import { getUserStickerListApi } from "../../api/stickerApi"; // 해당 유저의 스티커팩 리스트 조회
+import MainNote from "../mainpages/MainNote";
 
 function MySticker() {
 
@@ -28,8 +29,8 @@ function MySticker() {
   }
 
   return (
-    <>
-      <div className="mysticker-wrapper">
+    <div className="my-sticker">
+      {/* <div className="mysticker-wrapper">
         <div className="sticker-page-header">나의 스티커</div>
 
         <div className="sticker-wrapper">
@@ -42,7 +43,7 @@ function MySticker() {
               <BiStore  />
             </div>
           </div>
-          {/* 보유한 스티커 리스트 */}
+
           <div className="list-wrapper">
 
             <div className="sticker-info" >
@@ -74,8 +75,15 @@ function MySticker() {
 
           </div>
         </div>
+      </div> */}
+      <div className="work-area">
+        <div className="header-right" onClick={onMoveStickerStore}>
+          상점
+          <BiStore  />
+        </div>
       </div>
-    </>
+      <MainNote className="main-note"></MainNote>
+    </div>
   );
 }
 
