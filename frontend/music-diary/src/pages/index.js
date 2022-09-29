@@ -19,6 +19,7 @@ export { default as MainLogin} from './loginpages/MainLogin'
 
 export {default as Opening } from './mypages/Opening'
 export {default as FeelingAnalysis } from './mypages/FeelingAnalysis'
+export {default as EditMyInfo } from './mypages/EditMyInfo'
 
 export {default as NewDiary } from './diary/NewDiary'
 export {default as DetailDiary } from './diary/DetailDiary'

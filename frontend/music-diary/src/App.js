@@ -33,7 +33,8 @@ import {
   Test,
   MyPlaylistDetail,
   MyPlaylist,
-  MusicRecommendation
+  MusicRecommendation,
+  EditMyInfo
 } from './pages/index'
 
 const reducer = (state, action) => {
@@ -167,7 +168,7 @@ function App() {
           <Route path='myplaylistdetail' element={<MyPlaylistDetail />} />
           <Route path='myplaylist' element={<MyPlaylist />} />
           <Route path='musicrecommendation' element={<MusicRecommendation />} />
-  
+          <Route path='/mypage/edit' element={<EditMyInfo /> } />
         </Routes>
       </BrowserRouter>
       </DiaryDispatchContext.Provider>
