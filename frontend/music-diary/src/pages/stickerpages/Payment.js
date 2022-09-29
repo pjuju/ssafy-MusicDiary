@@ -15,9 +15,9 @@ class Payment extends React.Component {
             vat_amount: 200,
             tax_free_amount: 0,
             // router에 지정한 PayResult의 경로로 수정
-            approval_url: "http://localhost:3000/payresult",
-            fail_url: "http://localhost:3000/payresult",
-            cancel_url: "http://localhost:3000/payresult",
+            approval_url: "http://j7d204.p.ssafy.io/payresult",
+            fail_url: "http://j7d204.p.ssafy.io/payresult",
+            cancel_url: "http://j7d204.p.ssafy.io/payresult",
         },
     };
 
