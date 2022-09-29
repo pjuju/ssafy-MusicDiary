@@ -61,7 +61,7 @@ function StickerDetail({}) {
   // 스티커팩 구매버튼 클릭
   const onBugyStickerPackBtn = () =>{
 
-    buyStickerPackApi(stickerpack_id)
+    buyStickerPackApi(packInfo.stickerpack_id)
     .then((res)=> {
       console.log(res.data)
     })
