@@ -151,6 +151,16 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ('id','point','favorite_musics',)
 
 
+class ChangePasswordSerializer(serializers.Serializer):
+    model = get_user_model()
+
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+    
+    # fields = ('old_password', 'new_password',)
+    
+    
+    
     # def update(self, instance, validated_data): 
     #     instance.username = validated_data.get('username', instance.username)
     #     instance.content = validated_data.get('sad', instance.sad)

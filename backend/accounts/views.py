@@ -15,13 +15,15 @@ from allauth.socialaccount.models import SocialAccount
 from .models import User
 
 from .models import User
-from .serializers import SignupSirializer ,SigninSirializer, UserSerializer
+from .serializers import SignupSirializer ,SigninSirializer, UserSerializer, ChangePasswordSerializer
 
 from rest_framework import generics, status, mixins
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import get_user_model
 
 
 
@@ -260,6 +262,38 @@ class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destro
         return JsonResponse(serializer.errors, status=400)
 
 
+class ChangePasswordView(generics.UpdateAPIView):
+        """
+        An endpoint for changing password.
+        """
+        queryset = User.objects.all()
+        serializer_class = ChangePasswordSerializer
+        model = get_user_model()
+        permission_classes = (IsAuthenticated,)
+
+        def get_object(self, queryset=None):
+            obj = self.request.user
+            return obj
+
+        def update(self, request,pk):
+            self.object = get_object_or_404(User, id=pk)
+
+            serializer = self.get_serializer(data=request.data)
+
+            if serializer.is_valid():
+                # Check old password
+                if not self.object.check_password(serializer.data.get("old_password")):
+                    return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+                # set_password also hashes the password that the user will get
+                self.object.set_password(serializer.data.get("new_password"))
+                self.object.save()
+                response = {
+                    'status': 'success',
+                    'code': status.HTTP_200_OK,
+                    'message': 'Password updated successfully',
+                    'data': []
+                }
+                return Response(response)
 
         # return self.update(request, pk)
     
