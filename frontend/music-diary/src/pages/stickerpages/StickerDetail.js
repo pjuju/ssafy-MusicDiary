@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../css/mypages/MySticker.css";
 import "../../css/stickerpages/StickerDetail.css";
@@ -13,14 +13,28 @@ import {
 } from "../../api/stickerApi"; // DB에 저장된 모든 스티커팩 조회
 
 import Button from "../../components/Common/Button";
+import MainNote from "../mainpages/MainNote";
 
-function StickerDetail() {
-
+function StickerDetail({}) {
+  const {id} = useParams()
   const navigate = useNavigate()
 
-  // 스티커팩 id prop으로 전달
-  // const { id } = useParams() // useParams로 받아오는 stickerpack_id
-  const stickerpack_id = 1; // 임시값
+  const [img, setImg] = useState('')
+  const [title, setTitle] = useState('')
+
+  // if (sticker.length >= 1) {
+  //   const targetSticker = sticker.find(
+  //     (it) => parseInt(it.id) === parseInt(id)
+  //   );
+  //   console.log(targetSticker)
+
+  //   // if (targetSticker) {
+  //   //   // 일기가 존재할 때
+  //   //   // setTitle(targetSticker.title)
+  //   //   // setImg(targetSticker.img)
+  //   // }
+  // }
+
 
   // 하나의 스티커팩 정보
   const [packInfo, setPackInfo] = useState({
@@ -29,16 +43,20 @@ function StickerDetail() {
     stickerpack: {},
   });
 
+  const [pack, setPack] = useState([])
+
+
   useEffect(() => {
-    getStickerListApi(stickerpack_id)
+    getStickerListApi(id)
       .then((res) => {
-        setPackInfo(res.data);
+        setPackInfo(JSON.stringify(res.data));
+        console.log(res.data)
+        setPack(res.data)
       })
       .catch((err) => {
         console.log(JSON.stringify(err.data));
       });
-  });
-
+  },[]);
 
   // 스티커팩 구매버튼 클릭
   const onBugyStickerPackBtn = () =>{
@@ -57,9 +75,12 @@ function StickerDetail() {
     navigate('/sticker/charge')
   }
 
+
   return (
-    <>
-      <div className="sticker-detail-wrapper">
+    <div className="sticker-detail">
+      <button onClick={() => navigate(-1)} className="goback-button">돌아가기</button>
+      
+      {/* <div className="sticker-detail-wrapper">
         <div className="sticker-page-header">
           상점 <BiStore />
         </div>
@@ -72,7 +93,6 @@ function StickerDetail() {
               <BiPlay />
             </div>
           </div>
-          {/* 보유한 스티커 리스트 */}
           <div className="list-wrapper">
             <div className="sticker-info">
               <div className="sticker-left-img">
@@ -106,8 +126,20 @@ function StickerDetail() {
             </div>
           </div>
         </div>
+      </div> */}
+      
+      <div className="work-area">
+        <div className="header">
+            <img src={pack.thumb_url} className="thumbnail" style={{width:'15vw'}}></img>
+            <div className="info">
+              {pack.name}
+              {pack.price}
+            </div>
+        </div>
+      {/* {packInfo.name} */}
       </div>
-    </>
+      <MainNote className="main-note"></MainNote>
+    </div>
   );
 }
 

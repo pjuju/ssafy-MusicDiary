@@ -1,4 +1,53 @@
-.sticker-store-wrapper {
+.sticker-store-page {
+    position: relative;
+  }
+  
+.sticker-store-page .sticker-store {
+    /* 이건 모든 페이지들이 공용으로 설정할 값 */
+    width: 64vw;
+    height: 93vh;
+    margin-top: 7vh;
+    margin-left: 24vw;
+    /* background-color: green; */
+  
+    position: absolute;
+    z-index: 1;
+    color: black;
+  }
+  
+.sticker-store-page .main-note {
+    position: absolute;
+  }
+
+
+/* 헤더영역 */
+.sticker-store-page .store-header {
+    margin-top: 3vh;
+}
+
+.sticker-store-page .store-header-left {
+    margin-left: -30vw;
+}
+
+
+/* 보드영역 */
+.sticker-store-page .store-board {
+    width: 60vw;
+    height: 70vh;
+    margin-left: 1vw;
+    margin-top: 5vh;
+    background-color: grey;
+    overflow:auto;
+-ms-overflow-style: none;
+}
+
+.sticker-store-page .store-board::-webkit-scrollbar{
+    display:none;
+}
+
+
+
+/* .sticker-store-wrapper {
 
 }
 
@@ -83,4 +132,4 @@
     color : black;
     margin-right: 40px;
     font-size: 18px;
-}
+} 

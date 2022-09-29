@@ -144,22 +144,22 @@ const DiaryEditor = ({ isEdit, originData }) => {
       const file = imgRef.current.files[0];
       const filee = event.target.files[0]
   
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(filee);
       reader.onloadend = () => {
         setImageUrl(reader.result);
         // console.log("이미지주소", reader.result);
       };
 
-    //   const blob = new Blob([JSON.stringify(modifiedData)], {
-    //     type: "application/json",
-    //   });
+      // const blob = new Blob([JSON.stringify(file)], {
+      //   type: "application/json",
+      // });
 
       setImageUrl(reader.result)
       console.log(imageUrl) // 아무것도 없음
       console.log(file)     // 파일 정보가 다 들어옴
       console.log(filee)
 
-      setImageFile(file)
+      setImageFile(filee)
     //   if (event.target.files[0]) reader.readAsDataURL(event.target.files[0]);
     };
   
@@ -173,16 +173,28 @@ const DiaryEditor = ({ isEdit, originData }) => {
     }
 
     const uploadImage =() => {
-        console.log(imageUrl) // 이제 엄청 긴 경로가 하나 들어옴
-        console.log(imageFile)  // 사진 데이터 정보
-        getDiaryImage(imageFile)
-            .then((res)=>{
-                console.log(res.data)
-                // setImage(imageUrl)
-            })
-            .catch((err)=>{
-                console.log(err.data)
-            })
+        // console.log(imageUrl) // 이제 엄청 긴 경로가 하나 들어옴
+        // console.log(imageFile)  // 사진 데이터 정보
+      //   const blob = new Blob([JSON.stringify(imageFile)], {
+      //   type: "application/json",
+      // });
+      // console.log(blob)
+
+
+      // const formData = new FormData();
+      // formData.append('file',blob);
+      //   getDiaryImage(formData)
+      //       .then((res)=>{
+      //           console.log(res.data)
+      //           // setImage(imageUrl)
+      //       })
+      //       .catch((err)=>{
+      //           console.log(err.data)
+      //       })
+
+      const fd = new FormData();
+      console.log(Object.values(imageFile))
+      console.log('보낼 fd',fd)
     }
 
     // 원래 일기 정보 보여주는 로직
@@ -288,14 +300,17 @@ const DiaryEditor = ({ isEdit, originData }) => {
 
         <React.Fragment>
             <img src={imageUrl ? imageUrl : "http://skg1891.cafe24.com/wp-content/uploads/2013/11/dummy-image-square.jpg"} style={{width:'20vw'}}></img>
+
             <input
                 type="file"
                 multiple="multiple"
                 ref={imgRef}
+                accept='image/*'
                 onChange={onChangeImage}
                 style={{ display: "none" }}
                 // value={image}
             ></input>
+
             {imageUrl? (<>
                 <button onClick={onClickDelete} > 삭제 </button>
                 <button onClick={uploadImage}>업로드</button>
