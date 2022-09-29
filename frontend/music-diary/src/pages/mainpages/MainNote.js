@@ -2,8 +2,17 @@ import './MainNote.css'
 import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 
+import { useSelector } from "react-redux";
+import { setNormalChoiceValue } from "../../store/store";
+import { useDispatch } from "react-redux";
+
 const MainNote = () => {
     const navigate = useNavigate();
+
+    const storeUserName = useSelector((state)=>{
+        return state.user.username
+      })
+    
     return(<div className='main-note'>
         <div className='left-page'>
 
@@ -12,8 +21,7 @@ const MainNote = () => {
                 style={{width:"7vw"}}
             />
 
-            <h5>회쏘경수</h5>
-
+            <h5>{storeUserName}</h5>
 
             <div className='profile-menu' >
                 <ul class="snip1250" onClick={()=>{navigate('/calender')}}>
@@ -30,7 +38,7 @@ const MainNote = () => {
                 </ul>
             </div>
         </div>
-        {/* <div className='bookmarks'>
+        <div className='bookmarks'>
             <div className='logout'>로그아웃</div>
             <Dropdown className='my-page'>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -43,7 +51,7 @@ const MainNote = () => {
                 </Dropdown.Menu>
             </Dropdown>
 
-        </div> */}
+        </div>
         <img src="/assets/img/background.png" className='book-background'/>
     </div>)
 }

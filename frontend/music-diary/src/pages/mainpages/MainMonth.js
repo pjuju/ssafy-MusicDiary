@@ -1,9 +1,8 @@
 import DiaryItem from "../diary/DiaryItem";
 import MainNote from "./MainNote";
 import React, { useEffect, useState, useContext } from "react";
-import { DiaryStateContext } from "../../App";
 import {useNavigate} from 'react-router-dom'
-import { getDiaryListApi,getMonthDiary } from "../../api/diaryApi";
+import { getMonthDiary } from "../../api/diaryApi";
 import './MainMonth.css'
 import './Dropdown.scss'
 
@@ -16,12 +15,12 @@ import './Dropdown.scss'
   
   const filterOptionList = [
     { value: "all", name: "전부 보기" },
-    { value: "행복", name: "행복했던 날" },
+    { value: "기쁨", name: "행복했던 날" },
     { value: "우울", name: "우울했던 날" },
     { value: "슬픔", name: "슬펐던 날" },
     { value: "평온", name: "평온했던 날" },
-    { value: "화남", name: "화났던 날" },
-    { value: "놀람", name: "놀랐던 날" }
+    { value: "분노", name: "화났던 날" },
+    { value: "불안", name: "놀랐던 날" }
   ];
 
   const ControlDateMenu = React.memo(({ value, onChange, optionList }) => {
@@ -38,6 +37,13 @@ import './Dropdown.scss'
           </select>
     );
   });
+
+
+
+const MainMonth =() => {
+
+  const [sortType, setSortType] = useState("latest");
+  const [filter, setFilter] = useState("all");
 
   const ControlEmotionMenu = React.memo(({ value, onChange, optionList }) => {
     return (
@@ -62,19 +68,12 @@ import './Dropdown.scss'
     );
   });
 
-const MainMonth =() => {
-
-  const [sortType, setSortType] = useState("latest");
-  const [filter, setFilter] = useState("all");
-
-
-
   // 감정별, 날짜별로 분류하는 로직
   
   const getProcessedDiaryList = () => {
     const filterCallBack = (item) => {
       if (filter === "행복") {
-        const happyDiary = item.emotion == '행복'
+        const happyDiary = item.emotion == '기쁨'
         return happyDiary
       } 
       if (filter === "슬픔") {
@@ -87,10 +86,10 @@ const MainMonth =() => {
         return item.emotion === '우울'
       }
       if (filter === "화남") {
-        return item.emotion === '화남'
+        return item.emotion === '분노'
       }
       if (filter === "놀람") {
-        return item.emotion === '놀람'
+        return item.emotion === '불안'
       }
     };
 
@@ -122,7 +121,7 @@ const MainMonth =() => {
     // 이달의 일기 모아보는 로직
   const [noticeData, setNoticeData] = useState([])
   useEffect(()=> {
-    getMonthDiary(getMonth, getYear)
+    getMonthDiary(curDate.getMonth() + 1, curDate.getFullYear())
     .then((res)=> {
       setNoticeData(res.data)
       console.log(res.data)
@@ -131,11 +130,11 @@ const MainMonth =() => {
     .catch((e)=> {
       console.log('err',e)
     });
-  },[getMonth])
+  },[curDate.getMonth()])
+  console.log('지금 일기 개수는',noticeData.length)
   
     useEffect(() => {
       if (noticeData.length >= 1) {
-
         setData(
           noticeData.filter((it) => 
           curDate.getMonth()+1 === new Date(it.created_date).getMonth()+1)

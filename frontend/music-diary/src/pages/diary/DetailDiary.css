@@ -31,9 +31,17 @@ white-space : nowrap
 display:none;
 }
 
+.detail-diary .detail-diary-item {
+  width: 40vw;
+  height: 65vh;
+  /* background-color: aqua; */
+  margin-top: 20vh;
+}
+
 .detail-diary .detail-diary-item .content {
   overflow:auto;
   -ms-overflow-style: none;
+  /* background-color: green; */
 }
 
 .detail-diary .detail-diary-item .content::-webkit-scrollbar{
@@ -105,11 +113,12 @@ margin-top: 3vh;
 }
  
 .stage-area {
-  background-color: aqua;
-  width: 40vw;
-  height: 60vh;
-  margin-top: 25vh;
-  margin-left: 24vw; 
+  /* display: none; */
+  /* background-color: aqua; */
+  /* width: 40vw;
+  height: 60vh; */
+  /* margin-top: 25vh; */
+  /* margin-left: 24vw;  */
 
   /* margin-top: 800px; */
   position: absolute;
@@ -119,6 +128,7 @@ margin-top: 3vh;
 .individual-sticker {
   position: absolute;
   z-index: 1400;
+  background-color: bisque;
 }
 
 .sticker-choice-area {

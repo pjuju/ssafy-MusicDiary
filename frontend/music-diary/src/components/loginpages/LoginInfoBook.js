@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { gapi } from 'gapi-script';
 
+import '../../css/loginpages/LoginInfoBook.css'
+
 import "../../css/loginpages/LoginPageBook.css";
 import Button from "../Common/Button";
 import styled from "styled-components";
@@ -15,9 +17,14 @@ import {
   setSadChoiceValue,
   setAngryChoiceValue,
   setDepressedChoiceValue,
-  setUserEmail
+  setUserEmail,
+  setUserName
 } from "../../store/store";
 import { useDispatch } from "react-redux";
+
+
+import $ from "jquery";
+import Vara from "vara";
 
 const LoginInfoBookcontainer = styled.div`
   width: 60%;
@@ -35,6 +42,85 @@ function LoginInfoBook() {
 
   // const test = useSelector((state) => {
   //   return state.user;
+  // });
+
+  // useEffect(() => {
+  //   var winWidth = $(window).width();
+  //   var ratio = winWidth / 1920;
+  //   var fontSize = {
+  //     small: 12,
+  //     medium: 14,
+  //   };
+  //   var played = [0, 0, 0];
+  //   var vara = [];
+  //   var bodyFontSize = Math.max(16 * ratio, 10);
+  //   var posX = Math.max(80 * ratio, 30);
+  //   $("body").css("font-size", bodyFontSize + "px");
+  //   fontSize.small = Math.max(fontSize.small * ratio, 7);
+  //   fontSize.medium = Math.max(fontSize.medium * ratio, 10);
+  //   vara[0] = new Vara(
+  //     "#vara-container",
+  //     "https://rawcdn.githack.com/akzhy/Vara/ed6ab92fdf196596266ae76867c415fa659eb348/fonts/Satisfy/SatisfySL.json",
+
+  //     {
+  //       strokeWidth: 2,
+  //       fontSize: fontSize.medium,
+  //       autoAnimation: false,
+  //     }
+  //   );
+  //   vara[1] = new Vara(
+  //     "#vara-container2",
+  //     "https://rawcdn.githack.com/akzhy/Vara/ed6ab92fdf196596266ae76867c415fa659eb348/fonts/Satisfy/SatisfySL.json",
+  //     {
+  //       strokeWidth: 2,
+  //       fontSize: fontSize.medium,
+  //       autoAnimation: false,
+  //     }
+  //   );
+  //   vara[2] = new Vara(
+  //     "#vara-container3",
+  //     "https://rawcdn.githack.com/akzhy/Vara/ed6ab92fdf196596266ae76867c415fa659eb348/fonts/Satisfy/SatisfySL.json",
+
+  //     {
+  //       strokeWidth: 2,
+  //       fontSize: fontSize.medium,
+  //       autoAnimation: false,
+  //     }
+  //   );
+  //   vara[2].ready(function () {
+  //     $(".front:not(.last)").click(function () {
+  //       var ix = $(this).parent(".paper").index();
+  //       $(".book").addClass("open");
+  //       $(this).parent(".paper").addClass("open");
+  //       if (!played[ix]) {
+  //         vara[ix].playAll();
+  //         vara[ix].animationEnd(function (i, o) {
+  //           played[ix] = 1;
+  //           if (i == "link") {
+  //             var group = o.container;
+  //             var rect = vara[2].createNode("rect", {
+  //               x: 0,
+  //               y: 0,
+  //               width: o.container.getBoundingClientRect().width,
+  //               height: o.container.getBoundingClientRect().height,
+  //               fill: "transparent",
+  //             });
+  //             group.appendChild(rect);
+  //             $(rect).css("cursor", "pointer");
+  //             $(rect).click(function () {
+  //               console.log(true);
+  //               document.querySelector("#link").click();
+  //             });
+  //           }
+  //         });
+  //       }
+  //     });
+  //     $(".back").click(function () {
+  //       if ($(this).parent(".paper").index() == 0)
+  //         $(".book").removeClass("open");
+  //       $(this).parent(".paper").removeClass("open");
+  //     });
+  //   });
   // });
 
   const onEmailHandler = (e) => {
@@ -85,6 +171,7 @@ function LoginInfoBook() {
           sessionStorage.setItem("refreshToken", res.data.data.token.refresh_token)
           sessionStorage.setItem("user_id", res.data.data.id)
           dispatch(setUserEmail(res.data.data.email))
+          dispatch(setUserName(res.data.data.username))
           // 설문 띄워주고, 클릭 완료 x -> 껐어 , url쳐서 들어가버리면,, 
             // 로그인은 된 상태 / 설문은 안한 상태에서 추천이 가능,,,
 
@@ -176,64 +263,65 @@ function LoginInfoBook() {
 
   return (
     <>
-      <div className="login-info-wrapper">
-        {/* <div id="closedcontainer"> */}
-        <LoginInfoBookcontainer>
-          <div className="closed-book">
-            <div className="first paper">
-              <div className="page front contents">
-                <div className="intro">
-                  <h1>Login</h1>
-                  <div className="login-form-wrapper">
+    <div className="login-closed-book">
+      <div class="v-center"></div>
+      <div id="container">
+        <div class="book">
+          <div class="first paper">
+            <div class="page front contents">
+              <div class="intro">
+                <h2></h2>
+                <h1>Login</h1>
+                <div className="login-form-wrapper">
                     <input
+                      className="login-form-input"
                       placeholder="이메일"
                       name="email"
                       type="email"
                       onChange={onEmailHandler}
                     />
                     <input
+                    className="login-form-input"
                       placeholder="비밀번호"
                       name="password1"
                       type="password"
                       onChange={onPasswordHandler}
                     />
                   </div>
-                  <div className="next-btn">
-                    <Button
-                      name="Login"
-                      color="#AC5050"
-                      size="lg"
-                      onClick={onLoginBtn}
-                    />
-                  </div>
-                  {/* social login */}
-                  <hr />
-                  <a href={KAKAO_AUTH_URL}>
-                  <img
-                    className="kakao-btn-img"
-                    alt="#"
-                    src={`${process.env.PUBLIC_URL}/assets/img/kakao-login-btn.png`}
-                    // onClick={onKakaoLoginBtn}
-                  />
-                  </a>
-                  {/* <a href="https://kauth.kakao.com/oauth/authorize?client_id=f742e07d1059ec8cd0050f305986a8a4&redirect_uri=http://j7d204.p.ssafy.io:8080/rest/accounts/kakao/callback/&response_type=code"> */}
-                  {/* <img className="kakao-btn-img" alt="#" src={`${process.env.PUBLIC_URL}/assets/img/kakao-login-btn.png`}  /> */}
-                  {/* </a> */}
-                  <a href={GOOGLE_AUTH_URL}>
-                  <img
-                    className="google-btn-img"
-                    alt="#"
-                    src={`${process.env.PUBLIC_URL}/assets/img/google-login-btn.png`}
-                    // onClick={onGoogleLoginBtn}
-                  />
-                  </a>
-                </div>
+                <Button name="Login" color="#AC5050" size="lg" onClick={onLoginBtn}/>
               </div>
             </div>
-            <div className="shadow"></div>
+
+            <div class="page back"></div>
+
           </div>
-        </LoginInfoBookcontainer>
-        {/* </div> */}
+          <div class="second paper">
+            <div class="page front contents">
+              {/* contents 출력 부분 */}
+              <div id="vara-container">
+                <div>당신의 하루는 어땠나요</div>
+              </div>
+
+            </div>
+            <div class="page back"></div>
+          </div>
+          <div class="third paper">
+            <div class="page front contents">
+              <div id="vara-container2"></div>
+            </div>
+            <div class="page back"></div>
+          </div>
+          <div class="fourth paper">
+            <div class="page last front contents">
+              <div id="vara-container3"></div>
+            </div>
+            <div class="page back"></div>
+          </div>
+          <div class="side"></div>
+          <div class="bottom"></div>
+          <div class="shadow"></div>
+        </div>
+      </div>
       </div>
     </>
   );

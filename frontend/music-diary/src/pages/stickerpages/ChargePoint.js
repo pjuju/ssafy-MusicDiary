@@ -16,12 +16,24 @@ import {
 import Button from "../../components/Common/Button";
 
 function ChargePoint() {
+  const navigate = useNavigate();
+  const KakaoPayBtn = () => {
+    navigate("/payment")
+  }
+  
   return (
     <>
       <div className="point-charge-wrapper">
         <div className="sticker-page-header">
           포인트 충전 <BiStore />
         </div>
+        <img
+          className="kakao-pay"
+          alt="#"
+          src={`${process.env.PUBLIC_URL}/assets/img/kakao-pay.jpg`}
+          width="200px" height="100px"
+          onClick={KakaoPayBtn}
+        />
         <div className="sticker-wrapper">
           <div className="header">
             <div className="header-left"></div>

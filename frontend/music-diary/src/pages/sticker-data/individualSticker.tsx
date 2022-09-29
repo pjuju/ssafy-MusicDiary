@@ -26,11 +26,11 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }) => {
 
   useEffect(() => {
 
-    console.log("individualSticker.tsx: ", isHovered)
+    // console.log("individualSticker.tsx: ", isHovered)
     if (isHovered === true) {
-      console.log("isHoverd:", isHovered)
+      // console.log("isHoverd:", isHovered)
       setShowDeleteButton(true);
-      console.log("setShowDeleteButton:", showDeleteButton)
+      // console.log("setShowDeleteButton:", showDeleteButton)
     } else {
       setTimeout(() => {
         setShowDeleteButton(false);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainNote from "../mainpages/MainNote";
 
 import { ResponsiveRadar } from "@nivo/radar";
@@ -15,6 +15,8 @@ import {
 } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { putUserInfoApi } from "../../api/userApi";
+import {getMonthDiary,getDiaryListApi } from '../../api/diaryApi';
+
 
 import "./FeelingAnalysis.css";
 
@@ -71,9 +73,12 @@ const FeelingAnalysis = () => {
   });
 
   const dispatch = useDispatch();
+  const [nowClick, setNowClick] = useState('')
 
   let callMyName = (e) => {
     console.log(e.target.value);
+    setNowClick(e.target.value)
+    console.log(nowClick)
     setTmp(e.target.value);
     if (e.target.value === "1개월") {
       setColor("set3");
@@ -86,48 +91,145 @@ const FeelingAnalysis = () => {
     }
   };
 
+  // 전체 감정일기 가져오기
+  const curYearDate = new Date()
+  const curMonthDate = new Date()
+  const curWeekDate = new Date()
+  const curDate = new Date()
+  // const cur = new Date(curDate).toLocaleDateString()   // 2022. 9. 28.
+  const aYearAgo = new Date(curYearDate.setFullYear(curYearDate.getFullYear() - 1)).toLocaleDateString();  // 2021. 9. 27.
+  const aWeekAgo = new Date(curWeekDate.setDate(curWeekDate.getDate() - 6)).toLocaleDateString();  // 2022. 9. 22.
+  const sixMonthAgo = new Date(curMonthDate.setMonth(curMonthDate.getMonth() - 5)).toLocaleDateString();  // 2022. 4. 22.
+
+  const getDateDiff = (d1, d2) => {
+    const date1 = new Date(d1);
+    const date2 = new Date(d2);
+    
+    const diffDate = date1.getTime() - date2.getTime();
+    
+    return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
+  }
+
+  const [fullData, setFullData] = useState([])
+  const [fulla, setFulla] = useState([])
+  useEffect(()=> {
+    getDiaryListApi()
+    .then((res)=> {
+      setFullData(res.data)
+      setFulla(res.data)
+      console.log(fulla)
+      console.log('일단 전체 다이어리 개수는',res.data)
+    })
+    .catch((e)=> {
+      console.log('err',e)
+    })
+  }, [])
+
+  // 일주일짜리 데이터 가져오기
+  const [weekData, setWeekData] = useState([])
+  useEffect(()=> {
+    setWeekData(fulla.filter((it)=> getDateDiff(it.created_date, aWeekAgo) < 7))
+    // console.log(weekData)
+  },[nowClick])
+  const weekHappy = weekData.filter((it)=> it.emotion == '기쁨').length
+  const weekSad = weekData.filter((it)=> it.emotion == '슬픔').length
+  const weekAnxious = weekData.filter((it)=> it.emotion == '불안').length
+  const weekAngry = weekData.filter((it)=> it.emotion == '분노').length
+  const weekNormal = weekData.filter((it)=> it.emotion == '평온').length
+  const weekDepressed = weekData.filter((it)=> it.emotion == '우울').length
+  console.log('이번주간',weekHappy,weekSad,weekAnxious,weekAngry,weekNormal,weekDepressed)
+
+  // 한달짜리 데이터 가져오기
+  const [monthData, setMonthData] = useState([])
+  useEffect(()=> {
+    getMonthDiary(curDate.getMonth()+1, curDate.getFullYear())
+    .then((res)=> {
+      setMonthData(res.data)
+      console.log('이번달의 일기 개수는',res.data)
+      console.log('이번달 감정 갯수',monthHappy,monthSad,monthAnxious,monthAngry,monthNormal,monthDepressed)
+    })
+    .catch((e)=> {
+      console.log('err',e)
+    })
+  },[nowClick])
+  const monthHappy = monthData.filter((it)=> it.emotion == '기쁨').length
+  const monthSad = monthData.filter((it)=> it.emotion === '슬픔').length
+  const monthAnxious = monthData.filter((it)=> it.emotion === '불안').length
+  const monthAngry = monthData.filter((it)=> it.emotion === '분노').length
+  const monthNormal = monthData.filter((it)=> it.emotion === '평온').length
+  const monthDepressed = monthData.filter((it)=> it.emotion === '우울').length
+
+  // 1년짜리 데이터 가져오기
+  const [aYearData, setAYearData] = useState([])
+  useEffect(()=> {
+    setAYearData(fullData.filter((it)=> getDateDiff(it.created_date, aYearAgo) < 360))
+    console.log('1년 데이터',aYearData)
+    console.log('1년 데이터 개수',yearHappy,yearSad,yearAnxious,yearAngry,yearNormal,yearDepressed)
+  },[nowClick])
+
+  const yearHappy = aYearData.filter((it)=> it.emotion == '기쁨').length
+  const yearSad = aYearData.filter((it)=> it.emotion == '슬픔').length
+  const yearAnxious = aYearData.filter((it)=> it.emotion == '불안').length
+  const yearAngry = aYearData.filter((it)=> it.emotion == '분노').length
+  const yearNormal = aYearData.filter((it)=> it.emotion == '평온').length
+  const yearDepressed = aYearData.filter((it)=> it.emotion == '우울').length
+  // 6개월짜리 데이터 가져오기
+  const [sixMonthData, setSixMonthData] = useState([])
+  useEffect(()=> {
+    setSixMonthData(fullData.filter((it)=> getDateDiff(it.created_date, sixMonthAgo) < 150))
+    console.log('6개월 데이터',sixMonthData)
+    console.log('6개월 데이터 개수', sixHappy,sixSad,sixAnxious,sixAngry,sixNormal,sixDepressed)
+  },[nowClick])
+  const sixHappy = sixMonthData.filter((it)=> it.emotion == '기쁨').length
+  const sixSad = sixMonthData.filter((it)=> it.emotion == '슬픔').length
+  const sixAnxious = sixMonthData.filter((it)=> it.emotion == '불안').length
+  const sixAngry = sixMonthData.filter((it)=> it.emotion == '분노').length
+  const sixNormal = sixMonthData.filter((it)=> it.emotion == '평온').length
+  const sixDepressed = sixMonthData.filter((it)=> it.emotion == '우울').length
+
+
   const data = [
     {
       감정: "기뻐요",
-      일주일: 108,
-      "1개월": 113,
-      "6개월": 62,
-      "1년": 30,
+      일주일: weekHappy,
+      "1개월": monthHappy,
+      "6개월": sixHappy,
+      "1년": yearHappy,
     },
     {
       감정: "슬퍼요",
-      일주일: 29,
-      "1개월": 100,
-      "6개월": 43,
-      "1년": 60,
+      일주일: weekSad,
+      "1개월": monthSad,
+      "6개월": sixSad ,
+      "1년": yearSad,
     },
     {
       감정: "화나요",
-      일주일: 112,
-      "1개월": 76,
-      "6개월": 46,
-      "1년": 30,
+      일주일: weekAngry,
+      "1개월": monthAngry,
+      "6개월": sixAngry,
+      "1년": yearAngry,
     },
     {
       감정: "불안해요",
-      일주일: 50,
-      "1개월": 34,
-      "6개월": 25,
-      "1년": 3,
+      일주일: weekAnxious,
+      "1개월": monthAnxious,
+      "6개월": sixAnxious,
+      "1년": yearAnxious,
     },
     {
       감정: "평온해요",
-      일주일: 50,
-      "1개월": 34,
-      "6개월": 25,
-      "1년": 14,
+      일주일: weekNormal,
+      "1개월": monthNormal,
+      "6개월": sixNormal,
+      "1년": yearNormal,
     },
     {
       감정: "우울해요",
-      일주일: 50,
-      "1개월": 34,
-      "6개월": 25,
-      "1년": 10,
+      일주일: weekDepressed,
+      "1개월": monthDepressed,
+      "6개월": sixDepressed,
+      "1년": yearDepressed,
     },
   ];
 
@@ -195,7 +297,7 @@ const FeelingAnalysis = () => {
     <div className="feeling-analysis">
       <div className="analysis">
         <div className="analysis-graph">
-          <h2 className="analysis-page-title">나의 감정 분석</h2>
+          <h5 className="analysis-page-title">나의 감정 분석</h5>
           <Form.Select
             aria-label="Default select example"
             onChange={callMyName}
@@ -209,9 +311,9 @@ const FeelingAnalysis = () => {
           <MyResponsiveRadar data={data} callMyName={tmp} Color={color} />
         </div>
         <div className="feeling-music-type">
-          <h2 className="analysis-page-title">나의 기분에 따른 음악 취향</h2>
+          <h5 className="analysis-page-title">나의 기분에 따른 음악 취향</h5>
           <div className="music-research">
-            <h4>평소에 어떤 음악을 들으시나요?</h4>
+            <h5>평소에 어떤 음악을 들으시나요?</h5>
             <Form.Select
               aria-label="Default select example"
               onChange={onChangeNormalMoment}
@@ -224,7 +326,7 @@ const FeelingAnalysis = () => {
             </Form.Select>
           </div>
           <div className="music-research">
-            <h4>슬플 때 어떤 음악을 들으시나요?</h4>
+            <h5>슬플 때 어떤 음악을 들으시나요?</h5>
             <Form.Select 
                 aria-label="Default select example"
                 onChange={onChangeSadMoment}
@@ -237,7 +339,7 @@ const FeelingAnalysis = () => {
             </Form.Select>
           </div>
           <div className="music-research">
-            <h4>화날 때 어떤 음악을 들으시나요?</h4>
+            <h5>화날 때 어떤 음악을 들으시나요?</h5>
             <Form.Select 
                 aria-label="Default select example"
                 onChange={onChangeAngryMoment}
@@ -250,7 +352,7 @@ const FeelingAnalysis = () => {
             </Form.Select>
           </div>
           <div className="music-research">
-            <h4>우울할 때 어떤 음악을 들으시나요?</h4>
+            <h5>우울할 때 어떤 음악을 들으시나요?</h5>
             <Form.Select 
               aria-label="Default select example"
               onChange={onChangeDepressedMoment}

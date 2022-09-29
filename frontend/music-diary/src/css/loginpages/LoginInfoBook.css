@@ -20,21 +20,21 @@ body {
   padding: 0;
   box-sizing: border-box;
 } */
-.intro-closed-book #container {
+.login-closed-book #container {
     width: 60%;
     margin: 20px auto;
   }
-.intro-closed-book  .v-center {
+.login-closed-book  .v-center {
     display: inline-block;
     vertical-align: middle;
     height: 100%;
     width: 0;
   }
-  .intro-closed-book #container {
+  .login-closed-book #container {
     display: inline-block;
     vertical-align: middle;
   }
-  .intro-closed-book .book {
+  .login-closed-book .book {
     transform-style: preserve-3d;
     transform: rotateX(45deg) rotateY(0deg) rotateZ(-30deg);
     transition: transform 1s;
@@ -44,12 +44,12 @@ body {
     right: 0;
     bottom: 10%;
     /* margin: auto; */
-    margin-top:24%;
+    margin-top:2%;
     margin-left: 40%;
     width: 30em;
     height: 40em;
   }
-  .intro-closed-book .book .side {
+  .login-closed-book .book .side {
     width: 3em;
     height: 40em;
     background: #ac5050;
@@ -59,7 +59,7 @@ body {
     transform-origin: 100% 100%;
     transform: rotateY(-90deg) rotateX(0deg);
   }
-  .intro-closed-book .book .bottom {
+  .login-closed-book .book .bottom {
     width: 25em;
     height: 3em;
     /* 책 두께 부분 보이는 색깔 */
@@ -70,52 +70,52 @@ body {
     transform-origin: 100% 100%;
     transform: rotateX(90deg);
   }
-  .intro-closed-book .book.open {
+  .login-closed-book .book.open {
     transform: rotateX(35deg) rotateY(0deg) rotateZ(-35deg);
   }
-  .intro-closed-book .book .paper,
-  .intro-closed-book .book .shadow {
+  .login-closed-book .book .paper,
+  .login-closed-book .book .shadow {
     width: 25em;
     height: 40em;
     position: absolute;
     top: 0;
     left: 0;
   }
-  .intro-closed-book .book .shadow {
+  .login-closed-book .book .shadow {
     background: transparent;
     transform: translateZ(-3em);
     box-shadow: -1em 1em 0px 0px #e6b215;
     z-index: 1;
   }
-  .intro-closed-book .book .paper {
+  .login-closed-book .book .paper {
     transition: transform 1s, box-shadow 0.5s 0.2s;
     transform-origin: 0 50%;
     transform-style: preserve-3d;
   }
-  .intro-closed-book .book .paper.open {
+  .login-closed-book .book .paper.open {
     /* box-shadow : 책넘기고 나서, 겹쳐지는 부분의 책장 색깔 */
     box-shadow: 2.2em 1em 0px 0px #eab30b;
     transform: rotateX(0deg) rotateY(-150deg) rotateZ(0deg);
   }
-  .intro-closed-book .book .paper .page.front {
+  .login-closed-book .book .paper .page.front {
     transition: transform 1s;
     transform-origin: 0 50%;
     backface-visibility: hidden;
     z-index: 2;
   }
   
-  .intro-closed-book .book .page {
+  .login-closed-book .book .page {
     width: 100%;
     height: 100%;
     position: absolute;
     -webkit-transform: translateZ(0px);
     transform: translateZ(0px);
   }
-  .intro-closed-book .book .first .page {
+  .login-closed-book .book .first .page {
     /* 책 표지 컬러 */
     background: #FAF3EB;
   }
-  .intro-closed-book .book .first .page.front:after {
+  .login-closed-book .book .first .page.front:after {
     position: absolute;
     content: "";
     width: 50%;
@@ -124,16 +124,16 @@ body {
     top: 0;
     background: rgba(160, 115, 115, 0.05);
   }
-  .intro-closed-book .book .paper .back {
+  .login-closed-book .book .paper .back {
     transition: transform 1s;
     transform-origin: 0 50%;
     background: #092ad1;
   }
-  .intro-closed-book .book .first.paper .back {
+  .login-closed-book .book .first.paper .back {
     /* 책 표지 뒷부분 컬러 */
     background: #ac5050;
   }
-  .intro-closed-book .book .intro {
+  .login-closed-book .book .intro {
     position: absolute;
     width: 90%;
     width: calc(100% - 3em);
@@ -146,7 +146,7 @@ body {
     bottom: 0;
     margin: auto;
   }
-  .intro-closed-book .book .intro h2 {
+  .login-closed-book .book .intro h2 {
     padding: 0.5em 0.5em;
     font-size: 2em;
     color: #fff;
@@ -154,13 +154,13 @@ body {
     text-align: left;
     letter-spacing: 5px;
   }
-  .intro-closed-book .book .intro h1 {
+  .login-closed-book .book .intro h1 {
     padding: 0.5em 0.25em;
     font-size: 5em;
     color: rgb(40, 19, 19);
     word-break: break-all;
   }
-  .intro-closed-book .book .paper:not(.first) .page {
+  .login-closed-book .book .paper:not(.first) .page {
     background: #f1f1f1; /* 오른쪽 줄글페이지 배경색*/
     background-image: linear-gradient(
         90deg,
@@ -172,46 +172,46 @@ body {
       linear-gradient(#e1e1e1 0.1em, transparent 0.1em);
     background-size: 100% 3em;
   }
-  .intro-closed-book .book .paper:not(.first) .back {
+  .login-closed-book .book .paper:not(.first) .back {
     /* 두번째장 뒷편 색상 */
     background: #a93636;
   }
-  .intro-closed-book .book .open.second .back {
+  .login-closed-book .book .open.second .back {
     transform: translateZ(-1px);
   }
-  .intro-closed-book .book .open.third .back {
+  .login-closed-book .book .open.third .back {
     transform: translateZ(-2px);
   }
-  .intro-closed-book .book .paper.first {
+  .login-closed-book .book .paper.first {
     z-index: 8;
   }
-  .intro-closed-book .book .paper.second {
+  .login-closed-book .book .paper.second {
     z-index: 7;
   }
-  .intro-closed-book .book .paper.third {
+  .login-closed-book .book .paper.third {
     z-index: 6;
   }
-  .intro-closed-book .book .paper.fourth {
+  .login-closed-book .book .paper.fourth {
     z-index: 5;
   }
-  .intro-closed-book .book .paper.first .front {
+  .login-closed-book .book .paper.first .front {
     transform: translateZ(0.4px);
   }
-  .intro-closed-book .book .paper.second .front {
+  .login-closed-book .book .paper.second .front {
     transform: translateZ(0.3px);
   }
-  .intro-closed-book .book .paper.third .front {
+  .login-closed-book .book .paper.third .front {
     transform: translateZ(0.2px);
   }
-  .intro-closed-book .book .paper.fourth .front {
+  .login-closed-book .book .paper.fourth .front {
     transform: translateZ(0.1px);
   }
-  .intro-closed-book .book .second-page #vara-container {
+  .login-closed-book .book .second-page #vara-container {
     width: 100%;
     height: 100%;
     padding: 1em;
   }
-  .intro-closed-book  #link {
+  .login-closed-book  #link {
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -220,8 +220,27 @@ body {
     text-decoration: none;
   }
   @media (max-width: 700px) {
-    .intro-closed-book .book {
+    .login-closed-book .book {
       left: 50%;
     }
   }
   
+  .login-closed-book .login-form-wrapper {
+    display: block;
+    font-size: 25px;
+    
+    margin-top: 20%;
+    margin-right: 5%;
+    margin-left: 15%;
+    margin-bottom: 10%;
+}
+
+.login-closed-book .login-form-input {
+
+    display: block;
+    width: 15vw;
+    height: 8vh;
+
+    margin-bottom: 5%;
+    z-index: 100000;
+}
