@@ -15,12 +15,12 @@ export const getUserStickerListApi = async (user_id, succes, fail) => {
 
 // sticker_id로 해당 스티커팩 조회 
 export const getStickerListApi = async ( stickerpack_id, success, fail) => {
-    return await api.get(`/sticker/${stickerpack_id}`)
+    return await api.get(`/sticker/pack/${stickerpack_id}/`)
 } 
 
 
 // 스티커팩 구매
 export const buyStickerPackApi = async (stickerpack_id, success, fail) => {
-    return await api.post(`/sticker/${stickerpack_id}`)
+    return await api.post(`/sticker/${stickerpack_id}/`)
 }
 
