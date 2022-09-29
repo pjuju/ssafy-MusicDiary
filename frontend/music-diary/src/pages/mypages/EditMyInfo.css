@@ -19,6 +19,12 @@
   color: black;
 }
 
+
+.edit-myinfo .edit-myinfo-title {
+    margin-top: 5vh;
+}
+
+
 .edit-myinfo .myinfo-main {
     /* background-color: black; */
     width: 30vw;
@@ -26,16 +32,15 @@
     height: 55vh;
     margin-left: 13.5vw;
     position: absolute;
+
+    display: flex;
 }
 
-.edit-myinfo .edit-myinfo-title {
-    margin-top: 5vh;
-}
 
 /* 수정폼 감싸는 부부  */
 .edit-myinfo .edit-myinfo-input {
     /* display: block; */
-    margin-top: 15vh;
+    /* margin-top: 15vh; */
     
 }
 
@@ -65,24 +70,33 @@
     margin-left: 1vw;
 }
 
-.feeling-analysis .analysis-time-form {
-    width: 10vw;
-    margin-left: 18vw;
-}
-
-.feeling-analysis .feeling-music-type {
-    width: 23vw;
-    height: 50vh;
-    /* background-color: green; */
-    margin-left: 35vw;
+/* 이미지 업로드 관련 */
+.edit-myinfo .diary-img-wrapper {
     position: absolute;
-    margin-top: 5vh;
+
+    /* width: 18vw;
+    height: 50vh; */
+    
 }
 
-.feeling-analysis .music-research {
-    margin-bottom: 3vh;
+.edit-myinfo .diary-register-img {
+   
+    width: 15vw;
+    height: 30vh;
+
+    border-radius: 48%;
+    
+    margin-bottom: 5%;
+    border: 1px solid black;
 }
 
-.feeling-analysis .analysis-page-title {
-    margin-bottom: 6vh;
+/* 이미지 등록 영역 */
+.edit-myinfo .diary-register-btn {
+    margin-top: 35vh;
+    display: flex;
 }
+
+.edit-myinfo .find-file-btn {
+    width: 5vw;
+}
+
