@@ -117,8 +117,8 @@ const DiaryEditor = ({ isEdit, originData }) => {
                         title,
                         content,
                         emotion,
-                        created_date
-                        
+                        created_date,
+                        stickers:[]
                     }
                     modifyDiaryItem(originData.id,diaryInfo)
                     .then((res)=>{
