@@ -13,7 +13,6 @@ from accounts.models import User
 class SPListTest(TestCase):
     def setUp(self) -> None:
         user = User.objects.create_user('temporary@test.com', 'temporary')
-        print("create user success!!!")
         self.client = Client()
         return super().setUp()
 
@@ -66,9 +65,8 @@ class SPListTest(TestCase):
         
         if(self.client.login(email='temporary@test.com', password='temporary')):
             print('login success!!!')
-            # response = self.client.post('/sticker/pack/'+1)
-            response = self.client.get('/rest/sticker/pack/', content_type='application/json')
-            print(response.content.decode('UTF-8'))
+            response = self.client.get('/stickers/pack/')
+            print(response.content)
             self.assertEqual(response.status_code, 201)
             self.assertEqual(response.json(), data)
         else:
@@ -80,9 +78,7 @@ class SPListTest(TestCase):
             'price': 30,
             'user': 5
         }
-        self.client.login(email='temporary@test.com', password='temporary')
-        response = self.client.post('/rest/sticker/pack/', json.dumps(data), content_type='application/json;charset=utf-8')
-        print(response.content.decode('UTF-8'))
+        response = self.client.post('/rest/stickers/pack/', json.dumps(data), content_type='application/json')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json(), {
             'name': '유닛테스트팩',
