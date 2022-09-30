@@ -2,7 +2,7 @@ import DiaryItem from "../diary/DiaryItem";
 import MainNote from "./MainNote";
 import React, { useEffect, useState, useContext } from "react";
 import {useNavigate} from 'react-router-dom'
-import { getMonthDiary } from "../../api/diaryApi";
+import { getMonthDiary,getDiaryListApi } from "../../api/diaryApi";
 import './MainMonth.css'
 // import './Dropdown.scss'
 
@@ -36,9 +36,12 @@ const MainMonth =() => {
           <select
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            className="dropbar-left"
           >
             {optionList.map((it, idx) => (
-              <option key={idx} value={it.value} style={{color:'black'}} onClick={({e})=>{{getProcessedDiaryList(e)}}}>
+              <option key={idx} value={it.value} style={{color:'black'}} 
+              onClick={({e})=>{{getProcessedDiaryList(e)}}}
+              className="dropmenu">
                 {it.name}
               </option>
             ))}
@@ -49,16 +52,10 @@ const MainMonth =() => {
 
   const ControlEmotionMenu = React.memo(({ value, onChange, optionList }) => {
     return (
-      // <ul class="hList" style={{listStyle:"none"}}>
-      //   <li>
-      //   <a href="#click" class="menu">
-        // <h2 class="menu-title">감정별</h2>
-        <div className="dropbar">
-          {/* <h2 class="menu-title">감정별</h2> */}
           <select
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className="dropbar"
+            className="dropbar-right"
           >
             {optionList.map((it, idx) => (
               <option key={idx} value={it.value} style={{color:'black'}} onClick={({e})=>{{getProcessedDiaryList(e)}}}
@@ -68,10 +65,6 @@ const MainMonth =() => {
               </option>
             ))}
           </select>
-        </div>
-      //    </a>
-      //    </li>
-      //  </ul>
     );
   });
 
@@ -122,9 +115,21 @@ const MainMonth =() => {
     const [data, setData] = useState([]);
     const [curDate, setCurDate] = useState(new Date());
     const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
+
+    // 전체 일기 한 번 불러보자
+  //   const [wholeData, setWholeData] = useState([])
+  //   useEffect(()=> {
+  //     getDiaryListApi()
+  //     .then((res)=> {
+  //       setWholeData(res.data)
+  //       console.log("모든 일기:", wholeData)
+  //       // console.log('모든 일기 잘 모아지나',noticeData)
+  //   })
+  //   .catch((e)=> {
+  //     console.log('err',e)
+  //   });
+  // },[])
     
-    const getMonth = curDate.getMonth() + 1
-    const getYear = curDate.getFullYear()
     // 이달의 일기 모아보는 로직
   const [noticeData, setNoticeData] = useState([])
   useEffect(()=> {
@@ -132,13 +137,12 @@ const MainMonth =() => {
     .then((res)=> {
       setNoticeData(res.data)
       console.log(res.data)
-      console.log('이달의 일기 잘 모아지나',noticeData)
     })
     .catch((e)=> {
       console.log('err',e)
     });
-  },[curDate.getMonth()])
-  console.log('지금 일기 개수는',noticeData.length)
+  },[curDate.getMonth(), noticeData.length])
+  console.log('지금 이달 일기 개수는',noticeData.length)
   
     useEffect(() => {
       if (noticeData.length >= 1) {
@@ -149,7 +153,7 @@ const MainMonth =() => {
       } else {
         setData([]);
       }
-    }, [noticeData, curDate]);
+    }, [noticeData]);
 
     const increaseMonth = () => {
       setCurDate(new Date(curDate.getFullYear(), curDate.getMonth() + 1));
@@ -180,8 +184,7 @@ const MainMonth =() => {
             optionList={filterOptionList}
           />
 
-
-        <button onClick={()=>{navigate('/newdiary')}}>일기 작성</button>
+        <button onClick={()=>{navigate('/newdiary')}} className="write-button">일기 작성</button>
         <ul onClick={()=>{navigate('/calender')}} className="snip1241">
             <li><a href="#">달력보기</a></li>
           </ul>  

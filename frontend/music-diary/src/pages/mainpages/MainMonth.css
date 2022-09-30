@@ -8,13 +8,14 @@ position: absolute;
 color: black;
 margin-top: 6vh;
 margin-left: 24vw;
+z-index: 1;
 }
 
 .main-month .diary-list {
 /* 이건 모든 페이지들이 공용으로 설정할 값 */
 width: 64vw;
 height: 70vh;
-margin-top: 27vh;
+margin-top: 24vh;
 margin-left: 24vw;
 
 position: absolute;
@@ -37,7 +38,7 @@ overflow:auto;
 
 
 .main-month .main-note {
-  position: absolute;
+  /* position: absolute; */
 }
 
 .main-month .diary-list-page-title {
@@ -55,13 +56,27 @@ margin-right: 2vw;
 cursor: pointer;
 }
 
+.main-month .write-button {
+  margin-top: -10vh;
+  margin-left: 7vw;
+}
+
 
 /* 드롭다운 */
-.main-month .dropbar {
+.main-month .dropbar-left {
   width: 10vw;
-  height: 5vh;
-  /* background-color: green; */
+  height: 3h;
+  background-color: green;
   border-radius: 5px;
+  /* margin-top: -2vh; */
+  margin-left: -26vw;
+}
+
+.main-month .dropbar-right {
+  width: 10vw;
+  height: 3vh;
+  border-radius: 5px;
+  margin-left: 2vw;
 }
 
 .main-month .dropmenu {
@@ -73,3 +88,8 @@ cursor: pointer;
   /* background-color: green; */
   border-radius: 5px;
 }
+
+
+
+
+/* 버튼 디자인 */
