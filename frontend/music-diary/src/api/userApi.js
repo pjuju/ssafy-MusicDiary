@@ -67,10 +67,17 @@ export const putUserInfoApi = async (userInfo, user_id, success, fail) => {
 
 // 회원탈퇴
 export const deleteUserInfoApi = async(user_id, success, fail) => {
-    return await api.delete(`/accounts/${user_id}`)
+    return await api.delete(`/accounts/${user_id}/`)
 }
 
 // 기간별 감정 정보 가져오기
 export const getEmotionInfoApi = async(username, success, fail) => {
-    return await api.get(`/accounts/${username}/emotion`)
+    return await api.get(`/accounts/${username}/emotion/`)
+}
+
+// 비밀번호 개별 수정
+export const patchUserPasswordApi = async(user_id, passwordInfo, success, fail) =>{
+  console.log("pass:", JSON.stringify(passwordInfo))
+
+  return await api.put(`/accounts/change_password/${user_id}/`, passwordInfo)
 }

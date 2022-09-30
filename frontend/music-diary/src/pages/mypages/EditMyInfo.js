@@ -17,14 +17,15 @@ import {
   setDepressedChoiceValue,
 } from "../../store/store";
 import { useDispatch } from "react-redux";
-import { patchUserInfoApi, deleteUserInfoApi } from "../../api/userApi";
+import { patchUserInfoApi, deleteUserInfoApi, patchUserPasswordApi } from "../../api/userApi";
 import { getMonthDiary, getDiaryListApi, getDiaryImage } from "../../api/diaryApi";
 
 import "./EditMyInfo.css";
 
 function EditMyInfo() {
   const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   // Image
   const [returnImg, setReturnImg] = useState("");
@@ -42,10 +43,16 @@ function EditMyInfo() {
     setUserName(e.target.value);
   };
 
-  const onChangePassword = (e) => {
+  const onChangeOldPassword = (e) => {
     console.log(e.target.value);
 
-    setPassword(e.target.value);
+    setOldPassword(e.target.value);
+  };
+
+  const onChangeNewPassword = (e) => {
+    console.log(e.target.value);
+
+    setNewPassword(e.target.value);
   };
 
   // 이미지 파일을 업로드하면, 실행될 함수
@@ -109,23 +116,48 @@ function EditMyInfo() {
         console.log(JSON.stringify(err.data));
       });                                           
 
-
-
-
-    
   };
 
-  const onEditBtn = () => {
+  const onEditUserNameBtn = () => {
     // session에서 userid
     const user_id = sessionStorage.getItem("user_id");
     // 수정할 정보
     const editInfo = {
       username,
-      password,
     };
 
     // patch API
     patchUserInfoApi(editInfo, user_id)
+      .then((res) => {
+        console.log(res.data);
+
+        // 수정완료 알람
+
+        // 성공 시, 화면 전환
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(err.data);
+
+        // 변경 실패 알림 띄우기
+
+        // 1. 기존의 비밀번호와 같을 경우
+
+        //
+      });
+  };
+
+  const onEditUserPasswordBtn = () => {
+    // session에서 userid
+    const user_id = sessionStorage.getItem("user_id");
+    // 수정할 정보
+    const editPassword = {
+      old_password: oldPassword,
+      new_password: newPassword,
+    };
+
+    // patch API
+    patchUserPasswordApi(user_id, editPassword)
       .then((res) => {
         console.log(res.data);
 
@@ -226,10 +258,17 @@ function EditMyInfo() {
               />
               <input
                 className="edit-form-input"
-                placeholder="비밀번호"
-                name="password"
+                placeholder="기존 비밀번호"
+                name="oldPassword"
                 type="password"
-                onChange={onChangePassword}
+                onChange={onChangeOldPassword}
+              />
+           <input
+                className="edit-form-input"
+                placeholder="바뀐 비밀번호"
+                name="newPassword"
+                type="password"
+                onChange={onChangeNewPassword}
               />
             </div>
 
@@ -237,10 +276,17 @@ function EditMyInfo() {
               <div>
                 <Button
                   className="edit-btn"
-                  name="수정완료"
+                  name="닉네임 수정"
                   color="#AC5050"
-                  size="sm"
-                  onClick={onEditBtn}
+                  size="md"
+                  onClick={onEditUserNameBtn}
+                />
+                <Button
+                  className="edit-btn"
+                  name="비밀번호 수정"
+                  color="#AC5050"
+                  size="md"
+                  onClick={onEditUserPasswordBtn}
                 />
               </div>
 
