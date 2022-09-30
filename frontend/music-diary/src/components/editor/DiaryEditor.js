@@ -10,6 +10,7 @@ import Button from "../Common/Button";
 
 import "./DiaryEditor.css";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const env = process.env;
 env.PUBLIC_URL = env.PUBLIC_URL || "";
@@ -200,6 +201,12 @@ const DiaryEditor = ({ isEdit, originData }) => {
         });
     }
     // }
+    Swal.fire({
+      icon: 'success',
+      title: '일기가 저장되었습니다!',
+      showConfirmButton: false,
+      timer: 1700
+    })
     navigate("/diarylist", { replace: true });
   };
 
