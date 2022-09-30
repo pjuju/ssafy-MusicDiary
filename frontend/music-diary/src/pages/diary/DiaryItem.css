@@ -5,7 +5,7 @@
 
 .diary-item .diary-item-header {
     display: flex;
-}
+} 
 
 .diary-item .diary-item-card {
     width: 18vw;
@@ -17,8 +17,8 @@
     transition: 0.06s linear;
     overflow:auto;
     -ms-overflow-style: none;
-    background-color: rgb(235, 240, 241);
-    border: none;
+    background-color: rgb(236, 243, 245);
+    border: none
 }
 
 .diary-item .diary-item-card::-webkit-scrollbar{
@@ -40,8 +40,25 @@
 }
 
 .diary-item .diary-item-title {
-    margin-left: 2vw;
+    /* margin-left: -1vw; */
     text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    /* background-color: green; */
+    /* width: 13vw; */
+    /* height: 4vh; */
+}
+
+.diary-item .diary-title {
+    display: flex;
+    justify-content: start;
+    text-overflow:ellipsis;
+    /* background-color: green; */
+    width: 13vw;
+    height: 4vh;
+    overflow:hidden;
+    white-space:nowrap;
+    margin-left: 1vw;
 }
 
 .diary-item .diary-item-content {
@@ -51,4 +68,6 @@
 .diary-item .diary-item-date {
     margin-left: 12vw;
     font-size: 1.5vh;
+    margin-top: -5vh;
+    /* background-color: pink; */
 }
