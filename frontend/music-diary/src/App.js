@@ -35,7 +35,9 @@ import {
   MyPlaylist,
   MusicRecommendation,
   Payment,
-  PayResult
+  PayResult,
+  EditMyInfo
+
 } from './pages/index'
 
 const reducer = (state, action) => {
@@ -87,6 +89,39 @@ function App() {
   //   }
   // }, []);
 
+  const sticker = [{
+    id:1,
+    img : '/assets/img/sticker-pack-2.png',
+    title : '이쁜 스티커'
+},
+{
+    id:2,
+    img : '/assets/img/sticker-pack-2.png',
+    title : '이쁜 스티커'
+},
+{
+    id:3,
+    img : '/assets/img/sticker-pack-2.png',
+    title : '이쁜 스티커'
+},
+{
+    id:4,
+    img : '/assets/img/sticker-pack-2.png',
+    title : '이쁜 스티커'
+},
+{
+    id:5,
+    img : '/assets/img/sticker-pack-2.png',
+    title : '이쁜 스티커'
+},
+{
+    id:6,
+    img : '/assets/img/sticker-pack-2.png',
+    title : '이쁜 스티커'
+},
+
+]
+
   const dataId = useRef(0);
   // CREATE
   const onCreate = (date, title,content, emotion,image, bookmark) => {
@@ -129,7 +164,7 @@ function App() {
  
   return (
     <div className='App'>
-            <DiaryStateContext.Provider value={data}>
+            <DiaryStateContext.Provider value={sticker}>
         <DiaryDispatchContext.Provider
             value={{
               onCreate,
@@ -171,7 +206,7 @@ function App() {
           <Route path='musicrecommendation' element={<MusicRecommendation />} />
           <Route path='/payment' element={<Payment />} />
           <Route path='/payresult' element={<PayResult />} />
-  
+          <Route path='/mypage/edit' element={<EditMyInfo /> } />
         </Routes>
       </BrowserRouter>
       </DiaryDispatchContext.Provider>

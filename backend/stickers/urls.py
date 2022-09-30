@@ -6,4 +6,6 @@ urlpatterns = [
     path('pack/<int:stickerpack_id>/', views.StickerPackDetail.as_view()),
     path('<int:sticker_id>/', views.StickerDetail.as_view()),
     path('user/<int:user_id>/', views.UserStickerDetail.as_view()),
+    path('kakaopay/<int:user_id>/', views.KakaoPay),
+
 ]

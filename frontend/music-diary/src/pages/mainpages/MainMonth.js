@@ -4,7 +4,7 @@ import React, { useEffect, useState, useContext } from "react";
 import {useNavigate} from 'react-router-dom'
 import { getMonthDiary } from "../../api/diaryApi";
 import './MainMonth.css'
-import './Dropdown.scss'
+// import './Dropdown.scss'
 
 
 // 날짜순, 이모티콘 순으로 정렬하기 로직
@@ -23,20 +23,6 @@ import './Dropdown.scss'
     { value: "불안", name: "놀랐던 날" }
   ];
 
-  const ControlDateMenu = React.memo(({ value, onChange, optionList }) => {
-    return (
-          <select
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-          >
-            {optionList.map((it, idx) => (
-              <option key={idx} value={it.value} style={{color:'black'}}>
-                {it.name}
-              </option>
-            ))}
-          </select>
-    );
-  });
 
 
 
@@ -45,26 +31,47 @@ const MainMonth =() => {
   const [sortType, setSortType] = useState("latest");
   const [filter, setFilter] = useState("all");
 
-  const ControlEmotionMenu = React.memo(({ value, onChange, optionList }) => {
+  const ControlDateMenu = React.memo(({ value, onChange, optionList }) => {
     return (
-      <ul class="hList" style={{listStyle:"none"}}>
-        <li>
-        <a href="#click" class="menu">
-        <h2 class="menu-title">감정별</h2>
-          <ul
-            className="menu-dropdown"
+          <select
             value={value}
             onChange={(e) => onChange(e.target.value)}
           >
             {optionList.map((it, idx) => (
-              <li key={idx} value={it.value} style={{color:'black'}} onClick={({e})=>{getProcessedDiaryList(e)}}>
+              <option key={idx} value={it.value} style={{color:'black'}} onClick={({e})=>{{getProcessedDiaryList(e)}}}>
                 {it.name}
-              </li>
+              </option>
             ))}
-          </ul>
-         </a>
-         </li>
-       </ul>
+          </select>
+    );
+  });
+
+
+  const ControlEmotionMenu = React.memo(({ value, onChange, optionList }) => {
+    return (
+      // <ul class="hList" style={{listStyle:"none"}}>
+      //   <li>
+      //   <a href="#click" class="menu">
+        // <h2 class="menu-title">감정별</h2>
+        <div className="dropbar">
+          {/* <h2 class="menu-title">감정별</h2> */}
+          <select
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="dropbar"
+          >
+            {optionList.map((it, idx) => (
+              <option key={idx} value={it.value} style={{color:'black'}} onClick={({e})=>{{getProcessedDiaryList(e)}}}
+              className="dropmenu"
+              >
+                {it.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      //    </a>
+      //    </li>
+      //  </ul>
     );
   });
 
@@ -72,7 +79,7 @@ const MainMonth =() => {
   
   const getProcessedDiaryList = () => {
     const filterCallBack = (item) => {
-      if (filter === "행복") {
+      if (filter === "기쁨") {
         const happyDiary = item.emotion == '기쁨'
         return happyDiary
       } 
@@ -85,10 +92,10 @@ const MainMonth =() => {
       if (filter === "우울") {
         return item.emotion === '우울'
       }
-      if (filter === "화남") {
+      if (filter === "분노") {
         return item.emotion === '분노'
       }
-      if (filter === "놀람") {
+      if (filter === "불안") {
         return item.emotion === '불안'
       }
     };

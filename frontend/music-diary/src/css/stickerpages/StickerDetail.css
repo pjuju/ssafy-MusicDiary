@@ -1,3 +1,35 @@
+.sticker-detail {
+    position: relative;
+}
+
+.sticker-detail .work-area {
+  /* 이건 모든 페이지들이 공용으로 설정할 값 */
+  width: 64vw;
+  height: 93vh;
+  margin-top: 7vh;
+  margin-left: 24vw;
+  /* background-color: green; */
+
+  position: absolute;
+  z-index: 1;
+  color: black;
+}
+
+.sticker-detail .main-note {
+    position: absolute;
+}
+
+.sticker-detail .goback-button {
+    position: absolute;
+}
+
+
+
+
+
+
+
+/* 혜연이 코드 */
 .sticker-detail-wrapper {
 
 }

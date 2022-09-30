@@ -54,3 +54,22 @@ margin-right: 2vw;
 .main-month .time-change-button {
 cursor: pointer;
 }
+
+
+/* 드롭다운 */
+.main-month .dropbar {
+  width: 10vw;
+  height: 5vh;
+  /* background-color: green; */
+  border-radius: 5px;
+}
+
+.main-month .dropmenu {
+  /* background-color: green; */
+  border-radius: 5px;
+}
+
+.main-month .dropmenu:hover {
+  /* background-color: green; */
+  border-radius: 5px;
+}

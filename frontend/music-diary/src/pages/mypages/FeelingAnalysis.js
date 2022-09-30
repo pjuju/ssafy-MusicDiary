@@ -296,6 +296,9 @@ const FeelingAnalysis = () => {
   return (
     <div className="feeling-analysis">
       <div className="analysis">
+
+
+        
         <div className="analysis-graph">
           <h5 className="analysis-page-title">나의 감정 분석</h5>
           <Form.Select
@@ -310,6 +313,9 @@ const FeelingAnalysis = () => {
           </Form.Select>
           <MyResponsiveRadar data={data} callMyName={tmp} Color={color} />
         </div>
+
+
+
         <div className="feeling-music-type">
           <h5 className="analysis-page-title">나의 기분에 따른 음악 취향</h5>
           <div className="music-research">

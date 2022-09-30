@@ -137,13 +137,7 @@ const DetailDiary = () => {
       if (targetDiary) {
         // 일기가 존재할 때
         const t = targetDiary.images
-        console.log("t:", t)
-        console.log("t:", t[0].image_url)
-        t.map((ele)=>{
-          return(
-            console.log("ele::::::",ele.image_url)
-          )
-        })
+
         setTitle(targetDiary.title);
         setContent(targetDiary.content);
         setemotion(targetDiary.emotion);
@@ -324,14 +318,19 @@ const DetailDiary = () => {
         <div className='detail-diary-item'>
             <div className='content'>{content}</div>
             {
+              returnImages.length >= 1
+              ?(
               returnImages.map((ele,i)=>{
                 return (
                   <>
-
                       <img alt="#" src={"https://"+ele.image_url} style={{width:"100px"}} />
                   </>
                 )
               })
+              )
+              :(
+                <div></div>
+              )
             }
         </div>
 

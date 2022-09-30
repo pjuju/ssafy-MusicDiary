@@ -5,10 +5,10 @@
 
 .bookmark .diary-list {
   /* 이건 모든 페이지들이 공용으로 설정할 값 */
-  width: 77vw;
-  height: 90vh;
-  margin-top: 6vh;
-  margin-left: 18vw;
+  width: 64vw;
+  height: 93vh;
+  margin-top: 7vh;
+  margin-left: 24vw;
   /* background-color: green; */
 
   position: absolute;

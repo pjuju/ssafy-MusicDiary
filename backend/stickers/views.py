@@ -1,5 +1,7 @@
+from warnings import catch_warnings
 from django.shortcuts import get_object_or_404, get_list_or_404
 
+from stickers import serializers
 from accounts.models import User
 
 from .serializers import StickerPackSerializer, StickerSerializer, UserStickerSerializer
@@ -8,6 +10,7 @@ from .models import StickerPack, Sticker, UserSticker
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
+from rest_framework.decorators import api_view
 
 # Create your views here.
 
@@ -41,13 +44,6 @@ class StickerPackDetail(GenericAPIView):
     def get(self, request, stickerpack_id, format=None):
         stickerpack = get_object_or_404(StickerPack, pk=stickerpack_id)
         serializer = StickerPackSerializer(stickerpack)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def patch(self, request, stickerpack_id, format=None):
-        stickerpack = get_object_or_404(StickerPack, pk=stickerpack_id)
-        serializer = StickerPackSerializer(stickerpack, data=request.data, partial=True)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -101,3 +97,12 @@ class UserStickerDetail(GenericAPIView):
         # 이미 구매한 스티커팩 (구매 실패)
         data = {'error': '이미 구매한 항목입니다.'}
         return Response(data, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST',])
+def KakaoPay(request,user_id):
+    user = get_object_or_404(User, id=user_id)
+    charge = request.POST.get('charge')
+    user.point += int(charge)
+    user.save()
+    return Response(status=status.HTTP_200_OK)
