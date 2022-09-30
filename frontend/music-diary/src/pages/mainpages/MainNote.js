@@ -8,10 +8,16 @@ import { useDispatch } from "react-redux";
 
 const MainNote = () => {
     const navigate = useNavigate();
-
     const storeUserName = useSelector((state)=>{
         return state.user.username
       })
+
+    const onLogoutBtn = ()=>{
+        sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("refreshToken");
+
+        navigate('/')
+    }
     
     return(<div className='main-note'>
         <div className='left-page'>
@@ -39,7 +45,7 @@ const MainNote = () => {
             </div>
         </div>
         <div className='bookmarks'>
-            <div className='logout'>로그아웃</div>
+            <div className='logout' onClick={onLogoutBtn}>로그아웃</div>
             <Dropdown className='my-page'>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                     마이 페이지
