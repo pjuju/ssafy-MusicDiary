@@ -254,9 +254,9 @@ class DiaryDetail(GenericAPIView):
             if 'images' in data:
                 # 기존 이미지들 삭제
                 try:
-                    oldImages = DiaryImage.objects.get(diary=diary_pk)
-                    if oldImages != None:
-                        oldImages.delete()
+                    oldImages = get_list_or_404(DiaryImage, diary=diary_pk)
+                    for i in range(len(oldImages)):
+                        oldImages[i].delete()
                 except:
                     pass
 
@@ -264,19 +264,22 @@ class DiaryDetail(GenericAPIView):
                 image = {'diary': diary_pk}
 
                 # 각각의 이미지를 image 테이블에 넣어줌
-                for img in newImages:
-                    image['image_url'] = img['image_url']
-                    diaryImageSerializer = DiaryImageSerializer(data=image)
-                    if diaryImageSerializer.is_valid(raise_exception=True):
-                        diaryImageSerializer.save()
+                try:
+                    for img in newImages:
+                        image['image_url'] = img['image_url']
+                        diaryImageSerializer = DiaryImageSerializer(data=image)
+                        if diaryImageSerializer.is_valid(raise_exception=True):
+                            diaryImageSerializer.save()
+                except:
+                    return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
             # 스티커 수정
             if 'stickers' in data:
                 # 기존 스티커들 삭제
                 try:
-                    oldStickers = DiarySticker.objects.get(diary=diary_pk)
-                    if oldStickers != None:
-                        oldStickers.delete()
+                    oldStickers = get_list_or_404(DiarySticker, diary=diary_pk)
+                    for i in range(len(oldStickers)):
+                        oldStickers[i].delete()
                 except:
                     pass
 
@@ -284,13 +287,16 @@ class DiaryDetail(GenericAPIView):
                 sticker = {'diary': diary_pk}
 
                 # 각각의 스티커를 sticker 테이블에 넣어줌
-                for stckr in newStickers:
-                    sticker['sticker'] = stckr['sticker_id']
-                    sticker['sticker_x'] = stckr['sticker_x']
-                    sticker['sticker_y'] = stckr['sticker_y']
-                    diarystickerSerializer = DiaryStickerSerializer(data=sticker)
-                    if diarystickerSerializer.is_valid(raise_exception=True):
-                        diarystickerSerializer.save()
+                try:
+                    for stckr in newStickers:
+                        sticker['sticker'] = stckr['sticker_id']
+                        sticker['sticker_x'] = stckr['sticker_x']
+                        sticker['sticker_y'] = stckr['sticker_y']
+                        diarystickerSerializer = DiaryStickerSerializer(data=sticker)
+                        if diarystickerSerializer.is_valid(raise_exception=True):
+                            diarystickerSerializer.save()
+                except:
+                    return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
             return DiaryDetail.get(self=DiaryDetail, request=request, diary_pk=diary_pk)
 
