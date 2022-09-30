@@ -16,12 +16,36 @@
 }
 
 .sticker-detail .main-note {
-    position: absolute;
+    /* position: absolute; */
 }
 
+
+/* 상단영역 */
 .sticker-detail .goback-button {
     position: absolute;
+    margin-top: 20vh;
 }
+
+
+.sticker-detail .thumbnail {
+    margin-left: -33vw;
+    margin-top: 10vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

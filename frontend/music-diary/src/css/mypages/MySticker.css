@@ -15,10 +15,113 @@ color: black;
 }
 
 .my-sticker .main-note {
-    position: absolute;
+    /* position: absolute; */
+}
+
+/* 상단 영역 */
+.my-sticker .title {
+    margin-top: 7vh;
 }
 
 
+
+/* 상점 버튼 */
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+button.snip0050 {
+  border: none;
+  background-color: #000000;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 10px 40px;
+  display: inline-block;
+  margin: 15px 30px;
+  text-transform: uppercase;
+  line-height: 1.5em;
+  font-weight: 500;
+  font-size: 1em;
+  outline: none;
+  position: relative;
+  opacity: 1;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  left: 25vw;
+}
+button.snip0050 span {
+  display: inline-block;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  opacity: 0.8;
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+button.snip0050 i {
+  font-size: 28px;
+  text-align: center;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  display: block;
+  position: absolute;
+  opacity: 0;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+}
+button.snip0050:before {
+  border-radius: 3px;
+  content: '';
+  top: 3px;
+  bottom: 3px;
+  left: 50%;
+  right: 50%;
+  position: absolute;
+  background: rgba(255, 255, 255, 0);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transition-delay: 0.15s;
+  transition-delay: 0.15s;
+}
+button.snip0050:hover,
+button.snip0050.hover {
+  color: #000000;
+}
+
+button.snip0050:hover.red,
+button.snip0050.hover.red {
+  color: #962d22;
+}
+
+button.snip0050:hover span,
+button.snip0050.hover span {
+  opacity: 0;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+}
+button.snip0050:hover i,
+button.snip0050.hover i {
+  opacity: 1;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+}
+button.snip0050:hover:before,
+button.snip0050.hover:before {
+  left: 3px;
+  right: 3px;
+  background: #ffffff;
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+}
+button.snip0050:active:before {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+button.snip0050.red {
+  background-color: #962d22;
+}
 
 
 

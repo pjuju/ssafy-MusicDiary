@@ -5,12 +5,14 @@ import "../../css/stickerpages/StickerDetail.css";
 
 import { BiPlay, BiStore } from "react-icons/bi"; // 상점 이모지
 import { FcSalesPerformance } from "react-icons/fc";
-import { getUserInfoApi } from "../../api/userApi"; // 사용자 정보 조회
+import { getUserInfoApi, getUserApi } from "../../api/userApi"; // 사용자 정보 조회
 import {
   getTotalStickerListApi,
   getStickerListApi,
-  buyStickerPackApi
+  buyStickerPackApi,
+  chargeKakaoPay
 } from "../../api/stickerApi"; // DB에 저장된 모든 스티커팩 조회
+import { useSelector } from "react-redux";
 
 import Button from "../../components/Common/Button";
 import MainNote from "../mainpages/MainNote";
@@ -19,37 +21,11 @@ function StickerDetail({}) {
   const {id} = useParams()
   const navigate = useNavigate()
 
-  const [img, setImg] = useState('')
-  const [title, setTitle] = useState('')
-
-  // if (sticker.length >= 1) {
-  //   const targetSticker = sticker.find(
-  //     (it) => parseInt(it.id) === parseInt(id)
-  //   );
-  //   console.log(targetSticker)
-
-  //   // if (targetSticker) {
-  //   //   // 일기가 존재할 때
-  //   //   // setTitle(targetSticker.title)
-  //   //   // setImg(targetSticker.img)
-  //   // }
-  // }
-
-
-  // 하나의 스티커팩 정보
-  const [packInfo, setPackInfo] = useState({
-    stickerpack_id: "",
-    stickerpack_price: "300",
-    stickerpack: {},
-  });
-
+  // 스티커 정보 가져오기
   const [pack, setPack] = useState([])
-
-
   useEffect(() => {
     getStickerListApi(id)
       .then((res) => {
-        setPackInfo(JSON.stringify(res.data));
         console.log(res.data)
         setPack(res.data)
       })
@@ -59,9 +35,8 @@ function StickerDetail({}) {
   },[]);
 
   // 스티커팩 구매버튼 클릭
-  const onBugyStickerPackBtn = () =>{
-
-    buyStickerPackApi(packInfo.stickerpack_id)
+  const onBugStickerPackBtn = () =>{
+    buyStickerPackApi(id)
     .then((res)=> {
       console.log(res.data)
     })
@@ -70,15 +45,26 @@ function StickerDetail({}) {
     })
   }
 
+  // 사용자 정보 가져오기
+  useEffect(()=> {
+    getUserApi()
+    .then((res)=> {
+      console.log(res.data)
+    })
+    .catch((err)=> {
+      console.log(err)
+    })
+  },[])
+
   // 포인트 충전하기 버튼 클릭
   const onMoveChargePage = () => {
     navigate('/sticker/charge')
   }
 
+  console.log(pack)
 
   return (
     <div className="sticker-detail">
-      <button onClick={() => navigate(-1)} className="goback-button">돌아가기</button>
       
       {/* <div className="sticker-detail-wrapper">
         <div className="sticker-page-header">
@@ -130,13 +116,15 @@ function StickerDetail({}) {
       
       <div className="work-area">
         <div className="header">
+        <button onClick={() => navigate(-1)} className="goback-button">돌아가기</button>
             <img src={pack.thumb_url} className="thumbnail" style={{width:'15vw'}}></img>
             <div className="info">
               {pack.name}
               {pack.price}
             </div>
         </div>
-      {/* {packInfo.name} */}
+      <button onClick={onMoveChargePage}>포인트 충전하기</button>
+      <button onClick={onBugStickerPackBtn}>구매하기</button>
       </div>
       <MainNote className="main-note"></MainNote>
     </div>
