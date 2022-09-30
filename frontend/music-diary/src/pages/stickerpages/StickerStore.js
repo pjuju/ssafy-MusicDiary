@@ -64,9 +64,12 @@ function StickerStore() {
 // 검색하면 맞는 스티커를 sticketItem에 프롭스 전송시켜줘야한다!!!!
   const [search, setSearch] = useState('')
   const searchSticker = (e) => {
-    setSearch(e.target.value)
+    setSearch(e.target.value)  // search에 타이핑친 키워드가 저장된다
   }
-
+  
+  const stickerPackListName = stickerPackList.filter((it)=> it.name === search)
+  console.log(stickerPackListName)
+  const stickerPackListNameList = stickerPackList.map((it)=> it.name === search)
   return (
     <div className="sticker-store-page">
     {/* <div className="sticker-store-wrapper">
@@ -124,20 +127,24 @@ function StickerStore() {
         </div>
       </div> */}
 
-
       <div className="sticker-store">
         <div className="store-header">
           <h1>상점</h1>
           <div>
             <input placeholder="스티커 이름을 검색해보세요" className="store-header-left" 
             onChange={searchSticker} value={search}></input>
-            <button className="store-header-right">나의 스티커</button>
+            <button className="store-header-right" onClick={()=>{navigate('/mypage/mysticker')}}>내가 보유한 스티커</button>
           </div>
         </div>
 
         <div className="store-board">
-          <StickerItem sticker={stickerPackList}></StickerItem>
-        </div>
+          
+          {/* 만약 빈 값이면 다 보여주고 */}
+          {search == '' || null ? 
+            <StickerItem sticker={stickerPackList}></StickerItem>
+            : <StickerItem sticker={stickerPackListName}></StickerItem>
+    }
+            </div>
 
         {/* <div className="store-board">
           <StickerItem sticker={stickerPackList}></StickerItem>

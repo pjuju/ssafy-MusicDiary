@@ -5,28 +5,34 @@ import "../../css/mypages/MySticker.css";
 import { BiStore } from "react-icons/bi"; // 상점 이모지
 import { getUserStickerListApi } from "../../api/stickerApi"; // 해당 유저의 스티커팩 리스트 조회
 import MainNote from "../mainpages/MainNote";
+import StickerItem from '../../components/sticker/StickerItem'
 
 function MySticker() {
 
-  const [mystickerList, setMyStickerList] = useState()
+  const [mystickerList, setMyStickerList] = useState([])
   const navigate = useNavigate()
+ 
   
   useEffect(() => {
 
-    const user_id = ''
+    const user_id = sessionStorage.getItem("user_id")
+    console.log(user_id)
 
-    getUserStickerListApi(user_id)
+    getUserStickerListApi(13)
     .then((res)=>{
         setMyStickerList(res.data)
+        console.log(mystickerList)
     })
     .catch((err)=>{
-
+      console.log(err)
     })
   },[]);
 
   const onMoveStickerStore = () => {
     navigate('/sticker/store')
   }
+
+  console.log(mystickerList.length)
 
   return (
     <div className="my-sticker">
@@ -77,10 +83,19 @@ function MySticker() {
         </div>
       </div> */}
       <div className="work-area">
-        <div className="header-right" onClick={onMoveStickerStore}>
-          상점
-          <BiStore  />
+        <h2 className="title">내가 보유한 스티커</h2>
+        <button class="snip0050 red" onClick={onMoveStickerStore}><span>스티커 상점</span><i class="ion-ios-cart"></i></button>
+        {/* 보유한 스티커가 1개라도 있으면 스티커 아이템 보여주고 없으면 없다고 메시지 알려주기 */}
+        {mystickerList.length !== 0 ? (<>
+          {mystickerList.map((it)=> 
+            <StickerItem sticker={it}></StickerItem>
+            )}
+        </>) : (<>
+          <div className="no-sticker">
+            현재 보유한 스티커가 없습니다!
         </div>
+        </>
+        )}
       </div>
       <MainNote className="main-note"></MainNote>
     </div>
