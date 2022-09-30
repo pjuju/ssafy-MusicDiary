@@ -13,6 +13,11 @@ export const loginApi = async (userInfo, success, fail) => {
     return await api.post('/accounts/login/', userInfo)
 }
 
+// 유저 정보
+export const getUserApi = async(success, fail) => {
+  return await api.get('/accounts/user/')
+}
+
 
 //  카카오 로그인
 export const kakaoLoginApi = async(success, fail) => {
