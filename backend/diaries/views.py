@@ -148,7 +148,7 @@ class DiaryList(GenericAPIView):
             newPost['user'] = request.user.pk
 
         # 감정 정보
-        if 'emotion' in data:
+        if ('emotion' in data) and (data['emotion'] != ''):
             # 명시된 감정이 있을 경우
             emotion = data['emotion']
         else:   
