@@ -151,3 +151,19 @@ margin-top: 3vh;
   -ms-overflow-style: none; */
 
 }
+
+.detail-diary .delete-sticker-btn {
+  /* display: none; */
+
+
+}
+
+/* .detail-diary .origin-sticker:hover .delete-sticker-btn {
+  display:"";
+
+} */
+
+.detail-diary .origin-sticker {
+  cursor: pointer;
+
+}
