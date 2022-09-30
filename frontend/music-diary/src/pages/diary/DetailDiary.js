@@ -40,6 +40,9 @@ import { stickersData } from "../sticker-data/stickers.data.ts";
 
 const DetailDiary = () => {
   const { id } = useParams();
+
+  const diaryId = id; // 
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // diary
@@ -128,7 +131,6 @@ const DetailDiary = () => {
       });
 
 
-
     if (monthData.length >= 1) {
       const targetDiary = monthData.find(
         (it) => parseInt(it.id) === parseInt(id)
@@ -193,7 +195,6 @@ const DetailDiary = () => {
         });
     }
 
-
     if (storeBookmark=== true) {
       console.log("북마크 state:", bookmark);
       dispatch(setDiaryBookmarkValue(false));
@@ -208,7 +209,6 @@ const DetailDiary = () => {
     }
 
   };
-
   ///////////////////////////////////////////////////////////////////////////////////////
 
   const addStickerToPanel = ({ src, width, x, y, sticker_id }) => {
@@ -265,8 +265,9 @@ const DetailDiary = () => {
       };
 
       tmp.push(element);
-      // console.log("추가한 현재 tmp: ", JSON.stringify(tmp))
+      console.log("추가한 현재 tmp: ", JSON.stringify(tmp))
     });
+
     const diaryInfo = {
       title,
       content,
@@ -283,6 +284,59 @@ const DetailDiary = () => {
       })
       .catch((err) => {});
   };
+
+  // 스티커 삭제
+  const deleteSticker = (id)=>{
+    // 화면에 뿌려지는 기존스티커들 => originStickers 
+    console.log("삭제할 스티커 : ele.id:", id)
+    setOriginStickers(originStickers.filter(it => it.id !== id)) // 삭제 시킨거 현재화면에 바로 반영하려면 필요함
+
+    const stickers = originStickers.filter(it=>it.id !== id)
+    console.log("스티커 삭제 후 :", JSON.stringify(stickers))
+
+  // 보낼 형식에 맞게 옮기기
+  const tmp2 = [
+    // {
+    //   sticker_id:"",
+    //   sticker_x:"",
+    //   sticker_y:""
+    // }
+  ];
+
+  stickers.map((ele, i) => {
+    let element = {
+      sticker_id: stickers[i].sticker.id,
+      sticker_x: stickers[i].sticker_x,
+      sticker_y: stickers[i].sticker_y,
+    };
+
+    tmp2.push(element);
+    // console.log("추가한 현재 tmp: ", JSON.stringify(tmp2)) 
+  });
+
+  const diaryInfo = {
+    title,
+    content,
+    emotion,
+    bookmark,
+    stickers: tmp2
+  };
+
+
+    let diary_id = { id }
+    diary_id = diary_id.id
+    console.log("보낼 Diary ID :", diaryId)
+
+    modifyDiaryItem(diaryId, diaryInfo)
+    .then((res)=>{
+      console.log(JSON.stringify(res.data))
+      console.log("스티커 수정API success")
+    })
+    .catch((err)=>{
+      console.log(err.data)
+    })
+
+  }
 
   return (
     <>
@@ -391,31 +445,42 @@ const DetailDiary = () => {
         </Stage>
 
     {/* 저장됐었던 sticker 배치 */}
-    <div>
+    <div >
         {originStickers.map((ele, i) => {
-          console.log("origin:", JSON.stringify(ele))
+          // console.log("origin:", JSON.stringify(ele))
           
-         
-          console.log("x:", ele.sticker_x)
-
           return (
-            <div style={{position:"relative"}}>
-            <div style={{width:"1530", height:"700", position:"absolute", zIndex:'999999999999999'}}>
+            // <div style={{position:"relative"}}>
+            <div style={{width:"1530", height:"700", position:"absolute" }}>
               <img
+                className="origin-sticker"
                 alt="#"
                 src={ele.sticker.image_url}
                 style={{
                   // position: "absolute",
-                  width: "100px",
+                  width: "50px",
                   marginLeft: `${ele.sticker_x}px`,
                   marginTop: `${ele.sticker_y}px`,
                   zIndex:"2000"
                 }}
-                onClick={()=>console.log(`${ele.sticker_x} px`)}
+                // onClick={()=>console.log(`${ele.sticker_x} px`)}
               />
-              </div>
-
+            <div style={{width:"500", position:"absolute",  zIndex:'99999999999999'}}>
+              <button 
+                className="delete-sticker-btn"
+                style={{
+                    marginLeft:`${ele.sticker_x}px`,
+                    zIndex:'99999999999999',
+                    backgroundColor:"green"
+                  }} 
+                onClick={()=> deleteSticker(ele.id)}>스티커삭제
+              </button>
             </div>
+          </div>
+           
+
+
+
           );
         })}
       </div>
