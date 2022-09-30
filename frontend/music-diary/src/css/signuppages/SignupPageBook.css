@@ -1,13 +1,17 @@
+/*
 
-.signup-info-wrapper html,
-.signup-info-wrapper body {
+Click the diary to start animating.
+View the project on Github : https://github.com/akzhy/Vara
+
+*/
+/* html,
+body {
   height: 100%;
 }
-
-.signup-info-wrapper body {
-  /* background: #fff4d3; */ /* 전체 백그라운드 주황색깔 부분*/
+body {
+  background: #fff4d3;
   text-align: center;
-  font-family: "alsongdalsong";
+  font-family: "Roboto", sans-serif;
   overflow: hidden;
   font-size: 16px;
 }
@@ -15,123 +19,236 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+} */
+.signup-closed-book #container {
+  width: 60%;
+  margin: 20px auto;
 }
-
-.signup-info-wrapper .v-center {
-  display: inline-block;     
+.signup-closed-book  .v-center {
+  display: inline-block;
   vertical-align: middle;
   height: 100%;
   width: 0;
 }
-
-.signup-info-wrapper .closed-book {
+.signup-closed-book #container {
+  display: inline-block;
+  vertical-align: middle;
+}
+.signup-closed-book .book {
   transform-style: preserve-3d;
-/*   transform: rotateX(45deg) rotateY(0deg) rotateZ(-45deg); */
+  transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg);
   transition: transform 1s;
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 10%;
-  margin: auto;
-  width: 30em; /* 이거 바꾸면 좌우 이동..*/
-  height: 35em; /* 상하 이동*/
+  /* margin: auto; */
+  margin-top:2%;
+  margin-left: 35%;
+  width: 30em;
+  height: 40em;
 }
-
-
-.signup-info-wrapper .closed-book .paper,
-.signup-info-wrapper .closed-book .shadow {
-  width: 38em; /* 공책 : 넓이 부분 조절*/
-  height: 38em;
+.signup-closed-book .book .side {
+  width: 3em;
+  height: 40em;
+  background: #ac5050;
+  position: absolute;
+  left: -3em;
+  top: 0;
+  transform-origin: 100% 100%;
+  transform: rotateY(-90deg) rotateX(0deg);
+}
+.signup-closed-book .book .bottom {
+  width: 30em;
+  height: 3em;
+  /* 책 두께 부분 보이는 색깔 */
+  background: #c8b1b1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform-origin: 100% 100%;
+  transform: rotateX(90deg);
+}
+.signup-closed-book .book.open {
+  transform: rotateX(35deg) rotateY(0deg) rotateZ(-35deg);
+}
+.signup-closed-book .book .paper,
+.signup-closed-book .book .shadow {
+  width: 30em;
+  height: 40em;
   position: absolute;
   top: 0;
   left: 0;
 }
-
-/* 덮인 책 : 그림자 부분 */
-.signup-info-wrapper .closed-book .shadow {
+.signup-closed-book .book .shadow {
   background: transparent;
   transform: translateZ(-3em);
-  box-shadow: -1em 1em 3px 3px #bebec1;
+  box-shadow: -1em 1em 0px 0px #e6b215;
   z-index: 1;
 }
+.signup-closed-book .book .paper {
+  transition: transform 1s, box-shadow 0.5s 0.2s;
+  transform-origin: 0 50%;
+  transform-style: preserve-3d;
+}
+.signup-closed-book .book .paper.open {
+  /* box-shadow : 책넘기고 나서, 겹쳐지는 부분의 책장 색깔 */
+  box-shadow: 2.2em 1em 0px 0px #eab30b;
+  transform: rotateX(0deg) rotateY(-150deg) rotateZ(0deg);
+}
+.signup-closed-book .book .paper .page.front {
+  transition: transform 1s;
+  transform-origin: 0 50%;
+  backface-visibility: hidden;
+  z-index: 2;
+}
 
-.signup-info-wrapper .closed-book .page {
+.signup-closed-book .book .page {
   width: 100%;
   height: 100%;
   position: absolute;
   -webkit-transform: translateZ(0px);
   transform: translateZ(0px);
 }
-
-/* 책 표지 색깔 */
-.signup-info-wrapper .closed-book .first .page {
+.signup-closed-book .book .first .page {
+  /* 책 표지 컬러 */
   background: #FAF3EB;
 }
-
-.signup-info-wrapper .closed-book .intro {
+.signup-closed-book .book .first .page.front:after {
+  position: absolute;
+  content: "";
+  width: 50%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(160, 115, 115, 0.05);
+}
+.signup-closed-book .book .paper .back {
+  transition: transform 1s;
+  transform-origin: 0 50%;
+  background: #092ad1;
+}
+.signup-closed-book .book .first.paper .back {
+  /* 책 표지 뒷부분 컬러 */
+  background: #ac5050;
+}
+.signup-closed-book .book .intro {
   position: absolute;
   width: 90%;
   width: calc(100% - 3em);
-  height: 100%;
-  /* height: calc(100% - 3em); */
+  height: 90%;
+  height: calc(100% - 3em);
   border-left: 2em solid #AC5050;
   left: 0;
-  top: 1;
-  right: 30;
-  bottom: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
   margin: auto;
 }
-
-.signup-info-wrapper .closed-book .intro h1 {
-  /* 상우하좌*/
-  padding: 3em  0.20em 0.5em 1.2em;
-  font-size: 3.3em; /* 알쏭달쏭 부분 글자 크기*/
-  color: black; /* 알쏭달쏭 부분 글자 색깔*/
-  word-break: break-all;
-}
-
-.signup-info-wrapper .closed-book .intro h2 {
+.signup-closed-book .book .intro h2 {
   padding: 0.5em 0.5em;
-  font-size: 1.5em;
-  color: black; /* DIARY 글씨 부분 색깔*/
+  font-size: 2em;
+  color: #fff;
   word-break: break-all;
-  text-align: center;
+  text-align: left;
   letter-spacing: 5px;
 }
-
-.intro .answer {
-  display: inline;
-
-  width: 100px;
-  height: inherit;
+.signup-closed-book .book .intro h1 {
+  padding: 0.5em 0.25em;
+  font-size: 5em;
+  color: rgb(40, 19, 19);
+  word-break: break-all;
 }
-
-
-
-
-
+.signup-closed-book .book .paper:not(.first) .page {
+  background: #f1f1f1; /* 오른쪽 줄글페이지 배경색*/
+  background-image: linear-gradient(
+      90deg,
+      transparent 40px,
+      #abced4 40px,
+      #abced4 42px,
+      transparent 42px
+    ),
+    linear-gradient(#e1e1e1 0.1em, transparent 0.1em);
+  background-size: 100% 3em;
+}
+.signup-closed-book .book .paper:not(.first) .back {
+  /* 두번째장 뒷편 색상 */
+  background: #a93636;
+}
+.signup-closed-book .book .open.second .back {
+  transform: translateZ(-1px);
+}
+.signup-closed-book .book .open.third .back {
+  transform: translateZ(-2px);
+}
+.signup-closed-book .book .paper.first {
+  z-index: 8;
+}
+.signup-closed-book .book .paper.second {
+  z-index: 7;
+}
+.signup-closed-book .book .paper.third {
+  z-index: 6;
+}
+.signup-closed-book .book .paper.fourth {
+  z-index: 5;
+}
+.signup-closed-book .book .paper.first .front {
+  transform: translateZ(0.4px);
+}
+.signup-closed-book .book .paper.second .front {
+  transform: translateZ(0.3px);
+}
+.signup-closed-book .book .paper.third .front {
+  transform: translateZ(0.2px);
+}
+.signup-closed-book .book .paper.fourth .front {
+  transform: translateZ(0.1px);
+}
+.signup-closed-book .book .second-page #vara-container {
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+}
+.signup-closed-book  #link {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #615858;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
 @media (max-width: 700px) {
-  .signup-info-wrapper .closed-book {
+  .signup-closed-book .book {
     left: 50%;
   }
 }
 
-
-/* 직접 추가하는 CSS : SHY */
-
-/* 회원가입폼 : input태그 부분 */
-.signup-info-wrapper .signup-form-wrapper input {
+.signup-closed-book .signup-form-wrapper {
   display: block;
-  margin-bottom: 1rem;
-  margin-left: 40%;
-
-  background-color: #FAF3EB;
-  padding-left: 10px;
+  font-size: 25px;
+  
+  margin-top: 10%;
+  margin-right: 5%;
+  margin-left: 15%;
+  margin-bottom: 10%;
 }
 
-.signup-info-wrapper Button {
-  margin-left: 50px;
-  margin-top: 5rem;
+.signup-closed-book .signup-form-input {
+
+  display: block;
+  width: 14vw;
+  height: 5vh;
+
+  margin-bottom: 5%;
+  z-index: 100000;
 }
 
+.signup-closed-book .kakao-login-btn {
+width: 150px;
+}
+
+.signup-closed-book .google-login-btn {
+width: 150px;
+}

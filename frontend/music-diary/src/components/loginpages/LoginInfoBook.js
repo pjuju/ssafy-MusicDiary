@@ -263,10 +263,12 @@ function LoginInfoBook() {
     <>
     <div className="login-closed-book">
       <div class="v-center"></div>
+
       <div id="container">
         <div class="book">
           <div class="first paper">
             <div class="page front contents">
+
               <div class="intro">
                 <h2></h2>
                 <h1>Login</h1>
@@ -287,12 +289,17 @@ function LoginInfoBook() {
                     />
                   </div>
                 <Button name="Login" color="#AC5050" size="lg" onClick={onLoginBtn}/>
+
+                <img className="kakao-login-btn" alt="#" src="/assets/img/kakao-login-btn.png" />
+                <img className="google-login-btn" alt="#" src="/assets/img/google-login-btn.png" />
               </div>
+            {/* intro end */}
+
             </div>
 
             <div class="page back"></div>
-
           </div>
+
           <div class="second paper">
             <div class="page front contents">
               {/* contents 출력 부분 */}
@@ -315,9 +322,11 @@ function LoginInfoBook() {
             </div>
             <div class="page back"></div>
           </div>
+          
           <div class="side"></div>
           <div class="bottom"></div>
           <div class="shadow"></div>
+          
         </div>
       </div>
       </div>

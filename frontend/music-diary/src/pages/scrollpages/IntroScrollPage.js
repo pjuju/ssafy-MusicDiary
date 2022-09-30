@@ -45,7 +45,7 @@ function IntroScrollPage() {
 
         <div className="login-signup-btn-wrapper">
           <div className="login-btn" onClick={()=> navigate('/login')}>Login</div>
-          <div className="signup-btn">SignUp</div>
+          <div className="signup-btn" onClick={()=> navigate('/signup/info')}>SignUp</div>
         </div>
 
         <section>

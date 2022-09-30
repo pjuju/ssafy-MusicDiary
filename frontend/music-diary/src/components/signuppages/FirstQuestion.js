@@ -84,18 +84,21 @@ function FirstQuestion() {
 
   return (
     <>
-      <div className="signup-info-wrapper">
-        {/* <div id="closedcontainer"> */}
-        <SignupInfoBookcontainer>
-          <div className="closed-book">
+    <div className="signup-closed-book">
+      <div class="v-center"></div>
+
+        <div id="container">
+          <div className="book">
             <div className="first paper">
               <div className="page front contents">
+
                 <div className="intro">
-                  <h1>당신의 음악취향은? {storeEmail} </h1>
-                  <h2>
+                  <h2></h2>
+                  <h2>평소에는 주로 어떤 음악을 들으시나요? </h2>
+                  {/* <h2>
                     1. 나는 평소에 "<div className="answer">{firstAnswer}</div>"
                     노래를 듣는다{" "}
-                  </h2>
+                  </h2> */}
 
                   <div className="first-row">
                     <div
@@ -136,13 +139,18 @@ function FirstQuestion() {
                     />
                   </div>
                 </div>
+                {/* intro end */}
+
               </div>
+              <div class="page back"></div>
             </div>
-            <div className="shadow"></div>
-          </div>
-        </SignupInfoBookcontainer>
-        {/* </div> */}
+
+            <div class="side"></div>
+          <div class="bottom"></div>
+          <div class="shadow"></div>
+        </div>
       </div>
+      </div>   
     </>
   );
 }
