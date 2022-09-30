@@ -50,7 +50,7 @@ class StickerPackDetail(GenericAPIView):
 # Get: 특정 스티커 조회
 class StickerDetail(GenericAPIView):
     queryset = Sticker.objects.all()
-    serializer_class = StickerPackSerializer
+    serializer_class = StickerSerializer
 
     def get(self, request, sticker_id, format=None):
         sticker = get_object_or_404(Sticker, pk=sticker_id)
