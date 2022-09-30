@@ -44,10 +44,10 @@ class PayResult extends React.Component {
             
         })
         const pay = qs.stringify({
-            charge: 2000,
+            charge: 7777,
           });
         axios.post(
-            "http://j7d204.p.ssafy.io:8080/rest/sticker/kakaopay/2/", pay
+            "http://j7d204.p.ssafy.io:8080/rest/sticker/kakaopay/16/", pay
           )
           .then((res) => {
             console.log(JSON.stringify(res.data));
