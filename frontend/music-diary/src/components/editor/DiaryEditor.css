@@ -1,3 +1,18 @@
+/* 스피너 */
+.display-block {
+    /* display: none; */
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
+
+.spinner {
+    margin-top: 20vh;
+    margin-left: 18vw;
+}
+
 /* 상단 이모티콘 고르기 */
 .diary-editor .select-emotion {
     width: 40vw;
