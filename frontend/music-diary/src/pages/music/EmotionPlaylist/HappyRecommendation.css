@@ -1,0 +1,20 @@
+/*  여기서부터  */
+.happy-recommendation {
+    position: relative;
+  }
+  
+.happy-recommendation .work-area {
+  width: 65vw;
+  height: 86vh;
+  margin-top: 8vh;
+  margin-left: 24vw;
+  /* background-color: green; */
+
+  position: absolute;
+  z-index: 1;
+  color: black;
+  }
+  
+.happy-recommendation.main-note {
+    /* position: absolute; */
+  }

@@ -39,8 +39,8 @@ function KakaoAuth() {
 
         setUserId(res.data.user.pk)
         // access 토큰, refresh 토큰, user id 정보 담기
-        sessionStorage.setItem("accessToken", res.data.data.token.access_token)
-        sessionStorage.setItem("refreshToken", res.data.data.token.refresh_token)
+        // sessionStorage.setItem("accessToken", res.data.data.token.access_token)
+        // sessionStorage.setItem("refreshToken", res.data.data.token.refresh_token)
         // sessionStorage.setItem("user_id", res.data.data.pk)
       })
       getUserInfoApi(userId)

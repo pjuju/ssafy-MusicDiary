@@ -171,38 +171,30 @@
 
 
 /* 일기 작성 */
-.btn-hover {
+/* 버튼 디자인 */ 
+.main-calender .button {
   width: 10vw;
-  /* font-size: 16px; */
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  margin: 20px;
-  height: 5vh;
-  text-align:center;
+  height: 4vh;
+  /* font-family: 'Roboto', sans-serif; */
+  font-size: 3vh;
+
+  letter-spacing: 2.5px;
+  /* font-weight: 500; */
+  color: #000;
+  background-color: #fff;
   border: none;
-  background-size: 300% 100%;
-
-  border-radius: 50px;
-  moz-transition: all .4s ease-in-out;
-  -o-transition: all .4s ease-in-out;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
-}
-
-.btn-hover:hover {
-  background-position: 100% 0;
-  moz-transition: all .4s ease-in-out;
-  -o-transition: all .4s ease-in-out;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
-}
-
-.btn-hover:focus {
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
   outline: none;
-}
+  margin-left: 0vw;
+  margin-top: 2vh;
+  }
 
-.btn-hover.color-1 {
-  background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
-  box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+.main-calender .button:hover {
+  background-color: #6eb76f;
+  box-shadow: 0px 15px 20px rgba(179, 195, 126, 0.4);
+  color: #fff;
+  transform: translateY(-3px);
 }
