@@ -143,6 +143,10 @@ const MainMonth =() => {
     });
   },[curDate.getMonth(), noticeData.length])
   console.log('지금 이달 일기 개수는',noticeData.length)
+
+  useEffect(()=> {
+    console.log(noticeData.length)
+  })
   
     useEffect(() => {
       if (noticeData.length >= 1) {
