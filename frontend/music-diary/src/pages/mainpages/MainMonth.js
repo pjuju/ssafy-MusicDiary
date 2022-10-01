@@ -167,6 +167,7 @@ const MainMonth =() => {
       setCurDate(new Date(curDate.getFullYear(), curDate.getMonth() - 1));
     };
 
+
     return (
     <div className="main-month">
         <div className="fix-top">
@@ -176,11 +177,12 @@ const MainMonth =() => {
           {headText}
           <div onClick={increaseMonth} className="time-change-button">&#10093;</div>
         </h2>
-{/* 감정별, 날짜별 분류 로직 */}
+{/* 감정별, 날짜별 분류 로직 */} 
+
         <ControlDateMenu
             value={sortType}
             onChange={setSortType}
-            optionList={sortOptionList}
+            optionList={sortOptionList} 
           />
           <ControlEmotionMenu
             value={filter}
@@ -188,7 +190,7 @@ const MainMonth =() => {
             optionList={filterOptionList}
           />
 
-        <button onClick={()=>{navigate('/newdiary')}} className="write-button">일기 작성</button>
+        <button onClick={()=>{navigate('/newdiary')}} className="button">일기 작성</button>
         <ul onClick={()=>{navigate('/calender')}} className="snip1241">
             <li><a href="#">달력보기</a></li>
           </ul>  
