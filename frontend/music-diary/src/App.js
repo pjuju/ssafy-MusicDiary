@@ -36,7 +36,13 @@ import {
   MusicRecommendation,
   Payment,
   PayResult,
-  EditMyInfo
+  EditMyInfo,
+  AngryRecommendation,
+  HappyRecommendation,
+  DepressedRecommendation,
+  AnxiousRecommendation,
+  NormalRecommendation,
+  SadRecommendation
 
 } from './pages/index'
 
@@ -207,6 +213,13 @@ function App() {
           <Route path='/payment' element={<Payment />} />
           <Route path='/payresult' element={<PayResult />} />
           <Route path='/mypage/edit' element={<EditMyInfo /> } />
+
+          <Route path="/recommendation/angry" element={<AngryRecommendation />} />
+          <Route path="/recommendation/happy" element={<HappyRecommendation />} />
+          <Route path="/recommendation/depressed" element={<DepressedRecommendation />} />
+          <Route path="/recommendation/anxious" element={<AnxiousRecommendation />} />
+          <Route path="/recommendation/normal" element={<NormalRecommendation />} />
+          <Route path="/recommendation/sad" element={<SadRecommendation />} />
         </Routes>
       </BrowserRouter>
       </DiaryDispatchContext.Provider>

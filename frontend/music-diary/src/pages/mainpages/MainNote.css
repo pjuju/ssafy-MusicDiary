@@ -55,7 +55,7 @@
 .main-note .logout {
   width: 7vw;
   height: 5vh;
-  background-color: rgb(53, 128, 88);
+  background-color: rgb(84, 152, 116);
   position: absolute;
   margin-top: 3.2vh;
   left: 70vw;
@@ -121,7 +121,7 @@ display: block;
 width: 3px;
 height: 100%;
 content: "";
-background-color: #055e11;
+background-color: #d9c865;
 }
 .snip1250 a:after {
 padding: 0 0.2em 0 0.5em;

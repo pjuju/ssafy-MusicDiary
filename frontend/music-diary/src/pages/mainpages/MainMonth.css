@@ -36,6 +36,10 @@ overflow:auto;
 -ms-overflow-style: none;
 }
 
+.main-month .diary-items::-webkit-scrollbar{
+  display:none;
+  }
+
 
 .main-month .main-note {
   /* position: absolute; */
@@ -44,7 +48,8 @@ overflow:auto;
 .main-month .diary-list-page-title {
 margin-top: 5vh;
 display: flex;
-justify-content: center;
+/* justify-content: center; */
+margin-left: 21vw;
 } 
 
 .main-month .diary-list-page-title * {
@@ -64,19 +69,21 @@ cursor: pointer;
 
 /* 드롭다운 */
 .main-month .dropbar-left {
-  width: 10vw;
+  width: 7vw;
   height: 3h;
-  background-color: green;
+  /* background-color: green; */
   border-radius: 5px;
   /* margin-top: -2vh; */
-  margin-left: -26vw;
+  margin-left: -18vw;
+  position: absolute;
 }
 
 .main-month .dropbar-right {
-  width: 10vw;
+  width: 8vw;
   height: 3vh;
   border-radius: 5px;
-  margin-left: 2vw;
+  margin-left: -10vw;
+  position: absolute;
 }
 
 .main-month .dropmenu {
@@ -92,4 +99,38 @@ cursor: pointer;
 
 
 
-/* 버튼 디자인 */
+/* 버튼 디자인 */ 
+.main-month .button {
+  width: 10vw;
+  height: 4vh;
+  /* font-family: 'Roboto', sans-serif; */
+  font-size: 11px;
+
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin-left: 2vw;
+  }
+
+.main-month .button:hover {
+  background-color: #87d889;
+  box-shadow: 0px 15px 20px rgba(179, 195, 126, 0.4);
+  color: #fff;
+  transform: translateY(-3px);
+} 
+
+
+
+
+
+
+
+
+

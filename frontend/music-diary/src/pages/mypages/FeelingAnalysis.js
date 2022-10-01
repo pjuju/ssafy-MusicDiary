@@ -125,12 +125,15 @@ const FeelingAnalysis = () => {
     })
   }, [])
 
+
+
+
   // 일주일짜리 데이터 가져오기
   const [weekData, setWeekData] = useState([])
   useEffect(()=> {
     setWeekData(fulla.filter((it)=> getDateDiff(it.created_date, aWeekAgo) < 7))
     // console.log(weekData)
-  },[nowClick])
+  },[nowClick,fullData])
   const weekHappy = weekData.filter((it)=> it.emotion == '기쁨').length
   const weekSad = weekData.filter((it)=> it.emotion == '슬픔').length
   const weekAnxious = weekData.filter((it)=> it.emotion == '불안').length
@@ -138,6 +141,7 @@ const FeelingAnalysis = () => {
   const weekNormal = weekData.filter((it)=> it.emotion == '평온').length
   const weekDepressed = weekData.filter((it)=> it.emotion == '우울').length
   console.log('이번주간',weekHappy,weekSad,weekAnxious,weekAngry,weekNormal,weekDepressed)
+
 
   // 한달짜리 데이터 가져오기
   const [monthData, setMonthData] = useState([])
