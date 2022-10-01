@@ -124,7 +124,10 @@ class DiaryList(GenericAPIView):
     serializer_class = DiarySerializer
 
     def get(self, request, format=None):
-        diaries = get_list_or_404(Diary, user=request.user.pk)
+        try:
+            diaries = get_list_or_404(Diary, user=request.user.pk)
+        except:
+            return Response([], status=status.HTTP_404_NOT_FOUND)
         # 복호화
         for diary in diaries:
             diary.title = ciper.decrypt_str(diary.title)
@@ -318,7 +321,10 @@ class DiaryMusicDetail(GenericAPIView):
     serializer_class = DiaryMusicSerializer
 
     def get(self, request, diary_pk, format=None):
-        playlist = get_list_or_404(DiaryMusic, diary=diary_pk)
+        try:
+            playlist = get_list_or_404(DiaryMusic, diary=diary_pk)
+        except:
+            return Response([], status=status.HTTP_404_NOT_FOUND)
         # 플레이리스트 속 곡들의 좋군요 정보 업데이트
         for i in range(len(playlist)):
             msc = get_object_or_404(Music, pk=playlist[i].music.id)
@@ -339,8 +345,6 @@ class DiaryMusicDetail(GenericAPIView):
             for i in range(len(oldPlaylist)):
                 oldPlaylist[i].delete()
         except:
-            if oldPlaylist != None:
-                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             pass
 
         # 대상 일기
@@ -486,7 +490,10 @@ class BookmarkList(GenericAPIView):
     serializer_class = BookmarkSerializer
 
     def get(self, request, format=None):
-        bookmarks = get_list_or_404(Bookmark, user=request.user.pk)
+        try:
+            bookmarks = get_list_or_404(Bookmark, user=request.user.pk)
+        except:
+            return Response([], status=status.HTTP_404_NOT_FOUND)
         # 복호화
         for bookmark in bookmarks:
             diary = bookmark.diary

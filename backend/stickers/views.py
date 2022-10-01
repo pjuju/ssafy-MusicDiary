@@ -20,7 +20,10 @@ class StickerPackList(GenericAPIView):
     serializer_class = StickerPackSerializer
 
     def get(self, request, format=None):
-        stickerpacks = get_list_or_404(StickerPack)
+        try:
+            stickerpacks = get_list_or_404(StickerPack)
+        except:
+            return Response([], status=status.HTTP_404_NOT_FOUND)
         serializer = StickerPackSerializer(stickerpacks, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
         
@@ -63,7 +66,10 @@ class UserStickerDetail(GenericAPIView):
     serializer_class = UserStickerSerializer
 
     def get(self, request, user_id, format=None):
-        stickers = get_list_or_404(UserSticker, user=user_id)
+        try:
+            stickers = get_list_or_404(UserSticker, user=user_id)
+        except:
+            return Response([], status=status.HTTP_404_NOT_FOUND)
         # print(stickers)
         serializer = UserStickerSerializer(stickers, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
