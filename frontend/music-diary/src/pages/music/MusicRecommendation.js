@@ -4,6 +4,10 @@ import {musicRecommend} from '../../api/musicApi'
 import { useEffect, useState } from "react"
 import {useNavigate} from 'react-router-dom'
 
+import { useSelector } from "react-redux";
+import { setNormalChoiceValue } from "../../store/store";
+import { useDispatch } from "react-redux";
+
 const MusicRecommendation = () => {
     
     const navigate = useNavigate()
@@ -53,7 +57,9 @@ const MusicRecommendation = () => {
 
         </div>
         <MainNote className="main-note"></MainNote>
-    </div>)
+    </div>
+    </>
+    )
 }
 
 export default MusicRecommendation;

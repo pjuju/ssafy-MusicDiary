@@ -78,53 +78,56 @@ learning_rate =  5e-5
 tokenizer = get_tokenizer()
 tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
 
+def predict(predict_sentence):
+    print("predict>>>>>>>", "감정분석 시작")
+    data = [predict_sentence, '0']
+    dataset_another = [data]
+
+    another_test = BERTDataset(dataset_another, 0, 1, tok, max_len, True, False)
+    test_dataloader = torch.utils.data.DataLoader(another_test, batch_size=batch_size, num_workers=5)
+    
+    loaded_data.eval()
+
+    for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(test_dataloader): 
+        token_ids = token_ids.long().to(device)
+        segment_ids = segment_ids.long().to(device)
+
+        valid_length= valid_length
+        label = label.long().to(device)
+
+        out = loaded_data(token_ids, valid_length, segment_ids)
+        
+        test_eval=[]
+        for i in out:
+            logits=i
+            logits = logits.detach().cpu().numpy()
+
+            if np.argmax(logits) == 0:
+                test_eval.append("기쁨")
+            elif np.argmax(logits) == 1:
+                test_eval.append("불안")
+            elif np.argmax(logits) == 2:
+                test_eval.append("슬픔")
+            elif np.argmax(logits) == 3:
+                test_eval.append("분노")
+            elif np.argmax(logits) == 4:
+                test_eval.append("평온")
+            elif np.argmax(logits) == 5:
+                test_eval.append("우울")
+                
+    return test_eval[0]
+
 # Get: 일기 전체 리스트 보기
 # Post: 일기 작성
 class DiaryList(GenericAPIView):
     queryset = Diary.objects.all()
     serializer_class = DiarySerializer
 
-    def predict(self, predict_sentence):
-
-        data = [predict_sentence, '0']
-        dataset_another = [data]
-
-        another_test = BERTDataset(dataset_another, 0, 1, tok, max_len, True, False)
-        test_dataloader = torch.utils.data.DataLoader(another_test, batch_size=batch_size, num_workers=5)
-        
-        loaded_data.eval()
-
-        for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(test_dataloader): 
-            token_ids = token_ids.long().to(device)
-            segment_ids = segment_ids.long().to(device)
-
-            valid_length= valid_length
-            label = label.long().to(device)
-
-            out = loaded_data(token_ids, valid_length, segment_ids)
-            
-            test_eval=[]
-            for i in out:
-                logits=i
-                logits = logits.detach().cpu().numpy()
-
-                if np.argmax(logits) == 0:
-                    test_eval.append("기쁨")
-                elif np.argmax(logits) == 1:
-                    test_eval.append("불안")
-                elif np.argmax(logits) == 2:
-                    test_eval.append("슬픔")
-                elif np.argmax(logits) == 3:
-                    test_eval.append("분노")
-                elif np.argmax(logits) == 4:
-                    test_eval.append("평온")
-                elif np.argmax(logits) == 5:
-                    test_eval.append("우울")
-                    
-        return test_eval[0]
-
     def get(self, request, format=None):
-        diaries = get_list_or_404(Diary, user=request.user.pk)
+        try:
+            diaries = get_list_or_404(Diary, user=request.user.pk)
+        except:
+            return Response([], status=status.HTTP_404_NOT_FOUND)
         # 복호화
         for diary in diaries:
             diary.title = ciper.decrypt_str(diary.title)
@@ -153,7 +156,7 @@ class DiaryList(GenericAPIView):
             emotion = data['emotion']
         else:   
             # 명시된 감정이 없을 경우 텍스트 분석으로 감정 도출
-            emotion = self.predict(data['content'])
+            emotion = predict(data['content'])
 
         newPost['emotion'] = ciper.encrypt_str(emotion)
         diarySerializer = DiarySerializer(data=newPost)
@@ -193,7 +196,6 @@ class DiaryList(GenericAPIView):
                         diarystickerSerializer.save()
 
             return DiaryDetail.get(self=DiaryDetail, request=request, diary_pk=diary_pk)
-    
 
 
 class ImageDetail(GenericAPIView):
@@ -236,14 +238,18 @@ class DiaryDetail(GenericAPIView):
     def patch(self, request, diary_pk, format=None):
         diary = get_object_or_404(Diary, pk=diary_pk)
         data = request.data
+        ctnt = ciper.decrypt_str(diary.content)
         
         newPost = dict()
         if 'title' in data:
             newPost['title'] = ciper.encrypt_str(data.get('title'))
         if 'content' in data:
+            ctnt = data.get('content')
             newPost['content'] = ciper.encrypt_str(data.get('content'))
-        if 'emotion' in data:
+        if ('emotion' in data) and (data['emotion'] != ''):
             newPost['emotion'] = ciper.encrypt_str(data.get('emotion'))
+        else:
+            newPost['emotion'] = ciper.encrypt_str(predict(ctnt))
         newPost['created_date'] = data.get('created_date', diary.created_date)
 
         diarySerializer = DiarySerializer(diary, data=newPost, partial=True)
@@ -315,7 +321,10 @@ class DiaryMusicDetail(GenericAPIView):
     serializer_class = DiaryMusicSerializer
 
     def get(self, request, diary_pk, format=None):
-        playlist = get_list_or_404(DiaryMusic, diary=diary_pk)
+        try:
+            playlist = get_list_or_404(DiaryMusic, diary=diary_pk)
+        except:
+            return Response([], status=status.HTTP_404_NOT_FOUND)
         # 플레이리스트 속 곡들의 좋군요 정보 업데이트
         for i in range(len(playlist)):
             msc = get_object_or_404(Music, pk=playlist[i].music.id)
@@ -336,8 +345,6 @@ class DiaryMusicDetail(GenericAPIView):
             for i in range(len(oldPlaylist)):
                 oldPlaylist[i].delete()
         except:
-            if oldPlaylist != None:
-                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             pass
 
         # 대상 일기
@@ -483,7 +490,10 @@ class BookmarkList(GenericAPIView):
     serializer_class = BookmarkSerializer
 
     def get(self, request, format=None):
-        bookmarks = get_list_or_404(Bookmark, user=request.user.pk)
+        try:
+            bookmarks = get_list_or_404(Bookmark, user=request.user.pk)
+        except:
+            return Response([], status=status.HTTP_404_NOT_FOUND)
         # 복호화
         for bookmark in bookmarks:
             diary = bookmark.diary

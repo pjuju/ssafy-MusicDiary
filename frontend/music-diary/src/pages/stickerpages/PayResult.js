@@ -15,20 +15,26 @@ class PayResult extends React.Component {
         params.pg_token = code;
     }
 
+    
+
     state = {
         params: {
             cid: "TC0ONETIME",
             // localstorage에서 tid값을 읽어온다.
             tid: window.localStorage.getItem("tid"),
+            total_amount: window.localStorage.getItem("total_amount"),
             partner_order_id: "partner_order_id",
             partner_user_id: "partner_user_id",
             pg_token: "",
         },
     };
 
+    
+
     componentDidMount() {
         const { params } = this.state;
-        // console.log(code)
+        console.log(params)
+        console.log(params.total_amount)
 
         axios({
             url: "https://kapi.kakao.com/v1/payment/approve",
@@ -44,10 +50,12 @@ class PayResult extends React.Component {
             
         })
         const pay = qs.stringify({
-            charge: 2000,
+            charge: params.total_amount,
           });
+        const user_id = sessionStorage.getItem("user_id")
+        console.log(user_id)
         axios.post(
-            "http://j7d204.p.ssafy.io:8080/rest/sticker/kakaopay/2/", pay
+            `http://j7d204.p.ssafy.io:8080/rest/sticker/kakaopay/${user_id}/`, pay
           )
           .then((res) => {
             console.log(JSON.stringify(res.data));
@@ -63,6 +71,7 @@ class PayResult extends React.Component {
             <div>
                 <h2>Result page</h2>
                 <h2>결제가 완료되었습니다.</h2>
+                <h2>{this.state.params.total_amount} 포인트 충전되었습니다.</h2>
             </div>
         );
     }

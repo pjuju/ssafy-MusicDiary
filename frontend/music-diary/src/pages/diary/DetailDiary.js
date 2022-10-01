@@ -61,7 +61,7 @@ const DetailDiary = () => {
 
   const strDate = new Date(date).toLocaleDateString();
 
-      // redux : bookmark 
+    // redux : bookmark 
     // store의 state 값 확인중
     const storeBookmark = useSelector((state) => {
       return state.diarySlice.diaryBookmark;
@@ -72,11 +72,14 @@ const DetailDiary = () => {
     const [background] = useImage("example-image.jpg");
     const [images, setImages] = useState([]);
 
-  const [stickerInfo, setStickerInfo] = useState([]);
-  const bookmarkRef = useRef();
+    const [stickerInfo, setStickerInfo] = useState([]);
+    const bookmarkRef = useRef();
 
     // stickers
-    const [originStickers, setOriginStickers] = useState([])
+    const [originStickers, setOriginStickers] = useState([]) // 저장되어있던 스티커들
+    const [editSticker, setEditSticker] = useState(false);
+
+
   // 이모티콘 옳게 부착하기
   const rightEmotion = (emotion) => {
     if (emotion === "행복") {
@@ -250,11 +253,6 @@ const DetailDiary = () => {
 
     // 보낼 형식에 맞게 옮기기
     const tmp = [
-      // {
-      //   sticker_id:"",
-      //   sticker_x:"",
-      //   sticker_y:""
-      // }
     ];
 
     images.map((ele, i) => {
@@ -285,7 +283,7 @@ const DetailDiary = () => {
       .catch((err) => {});
   };
 
-  // 스티커 삭제
+  // 스티커 삭제 //
   const deleteSticker = (id)=>{
     // 화면에 뿌려지는 기존스티커들 => originStickers 
     console.log("삭제할 스티커 : ele.id:", id)
@@ -296,11 +294,6 @@ const DetailDiary = () => {
 
   // 보낼 형식에 맞게 옮기기
   const tmp2 = [
-    // {
-    //   sticker_id:"",
-    //   sticker_x:"",
-    //   sticker_y:""
-    // }
   ];
 
   stickers.map((ele, i) => {
@@ -335,7 +328,10 @@ const DetailDiary = () => {
     .catch((err)=>{
       console.log(err.data)
     })
+  }
 
+  const onEditStickerPos = () => {
+    setEditSticker(true)
   }
 
   return (
@@ -373,11 +369,14 @@ const DetailDiary = () => {
             <div className='content'>{content}</div>
             {
               returnImages.length >= 1
-              ?(
+              ? (
               returnImages.map((ele,i)=>{
                 return (
                   <>
-                      <img alt="#" src={"https://"+ele.image_url} style={{width:"100px"}} />
+                    <div style={{width:"18vw", border:"1px solid black", marginLeft:"27%"}}>
+                      <img alt="#" src={"https://"+ele.image_url} 
+                         />
+                    </div>
                   </>
                 )
               })
@@ -466,15 +465,26 @@ const DetailDiary = () => {
                 // onClick={()=>console.log(`${ele.sticker_x} px`)}
               />
             <div style={{width:"500", position:"absolute",  zIndex:'99999999999999'}}>
-              <button 
+              { 
+                editSticker 
+                ?(
+              <div
                 className="delete-sticker-btn"
                 style={{
                     marginLeft:`${ele.sticker_x}px`,
                     zIndex:'99999999999999',
-                    backgroundColor:"green"
+                    // backgroundColor:"green"
                   }} 
-                onClick={()=> deleteSticker(ele.id)}>스티커삭제
-              </button>
+                onClick={()=> deleteSticker(ele.id)}>x
+              </div>
+                )
+                :(
+                  <></>
+                )
+              
+              
+              }
+              
             </div>
           </div>
            
@@ -484,29 +494,21 @@ const DetailDiary = () => {
           );
         })}
       </div>
-
-
       </div>
 
- 
-
-      {/* 6. 스티커 위치 저장 완료 버튼,,@ */}
-      <button onClick={onSaveStickerPos} style={{position:'absolute', zIndex:'99999999999999999999'}}>스티커 위치 저장 완료!</button>
       {/* 5. 스티커 선택창 */}
       <div
         className="sticker-choice-area"
-        style={{ position: "absolute", marginTop: "80vh" }}
       >
-
         {stickerInfo.map((sticker) => {
           return (
             <button
-              className="button"
+              className="sticker-choice"
               onClick={() => console.log("스티커목록의 스티커클릭")}
               onMouseDown={() => {
                 addStickerToPanel({
                   src: sticker.image_url,
-                  width: 100,
+                  width: 60,
                   // 처음에 스티커 생성되는 좌표 위치임
                   x: 500,
                   y: 300,
@@ -514,10 +516,25 @@ const DetailDiary = () => {
                 });
               }}
             >
-              <img alt="#" src={sticker.image_url} width="70" />
+              <img alt="#" src={sticker.image_url} width="50" />
             </button>
           );
         })}
+  {/* 스티커 위치 저장 완료 버튼,,@ */}
+    <button 
+      onClick={onSaveStickerPos} 
+      className="sticker-save-btn">
+      저장!
+    </button>
+
+{/* 스티커 삭제 활성화하기 */}
+    <div
+      className="sticker-edit-btn"
+      onClick={onEditStickerPos}
+    >수정
+    </div>
+
+
       </div>
       {/* 7. MainNote창 */}
       <div>
