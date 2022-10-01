@@ -36,6 +36,10 @@ display:none;
   height: 65vh;
   /* background-color: aqua; */
   margin-top: 20vh;
+  margin-bottom: 10vh;
+
+  border: 1px solid black;
+
 }
 
 .detail-diary .detail-diary-item .content {
@@ -131,10 +135,19 @@ margin-top: 3vh;
   background-color: bisque;
 }
 
+
+/* 스티커 선택창 */
 .sticker-choice-area {
   position: absolute;
-  z-index: 1300;
 
+  width: 20vw;
+  
+  margin-top: 80vh;
+  margin-left: 35vw;
+  
+  border: 1px solid black;
+  padding: 1%;
+  z-index: 1300;
 }
 
 .detail-diary .detail-diary-playlist {
@@ -166,4 +179,23 @@ margin-top: 3vh;
 .detail-diary .origin-sticker {
   cursor: pointer;
 
+}
+
+
+
+/* 스티커 저장완료 버튼 */
+.sticker-save-btn {
+  position: absolute;
+
+  font-size: 12px;
+
+  width: 50px;
+  z-index: 99999999999999999999;
+
+}
+
+/* 저장된 스티커 삭제 버튼 */
+.sticker-edit-btn {
+  font-size: 12px;
+  
 }

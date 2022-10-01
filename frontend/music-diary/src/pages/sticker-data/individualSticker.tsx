@@ -7,7 +7,7 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }) => {
   const imageRef = useRef(null);
   const isHovered = useHoverDirty(imageRef);
   const [stickerImage] = useImage(image.src);
-  const [deleteImage] = useImage("/assets/img/angry_emoji.png");
+  const [deleteImage] = useImage("/assets/img/close.png");
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const onLongPress = () => {
     setShowDeleteButton(true);
@@ -62,8 +62,8 @@ export const IndividualSticker = ({ image, onDelete, onDragEnd }) => {
           onTouchStart={onDelete}
           onClick={onDelete}
           image={deleteImage}
-          width={25}
-          height={25}
+          width={12}
+          height={12}
           offsetX={-stickerWidth / 2 - 20}
         />
       )}
