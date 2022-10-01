@@ -117,8 +117,8 @@ const DetailDiary = () => {
     // 유저가 소유한 스티커팩 조회
     getUserStickerListApi(user_id)
       .then((res) => {
-        console.log("사용자가 소유한 스티커팩 정보:", JSON.stringify(res.data));
-        console.log("***************************************************");
+        // console.log("사용자가 소유한 스티커팩 정보:", JSON.stringify(res.data));
+        // console.log("***************************************************");
         // setStickerInfo(res.data);
         let tmp = [];
         res.data.map((ele, i) => {
@@ -127,7 +127,7 @@ const DetailDiary = () => {
           // console.log(JSON.stringify(ele.stickerpacks))
           // console.log(tmp)
         });
-        console.log("최종 tmp:", JSON.stringify(tmp));
+        // console.log("최종 tmp:", JSON.stringify(tmp));
         setStickerInfo(tmp);
 
         // image_url
@@ -264,8 +264,22 @@ const DetailDiary = () => {
       };
 
       tmp.push(element);
-      console.log("추가한 현재 tmp: ", JSON.stringify(tmp));
+      // console.log("추가한 현재 tmp: ", JSON.stringify(tmp));
     });
+
+    console.log("origin:", JSON.stringify(originStickers))
+    originStickers.map((ele, i) => {
+      let origin = {
+        sticker_id: originStickers[i].sticker.id,
+        sticker_x: originStickers[i].sticker_x,
+        sticker_y: originStickers[i].sticker_y,
+      };
+
+
+      tmp.push(origin);
+    })
+
+    console.log("보내기 직전:", JSON.stringify(tmp))
 
     const diaryInfo = {
       title,
@@ -330,7 +344,7 @@ const DetailDiary = () => {
   };
 
   const onEditStickerPos = () => {
-    setEditSticker(true);
+    setEditSticker(!editSticker);
   };
 
   return (
@@ -499,10 +513,11 @@ const DetailDiary = () => {
       <div className="sticker-choice-area">
         {stickerInfo.map((pack) => {
           let eachPack = pack.stickers;
-          console.log("eachPack:", eachPack);
+          // console.log("eachPack:", eachPack);
 
           return (
             <>
+            <div className="each-pack-wrapper">
               {eachPack.map((sticker, i) => {
                 return (
                   <>
@@ -530,6 +545,7 @@ const DetailDiary = () => {
                   </>
                 );
               })}
+              </div>
             </>
           );
         })}

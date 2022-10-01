@@ -58,7 +58,6 @@ const MusicRecommendation = () => {
         </div>
         <MainNote className="main-note"></MainNote>
     </div>
-    </>
     )
 }
 
