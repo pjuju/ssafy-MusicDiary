@@ -174,6 +174,25 @@ const DiaryEditor = ({ isEdit, originData }) => {
           console.log(JSON.stringify(err.data));
         });
     }
+    // useEffect(()=> {
+    if (emotion==='') {
+      setTimeout(()=> {
+        navigate('/diarylist', { replace: true })
+        Swal.fire({
+          icon: 'success',
+          title: '일기가 저장되었습니다!',
+          showConfirmButton: false,
+          timer: 1700
+        })
+      },3000)
+    }
+
+    if (emotion === "") {
+      const spinner = document.getElementById("spinner")
+      spinner.classList.remove('display-none')
+      spinner.classList.add('display-block')
+    }
+  // },[])
     // 이미지 업로드하기
     // getDiaryImage(image)
     // .then((res)=> {
@@ -201,14 +220,21 @@ const DiaryEditor = ({ isEdit, originData }) => {
         });
     }
     // }
-    Swal.fire({
-      icon: 'success',
-      title: '일기가 저장되었습니다!',
-      showConfirmButton: false,
-      timer: 1700
-    })
-    navigate("/diarylist", { replace: true });
+
+    if (emotion !== '') {
+      Swal.fire({
+        icon: 'success',
+        title: '일기가 저장되었습니다!',
+        showConfirmButton: false,
+        timer: 1700
+      })
+      navigate("/diarylist", { replace: true });
+    }
   };
+
+
+
+
 
   // 원래 일기 정보 보여주는 로직
   useEffect(() => {
@@ -327,6 +353,15 @@ const DiaryEditor = ({ isEdit, originData }) => {
           onChange={(e) => setcontent(e.target.value)}
         ></textarea>
       </div>
+
+
+
+      <img src="/assets/img/spinner.gif" 
+      style={{position:"absolute",zIndex:"44"}}
+      id="spinner"
+      className="display-none spinner"
+      ></img>
+
 
       {/* 오른쪽 영역 */}
       <div className="right-section">

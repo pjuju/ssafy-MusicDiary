@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react';
+
 import './MainNote.css'
 import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -6,17 +8,42 @@ import { useSelector } from "react-redux";
 import { setNormalChoiceValue } from "../../store/store";
 import { useDispatch } from "react-redux";
 
+import { getUserInfoApi } from '../../api/userApi'
+
 const MainNote = () => {
     const navigate = useNavigate();
-
+    const [userImage, setUserImage] = useState("")
+    
     const storeUserName = useSelector((state)=>{
         return state.user.username
       })
+
+    const onLogoutBtn = ()=>{
+        sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("refreshToken");
+
+        navigate('/')
+    }
+
+    useEffect(()=>{
+        const user_id = sessionStorage.getItem("user_id")
+
+        getUserInfoApi(user_id)
+        .then((res)=>{
+            // console.log("in MainNote:", JSON.stringify(res.data.data.image_url))
+
+            setUserImage(res.data.data.image_url)
+        })
+        .catch((err)=>{
+            console.log(err.data)
+
+        })
+    })
     
     return(<div className='main-note'>
         <div className='left-page'>
 
-            <img src="https://images.chosun.com/resizer/isdog_htxCDUvvjr_QFnRf9sOrs=/530x669/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/CSJLDK7W7ACCYCSNQTO5BU63OU.jpg" alt="sq-sample14"
+            <img src={"https:///"+ userImage} alt="sq-sample14"
                 className='profile-image'
                 style={{width:"7vw"}}
             />
@@ -39,13 +66,13 @@ const MainNote = () => {
             </div>
         </div>
         <div className='bookmarks'>
-            <div className='logout'>로그아웃</div>
+            <div className='logout' onClick={onLogoutBtn}>로그아웃</div>
             <Dropdown className='my-page'>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                     마이 페이지
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">회원정보 수정</Dropdown.Item>
+                    <Dropdown.Item href="#/action-1" onClick={()=>{navigate('/mypage/edit')}}>회원정보 수정</Dropdown.Item>
                     <Dropdown.Item href="#/action-2" onClick={()=>{navigate('/analysis')}}>나의 감정 분석</Dropdown.Item>
                     <Dropdown.Item href="#/action-3" onClick={()=>{navigate('/mypage/mysticker')}}>나의 스티커</Dropdown.Item>
                 </Dropdown.Menu>

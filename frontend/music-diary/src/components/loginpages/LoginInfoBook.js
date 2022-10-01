@@ -289,6 +289,13 @@ function LoginInfoBook() {
                     />
                   </div>
                 <Button name="Login" color="#AC5050" size="lg" onClick={onLoginBtn}/>
+
+                {/* 카카오 로그인 */}
+                <hr />
+                <a href={KAKAO_AUTH_URL} >
+                  <img alt="#" src="/assets/img/kakao-login-btn.png" />
+                </a>
+                  <img alt="#" src="/assets/img/google-login-btn.png" />
               </div>
             </div>
 
