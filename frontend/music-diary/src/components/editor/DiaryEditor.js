@@ -11,6 +11,7 @@ import Button from "../Common/Button";
 import "./DiaryEditor.css";
 import axios from "axios";
 import Swal from "sweetalert2";
+import 'animate.css';
 
 const env = process.env;
 env.PUBLIC_URL = env.PUBLIC_URL || "";
@@ -120,23 +121,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
         console.log(JSON.stringify(err.data));
       });
   };
-  // await axios
-  //   .post("http://j7d204.p.ssafy.io:8080/rest/diary/image/", info, {
-  //     header: {
-  //       "Content-Type": `multipart/form-data`,
-  //     },
-  //   })
-  //   .then((response) => {
-  //     if (response.data) {
-  //       console.log(response.data);
-  //       setResImg(response.data);
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.log(error.data);
-  //   });
 
-  // };
 
   const handleClickEmote = (emotion) => {
     console.log(emotion);
@@ -192,15 +177,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
       spinner.classList.remove('display-none')
       spinner.classList.add('display-block')
     }
-  // },[])
-    // 이미지 업로드하기
-    // getDiaryImage(image)
-    // .then((res)=> {
-    //     console.log(res.data)
-    // })
-    // .catch((err)=> {
-    //     console.log(err.data)
-    // })
+
 
     if (isEdit) {
       // 일기 수정하기
@@ -256,8 +233,10 @@ const DiaryEditor = ({ isEdit, originData }) => {
   const emotionAnxiousRef = useRef();
   useEffect(() => {
     if (emotion == "기쁨") {
-      emotionHappyRef.current.style.scale = "120%";
+      // emotionHappyRef.classList.add('animate__animated animate__bounce')
       // emotionHappyRef.current.style.height = '5vh';
+      const happy = document.getElementById('happy')
+      // happy.classList.add('animate__animated animate__bounce')
     } else {
       emotionHappyRef.current.style.width = "4vw";
     }
@@ -296,6 +275,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
           className="emoji-img animate__animated animate__bounceIn"
           onClick={() => handleClickEmote("기쁨")}
           ref={emotionHappyRef}
+          id="happy"
         ></img>
         <img
           src="/assets/img/sad_emoji.png"
@@ -354,7 +334,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
         ></textarea>
       </div>
 
-
+ 
 
       <img src="/assets/img/spinner.gif" 
       style={{position:"absolute",zIndex:"44"}}

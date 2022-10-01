@@ -13,7 +13,7 @@ const MainCalender =() => {
     const navigate = useNavigate();
 
     const [getMoment, setMoment]=useState(moment());
-
+ 
     const today = getMoment;
     const firstWeek = today.clone().startOf('month').week();
     const lastWeek = today.clone().endOf('month').week() === 1 ? 53 : today.clone().endOf('month').week();
@@ -135,7 +135,7 @@ const MainCalender =() => {
               <button onClick={()=>{ setMoment(getMoment.clone().add(1, 'month')) }} className="time-change-button" >&nbsp; &#10093;	</button>
             </div>
           </div>
-          <button class="btn-hover color-1 diary-editor-button" onClick={()=>{navigate('/newdiary')}}>일기 작성</button>
+          <button class="button" onClick={()=>{navigate('/newdiary')}}>일기 작성</button>
           <ul onClick={()=>{navigate('/diarylist')}} className="snip1241">
             <li><a href="#">모아보기</a></li>
           </ul>          
