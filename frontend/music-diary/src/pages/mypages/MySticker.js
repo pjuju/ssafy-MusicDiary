@@ -5,7 +5,8 @@ import "../../css/mypages/MySticker.css";
 import { BiStore } from "react-icons/bi"; // 상점 이모지
 import { getUserStickerListApi } from "../../api/stickerApi"; // 해당 유저의 스티커팩 리스트 조회
 import MainNote from "../mainpages/MainNote";
-import StickerItem from '../../components/sticker/StickerItem'
+// import StickerItem from '../../components/sticker/StickerItem'
+import MyStickerItem from "../../components/sticker/MyStickerItem";
 
 function MySticker() {
 
@@ -14,14 +15,12 @@ function MySticker() {
  
   
   useEffect(() => {
-
     const user_id = sessionStorage.getItem("user_id")
-    console.log(user_id)
 
-    getUserStickerListApi(13)
+    getUserStickerListApi(user_id)
     .then((res)=>{
         setMyStickerList(res.data)
-        console.log(mystickerList)
+        console.log("사용자가 소유한 스티커팩:", res.data)
     })
     .catch((err)=>{
       console.log(err)
@@ -32,7 +31,6 @@ function MySticker() {
     navigate('/sticker/store')
   }
 
-  console.log(mystickerList.length)
 
   return (
     <div className="my-sticker">
@@ -88,7 +86,7 @@ function MySticker() {
         {/* 보유한 스티커가 1개라도 있으면 스티커 아이템 보여주고 없으면 없다고 메시지 알려주기 */}
         {mystickerList.length !== 0 ? (<>
           {mystickerList.map((it)=> 
-            <StickerItem sticker={it}></StickerItem>
+            <MyStickerItem sticker={it}></MyStickerItem>
             )}
         </>) : (<>
           <div className="no-sticker">
