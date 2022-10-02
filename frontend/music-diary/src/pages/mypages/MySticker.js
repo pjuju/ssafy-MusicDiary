@@ -89,7 +89,7 @@ function MySticker() {
             <MyStickerItem sticker={it}></MyStickerItem>
             )}
         </>) : (<>
-          <div className="no-sticker">
+          <div className="no-sticker" style={{marginTop:"15vh"}}>
             현재 보유한 스티커가 없습니다!
         </div>
         </>

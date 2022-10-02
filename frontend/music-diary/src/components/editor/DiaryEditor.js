@@ -169,7 +169,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
           showConfirmButton: false,
           timer: 1700
         })
-      },3000)
+      },2500)
     }
 
     if (emotion === "") {
@@ -231,44 +231,51 @@ const DiaryEditor = ({ isEdit, originData }) => {
   const emotionNormalRef = useRef();
   const emotionAngryRef = useRef();
   const emotionAnxiousRef = useRef();
+  const emotionRandomRef = useRef()
   useEffect(() => {
     if (emotion == "기쁨") {
-      // emotionHappyRef.classList.add('animate__animated animate__bounce')
       // emotionHappyRef.current.style.height = '5vh';
       const happy = document.getElementById('happy')
-      // happy.classList.add('animate__animated animate__bounce')
+      emotionHappyRef.current.style.scale = "130%";
     } else {
-      emotionHappyRef.current.style.width = "4vw";
+      emotionHappyRef.current.style.scale = "80%";
     }
     if (emotion == "슬픔") {
-      emotionSadRef.current.style.width = "5vw";
+      emotionSadRef.current.style.scale = "130%";
     } else {
-      emotionSadRef.current.style.width = "4vw";
+      emotionSadRef.current.style.scale = "80%";
     }
     if (emotion == "우울") {
-      emotionDepressedRef.current.style.width = "5vw";
+      emotionDepressedRef.current.style.scale = "130%";
     } else {
-      emotionDepressedRef.current.style.width = "4vw";
+      emotionDepressedRef.current.style.scale = "80%";
     }
     if (emotion == "평온") {
-      emotionNormalRef.current.style.width = "5vw";
+      emotionNormalRef.current.style.scale = "130%";
     } else {
-      emotionNormalRef.current.style.width = "4vw";
+      emotionNormalRef.current.style.scale = "80%";
     }
     if (emotion == "분노") {
-      emotionAngryRef.current.style.width = "5vw";
+      emotionAngryRef.current.style.scale = "130%";
     } else {
-      emotionAngryRef.current.style.width = "4vw";
+      emotionAngryRef.current.style.scale = "80%";
     }
     if (emotion == "불안") {
-      emotionAnxiousRef.current.style.width = "5vw";
+      emotionAnxiousRef.current.style.scale = "130%";
     } else {
-      emotionAnxiousRef.current.style.width = "4vw";
+      emotionAnxiousRef.current.style.scale = "80%";
+    }
+    if (emotion == "") {
+      emotionRandomRef.current.style.scale = "110%";
+    } else {
+      emotionRandomRef.current.style.scale = "80%";
     }
   }, [emotion]);
 
   return (
     <div className="diary-editor">
+      <h5 style={{marginTop:'6vh', marginLeft:"-47vw"}}>오늘의 감정을 골라보세요</h5>
+      <p style={{marginTop:'-1vh', marginLeft:"-18vw"}}>감정을 선택하지 못하시겠다구요? 물음표를 클릭해보세요. 오늘 일기 내용을 바탕으로 감정을 추천해드립니다.</p>
       <div ref={emotionRef} className="select-emotion">
         <img
           src="/assets/img/happy_emoji.png"
@@ -307,7 +314,11 @@ const DiaryEditor = ({ isEdit, originData }) => {
           onClick={() => handleClickEmote("불안")}
           ref={emotionAnxiousRef}
         ></img>
-        <div onClick={() => setEmotion("")}>랜덤</div>
+        <img src="/assets/img/question.png"
+         className="emoji-img animate__animated animate__bounceIn"
+         onClick={() => setEmotion("")}
+         ref={emotionRandomRef}
+         ></img>
       </div>
       <input
         value={created_date}
@@ -335,7 +346,6 @@ const DiaryEditor = ({ isEdit, originData }) => {
       </div>
 
  
-
       <img src="/assets/img/spinner.gif" 
       style={{position:"absolute",zIndex:"44"}}
       id="spinner"
@@ -383,25 +393,22 @@ const DiaryEditor = ({ isEdit, originData }) => {
 
             <Button
               name="사진 등록"
-              style={{ width: "75px", fontSize: "15px", marginLeft: "20px" }}
+              style={{ width: "75px", fontSize: "15px", 
+              marginLeft: "-5vw", marginTop:"-1vh", position:"absolute" }}
               color="#AC5050"
               size="sm"
-              onClick={onImgRegisterBtn}
-            />
+              onClick={onImgRegisterBtn} />
+
         </div>
-
-
       </div>
 
-      <button onClick={handleSubmit} className="submit-button">
-        작성 완료
-      </button>
+      <button class="snip1431 submit-button" onClick={handleSubmit}>작성 완료</button>
 
       <button
         onClick={() => {
           navigate(-1);
         }}
-        className="back-button"
+        className="back-button snip1417"
       >
         작성 취소
       </button>
