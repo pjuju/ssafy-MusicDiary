@@ -253,7 +253,7 @@ const DetailDiary = () => {
 
   // 북마크 다루기 ////////////////////////////////////////
   const handleBookmark = () => {
-    console.log("RETURN IMAGES:", returnImages[0].image_url);
+    // console.log("RETURN IMAGES:", returnImages[0].image_url);
     if (storeBookmark === false) {
       console.log("북마크 state:", bookmark);
       dispatch(setDiaryBookmarkValue(true));
