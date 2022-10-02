@@ -1,5 +1,6 @@
 import MainNote from "../../mainpages/MainNote"
-import { musicRecommend} from '../../../api/musicApi'
+import { musicRecommend, getMusic, makeLike } from '../../../api/musicApi'
+import { getUserApi } from '../../../api/userApi'
 import { useEffect, useState } from "react"
 import './AngryRecommendation.css'
 import { useNavigate } from "react-router-dom"
@@ -8,10 +9,51 @@ const AngryRecommendation =() => {
     const [angryMusic, setAngryMusic] = useState([])
     const [youtube, setYoutube] = useState("")
     const navigate = useNavigate()
+    const [ user, setUser ] = useState("")
     
     // const [videoid, setVideoid] = useState('')
 
+    getUserApi()
+    .then((res) => {
+        setUser(res.pk);
+    })
+    .catch((err)=> {
+        console.log(err) 
+    })
+    
+    const likeMusic = (music_id) => {
+        const txt = document.getElementById("heart"+music_id);
+        if (txt.innerText === "♥"){
+          txt.innerText = "♡";
+        }else{
+          txt.innerText = "♥";
+        }
+        makeLike(music_id)
+        
+        .then((res) => {
+        })
+        .catch((e) => {
+          console.log("err", e);
+        });
+      }
+    
+    const likeCheck = (music_id) => {
+        const txt = document.getElementById("heart"+music_id);
+        getMusic(music_id)
+        .then((res) => {
+            if(res.data.like_users.includes(user)==="true"){
+                txt.innerText = "♥";
+            } else{
+                txt.innerText = "♡";
+            }
+        })
+        .catch((e) => {
+            console.log("err", e);
+        });
+    }
+
     useEffect(()=> {
+        
         musicRecommend(4)
         .then((res)=> {
             // console.log(res.data)
@@ -51,10 +93,16 @@ const AngryRecommendation =() => {
                 allowfullscreen style={{width:"35vw", height:"40vh", marginTop:"5vh"}}></iframe>
                 
                 <div style={{marginLeft:"2vw", marginTop:'5.5vh'}}>
-                    {angryMusic.map((it)=> 
-                    <p style={{display:"flex", marginTop:"-1.3vh"}}
-                    onClick={()=>{navigate({youtube})}}
-                    >{it.track_name}</p>)}
+                    
+                    {angryMusic.map((it)=>
+                    <div>
+                        {likeCheck(it.id)}
+                        <p id={"heart"+it.id} style={{zIndex:"9999999999999999999999", display:"inline-block", cursor: "pointer", whitespace: "nowrap"}} onClick = {()=>likeMusic(it.id)}> </p>
+                        <p style={{display:"inline-block", marginTop:"-1.3vh", whitespace: "nowrap"}}
+                        onClick={()=>{navigate({youtube})}}
+                        >{it.track_name}</p><br></br>
+                    </div>
+                    )}
                 </div>
             </div>
         </div>

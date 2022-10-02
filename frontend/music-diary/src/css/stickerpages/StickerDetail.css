@@ -20,183 +20,110 @@
 }
 
 
-/* 상단영역 */
-.sticker-detail .goback-button {
-    position: absolute;
-    margin-top: 20vh;
+/* 상단 스티커 정보 영역 */
+.sticker-detail .header {
+    width: 60vw;
+    height: 30vh;
+    /* background-color: pink; */
+    margin-top: 5vh;
+    margin-left: 2vw;
 }
-
 
 .sticker-detail .thumbnail {
-    margin-left: -33vw;
-    margin-top: 10vh;
+    margin-left: -35vw;
+    margin-top: 4vh;
+    width: 12vw;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 혜연이 코드 */
-.sticker-detail-wrapper {
-
-}
-
-
-.sticker-detail-wrapper .sticker-page-header {
-    font-size: 40px;
-    color: black;
-}
-
-/* 스티커 전체 영역 */
-.sticker-detail-wrapper .sticker-wrapper {
-
-
-    width: 60%;
-    height: 550px;
-    
-    margin-left: 30%;
-}
-
-/* 스티커 이름 검색, 상점 header영역 */
-.sticker-detail-wrapper .header {
-    display: flex;
-    
-    width: 100%;
-
-    margin-top: 5%;
-    margin-bottom: 3%;
-
-    font-size: 22px;
-    color: black;
-
-}
-
-/* 이름 검색 */
-.sticker-detail-wrapper .header-left {
-    justify-content: start;
-
-    margin-right: 50%;
-    width: 50%;
-}
-
-/* 상점 */
-.sticker-detail-wrapper .header-right {
-    justify-content: end;
-    width: 30%;
-}
-
-.sticker-detail-wrapper .header-right:hover {
-    border-radius: 10px;
-    background-color: rgb(200, 210, 200);
-}
-
-
-/* 보유한 스티커 리스트 영역 */
-.sticker-detail-wrapper .list-wrapper {
-    background-color: #E9E0D6;
-    /* display: flex; */
-
-    width: 100%;
-    height: 500px;
-
-    padding-top: 5%;
-    padding-left: 5%;
-
-}
-
-
-/* 개별 스티커팩 부분 */
-.sticker-detail-wrapper .sticker-info {
-    display: flex;
-
-    width: 80%;
-    height: 30%;
-
-    margin-left: 2%;
-    margin-right: 2.5%;
-}
-
-.sticker-detail-wrapper .sticker-info .sticker-left-img {
-    width: 50%;
-}
-
-.sticker-detail-wrapper .sticker-info .sticker-right-info {
-    width: 50%;
+.sticker-detail .info {
+    margin-top: -20vh;
+    margin-left: -10vw;
     /* display: flex; */
 }
 
-.sticker-detail-wrapper .sticker-name {
-
-    width: 90%;
-
-    margin-right: 40px;
-    margin-left: -30%;
-    margin-top: 5%;
-    
-    
-    color : black;
-    font-size: 30px;
+.sticker-detail .goback-button {
+    /* position: absolute;
+    margin-top: 20vh; */
 }
 
-.sticker-detail-wrapper .list-wrapper .sticker-list-wrapper {
-
-    width: 90%;
-    height: 55%;
-
-    margin-left: 3%;
-    margin-top: 5%;
-
-    background-color: rgb(228, 235, 216);
+/* 개별 스티커 영역 */
+.sticker-detail .sticker-area {
+    width: 60vw;
+    height: 45vh;
+    margin-left: 2vw;
+    /* background-color: #e4e4e4; */
+    overflow:auto;
+-ms-overflow-style: none;
 }
 
-.sticker-detail-wrapper .sticker-list-wrapper img {
-    width: 100%;
-    height: 100%;
+.sticker-detail .sticker-area::-webkit-scrollbar{
+    display:none;
+    }
+
+.sticker-detail .sticker-image {
+    width: 100px;
 }
 
 
 
-/* 스티커 가격, 버튼 영역 */
-.sticker-detail-wrapper .sticker-info .sticker-buy-charge-wrapper {
-    display: flex;
-    margin-top: 5%;
 
-    /* 영역 확인용*/
-    /* background-color: aliceblue;  */
 
-    color: black;
+/* 구매 버튼 */
+@import url(https://fonts.googleapis.com/css?family=Raleway:600);
+.snip1272 {
+  font-family: 'Raleway', Arial, sans-serif;
+  border: none;
+  background-color: #148f77;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0px 40px;
+  display: inline-block;
+  margin: 15px 30px;
+  text-transform: uppercase;
+  line-height: 2.7em;
+  font-weight: 600;
+  font-size: 1em;
+  outline: none;
+  position: relative;
+  font-size: 16px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.snip1272:after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  left: 50%;
+  right: 50%;
+  border-radius: inherit;
+  background-color: rgba(255, 255, 255, 0.15);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.snip1272:before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  -webkit-transform: translateY(5px);
+  transform: translateY(5px);
+  background-color: inherit;
+  border-radius: 10px;
+  z-index: -1;
+  box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.75);
+}
+.snip1272:hover:after,
+.snip1272.hover:after {
+  left: 0;
+  right: 0;
 }
 
-.sticker-info .sticker-buy-charge-wrapper .sticker-buy-btn {
-    margin-left: 5%;
 
 
-}
 
-.sticker-info .sticker-buy-charge-wrapper .sticker-point-charge {
-    margin-left: 5%;
-}
 
-.sticker-info .sticker-buy-charge-wrapper Button {
-    width: 70px;
 
-    font-size: 18px;
-}
 

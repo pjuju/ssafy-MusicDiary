@@ -1,0 +1,17 @@
+.my-sticker-item {
+    width: 18vw;
+    height: 30vh;
+    /* background-color: black; */
+    float: left;
+    margin-left: 1.5vw;
+    margin-top: 4vh;
+}
+
+.my-sticker-item .my-sticker-item-img {
+    scale: 120%;
+    margin-top: 3vh;
+}
+
+.my-sticker-item .my-sticker-item-name {
+    margin-top: 2vh;
+}

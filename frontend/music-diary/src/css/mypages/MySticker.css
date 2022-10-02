@@ -3,15 +3,15 @@
 }
 
 .my-sticker .work-area {
-    width: 64vw;
-height: 93.5vh;
-margin-top: 6vh;
-margin-left: 24vw;
+  width: 64vw;
+  height: 86vh;
+  margin-top: 8vh;
+  margin-left: 24vw;
+  /* background-color: green; */
 
-position: absolute;
-z-index: 1;
-color: black;
-/* background-color: green; */
+  position: absolute;
+  z-index: 1;
+  color: black;
 }
 
 .my-sticker .main-note {
@@ -45,7 +45,7 @@ button.snip0050 {
   opacity: 1;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  left: 25vw;
+  /* left: vw; */
 }
 button.snip0050 span {
   display: inline-block;

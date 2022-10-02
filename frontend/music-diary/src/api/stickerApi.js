@@ -9,6 +9,7 @@ export const getTotalStickerListApi = async( success, fail) => {
 
 // 사용자가 보유한 스티커팩 조회 
 export const getUserStickerListApi = async (user_id, succes, fail) => {
+    console.log("userId:", user_id)
     return await api.get(`/sticker/user/${user_id}/`) 
 }
 
