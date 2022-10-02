@@ -5,8 +5,8 @@
 .sticker-store-page .sticker-store {
     /* 이건 모든 페이지들이 공용으로 설정할 값 */
     width: 64vw;
-    height: 93vh;
-    margin-top: 7vh;
+    height: 86vh;
+    margin-top: 8vh;
     margin-left: 24vw;
     /* background-color: green; */
   
@@ -26,7 +26,8 @@
 }
 
 .sticker-store-page .store-header-left {
-    margin-left: -30vw;
+    height: 5vh;
+    width: 18vw;
 }
 
 
@@ -34,8 +35,8 @@
 .sticker-store-page .store-board {
     width: 60vw;
     height: 70vh;
-    margin-left: 1vw;
-    margin-top: 5vh;
+    margin-left: 2vw;
+    margin-top: -2.5vh;
     /* background-color: grey; */
     overflow:auto;
     -ms-overflow-style: none;
@@ -245,3 +246,62 @@ button.snip0050 {
     margin-right: 40px;
     font-size: 18px;
 } 
+
+
+
+
+
+/* 내 스티커 돌아가기 버튼 */
+.snip1231 {
+  text-align: center;
+  font-weight: 500;
+  color: black
+}
+.snip1231 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.snip1231 li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0.5em 1em;
+  padding: 0;
+}
+.snip1231 a {
+  padding: 0.8em 17px;
+  color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.snip1231 a:before,
+.snip1231 a:after {
+  left: 0%;
+  right: 0%;
+  top: 50%;
+  -webkit-transform: translateY(-50%) rotate(0deg);
+  transform: translateY(-50%) rotate(0deg);
+  content: '';
+  border-left: 12px solid #46627f;
+  border-right: 12px solid #46627f;
+  height: 3px;
+  position: absolute;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.snip1231 a:hover,
+.snip1231 .current a {
+  color: #000000;
+}
+.snip1231 a:hover:before,
+.snip1231 .current a:before {
+  -webkit-transform: translateY(-50%) rotate(12deg);
+  transform: translateY(-50%) rotate(12deg);
+}
+.snip1231 a:hover:after,
+.snip1231 .current a:after {
+  -webkit-transform: translateY(-50%) rotate(-12deg);
+  transform: translateY(-50%) rotate(-12deg);
+}

@@ -16,7 +16,7 @@ const MusicRecommendation = () => {
         <div className="work-area">
             <h2 style={{marginTop:'5vh'}}>플레이리스트 추천</h2>
             <p>그날 그날 바뀌는 나의 감정, 다르게 음악을 추천받을 수 없을까?</p>
-            <p style={{marginTop:"-3vh"}}>순간의 감정에 어울리는 음악을 추천받아 보세요</p>
+            <p style={{marginTop:"-2vh"}}>순간의 감정에 어울리는 음악을 추천받아 보세요</p>
         
             <div className="playlist">
                 <div style={{display:"flex", justifyContent:"space-around", marginTop:"6vh"}}>
