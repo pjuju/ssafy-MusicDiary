@@ -7,48 +7,45 @@
 .display-none {
     display: none;
 }
-
+ 
 .spinner {
     margin-top: 20vh;
-    margin-left: 18vw;
+    margin-left: 23vw;
 }
 
 /* 상단 이모티콘 고르기 */
 .diary-editor .select-emotion {
     width: 40vw;
     height: 7vh;
-    margin-left: 5vw;
-    margin-top: 6vh;
+    margin-left: 8vw;
+    margin-top: -1vh;
     display: flex;
-
+    /* background-color: green; */
 }
 
 .diary-editor .emoji-img {
     width: 4vw;
     float: left;
-    margin-left: 1vw;
+    margin-left: 0.3vw;
     cursor: pointer;
 }
 
 .diary-editor .input-date {
-    margin-left: 2vw;
-    margin-top: 3vh;
+    margin-left: 15vw;
+    margin-top: -5vh;
     /* background-color: green; */
-}
-
-.clicked {
-    width: 5vw;
+    position: absolute;
 }
 
 
 /* 왼쪽 */
 .diary-editor .left-section {
-    width: 45vw;
+    width: 53vw;
     height: 65vh;
     /* background-color: pink; */
-    margin-top: 7vh;
+    margin-top: 4vh;
     position: absolute;
-    margin-left: 3vw;
+    margin-left: 2vw;
 }
 
 .diary-editor .input-date {
@@ -76,23 +73,29 @@
     width: 20vw;
     height: 60vh;
     position: absolute;
-    margin-left: 47vw;
-    margin-top: 7vh;
+    margin-left: 50vw;
+    margin-top: 4vh;
     display: block;
     /* background-color: black; */
 }
 
+
+
+/* 작성 취소 완료 버튼 */
+
 .diary-editor .submit-button {
     position: absolute;
-    margin-top: 70vh;
-    margin-left: -3vw;
+    margin-top: 55vh;
+    margin-left: 19.5vw;
 }
 
 .diary-editor .back-button {
     position: absolute;
-    margin-top: 70vh;
-    margin-left: -11vw;
+    margin-top: 55vh;
+    margin-left: 12vw;
 }
+
+
 
 /* 이미지 업로드 관련 */
 .diary-editor .diary-img-wrapper {
@@ -128,4 +131,135 @@
 
 .diary-editor .diary-register-btn > label {
     margin-right: 6vw;
+}
+
+
+
+
+/*  */
+.snip1431 {
+  border: none;
+  background-color: #5cc599;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0px 20px;
+  display: inline-block;
+  /* margin: 10px 30px; */
+  /* text-transform: uppercase; */
+  line-height: 40px;
+  font-weight: 400;
+  font-size: 1em;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  font-size: 16px;
+  border-radius: 23px;
+  letter-spacing: 2px;
+  -webkit-transform: translateZ(0);
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.snip1431:before {
+  opacity: 0;
+  content: "";
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  border-radius: inherit;
+  background-color: #ffffff;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+.snip1431:after {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  border: 5px solid #5cc599;
+  content: '';
+  border-radius: inherit;
+}
+.snip1431:hover,
+.snip1431.hover {
+  background-color: #5cc599;
+  color: #ffffff;
+}
+.snip1431:hover:before,
+.snip1431.hover:before {
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+  opacity: 0.25;
+}
+
+
+
+/* 취소버튼 */
+.snip1417 {
+  border: none;
+  background-color: #afb9df;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0px 20px;
+  display: inline-block;
+  margin: 15px 30px;
+  /* text-transform: uppercase; */
+  line-height: 40px;
+  font-weight: 400;
+  font-size: 1em;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  font-size: 16px;
+  border-radius: 23px;
+  letter-spacing: 2px;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transform: translateZ(0);
+}
+.snip1417:before {
+  opacity: 0;
+  content: "";
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  border-radius: inherit;
+  background-color: #ffffff;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+.snip1417:after {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  border: 5px solid #afb9df;
+  content: '';
+  border-radius: inherit;
+}
+.snip1417:hover,
+.snip1417.hover {
+  background-color: #afb9df;
+  color: #ffffff;
+}
+.snip1417:hover:before,
+.snip1417.hover:before {
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+  opacity: 0.25;
 }

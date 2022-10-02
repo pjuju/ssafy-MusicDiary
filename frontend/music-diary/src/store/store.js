@@ -4,7 +4,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit'
 let user = createSlice({
     name: 'user',
     // 평소에 -> 1, 2, 3, 4  / 슬플 때 / 화날 때 / 우울할 때
-    initialState: { email:'email', password:'password', password2:'password2', username : 'kim', normalChoice: -1, sadChoice: -1, angryChoice: -1, depressedChoice: -1},
+    initialState: { email:'email', password:'password', password2:'password2', username : 'null', normalChoice: -1, sadChoice: -1, angryChoice: -1, depressedChoice: -1},
 
     reducers : {
         // 1. sad 감정 정보 숫자로 받아서 설정하는 부분
