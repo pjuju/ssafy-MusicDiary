@@ -16,7 +16,10 @@ import {
   makeBookmark,
   deleteBookmark,
   modifyDiaryItem,
+  makePlaylist,
+  getPlaylist,
 } from "../../api/diaryApi";
+import { makeLike } from "../../api/musicApi";
 import { getUserStickerListApi } from "../../api/stickerApi";
 
 import "./DetailDiary.css";
@@ -64,6 +67,12 @@ const DetailDiary = () => {
   const storeBookmark = useSelector((state) => {
     return state.diarySlice.diaryBookmark;
   });
+
+  //music
+  const [musicBtn, setMusicBtn] = useState(false)
+  const [musics, setMusics] = useState([]);
+  const [heart, setHeart] = useState("");
+  const [youtube, setYoutube] = useState("");
 
   // konva //
   const [background] = useImage("example-image.jpg");
@@ -166,6 +175,62 @@ const DetailDiary = () => {
       }
     }
   }, [id, monthData, bookmark]);
+
+  ///음악
+  useEffect(()=>{
+
+    makePlaylist(id)
+    getPlaylist(id)
+    
+      .then((res) => {
+        var list = [];
+        let video = "";
+        for (let i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+          if(res.data[i].like===true){
+            setHeart("♥");
+          }else{
+            setHeart("♡");
+          }
+          let test = {
+            id: res.data[i].music.id,
+            like: res.data[i].like,
+            name: res.data[i].music.track_name,
+            artist: res.data[i].music.artist_name,
+            heart: heart,
+          }
+          video += (res.data[i].music.videoid + ",");
+          list.push(test)
+        }
+        setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
+        console.log("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
+        console.log("youtube:", youtube);
+        setMusics(list);
+
+            // 버튼 활성화
+        setMusicBtn(true)
+      })
+      .catch((e) => {
+        console.log("err", e);
+      });
+    
+  },[])
+
+  const likeMusic = (music_id, i) => {
+    const txt = document.getElementById("heart"+i);
+    if (txt.innerText === "♥"){
+      txt.innerText = "♡";
+    }else{
+      txt.innerText = "♥";
+    }
+    makeLike(music_id)
+    
+    .then((res) => {
+      console.log("성공?");
+    })
+    .catch((e) => {
+      console.log("err", e);
+    });
+  }
 
   //////////////////////////////////////////////////////////////////////////////
   // 다이어리 remove 함수
@@ -398,7 +463,43 @@ const DetailDiary = () => {
         </div>
 
         {/* 일기별 플레이리스트 */}
-        <div className="detail-diary-playlist"></div>
+        <div className="detail-diary-playlist">
+        <iframe width="560" height="315" src={youtube} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          { musicBtn
+          ? (
+            <>
+            {
+              musics.map((ele, i)=>{
+                
+                var idName = "heart"+i;
+                return (
+                  <>
+                    <div>
+                      
+                    {/* <div id="heartheart" style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, e)}>{ele.heart}</div> */}
+                      {ele.name} - {ele.artist}
+
+                      {ele.like === true? (<>
+                        <div id={idName} style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, i)}>♥</div>
+                      </>) : (<>
+                        <div id={idName} style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, i)}>♡</div>
+                        
+                      </>)}
+                    </div>
+                  </>
+                )
+              })
+            }
+            </>
+          )
+          : (
+            <>
+            <div>아직 음악없음</div>
+            </>
+          )
+        }
+          {/* <div>{musics[0]}</div> */}
+        </div>
 
         {/* 우측상단의 수정, 삭제 버튼 */}
         <div className="btn-area">

@@ -53,12 +53,12 @@ export const deleteBookmark = async(diary_id, success, fail) => {
 
 // 일기별 플레이리스트 생성(POST) X
 export const makePlaylist = async(diary_id, success, fail) => {
-    return await api.post(`/diary/${diary_id}/playlist`)
+    return await api.post(`/diary/${diary_id}/playlist/`)
 }
 
 // 일기별 플레이리스트 조회(GET) X
 export const getPlaylist = async(diary_id, success, fail) => {
-    return await api.get(`/diary/${diary_id}/playlist`)
+    return await api.get(`/diary/${diary_id}/playlist/`)
 }
 
 // 월별 일기 감정 조회(GET) dds
