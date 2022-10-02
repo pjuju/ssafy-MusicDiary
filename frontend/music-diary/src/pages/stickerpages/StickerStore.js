@@ -20,10 +20,11 @@ function StickerStore() {
 
     useEffect(()=>{
       // 사용자가 현재 보유하고 있는 포인트 불러와서 출력
-        const user_id = ''
+        const user_id = sessionStorage.getItem("user_id")
         getUserInfoApi(user_id)
         .then((res)=>{
           // setStickerPackList(res.data)
+          console.log(res.data)
         })
         .catch((err)=>{
           console.log(err)
@@ -72,68 +73,16 @@ function StickerStore() {
   const stickerPackListNameList = stickerPackList.map((it)=> it.name === search)
   return (
     <div className="sticker-store-page">
-    {/* <div className="sticker-store-wrapper">
-        <div className="sticker-page-header">상점 <BiStore /></div>
-
-        <div className="sticker-wrapper">
-          <div className="header">
-            <div className="header-left">
-              <input 
-                placeholder="스티커 이름을 검색해보세요" 
-                onChange={onSearchWordHandler}
-                onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                      onSearchBtn();
-                    }
-                  }}
-                />
-            </div>
-            <div className="header-right" onClick={onMoveMyStickerPage}>
-              나의 스티커
-              <BiPlay />
-            </div>
-          </div>
-
-          <div className="list-wrapper">
-
-            <div className="sticker-info" onClick={onMoveStickerDetailPage}>
-                <div className="sticker-img">
-                    <img alt="#" src="/assets/img/sticker-pack-1.png" />
-                </div>
-                <div className="sticker-name">
-                    <div>도형1 스티커</div>
-                </div>
-            </div>
-
-            <div className="sticker-info" >
-                <div className="sticker-img">
-                    <img alt="#" src="/assets/img/sticker-pack-1.png" />
-                </div>
-                <div className="sticker-name">
-                    <div>도형2 스티커</div>
-                </div>
-            </div>
-
-            <div className="sticker-info" >
-                <div className="sticker-img">
-                    <img alt="#" src="/assets/img/sticker-pack-1.png" />
-                </div>
-                <div className="sticker-name">
-                    <div>도형3 스티커</div>
-                </div>
-            </div>
-
-          </div>
-        </div>
-      </div> */}
 
       <div className="sticker-store">
         <div className="store-header">
-          <h1>상점</h1>
-          <div>
+          <h1>스티커 상점</h1>
+          <div style={{display:"flex", justifyContent:'space-between', width:'56vw', marginLeft:"4vw"}}>
             <input placeholder="스티커 이름을 검색해보세요" className="store-header-left" 
             onChange={searchSticker} value={search}></input>
-            <button className="store-header-right" onClick={()=>{navigate('/mypage/mysticker')}}>내가 보유한 스티커</button>
+            <ul class="snip1231 store-header-right"  onClick={()=>{navigate('/mypage/mysticker')}}>
+              <li><a href="#" style={{color:'black'}}>내가 보유한 스티커</a></li>
+            </ul>
           </div>
         </div>
 
