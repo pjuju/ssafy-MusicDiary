@@ -31,7 +31,12 @@ import {
   ChargePoint,
   IntroScrollPage,
   Test,
-  MyPlaylistDetail,
+  AngryPlaylist,
+  CalmPlaylist,
+  DepressPlaylist,
+  HappyPlaylist,
+  NervousPlaylist,
+  SadPlaylist,
   MyPlaylist,
   MusicRecommendation,
   Payment,
@@ -207,8 +212,13 @@ function App() {
           <Route path="/sticker/charge" element={<ChargePoint /> } /> 
           <Route path="/kakao/login/callback" element={<KakaoAuth />} /> 
           <Route path="/google/login/callback" element={<GoogleAuth />} /> 
-          <Route path='myplaylistdetail' element={<MyPlaylistDetail />} />
-          <Route path='myplaylist' element={<MyPlaylist />} />
+          <Route path='/angryplaylist' element={<AngryPlaylist />} />
+          <Route path='/calmplaylist' element={<CalmPlaylist />} />
+          <Route path='/depressplaylist' element={<DepressPlaylist />} />
+          <Route path='/happyplaylist' element={<HappyPlaylist />} />
+          <Route path='/nervousplaylist' element={<NervousPlaylist />} />
+          <Route path='/sadplaylist' element={<SadPlaylist />} />
+          <Route path='/myplaylist' element={<MyPlaylist />} />
           <Route path='musicrecommendation' element={<MusicRecommendation />} />
           <Route path='/payment' element={<Payment />} />
           <Route path='/payresult' element={<PayResult />} />
