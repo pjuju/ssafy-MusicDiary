@@ -31,8 +31,11 @@ SSAFY 7기 특화 빅데이터 추천 프로젝트
 # 프로젝트 설계
 
 ## 와이어프레임
+![와이어프레임](/uploads/766be01e94fc7bf43609f319afb75ab7/와이어프레임.png)
 
 ## ERD
+![erd](/uploads/d8c453c24f51714336813e78dc74a5bd/erd.png)
+
 
 ## 아키텍처
 
