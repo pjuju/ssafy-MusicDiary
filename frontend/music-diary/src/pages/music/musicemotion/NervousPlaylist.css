@@ -1,0 +1,22 @@
+/*  여기서부터  */
+.nervous-playlist {
+    position: relative;
+  }
+  
+.nervous-playlist .work-area {
+  width: 64vw;
+  height: 93vh;
+  margin-top: 7vh;
+  margin-left: 24vw;
+  /* background-color: green; */
+
+  position: absolute;
+  z-index: 1;
+  color: black;
+  }
+  
+.nervous-playlist .main-note {
+    /* position: absolute; */
+  }
+
+/* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */

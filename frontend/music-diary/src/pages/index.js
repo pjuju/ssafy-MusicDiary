@@ -36,7 +36,12 @@ export { default as Payment } from './stickerpages/Payment'
 export { default as PayResult } from './stickerpages/PayResult'
 
 export { default as IntroScrollPage } from './scrollpages/IntroScrollPage'
-export {default as MyPlaylistDetail} from './music/MyPlaylistDetail'
+export { default as AngryPlaylist } from './music/musicemotion/AngryPlaylist'
+export { default as CalmPlaylist } from './music/musicemotion/CalmPlaylist'
+export { default as DepressPlaylist } from './music/musicemotion/DepressPlaylist'
+export { default as HappyPlaylist } from './music/musicemotion/HappyPlaylist'
+export { default as NervousPlaylist } from './music/musicemotion/NervousPlaylist'
+export { default as SadPlaylist } from './music/musicemotion/SadPlaylist'
 export {default as MyPlaylist} from './music/MyPlaylist'
 export { default as MusicRecommendation} from './music/MusicRecommendation'
 
