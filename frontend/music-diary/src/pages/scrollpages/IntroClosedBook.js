@@ -47,7 +47,7 @@ function IntroClosedBook() {
         fontSize: fontSize.medium,
         autoAnimation: false,
       }
-    );
+    ); 
     vara[2].ready(function () {
       $(".front:not(.last)").click(function () {
         var ix = $(this).parent(".paper").index();
@@ -94,7 +94,8 @@ function IntroClosedBook() {
             <div class="page front contents">
               <div class="intro">
                 <h2></h2>
-                <h1>2022</h1>
+                <h3>알쏭달쏭</h3>
+                
               </div>
             </div>
             <div class="page back"></div>
@@ -103,7 +104,9 @@ function IntroClosedBook() {
             <div class="page front contents">
               {/* contents 출력 부분 */}
               <div id="vara-container">
-                <div>당신의 하루는 어땠나요</div>
+                <h5>오늘도 각자만의 자리에서</h5>
+                <h5>하루의 이야기를 써내온 당신</h5>
+                <h5>오늘 하루도 수고 많았어요</h5>
               </div>
 
             </div>
@@ -111,13 +114,21 @@ function IntroClosedBook() {
           </div>
           <div class="third paper">
             <div class="page front contents">
-              <div id="vara-container2"></div>
+              <div id="vara-container2">
+              <h5>오늘도 각자만의 자리에서</h5>
+                <h5>하루의 이야기를 써내온 당신</h5>
+                <h5>오늘 하루도 수고 많았어요</h5>
+              </div>
             </div>
             <div class="page back"></div>
           </div>
           <div class="fourth paper">
             <div class="page last front contents">
-              <div id="vara-container3"></div>
+              <div id="vara-container3">
+              <h5>오늘도 각자만의 자리에서</h5>
+                <h5>하루의 이야기를 써내온 당신</h5>
+                <h5>오늘 하루도 수고 많았어요</h5>
+              </div>
             </div>
             <div class="page back"></div>
           </div>
