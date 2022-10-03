@@ -57,7 +57,7 @@ body {
   .intro-closed-book .book .side {
     width: 3em;
     height: 40em;
-    background: #ac5050;
+    background: #36673d;
     position: absolute;
     left: -3em;
     top: 0;
@@ -68,7 +68,7 @@ body {
     width: 25em;
     height: 3em;
     /* 책 두께 부분 보이는 색깔 */
-    background: #c8b1b1;
+    background: #cdc3b5;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -89,7 +89,7 @@ body {
   .intro-closed-book .book .shadow {
     background: transparent;
     transform: translateZ(-3em);
-    box-shadow: -1em 1em 0px 0px #e6b215;
+    box-shadow: -1em 1em 0px 0px #386d3c;
     z-index: 1;
   }
   .intro-closed-book .book .paper {
@@ -99,7 +99,7 @@ body {
   }
   .intro-closed-book .book .paper.open {
     /* box-shadow : 책넘기고 나서, 겹쳐지는 부분의 책장 색깔 */
-    box-shadow: 2.2em 1em 0px 0px #eab30b;
+    box-shadow: 2.2em 1em 0px 0px #18631d;
     transform: rotateX(0deg) rotateY(-150deg) rotateZ(0deg);
   }
   .intro-closed-book .book .paper .page.front {
@@ -118,7 +118,7 @@ body {
   }
   .intro-closed-book .book .first .page {
     /* 책 표지 컬러 */
-    background: #FAF3EB;
+    background: #6bb375;
   }
   .intro-closed-book .book .first .page.front:after {
     position: absolute;
@@ -136,7 +136,7 @@ body {
   }
   .intro-closed-book .book .first.paper .back {
     /* 책 표지 뒷부분 컬러 */
-    background: #ac5050;
+    background: #5d9a72;
   }
   .intro-closed-book .book .intro {
     position: absolute;
@@ -144,7 +144,7 @@ body {
     width: calc(100% - 3em);
     height: 90%;
     height: calc(100% - 3em);
-    border-left: 2em solid #AC5050;
+    /* border-left: 2em solid #bebebe; */
     left: 0;
     top: 0;
     right: 0;
@@ -154,7 +154,7 @@ body {
   .intro-closed-book .book .intro h2 {
     padding: 0.5em 0.5em;
     font-size: 2em;
-    color: #fff;
+    /* color: rgb(119, 88, 88); */
     word-break: break-all;
     text-align: left;
     letter-spacing: 5px;
@@ -179,7 +179,7 @@ body {
   }
   .intro-closed-book .book .paper:not(.first) .back {
     /* 두번째장 뒷편 색상 */
-    background: #a93636;
+    background: #5d9a72;
   }
   .intro-closed-book .book .open.second .back {
     transform: translateZ(-1px);
