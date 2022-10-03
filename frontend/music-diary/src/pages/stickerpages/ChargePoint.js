@@ -15,6 +15,7 @@ import {
 } from "../../api/stickerApi"; // DB에 저장된 모든 스티커팩 조회
 
 import Button from "../../components/Common/Button";
+import MainNote from "../mainpages/MainNote";
 
 // function ChargePoint() {
 //   const navigate = useNavigate();
@@ -72,6 +73,7 @@ import Button from "../../components/Common/Button";
 
   render() {
     const { next_redirect_pc_url } = this.state;
+    // const navigate = useNavigate()
     return (
     <>
       <div className="point-charge-wrapper">
@@ -94,12 +96,28 @@ import Button from "../../components/Common/Button";
               <BiPlay />
             </div>
           </div>
-          {/* 보유한 스티커 리스트 */}
+
           <div className="list-wrapper">
  
           </div>
         </div>
       </div>      
+      <h2 style={{position:"absolute",color:'black',zIndex:'1', marginTop:'15vh',marginLeft:'49.5vw'}}>포인트 충전</h2>
+      <a href={next_redirect_pc_url} 
+      style={{position:"absolute", marginTop:"30vh",marginLeft:"-3vw",zIndex:'9'}}
+      >
+        <img
+          className="kakao-pay"
+          alt="#"
+          src={`${process.env.PUBLIC_URL}/assets/img/kakao-pay.jpg`}
+          width="200px" height="100px"
+          // style={{position:"absolute",color:'black',zIndex:'2', marginTop:'30vh',marginLeft:'50vw'}}
+        />
+        </a>
+        <ul class="snip1231 goback-button" style={{position:'absolute', marginTop:'50vh', marginLeft:'47.5vw', zIndex:'9'}}>
+        <li><a href="#" style={{color:"black"}} >돌아가기</a></li>
+      </ul>
+      <MainNote className="main-note"></MainNote>
     </>
 
         // <div>

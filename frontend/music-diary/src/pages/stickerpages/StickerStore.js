@@ -84,7 +84,7 @@ function StickerStore() {
               <li><a href="#" style={{color:'black'}}>내가 보유한 스티커</a></li>
             </ul>
           </div>
-        </div>
+        </div> 
 
         <div className="store-board">
           

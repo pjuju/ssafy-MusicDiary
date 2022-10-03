@@ -16,6 +16,6 @@ const StickerItem = ({sticker}) => {
     </div>
     ))}
     </>)
-} 
+}  
 
 export default StickerItem
