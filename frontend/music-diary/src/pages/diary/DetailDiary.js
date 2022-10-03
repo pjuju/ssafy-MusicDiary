@@ -36,6 +36,7 @@ import useImage from "use-image";
 import { IndividualSticker } from "../sticker-data/individualSticker.tsx";
 import { stickersData } from "../sticker-data/stickers.data.ts";
 
+
 // import "./styles.css"
 
 // sticker patch method test
@@ -85,6 +86,7 @@ const DetailDiary = () => {
   // stickers
   const [originStickers, setOriginStickers] = useState([]); // 저장되어있던 스티커들
   const [editSticker, setEditSticker] = useState(false);
+  const [choicePack, setChoicePack] = useState("");
 
   // 이모티콘 옳게 부착하기
   const rightEmotion = (emotion) => {
@@ -412,6 +414,12 @@ const DetailDiary = () => {
     setEditSticker(!editSticker);
   };
 
+  // 스티커팩 선택하기
+  const onChangePackChoice = (packName)=>{
+    console.log("선택한 스티커팩 이름 :", packName )
+    setChoicePack(packName)
+  }
+
   return (
     <>
       <div className="detail-diary">
@@ -611,14 +619,76 @@ const DetailDiary = () => {
       </div>
 
       {/* 5. 스티커 선택창 */}
+
+
       <div className="sticker-choice-area">
+
+      <div>
+        {
+          stickerInfo.map((pack)=>{
+            return (
+              <>
+              <button onClick={()=> onChangePackChoice(pack.name)}>{pack.name}</button>
+              </>
+            )
+          })
+        }
+      </div>
+
+
         {stickerInfo.map((pack) => {
+
+          console.log("pack::", pack) // pack.name =>"춘식팩"
           let eachPack = pack.stickers;
-          // console.log("eachPack:", eachPack);
+          console.log("eachPack(pack.stickers):::", eachPack);
 
           return (
             <>
-            <div className="each-pack-wrapper">
+            {/* <button>{pack.name}</button> */}
+            {
+              pack.name === choicePack 
+              ? (
+                <>
+                <div className="each-pack-wrapper" style={{marginBottom:"10px", display:"flex"}}>
+              {eachPack.map((sticker, i) => {
+                return (
+                  <>
+        
+                    <div
+                      className="sticker-choice"
+                      onClick={() => console.log("스티커목록의 스티커클릭")}
+                      onMouseDown={() => {
+                        addStickerToPanel({
+                          src: sticker.image_url,
+                          width: 60,
+                          // 처음에 스티커 생성되는 좌표 위치임
+                          x: 500,
+                          y: 300,
+                          sticker_id: sticker.id,
+                        });
+                      }}
+                    >
+                      <img
+                        style={{ zIndex: "99999999999999999" }}
+                        alt="#"
+                        src={sticker.image_url}
+                        width="50"
+                      />
+                    </div>
+      
+                  </>
+                );
+              })}
+              </div> 
+                </>
+              )
+              :(
+                <>
+     
+                </>
+              )
+            }
+            {/* <div className="each-pack-wrapper" style={{marginBottom:"10px"}}>
               {eachPack.map((sticker, i) => {
                 return (
                   <>
@@ -646,7 +716,7 @@ const DetailDiary = () => {
                   </>
                 );
               })}
-              </div>
+              </div> */}
             </>
           );
         })}
