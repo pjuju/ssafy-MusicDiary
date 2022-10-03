@@ -127,18 +127,22 @@ position: absolute;
 width: 2vw;
 height: 10vh;
 
-background-color: white;
+/* background-color: white; */
 
 margin-left: 25vw;
 margin-top: 8vh;
 
-border: 1px solid black;
+/* border: 1px solid black; */
 
 transform: rotate(20deg);
 border-radius: 9%;
 
 cursor: pointer;
 z-index: 100;
+}
+
+.detail-diary .bookmark:hover {
+  transform: scale(1.1);
 }
 
 

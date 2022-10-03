@@ -440,20 +440,24 @@ const DetailDiary = () => {
         {storeBookmark === true ? (
           <div
             className="bookmark"
-            style={{ backgroundColor: "#547C2B", zIndex: "9000" }}
+            style={{zIndex: "9000" }}
             ref={bookmarkRef}
             onClick={() => handleBookmark()}
           >
-            <BookmarkAnimation />
+            <img alt="#" src="/assets/img/flacticon-bookmark.png" 
+              style={{width:"3vw", height:"8vh", marginRight:"2vw"}} />
           </div>
 
         ) : (
           <div
             className="bookmark"
-            style={{ backgroundColor: "#A4BE58", zIndex: "9000" }}
+            style={{zIndex: "9000" }}
             ref={bookmarkRef}
             onClick={() => handleBookmark()}
-          ></div>
+          >
+            <img alt="#" src="/assets/img/empty-bookmark.png" 
+              style={{width:"3vw", height:"8vh", marginRight:"2vw"}} />
+          </div>
         )}
 
 
