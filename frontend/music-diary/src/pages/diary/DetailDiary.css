@@ -13,7 +13,7 @@ position: absolute;
 z-index: 1;
 color: black;
 
-overflow:auto;
+overflow:scroll;
 -ms-overflow-style: none;
 /* background-color: green; */
 white-space : nowrap
@@ -46,7 +46,7 @@ display:none;
   margin-top: 14vh;
   margin-bottom: 10vh;
 
-  border: 1px solid red;
+  border: 1px solid grey;
   overflow: auto;
 
 }
@@ -109,9 +109,9 @@ background-color: white;
 margin-left: 25vw;
 margin-top: 8vh;
 
-/* border: 1px solid black; */
+border: 1px solid black;
 
-transform: rotate(-15deg);
+transform: rotate(20deg);
 border-radius: 9%;
 
 cursor: pointer;
@@ -130,14 +130,16 @@ margin-right: 5vw;
 margin-top: 3.5vh;
 margin-left: 1vw;
 
-width: 80%;
+/* width: 80%; */
 justify-content: start;
 
 border-bottom: 1px solid grey;
+
 }
 
 /* 일기 날짜 */
-.detail-diary .date {
+.detail-diary-item  .date {
+  position: absolute;
 
   color:grey;
 
@@ -145,7 +147,7 @@ border-bottom: 1px solid grey;
   width: 20%;
   margin-top: 6vh;
   margin-right: 5vw;
-  margin-left:11vw;
+  margin-left:33vw;
 }
 
 .detail-diary .emotion {
@@ -161,6 +163,9 @@ border-bottom: 1px solid grey;
 
   border: 1px solid grey;
   
+  border-radius: 3%;
+  background-color: #D7D4D0;
+  
   margin-top: 10vh;
 }
 
@@ -171,11 +176,13 @@ border-bottom: 1px solid grey;
   padding: 10px;
 
   width: 94%;
-  height: 40vh;
+  height: 50%;
 
   border: 1px solid black;
 
+  margin-left: 3%;
 
+  /* object-fit: cover; */
     /* width: "94%",
     height: "50vh",
     border: "1px solid black",
@@ -183,8 +190,9 @@ border-bottom: 1px solid grey;
 
 }
 
-.content-img {
-  object-fit: contain;
+.detail-diary .content-image {
+  /* position: absolute; */
+
   width: 80%;
   height: 100%;
   object-fit: cover;
@@ -280,7 +288,7 @@ border-bottom: 1px solid grey;
   font-size: 12px;
 
   width: 50px;
-  z-index: 99999999999999999999;
+  z-index: 9000;
 
 }
 

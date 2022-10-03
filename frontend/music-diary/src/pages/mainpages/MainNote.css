@@ -63,7 +63,7 @@
   padding-top: 0.8vh;
   cursor: pointer;
 
-  z-index: 9999999999999999;
+  z-index: 9000;
 }
 
 .main-note .my-page {
@@ -72,6 +72,8 @@
   position: absolute;
   margin-top: 3vh;
   left: 77vw;
+
+  z-index: 9000;
 }
 
 

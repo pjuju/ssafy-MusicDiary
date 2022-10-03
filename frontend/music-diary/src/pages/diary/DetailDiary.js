@@ -423,14 +423,14 @@ const DetailDiary = () => {
         {storeBookmark === true ? (
           <div
             className="bookmark"
-            style={{ backgroundColor: "#547C2B", zIndex: "20000000000" }}
+            style={{ backgroundColor: "#547C2B", zIndex: "9000" }}
             ref={bookmarkRef}
             onClick={() => handleBookmark()}
           ></div>
         ) : (
           <div
             className="bookmark"
-            style={{ backgroundColor: "#A4BE58", zIndex: "20000000000" }}
+            style={{ backgroundColor: "#A4BE58", zIndex: "9000" }}
             ref={bookmarkRef}
             onClick={() => handleBookmark()}
           ></div>
@@ -438,31 +438,32 @@ const DetailDiary = () => {
 
 
         {/* 일기 title & content */}
-        <div className="detail-diary-item">
-          {/* 상단의 일기 제목 고정으로 */}
-          <div className="fix-top">
-            <h2 className="title">{title}</h2>
-            <p className="date">{strDate}</p>
-          {/* <img src={rightEmotion(emotion)} className='emotion'></img> */}
-        </div>
-          <div className="content">{content}</div>
+        <div className="detail-diary-item" style={{zIndex:"0"}}>
+            {/* 상단의 일기 제목 고정으로 */}
+            <div className="fix-top">
+              <h2 className="title">{title}</h2>
+              <p className="date">{strDate}</p>
+            {/* <img src={rightEmotion(emotion)} className='emotion'></img> */}
+            </div>
+            <div className="content">{content}</div>
+
+          
           {returnImages.length >= 1 ? (
             returnImages.map((ele, i) => {
               return (
                 <>
-                  <div
-                    className="content-img-wrapper"
-                  >
+            <div className="content-img-wrapper">
                     <img 
                       className="content-image"
                       alt="#" src={"https://" + ele.image_url} />
-                  </div>
+             </div>
                 </>
               );
             })
           ) : (
             <div></div>
           )}
+        
         </div>
 
         {/* 일기별 플레이리스트 */}
@@ -483,14 +484,13 @@ const DetailDiary = () => {
                 return (
                   <>
                     <div>
-                      {/* <div id="heartheart" style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, e)}>{ele.heart}</div> */}
                       {ele.name} - {ele.artist}
                       {ele.like === true ? (
                         <>
                           <div
                             id={idName}
                             style={{
-                              zIndex: "9999999999999999999999",
+                              zIndex: "9000",
                               cursor: "pointer",
                             }}
                             onClick={(e) => likeMusic(ele.id, i)}
@@ -503,7 +503,7 @@ const DetailDiary = () => {
                           <div
                             id={idName}
                             style={{
-                              zIndex: "9999999999999999999999",
+                              zIndex: "9000",
                               cursor: "pointer",
                             }}
                             onClick={(e) => likeMusic(ele.id, i)}
@@ -531,14 +531,14 @@ const DetailDiary = () => {
               navigate(`/edit/${id}`);
             }}
             className="edit-button"
-            style={{ zIndex: "9999999999" }}
+            style={{ zIndex: "9000" }}
           >
             수정하기
           </button>
           <button
             onClick={handleRemove}
             className="delete-button"
-            style={{ zIndex: "9999999999" }}
+            style={{ zIndex: "9000" }}
           >
             삭제하기
           </button>
@@ -581,14 +581,14 @@ const DetailDiary = () => {
         </Stage>
 
         {/* 저장됐었던 sticker 배치 */}
-        <div>
+        <div >
           {originStickers.map((ele, i) => {
 
             return (
               <div
-                style={{ width: "1530", height: "700", position: "absolute"}}
+                style={{  width: "1530", height: "700", position: "absolute"}}
               >
-              
+                <div>
                 <img
                   className="origin-sticker"
                   alt="#"
@@ -597,16 +597,16 @@ const DetailDiary = () => {
                     width: "50px",
                     marginLeft: `${ele.sticker_x}px`,
                     marginTop: `${ele.sticker_y}px`,
-                    // zIndex:"9999999999999999"
+                    zIndex:"8000"
                   }}
                 />
-     
-
+                </div>
+                {/* x 버튼 활성화되는 영역 */}
                 <div
                   style={{
                     width: "500",
                     position: "absolute",
-                    zIndex: "99999999999999",
+                    zIndex: "9000"
                   }}
                 >
                   {editSticker ? (
@@ -614,7 +614,8 @@ const DetailDiary = () => {
                       className="delete-sticker-btn"
                       style={{
                         marginLeft: `${ele.sticker_x}px`,
-                        // zIndex: "99999999999999",
+                       
+           
                       }}
                       onClick={() => deleteSticker(ele.id)}
                     >
@@ -624,10 +625,14 @@ const DetailDiary = () => {
                     <></>
                   )}
                 </div>
+
+
               </div>
             );
           })}
         </div>
+
+
       </div>
 
       {/* 5. 스티커 선택창 */}
@@ -689,7 +694,7 @@ const DetailDiary = () => {
                             }}
                           >
                             <img
-                              style={{ zIndex: "99999999999999999" }}
+                              style={{ zIndex: "8000" }}
                               alt="#"
                               src={sticker.image_url}
                               width="50"
@@ -703,35 +708,6 @@ const DetailDiary = () => {
               ) : (
                 <></>
               )}
-              {/* <div className="each-pack-wrapper" style={{marginBottom:"10px"}}>
-              {eachPack.map((sticker, i) => {
-                return (
-                  <>
-                    <button
-                      className="sticker-choice"
-                      onClick={() => console.log("스티커목록의 스티커클릭")}
-                      onMouseDown={() => {
-                        addStickerToPanel({
-                          src: sticker.image_url,
-                          width: 60,
-                          // 처음에 스티커 생성되는 좌표 위치임
-                          x: 500,
-                          y: 300,
-                          sticker_id: sticker.id,
-                        });
-                      }}
-                    >
-                      <img
-                        style={{ zIndex: "99999999999999999" }}
-                        alt="#"
-                        src={sticker.image_url}
-                        width="50"
-                      />
-                    </button>
-                  </>
-                );
-              })}
-              </div> */}
             </>
           );
         })}
