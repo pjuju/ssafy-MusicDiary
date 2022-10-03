@@ -47,7 +47,8 @@ import {
   DepressedRecommendation,
   AnxiousRecommendation,
   NormalRecommendation,
-  SadRecommendation
+  SadRecommendation,
+  MainScroll
 
 } from './pages/index'
 
@@ -230,6 +231,8 @@ function App() {
           <Route path="/recommendation/anxious" element={<AnxiousRecommendation />} />
           <Route path="/recommendation/normal" element={<NormalRecommendation />} />
           <Route path="/recommendation/sad" element={<SadRecommendation />} />
+
+          <Route path='/scroll' element={<MainScroll />} />
         </Routes>
       </BrowserRouter>
       </DiaryDispatchContext.Provider>

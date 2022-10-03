@@ -51,3 +51,5 @@ export {default as NormalRecommendation} from './music/EmotionPlaylist/NormalRec
 export {default as AnxiousRecommendation} from './music/EmotionPlaylist/AnxiousRecommendation'
 export {default as SadRecommendation} from './music/EmotionPlaylist/SadRecommendation'
 export {default as DepressedRecommendation} from './music/EmotionPlaylist/DepressedRecommendation'
+
+export {default as MainScroll} from './intropages/MainScroll'

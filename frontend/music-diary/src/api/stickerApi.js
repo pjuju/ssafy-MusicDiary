@@ -21,7 +21,7 @@ export const getStickerListApi = async ( stickerpack_id, success, fail) => {
 
 
 // 스티커팩 구매
-export const buyStickerPackApi = async (stickerpack_id, success, fail) => {
-    return await api.post(`/sticker/${stickerpack_id}/`)
+export const buyStickerPackApi = async (user_id,sticker_pack, success, fail) => {
+    return await api.post(`/sticker/user/${user_id}/`,sticker_pack)
 }
 
