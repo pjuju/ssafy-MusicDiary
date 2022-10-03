@@ -9,10 +9,11 @@
 .edit-myinfo .myinfo {
   /* 이건 모든 페이지들이 공용으로 설정할 값 */
   width: 64vw;
-  height: 93vh;
+  height: 90vh;
   margin-top: 7vh;
   margin-left: 24vw;
   /* background-color: green; */
+  /* border: 1px solid blue; */
 
   position: absolute;
   z-index: 1;
@@ -27,76 +28,163 @@
 
 .edit-myinfo .myinfo-main {
     /* background-color: black; */
-    width: 30vw;
+    width: 60vw;
     margin-top: 5vh;
     height: 55vh;
-    margin-left: 13.5vw;
+    /* margin-left: 3vw; */
     position: absolute;
-
-    display: flex;
-}
-
-
-/* 수정폼 감싸는 부부  */
-.edit-myinfo .edit-myinfo-input {
-    /* display: block; */
-    /* margin-top: 15vh; */
-    
-}
-
-.edit-myinfo .edit-form-input {
-    display: block;
-    
-    margin-left: 9.5vw;
-    margin-bottom: 5vh;
-
-    width: 200px;
-    height: 50px;
-
-    align-items: center;
-}
-
-.edit-myinfo .edit-btn-wrapper {
+    /* border: 1px solid skyblue; */
     display: flex;
 
-    margin-top: 7vh;
-    margin-left: 8.5vw;
+    
 }
+/* *****************************************************/
 
-.edit-myinfo .edit-btn {
-    font-size: 18px;
-
-
-    margin-left: 1vw;
-}
 
 /* 이미지 업로드 관련 */
+.edit-myinfo .edit-myinfo-profile {
+    padding: absolute;
+    width: 54vw;
+    
+    margin-right: 2vw;
+    /* border: 1px solid green; */
+}
+
 .edit-myinfo .diary-img-wrapper {
     position: absolute;
+    width: 18vw;
+    margin-left: 10vw;
 
-    /* width: 18vw;
-    height: 50vh; */
-    
 }
 
 .edit-myinfo .diary-register-img {
-   
-    width: 15vw;
-    height: 30vh;
+    width: 13vw;
+    height: 28vh;
 
     border-radius: 48%;
     
-    margin-bottom: 5%;
-    border: 1px solid black;
+    margin-bottom: 3%;
 }
 
 /* 이미지 등록 영역 */
 .edit-myinfo .diary-register-btn {
-    margin-top: 35vh;
+    margin-top: 33vh;
+    margin-left:10vw;
+    width: 18vw;
     display: flex;
 }
 
 .edit-myinfo .find-file-btn {
     width: 5vw;
+}
+
+
+/* *****************************************************/
+.edit-myinfo .edit-right-wrapper{
+    position: absolute;
+
+    margin-left: 30vw;
+    margin-top: 3vh;
+    width: 30vw;
+    height: 50vh;
+    /* border: 3px solid red; */
+}
+
+/* 닉네임 input */
+.edit-myinfo .edit-myinfo-nickname {
+    position: absolute;
+    width: 18vw;
+
+    margin-top: 5vh;
+    margin-left: 0vw;
+
+    /* border: 1px solid orange; */
+
+    
+    margin-bottom: 17vh;
+}
+
+/* 비밀번호 input */
+.edit-myinfo .edit-myinfo-password {
+    position: absolute;
+    width:18vw;
+
+    margin-top:20vh;
+    margin-left: 0vw;
+
+    /* border: 1px solid orange; */
+}
+
+
+
+/* 수정폼 감싸는 부부  */
+.edit-myinfo .edit-myinfo-input {
+    /* position: absolute; */
+    width: 24vw;
+    /* border: 1px solid blue; */
+    /* display: block; */
+    /* margin-top: 15vh; */
+    
+}
+
+.edit-myinfo .edit-form-input-nickname {
+
+    width: 15vw;
+    height: 7vh;
+
+    align-items: center;
+}
+
+.edit-myinfo .edit-form-input-password {
+
+    width: 15vw;
+    height: 3.5vh;
+
+    align-items: center;
+}
+
+
+/* 닉네임 수정, 비밀번호 수정 */
+.edit-myinfo .edit-nickname-btn-wrapper {
+    display: absolute flex;
+
+    /* margin-left: ; */
+    width: 12vw;
+    height: 10vh;
+    margin-top: 5.5vh;
+    margin-left: 17vw;
+
+    font-size: 16px;
+
+    /* border: 1px solid blue; */
+}
+
+.edit-myinfo .edit-password-btn-wrapper {
+    display: absolute;
+    width: 12vw;
+    height: 10vh;
+
+    /* margin-left: ; */
+    margin-top: 5vh;
+    margin-left: 17vw;
+
+    /* border: 1px solid blue; */
+}
+
+
+.edit-myinfo .edit-btn {
+    font-size: 15px;
+    /* border: 1px solid blue; */
+    margin-left: 1vw;
+}
+
+
+/* 회원탈퇴 관련 */
+.edit-myinfo .quit-btn-wrapper {
+    width: 10vw;
+
+    margin-top: 9vh;
+    margin-left: 15vw;
+    /* border: 1px solid orange; */
 }
 
