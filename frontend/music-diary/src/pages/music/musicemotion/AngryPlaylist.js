@@ -1,39 +1,46 @@
 import MainNote from "../../mainpages/MainNote"
 import './AngryPlaylist.css'
 import { emotionMusic, makeLike } from "../../../api/musicApi";
-import { useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 
 const AngryPlaylist = () => {
     const [musicBtn, setMusicBtn] = useState(false);
     const [musics, setMusics] = useState([]);
     const [youtube, setYoutube] = useState("");
 
-    emotionMusic(4)
-    .then((res) => {
-        var list = [];
-        let video = "";
-        for (let i in [...Array(res.data.length).keys()]) {
-          let test = {
-            id: res.data[i].id,
-            like: res.data[i].like,
-            name: res.data[i].track_name,
-            artist: res.data[i].artist_name,
+    useMemo(()=> makePlaylist, [])
+
+    const makePlaylist = useMemo(()=> {
+      emotionMusic(4)
+      .then((res) => {
+          var list = [];
+          let video = "";
+          for (let i in [...Array(res.data.length).keys()]) {
+            let test = {
+              id: res.data[i].id,
+              like: res.data[i].like,
+              name: res.data[i].track_name,
+              artist: res.data[i].artist_name,
+            }
+            video += (res.data[i].videoid + ",");
+            list.push(test)
           }
-          video += (res.data[i].videoid + ",");
-          list.push(test)
-        }
-        setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
-        setMusics(list);
-        setMusicBtn(true)
-      })
-      .catch((e) => {
-        console.log("err", e);
-      });
+          setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
+          setMusics(list);
+          setMusicBtn(true)
+        })
+        .catch((e) => {
+          console.log("err", e);
+        });
+      }, [])
     
       const likeMusic = (music_id, i) => {
         const txt = document.getElementById("heart"+i);
+        if(txt.innerText === "♥"){
           txt.innerText = "♡";
+        }else{
           txt.innerText = "♥";
+        }
         makeLike(music_id)
         .then((res) => {
           console.log("성공?");
@@ -81,6 +88,6 @@ const AngryPlaylist = () => {
         </div>
         <MainNote className="main-note"></MainNote>
     </div>)
-}
+};
 
 export default AngryPlaylist

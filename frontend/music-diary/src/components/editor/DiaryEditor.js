@@ -5,6 +5,7 @@ import {
   writeDiaryListApi,
   modifyDiaryItem,
   getDiaryImage,
+  makePlaylist
 } from "../../api/diaryApi";
 import Button from "../Common/Button";
 
@@ -154,6 +155,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
         .then((res) => {
           console.log("일기 생성", JSON.stringify(res.data));
           console.log(res.data);
+          makePlaylist(res.data.id)
         })
         .catch((err) => {
           console.log(JSON.stringify(err.data));

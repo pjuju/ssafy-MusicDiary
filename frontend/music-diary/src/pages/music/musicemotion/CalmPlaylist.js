@@ -32,8 +32,11 @@ const CalmPlaylist = () => {
     
       const likeMusic = (music_id, i) => {
         const txt = document.getElementById("heart"+i);
+        if(txt.innerText === "♥"){
           txt.innerText = "♡";
+        }else{
           txt.innerText = "♥";
+        }
         makeLike(music_id)
         .then((res) => {
           console.log("성공?");

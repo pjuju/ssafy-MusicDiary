@@ -73,6 +73,7 @@ const DetailDiary = () => {
   const [musics, setMusics] = useState([]);
   const [heart, setHeart] = useState("");
   const [youtube, setYoutube] = useState("");
+  const [newMusic, setNewMusic] = useState([]);
 
   // konva //
   const [background] = useImage("example-image.jpg");
@@ -179,7 +180,6 @@ const DetailDiary = () => {
   ///음악
   useEffect(()=>{
 
-    makePlaylist(id)
     getPlaylist(id)
     
       .then((res) => {
@@ -213,7 +213,7 @@ const DetailDiary = () => {
         console.log("err", e);
       });
     
-  },[])
+  }, newMusic)
 
   const likeMusic = (music_id, i) => {
     const txt = document.getElementById("heart"+i);
@@ -226,6 +226,16 @@ const DetailDiary = () => {
     
     .then((res) => {
       console.log("성공?");
+    })
+    .catch((e) => {
+      console.log("err", e);
+    });
+  }
+
+  const remakePlaylist = () => {
+    makePlaylist(id)
+    .then((res) => {
+      setNewMusic([res.data])
     })
     .catch((e) => {
       console.log("err", e);
@@ -464,6 +474,7 @@ const DetailDiary = () => {
 
         {/* 일기별 플레이리스트 */}
         <div className="detail-diary-playlist">
+          <p onClick = {()=>remakePlaylist()} style={{cursor: "pointer"}}>⟳</p>
         <iframe width="560" height="315" src={youtube} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           { musicBtn
           ? (

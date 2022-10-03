@@ -6,16 +6,21 @@
 .happy-playlist .work-area {
   width: 64vw;
   height: 93vh;
-  margin-top: 7vh;
-  margin-left: 24vw;
+  margin-top: 18vh;
+  margin-left: 23.3vw;
   /* background-color: green; */
 
   position: absolute;
   z-index: 1;
   color: black;
   }
+
+.happy-playlist .work-area .youtube {
+  padding-top: 10.5vh;
+  margin-left: 6vw;
+}
   
-.happy-playlist .main-note {
+.happy-playlist .main-playlist {
     /* position: absolute; */
   }
 

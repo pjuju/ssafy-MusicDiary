@@ -1,4 +1,4 @@
-import MainNote from "../../mainpages/MainNote";
+import MainPlaylist from "../../mainpages/MainPlaylist";
 import './HappyPlaylist.css';
 import { emotionMusic, makeLike } from "../../../api/musicApi";
 import { useState } from "react";
@@ -25,13 +25,8 @@ const HappyPlaylist = () => {
           list.push(test)
         }
         setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
-        // console.log("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
-        // console.log("youtube:", youtube);
         setMusics(list);
-        // console.log(musicLike)
-
-            // 버튼 활성화
-          setMusicBtn(true)
+        setMusicBtn(true)
       })
       .catch((e) => {
         console.log("err", e);
@@ -39,8 +34,11 @@ const HappyPlaylist = () => {
     
       const likeMusic = (music_id, i) => {
         const txt = document.getElementById("heart"+i);
+        if(txt.innerText === "♥"){
           txt.innerText = "♡";
+        }else{
           txt.innerText = "♥";
+        }
         makeLike(music_id)
         .then((res) => {
           console.log("성공?");
@@ -53,22 +51,22 @@ const HappyPlaylist = () => {
         <div className="work-area">
             <h2>당신이 행복했을 때 들었던 음악</h2>
             <div style={{display:"flex", marginLeft:"3vw"}}>
-              <iframe width="560" height="315" src={youtube} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{width:"35vw", height:"40vh", marginTop:"5vh"}}></iframe>
+              <iframe className="youtube" width="560" height="315" src={youtube} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{width:"90vh", height:"50vh", marginTop:"5vh"}}></iframe>
               <div style={{marginLeft:"2vw", marginTop:'5.5vh'}}>
           { musicBtn
           ? (
             <>
             {
-              
               musics.map((ele, i)=>{
-                
                 var idName = "heart"+i;
                 return (
                   <>
                     <div style={{display:"flex", marginTop:"-1.3vh"}}>
-                      
-                      <div id={idName} style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, i)}>♥ </div>
-                      {ele.name} - {ele.artist}
+                      <div className="list">
+                      <div id={idName} style={{zIndex:"9999999999999999999999", cursor: "pointer", color:"red"}} onClick = {(e)=>likeMusic(ele.id, i)}>♥</div>
+                      <p>{ele.name}</p><br></br>
+                      <p>{ele.artist}</p>
+                      </div>
                     </div>
                   </>
                 )
@@ -85,7 +83,7 @@ const HappyPlaylist = () => {
         </div>
             </div>
         </div>
-        <MainNote className="main-note"></MainNote>
+        <MainPlaylist className="main-playlist"></MainPlaylist>
     </div>)
 }
 
