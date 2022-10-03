@@ -36,7 +36,6 @@ import useImage from "use-image";
 import { IndividualSticker } from "../sticker-data/individualSticker.tsx";
 import { stickersData } from "../sticker-data/stickers.data.ts";
 
-
 // import "./styles.css"
 
 // sticker patch method test
@@ -70,7 +69,7 @@ const DetailDiary = () => {
   });
 
   //music
-  const [musicBtn, setMusicBtn] = useState(false)
+  const [musicBtn, setMusicBtn] = useState(false);
   const [musics, setMusics] = useState([]);
   const [heart, setHeart] = useState("");
   const [youtube, setYoutube] = useState("");
@@ -179,18 +178,16 @@ const DetailDiary = () => {
   }, [id, monthData, bookmark]);
 
   ///음악
-  useEffect(()=>{
-
-    makePlaylist(id)
+  useEffect(() => {
+    makePlaylist(id);
     getPlaylist(id)
-    
       .then((res) => {
         var list = [];
         let video = "";
         for (let i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
-          if(res.data[i].like===true){
+          if (res.data[i].like === true) {
             setHeart("♥");
-          }else{
+          } else {
             setHeart("♡");
           }
           let test = {
@@ -199,40 +196,42 @@ const DetailDiary = () => {
             name: res.data[i].music.track_name,
             artist: res.data[i].music.artist_name,
             heart: heart,
-          }
-          video += (res.data[i].music.videoid + ",");
-          list.push(test)
+          };
+          video += res.data[i].music.videoid + ",";
+          list.push(test);
         }
-        setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
-        console.log("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
+        setYoutube(
+          "https://www.youtube.com/embed?playlist=" + video.slice(0, -1)
+        );
+        console.log(
+          "https://www.youtube.com/embed?playlist=" + video.slice(0, -1)
+        );
         console.log("youtube:", youtube);
         setMusics(list);
 
-            // 버튼 활성화
-        setMusicBtn(true)
+        // 버튼 활성화
+        setMusicBtn(true);
       })
       .catch((e) => {
         console.log("err", e);
       });
-    
-  },[])
+  }, []);
 
   const likeMusic = (music_id, i) => {
-    const txt = document.getElementById("heart"+i);
-    if (txt.innerText === "♥"){
+    const txt = document.getElementById("heart" + i);
+    if (txt.innerText === "♥") {
       txt.innerText = "♡";
-    }else{
+    } else {
       txt.innerText = "♥";
     }
     makeLike(music_id)
-    
-    .then((res) => {
-      console.log("성공?");
-    })
-    .catch((e) => {
-      console.log("err", e);
-    });
-  }
+      .then((res) => {
+        console.log("성공?");
+      })
+      .catch((e) => {
+        console.log("err", e);
+      });
+  };
 
   //////////////////////////////////////////////////////////////////////////////
   // 다이어리 remove 함수
@@ -317,8 +316,6 @@ const DetailDiary = () => {
 
   // 이동시킨 스티커 위치 저장하기 : modifyDiaryItem API //
   const onSaveStickerPos = () => {
-    console.log("현재 스티커 위치: ", JSON.stringify(images));
-    console.log("현재 images: ", images);
 
     // 보낼 형식에 맞게 옮기기
     const tmp = [];
@@ -334,7 +331,7 @@ const DetailDiary = () => {
       // console.log("추가한 현재 tmp: ", JSON.stringify(tmp));
     });
 
-    console.log("origin:", JSON.stringify(originStickers))
+    // console.log("origin:", JSON.stringify(originStickers));
     originStickers.map((ele, i) => {
       let origin = {
         sticker_id: originStickers[i].sticker.id,
@@ -342,11 +339,10 @@ const DetailDiary = () => {
         sticker_y: originStickers[i].sticker_y,
       };
 
-
       tmp.push(origin);
-    })
+    });
 
-    console.log("보내기 직전:", JSON.stringify(tmp))
+    console.log("보내기 직전:", JSON.stringify(tmp));
 
     const diaryInfo = {
       title,
@@ -415,10 +411,10 @@ const DetailDiary = () => {
   };
 
   // 스티커팩 선택하기
-  const onChangePackChoice = (packName)=>{
-    console.log("선택한 스티커팩 이름 :", packName )
-    setChoicePack(packName)
-  }
+  const onChangePackChoice = (packName) => {
+    console.log("선택한 스티커팩 이름 :", packName);
+    setChoicePack(packName);
+  };
 
   return (
     <>
@@ -427,40 +423,39 @@ const DetailDiary = () => {
         {storeBookmark === true ? (
           <div
             className="bookmark"
-            style={{ backgroundColor: "green", zIndex: "20000000000" }}
+            style={{ backgroundColor: "#547C2B", zIndex: "20000000000" }}
             ref={bookmarkRef}
             onClick={() => handleBookmark()}
           ></div>
         ) : (
           <div
             className="bookmark"
-            style={{ backgroundColor: "blue", zIndex: "20000000000" }}
+            style={{ backgroundColor: "#A4BE58", zIndex: "20000000000" }}
             ref={bookmarkRef}
             onClick={() => handleBookmark()}
           ></div>
         )}
-        {/* 상단의 일기 제목 고정으로 */}
-        <div className="fix-top">
-          <h2 className="title">{title}</h2>
-          <p className="date">{strDate}</p>
+
+
+        {/* 일기 title & content */}
+        <div className="detail-diary-item">
+          {/* 상단의 일기 제목 고정으로 */}
+          <div className="fix-top">
+            <h2 className="title">{title}</h2>
+            <p className="date">{strDate}</p>
           {/* <img src={rightEmotion(emotion)} className='emotion'></img> */}
         </div>
-
-        {/* 일기 content */}
-        <div className="detail-diary-item">
           <div className="content">{content}</div>
           {returnImages.length >= 1 ? (
             returnImages.map((ele, i) => {
               return (
                 <>
                   <div
-                    style={{
-                      width: "18vw",
-                      border: "1px solid black",
-                      marginLeft: "27%",
-                    }}
+                    className="content-img-wrapper"
                   >
-                    <img alt="#" src={"https://" + ele.image_url} />
+                    <img 
+                      className="content-image"
+                      alt="#" src={"https://" + ele.image_url} />
                   </div>
                 </>
               );
@@ -472,41 +467,61 @@ const DetailDiary = () => {
 
         {/* 일기별 플레이리스트 */}
         <div className="detail-diary-playlist">
-        <iframe width="560" height="315" src={youtube} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          { musicBtn
-          ? (
+          <iframe
+            width="560"
+            height="315"
+            src={youtube}
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          {musicBtn ? (
             <>
-            {
-              musics.map((ele, i)=>{
-                
-                var idName = "heart"+i;
+              {musics.map((ele, i) => {
+                var idName = "heart" + i;
                 return (
                   <>
                     <div>
-                      
-                    {/* <div id="heartheart" style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, e)}>{ele.heart}</div> */}
+                      {/* <div id="heartheart" style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, e)}>{ele.heart}</div> */}
                       {ele.name} - {ele.artist}
-
-                      {ele.like === true? (<>
-                        <div id={idName} style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, i)}>♥</div>
-                      </>) : (<>
-                        <div id={idName} style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, i)}>♡</div>
-                        
-                      </>)}
+                      {ele.like === true ? (
+                        <>
+                          <div
+                            id={idName}
+                            style={{
+                              zIndex: "9999999999999999999999",
+                              cursor: "pointer",
+                            }}
+                            onClick={(e) => likeMusic(ele.id, i)}
+                          >
+                            ♥
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            id={idName}
+                            style={{
+                              zIndex: "9999999999999999999999",
+                              cursor: "pointer",
+                            }}
+                            onClick={(e) => likeMusic(ele.id, i)}
+                          >
+                            ♡
+                          </div>
+                        </>
+                      )}
                     </div>
                   </>
-                )
-              })
-            }
+                );
+              })}
             </>
-          )
-          : (
+          ) : (
             <>
-            <div>아직 음악없음</div>
+              <div>아직 음악없음</div>
             </>
-          )
-        }
-          {/* <div>{musics[0]}</div> */}
+          )}
         </div>
 
         {/* 우측상단의 수정, 삭제 버튼 */}
@@ -528,7 +543,6 @@ const DetailDiary = () => {
             삭제하기
           </button>
         </div>
-        {/* <button onClick={()=>{navigate(`/diarylist`)}} className="goback-button">돌아가기</button> */}
         {/* 4. stage 영역 */}
         <Stage
           className="stage-area"
@@ -569,26 +583,25 @@ const DetailDiary = () => {
         {/* 저장됐었던 sticker 배치 */}
         <div>
           {originStickers.map((ele, i) => {
-            // console.log("origin:", JSON.stringify(ele))
 
             return (
-              // <div style={{position:"relative"}}>
               <div
-                style={{ width: "1530", height: "700", position: "absolute" }}
+                style={{ width: "1530", height: "700", position: "absolute"}}
               >
+              
                 <img
                   className="origin-sticker"
                   alt="#"
                   src={ele.sticker.image_url}
                   style={{
-                    // position: "absolute",
                     width: "50px",
                     marginLeft: `${ele.sticker_x}px`,
                     marginTop: `${ele.sticker_y}px`,
-                    zIndex: "2000",
+                    // zIndex:"9999999999999999"
                   }}
-                  // onClick={()=>console.log(`${ele.sticker_x} px`)}
                 />
+     
+
                 <div
                   style={{
                     width: "500",
@@ -601,8 +614,7 @@ const DetailDiary = () => {
                       className="delete-sticker-btn"
                       style={{
                         marginLeft: `${ele.sticker_x}px`,
-                        zIndex: "99999999999999",
-                        // backgroundColor:"green"
+                        // zIndex: "99999999999999",
                       }}
                       onClick={() => deleteSticker(ele.id)}
                     >
@@ -620,75 +632,78 @@ const DetailDiary = () => {
 
       {/* 5. 스티커 선택창 */}
 
-
       <div className="sticker-choice-area">
-
-      <div>
-        {
-          stickerInfo.map((pack)=>{
+        <div style={{width:"60%", marginRight:"28vw", display:"flex"}}>
+          {stickerInfo.map((pack) => {
             return (
               <>
-              <button onClick={()=> onChangePackChoice(pack.name)}>{pack.name}</button>
+                <div
+                  className="sticker-pack-name"
+                  onClick={() => onChangePackChoice(pack.name)}>
+                  {pack.name}
+                </div>
               </>
-            )
-          })
-        }
-      </div>
+            );
+          })}
+          <div style={{display:"flex"}}>
+            <div className="sticker-save-btn" onClick={onSaveStickerPos} >
+              저장!
+            </div>
 
+            <div className="sticker-edit-btn" onClick={onEditStickerPos}>
+              수정
+            </div>
+          </div>
+        </div>
 
         {stickerInfo.map((pack) => {
-
-          console.log("pack::", pack) // pack.name =>"춘식팩"
-          let eachPack = pack.stickers;
-          console.log("eachPack(pack.stickers):::", eachPack);
+        
+        let eachPack = pack.stickers;
 
           return (
             <>
-            {/* <button>{pack.name}</button> */}
-            {
-              pack.name === choicePack 
-              ? (
+              {/* <button>{pack.name}</button> */}
+              {pack.name === choicePack ? (
                 <>
-                <div className="each-pack-wrapper" style={{marginBottom:"10px", display:"flex"}}>
-              {eachPack.map((sticker, i) => {
-                return (
-                  <>
-        
-                    <div
-                      className="sticker-choice"
-                      onClick={() => console.log("스티커목록의 스티커클릭")}
-                      onMouseDown={() => {
-                        addStickerToPanel({
-                          src: sticker.image_url,
-                          width: 60,
-                          // 처음에 스티커 생성되는 좌표 위치임
-                          x: 500,
-                          y: 300,
-                          sticker_id: sticker.id,
-                        });
-                      }}
-                    >
-                      <img
-                        style={{ zIndex: "99999999999999999" }}
-                        alt="#"
-                        src={sticker.image_url}
-                        width="50"
-                      />
-                    </div>
-      
-                  </>
-                );
-              })}
-              </div> 
+                  <div
+                    className="each-pack-wrapper"
+                    style={{ marginBottom: "10px", display: "flex" }}
+                  >
+                    {eachPack.map((sticker, i) => {
+                      return (
+                        <>
+                          <div
+                            className="sticker-choice"
+                            onClick={() =>
+                              console.log("스티커목록의 스티커클릭")
+                            }
+                            onMouseDown={() => {
+                              addStickerToPanel({
+                                src: sticker.image_url,
+                                width: 60,
+                                // 처음에 스티커 생성되는 좌표 위치임
+                                x: 500,
+                                y: 300,
+                                sticker_id: sticker.id,
+                              });
+                            }}
+                          >
+                            <img
+                              style={{ zIndex: "99999999999999999" }}
+                              alt="#"
+                              src={sticker.image_url}
+                              width="50"
+                            />
+                          </div>
+                        </>
+                      );
+                    })}
+                  </div>
                 </>
-              )
-              :(
-                <>
-     
-                </>
-              )
-            }
-            {/* <div className="each-pack-wrapper" style={{marginBottom:"10px"}}>
+              ) : (
+                <></>
+              )}
+              {/* <div className="each-pack-wrapper" style={{marginBottom:"10px"}}>
               {eachPack.map((sticker, i) => {
                 return (
                   <>
@@ -721,14 +736,14 @@ const DetailDiary = () => {
           );
         })}
         {/* 스티커 위치 저장 완료 버튼,,@ */}
-        <button onClick={onSaveStickerPos} className="sticker-save-btn">
+        {/* <button onClick={onSaveStickerPos} className="sticker-save-btn">
           저장!
-        </button>
+        </button> */}
 
         {/* 스티커 삭제 활성화하기 */}
-        <div className="sticker-edit-btn" onClick={onEditStickerPos}>
+        {/* <div className="sticker-edit-btn" onClick={onEditStickerPos}>
           수정
-        </div>
+        </div> */}
       </div>
       {/* 7. MainNote창 */}
       <div>
