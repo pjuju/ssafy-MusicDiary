@@ -37,6 +37,12 @@ import { IndividualSticker } from "../sticker-data/individualSticker.tsx";
 import { stickersData } from "../sticker-data/stickers.data.ts";
 
 // import "./styles.css"
+import {BiCaretRight } from 'react-icons/bi'
+
+// lottie
+import Lottie from 'lottie-react'
+// import bookmark from '../../store/lottie/bookmark.json'
+import BookmarkAnimation from "../../store/lottie/BookmarkAnimation";
 
 // sticker patch method test
 
@@ -86,6 +92,7 @@ const DetailDiary = () => {
   const [originStickers, setOriginStickers] = useState([]); // 저장되어있던 스티커들
   const [editSticker, setEditSticker] = useState(false);
   const [choicePack, setChoicePack] = useState("");
+  const [showPacks, setShowPacks] = useState(false);
 
   // 이모티콘 옳게 부착하기
   const rightEmotion = (emotion) => {
@@ -357,6 +364,8 @@ const DetailDiary = () => {
       .then((res) => {
         console.log("되면 좋겟당");
         console.log(JSON.stringify(res.data));
+
+        alert("스티커 저장완료")
       })
       .catch((err) => {});
   };
@@ -416,9 +425,17 @@ const DetailDiary = () => {
     setChoicePack(packName);
   };
 
+  // 스티커팩 선택창 보이기
+  const onShowStickerPacks = ()=>{
+    console.log("showStickerPacks:", showPacks)
+    setShowPacks(!showPacks)
+  }
+
   return (
     <>
+     
       <div className="detail-diary">
+      
         {/* 상단의 북마크 설정 */}
         {storeBookmark === true ? (
           <div
@@ -426,7 +443,10 @@ const DetailDiary = () => {
             style={{ backgroundColor: "#547C2B", zIndex: "9000" }}
             ref={bookmarkRef}
             onClick={() => handleBookmark()}
-          ></div>
+          >
+            <BookmarkAnimation />
+          </div>
+
         ) : (
           <div
             className="bookmark"
@@ -469,8 +489,8 @@ const DetailDiary = () => {
         {/* 일기별 플레이리스트 */}
         <div className="detail-diary-playlist">
           <iframe
-            width="560"
-            height="315"
+            className="playlist-iframe"
+
             src={youtube}
             title="YouTube video player"
             frameborder="0"
@@ -483,7 +503,7 @@ const DetailDiary = () => {
                 var idName = "heart" + i;
                 return (
                   <>
-                    <div>
+                    {/* <div>
                       {ele.name} - {ele.artist}
                       {ele.like === true ? (
                         <>
@@ -512,7 +532,7 @@ const DetailDiary = () => {
                           </div>
                         </>
                       )}
-                    </div>
+                    </div> */}
                   </>
                 );
               })}
@@ -526,7 +546,7 @@ const DetailDiary = () => {
 
         {/* 우측상단의 수정, 삭제 버튼 */}
         <div className="btn-area">
-          <button
+          <div
             onClick={() => {
               navigate(`/edit/${id}`);
             }}
@@ -534,14 +554,14 @@ const DetailDiary = () => {
             style={{ zIndex: "9000" }}
           >
             수정하기
-          </button>
-          <button
+          </div>
+          <div
             onClick={handleRemove}
             className="delete-button"
             style={{ zIndex: "9000" }}
           >
             삭제하기
-          </button>
+          </div>
         </div>
         {/* 4. stage 영역 */}
         <Stage
@@ -625,41 +645,52 @@ const DetailDiary = () => {
                     <></>
                   )}
                 </div>
-
-
               </div>
             );
           })}
         </div>
-
-
       </div>
+      {/* detail diary 영역 끝 */}
 
       {/* 5. 스티커 선택창 */}
 
-      <div className="sticker-choice-area">
-        <div style={{width:"60%", marginRight:"28vw", display:"flex"}}>
+    <div className="sticker-choice-toggle">
+        <div onClick={onShowStickerPacks}>스티커 선택창<BiCaretRight /></div>  
+    </div>
+
+{
+  showPacks
+  ? (
+    <>
+  <div className="sticker-choice-area">
+      <div style={{display:"flex"}}>
+        <div className="pack-name-wrapper"  >
           {stickerInfo.map((pack) => {
             return (
               <>
                 <div
                   className="sticker-pack-name"
-                  onClick={() => onChangePackChoice(pack.name)}>
+                  onClick={() => onChangePackChoice(pack.name)}
+                  >
                   {pack.name}
                 </div>
               </>
             );
           })}
-          <div style={{display:"flex"}}>
+
+        </div>
+        <div className="sticker-btn-wrapper">
             <div className="sticker-save-btn" onClick={onSaveStickerPos} >
-              저장!
+              스티커 저장
             </div>
 
             <div className="sticker-edit-btn" onClick={onEditStickerPos}>
-              수정
+              스티커 수정
             </div>
           </div>
         </div>
+
+        {/* <hr /> */}
 
         {stickerInfo.map((pack) => {
         
@@ -685,7 +716,7 @@ const DetailDiary = () => {
                             onMouseDown={() => {
                               addStickerToPanel({
                                 src: sticker.image_url,
-                                width: 60,
+                                width: 40,
                                 // 처음에 스티커 생성되는 좌표 위치임
                                 x: 500,
                                 y: 300,
@@ -697,7 +728,7 @@ const DetailDiary = () => {
                               style={{ zIndex: "8000" }}
                               alt="#"
                               src={sticker.image_url}
-                              width="50"
+                              width="40"
                             />
                           </div>
                         </>
@@ -721,6 +752,19 @@ const DetailDiary = () => {
           수정
         </div> */}
       </div>
+    </>
+  )
+  :(
+    <>
+
+    </>
+  )
+}
+  
+
+
+
+
       {/* 7. MainNote창 */}
       <div>
         <MainNote className="main-note"></MainNote>

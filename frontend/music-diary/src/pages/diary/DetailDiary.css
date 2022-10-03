@@ -41,12 +41,17 @@ display:none;
 
 .detail-diary .detail-diary-item {
   width: 40vw;
-  height: 70vh;
+  height: 68vh;
   /* background-color: aqua; */
-  margin-top: 14vh;
+  margin-top: 12vh;
   margin-bottom: 10vh;
 
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
+
+  background-color: rgb(244, 240, 240);
+  border-radius: 5%;
+
+
   overflow: auto;
 
 }
@@ -84,19 +89,37 @@ position: absolute;
 }
 
 .detail-diary .edit-button {
-margin-top: 8vh;
-margin-left: 27vw;
+margin-top: 88vh;
+margin-left: 76vw;
 position: absolute;
 cursor: pointer;
 z-index: 100;
+
+width: 5vw;
+border-radius: 10%;
+color:black;
+background-color: rgb(213, 232, 222);;
+
+}
+
+.detail-diary .edit-button:hover {
+  background-color: #e3ded3;
 }
 
 .detail-diary .delete-button {
-margin-top: 8vh;
-margin-left: 32vw;
+margin-top: 88vh;
+margin-left: 82vw;
 position: absolute;
 z-index: 100;
 cursor: pointer;
+width: 5vw;
+color: #ececec;;
+border-radius: 10%;
+background-color: #AC5050;
+}
+
+.detail-diary .delete-button:hover {
+  background-color: #692b2b;
 }
 
 .detail-diary .bookmark {
@@ -161,10 +184,10 @@ border-bottom: 1px solid grey;
 
   /* background-color: antiquewhite; */
 
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   
   border-radius: 3%;
-  background-color: #D7D4D0;
+  /* background-color: #f5f1e9; */
   
   margin-top: 10vh;
 }
@@ -175,12 +198,12 @@ border-bottom: 1px solid grey;
   position: absolute;
   padding: 10px;
 
-  width: 94%;
+  width: 90%;
   height: 50%;
 
-  border: 1px solid black;
+  /* border: 1px solid black; */
 
-  margin-left: 3%;
+  margin-left: 5%;
 
   /* object-fit: cover; */
     /* width: "94%",
@@ -193,9 +216,9 @@ border-bottom: 1px solid grey;
 .detail-diary .content-image {
   /* position: absolute; */
 
-  width: 80%;
+  width:100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 
   /* style={{width:"80%", height:"100%", objectFit:"cover"}} */
 }
@@ -225,42 +248,87 @@ border-bottom: 1px solid grey;
 
 
 /* 스티커 선택창 */
-.sticker-choice-area {
+
+.sticker-choice-toggle {
   position: absolute;
 
-  /* border: 1px solid black; */
+  width: 8vw;
+  height: auto;
+  
+  color:black;
+  margin-top: 85vh;
+  margin-left: 15.5vw;
+
+  border-radius: 7%;
+
+  cursor: pointer;
+  /* background-color: #b5a686; */
+
+  z-index: 9000;
+}
+
+.sticker-choice-toggle:hover {
+  background-color: #e3ded3;
+  cursor: pointer;
+}
+
+.sticker-choice-area {
+  position: absolute;
+  /* display: flex; */
+
+  /* border: 1px solid red; */
 
   width: 40vw;
-  height: 15vh;
+  height: 18vh;
 
-  overflow: scroll;
+  overflow-x:scroll;
+  -ms-overflow-x-style: none;
   
-  margin-top: 86vh;
+  margin-top: 77.5vh;
   margin-left: 24vw;
   
   /* border: 1px solid black; */
   padding: 1%;
   z-index: 1300;
+
+
 }
 
+.sticker-choice-area::-webkit-scrollbar{
+  display:none;
+  }
+
 .detail-diary .detail-diary-playlist {
-  width: 20vw;
-  height: 77vh;
-  background-color: lightblue;
+  width: 22vw;
+  height: 72vh;
+  /* background-color: rgb(104, 123, 130); 유튜브 프레임 배경영역 */
   position: absolute;
   margin-left: 65vw;
-  margin-top: 20vh;
+  margin-top: 12vh;
   z-index: 2;
   color: black;
 
+  border-radius: 10%;
+  border: 1px solid grey;
   /* overflow:auto;
   -ms-overflow-style: none; */
 
 }
 
+.detail-diary .playlist-iframe {
+  /* width="560"
+  height="315" */
+  /* position: absolute; */
+  width: 22vw;
+  height: 30vh;
+
+  /* margin-right: 90%; */
+  border-radius: 10%;
+}
+
 .detail-diary .delete-sticker-btn {
   /* display: none; */
-
+   color: #AC5050;
 
 }
 
@@ -274,29 +342,65 @@ border-bottom: 1px solid grey;
 
 }
 
-.detail-diary .each-pack-wrapper {
-  width: 300px;
-  /* border: 1px solid black; */
-  background-color: green;
+.pack-name-wrapper {
+  display: flex;
+  width: 80%;
+
+  margin-top:1vh;
+  margin-bottom: -5vh;
+  /* style={{width:"100%", marginRight:"28vw", display:"flex", marginBottom:"10vh"}} */
 }
 
+.each-pack-wrapper {
+  width: 100%;
+  /* border: 1px solid black; */
+  /* background-color: rgb(217, 235, 217); */
+  margin-top: -2vh;
+
+  /* overflow: scroll;
+  -ms-overflow-style: none; */
+}
+
+
+.sticker-btn-wrapper {
+  /* width: auto; */
+  width: 20%;
+  height: 85%;
+  display: flex;
+  color: black;
+
+  /* border: 1px solid black; */
+  margin-top:1vh;
+  padding-top:1vh;
+}
 
 /* 스티커 저장완료 버튼 */
 .sticker-save-btn {
-  position: absolute;
-
+  /* position: absolute; */
+  justify-content: end;
   font-size: 12px;
-
-  width: 50px;
+  width: 50%;
+  /* width: 7%; */
   z-index: 9000;
-
+  margin-right: 0.5vw;
+  background-color: rgb(236, 246, 241);
+  border-radius: 10%;
+  /* padding: 2%; */
+  /* margin-right: 2vw; */
+  /* border: 1px solid black; */
 }
+
 
 
 /* 저장된 스티커 삭제 버튼 */
 .sticker-edit-btn {
+  /* position: absolute; */
   font-size: 12px;
-  
+  z-index: 9000;
+  width: 50%;
+  background-color: rgb(213, 232, 222);
+  /* margin-right: 10vw; */
+  /* border: 1px solid black; */
 }
 
 .sticker-edit-btn:hover {
@@ -311,7 +415,7 @@ border-bottom: 1px solid grey;
 /* 스티커팩 이름 선택버튼 영역*/
 .sticker-pack-name {
 
-  width: 30%;
+  width: 6vw;
   justify-content: start;
 
   margin-right: 1vw;
@@ -323,12 +427,13 @@ border-bottom: 1px solid grey;
   border-bottom: 1px solid grey;
 
   /* background-color: rgb(205, 182, 182); */
-
-  margin-bottom: 3vh;
+  /* padding-bottom: ; */
+  margin-bottom: 8vh;
 }
 
 .sticker-pack-name:hover {
   /* font-size: 18px; */
   color: #AC5050;
+  border-bottom: 1px solid #AC5050;
 }
 
