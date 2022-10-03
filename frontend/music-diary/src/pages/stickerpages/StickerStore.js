@@ -68,9 +68,9 @@ function StickerStore() {
     setSearch(e.target.value)  // search에 타이핑친 키워드가 저장된다
   }
   
-  const stickerPackListName = stickerPackList.filter((it)=> it.name === search)
+  const stickerPackListName = stickerPackList.filter((it)=> it.name.includes(search))
   console.log(stickerPackListName)
-  const stickerPackListNameList = stickerPackList.map((it)=> it.name === search)
+  const stickerPackListNameList = stickerPackList.map((it)=> it.name.includes(search))
   return (
     <div className="sticker-store-page">
 
@@ -84,7 +84,7 @@ function StickerStore() {
               <li><a href="#" style={{color:'black'}}>내가 보유한 스티커</a></li>
             </ul>
           </div>
-        </div>
+        </div> 
 
         <div className="store-board">
           

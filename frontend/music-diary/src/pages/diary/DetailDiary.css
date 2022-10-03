@@ -13,18 +13,26 @@ position: absolute;
 z-index: 1;
 color: black;
 
-overflow:auto;
+overflow:scroll;
 -ms-overflow-style: none;
 /* background-color: green; */
 white-space : nowrap
 }
 
-.detail-diary .fix-top {
+.detail-diary .detail-diary-item .fix-top {
   position: absolute;
+  display: flex;
   z-index: 1;
-  color: black;
-  margin-top: 6vh;
-  margin-left: 35vw;
+  color: blue;
+
+  height: 10vh;
+  /* margin-top:-5vh; */
+
+  /* margin-top: 1vh; */
+  /* margin-left: 35vw; */
+  /* margin-bottom: 30vh; */
+
+  /* background-color: green; */
 }
 
 .detail-diary .detail-diary-item::-webkit-scrollbar{
@@ -33,17 +41,34 @@ display:none;
 
 .detail-diary .detail-diary-item {
   width: 40vw;
-  height: 65vh;
+  height: 68vh;
   /* background-color: aqua; */
-  margin-top: 20vh;
+  margin-top: 12vh;
   margin-bottom: 10vh;
 
-  border: 1px solid black;
+  /* border: 1px solid grey; */
+
+  background-color: rgb(244, 240, 240);
+  border-radius: 5%;
+
+
+  overflow: auto;
 
 }
 
 .detail-diary .detail-diary-item .content {
-  overflow:auto;
+  width: 94%;
+
+  margin-left:3%;
+
+  white-space: normal; /* 자동 줄바꿈*/
+  /* height: 50%; */
+  /* overflow:auto; */
+
+
+
+  /* border: 1px solid black; */
+  
   -ms-overflow-style: none;
   /* background-color: green; */
 }
@@ -64,46 +89,88 @@ position: absolute;
 }
 
 .detail-diary .edit-button {
-margin-top: 8vh;
-margin-left: 27vw;
+margin-top: 88vh;
+margin-left: 76vw;
 position: absolute;
 cursor: pointer;
 z-index: 100;
+
+width: 5vw;
+border-radius: 10%;
+color:black;
+background-color: rgb(213, 232, 222);;
+
+}
+
+.detail-diary .edit-button:hover {
+  background-color: #e3ded3;
 }
 
 .detail-diary .delete-button {
-margin-top: 8vh;
-margin-left: 32vw;
+margin-top: 88vh;
+margin-left: 82vw;
 position: absolute;
 z-index: 100;
 cursor: pointer;
+width: 5vw;
+color: #ececec;;
+border-radius: 10%;
+background-color: #AC5050;
+}
+
+.detail-diary .delete-button:hover {
+  background-color: #692b2b;
 }
 
 .detail-diary .bookmark {
-width: 3vw;
-height: 15vh;
-background-color: white;
-margin-left: 25vw;
-margin-top: 6.3vh;
-border: 1px solid black;
 position: absolute;
+width: 2vw;
+height: 10vh;
+
+background-color: white;
+
+margin-left: 25vw;
+margin-top: 8vh;
+
+border: 1px solid black;
+
+transform: rotate(20deg);
+border-radius: 9%;
+
 cursor: pointer;
 z-index: 100;
 }
 
 
-.detail-diary .date {
+/* .detail-diary .date {
 display: flex;
 justify-content: end;
 margin-right: 5vw;
+} */
+
+/* 일기제목 */
+.detail-diary-item .title {
+margin-top: 3.5vh;
+margin-left: 1vw;
+
+/* width: 80%; */
+justify-content: start;
+
+border-bottom: 1px solid grey;
+
 }
 
-.detail-diary .title {
-margin-top: 6vh;
-}
+/* 일기 날짜 */
+.detail-diary-item  .date {
+  position: absolute;
 
-.detail-diary .date {
-margin-top: 3vh;
+  color:grey;
+
+  justify-content: end;
+  width: 20%;
+  margin-top: 6vh;
+  margin-right: 5vw;
+  margin-left:33vw;
 }
 
 .detail-diary .emotion {
@@ -114,8 +181,52 @@ margin-top: 3vh;
 
 
 .detail-diary .content {
+
+  /* background-color: antiquewhite; */
+
+  /* border: 1px solid grey; */
+  
+  border-radius: 3%;
+  /* background-color: #f5f1e9; */
+  
+  margin-top: 10vh;
+}
+
+.detail-diary .content-img-wrapper {
+  /* border: 1px solid black; */
+
+  position: absolute;
+  padding: 10px;
+
+  width: 90%;
+  height: 50%;
+
+  /* border: 1px solid black; */
+
+  margin-left: 5%;
+
+  /* object-fit: cover; */
+    /* width: "94%",
+    height: "50vh",
+    border: "1px solid black",
+    marginLeft: "3%" */
+
+}
+
+.detail-diary .content-image {
+  /* position: absolute; */
+
+  width:100%;
+  height: 100%;
+  object-fit: contain;
+
+  /* style={{width:"80%", height:"100%", objectFit:"cover"}} */
 }
  
+
+
+
+/* stage area */
 .stage-area {
   /* display: none; */
   /* background-color: aqua; */
@@ -137,37 +248,87 @@ margin-top: 3vh;
 
 
 /* 스티커 선택창 */
-.sticker-choice-area {
+
+.sticker-choice-toggle {
   position: absolute;
 
-  width: 20vw;
+  width: 8vw;
+  height: auto;
   
-  margin-top: 80vh;
-  margin-left: 35vw;
+  color:black;
+  margin-top: 85vh;
+  margin-left: 15.5vw;
+
+  border-radius: 7%;
+
+  cursor: pointer;
+  /* background-color: #b5a686; */
+
+  z-index: 9000;
+}
+
+.sticker-choice-toggle:hover {
+  background-color: #e3ded3;
+  cursor: pointer;
+}
+
+.sticker-choice-area {
+  position: absolute;
+  /* display: flex; */
+
+  /* border: 1px solid red; */
+
+  width: 40vw;
+  height: 18vh;
+
+  overflow-x:scroll;
+  -ms-overflow-x-style: none;
+  
+  margin-top: 77.5vh;
+  margin-left: 24vw;
   
   /* border: 1px solid black; */
   padding: 1%;
   z-index: 1300;
+
+
 }
 
+.sticker-choice-area::-webkit-scrollbar{
+  display:none;
+  }
+
 .detail-diary .detail-diary-playlist {
-  width: 20vw;
-  height: 77vh;
-  background-color: lightblue;
+  width: 22vw;
+  height: 72vh;
+  /* background-color: rgb(104, 123, 130); 유튜브 프레임 배경영역 */
   position: absolute;
   margin-left: 65vw;
-  margin-top: 20vh;
+  margin-top: 12vh;
   z-index: 2;
   color: black;
 
+  border-radius: 10%;
+  border: 1px solid grey;
   /* overflow:auto;
   -ms-overflow-style: none; */
 
 }
 
+.detail-diary .playlist-iframe {
+  /* width="560"
+  height="315" */
+  /* position: absolute; */
+  width: 22vw;
+  height: 30vh;
+
+  /* margin-right: 90%; */
+  border-radius: 10%;
+}
+
 .detail-diary .delete-sticker-btn {
   /* display: none; */
-
+   color: #AC5050;
 
 }
 
@@ -181,26 +342,98 @@ margin-top: 3vh;
 
 }
 
-.detail-diary .each-pack-wrapper {
-  width: 300px;
-  border: 1px solid black;
-  background-color: green;
+.pack-name-wrapper {
+  display: flex;
+  width: 80%;
+
+  margin-top:1vh;
+  margin-bottom: -5vh;
+  /* style={{width:"100%", marginRight:"28vw", display:"flex", marginBottom:"10vh"}} */
 }
 
+.each-pack-wrapper {
+  width: 100%;
+  /* border: 1px solid black; */
+  /* background-color: rgb(217, 235, 217); */
+  margin-top: -2vh;
+
+  /* overflow: scroll;
+  -ms-overflow-style: none; */
+}
+
+
+.sticker-btn-wrapper {
+  /* width: auto; */
+  width: 20%;
+  height: 85%;
+  display: flex;
+  color: black;
+
+  /* border: 1px solid black; */
+  margin-top:1vh;
+  padding-top:1vh;
+}
 
 /* 스티커 저장완료 버튼 */
 .sticker-save-btn {
-  position: absolute;
-
+  /* position: absolute; */
+  justify-content: end;
   font-size: 12px;
-
-  width: 50px;
-  z-index: 99999999999999999999;
-
+  width: 50%;
+  /* width: 7%; */
+  z-index: 9000;
+  margin-right: 0.5vw;
+  background-color: rgb(236, 246, 241);
+  border-radius: 10%;
+  /* padding: 2%; */
+  /* margin-right: 2vw; */
+  /* border: 1px solid black; */
 }
+
+
 
 /* 저장된 스티커 삭제 버튼 */
 .sticker-edit-btn {
+  /* position: absolute; */
   font-size: 12px;
-  
+  z-index: 9000;
+  width: 50%;
+  background-color: rgb(213, 232, 222);
+  /* margin-right: 10vw; */
+  /* border: 1px solid black; */
 }
+
+.sticker-edit-btn:hover {
+  background-color: antiquewhite;
+}
+
+.sticker-save-btn:hover {
+  background-color: antiquewhite;
+}
+
+
+/* 스티커팩 이름 선택버튼 영역*/
+.sticker-pack-name {
+
+  width: 6vw;
+  justify-content: start;
+
+  margin-right: 1vw;
+
+  color: black;
+
+  cursor: pointer;
+
+  border-bottom: 1px solid grey;
+
+  /* background-color: rgb(205, 182, 182); */
+  /* padding-bottom: ; */
+  margin-bottom: 8vh;
+}
+
+.sticker-pack-name:hover {
+  /* font-size: 18px; */
+  color: #AC5050;
+  border-bottom: 1px solid #AC5050;
+}
+

@@ -1,6 +1,6 @@
 .my-sticker {
     position: relative;
-}
+} 
 
 .my-sticker .work-area {
   width: 64vw;
@@ -21,9 +21,42 @@
 /* 상단 영역 */
 .my-sticker .title {
     margin-top: 7vh;
+    margin-left:1vw;
 }
 
+.my-sticker .store-title {
+  width: 60vw;
+  height: 10vh;
+  /* background-color: pink; */
+  margin-left: 2vw;
+}
 
+.my-sticker .sticker-area {
+  width: 20vw;
+  /* background-color: green; */
+  
+  float: left;
+}
+
+.my-sticker .stickers {
+  /* background-color: green; */
+  width: 60vw;
+  height: 62vh;
+  overflow:auto;
+-ms-overflow-style: none;
+margin-left: 2vw;
+}
+
+.my-sticker .stickers::-webkit-scrollbar{
+  display:none;
+  }
+
+.my-sticker .my-sticker-item {
+  /* background-color: pink; */
+  width: 15vw;
+  cursor: pointer;
+  margin-left: 2vw;
+}
 
 /* 상점 버튼 */
 @import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
@@ -125,87 +158,3 @@ button.snip0050.red {
 
 
 
-/* 혜연이 코드 */
-.mysticker-wrapper {
-
-}
-
-
-.mysticker-wrapper .sticker-page-header {
-    font-size: 40px;
-    color: black;
-}
-
-/* 스티커 전체 영역 */
-.mysticker-wrapper .sticker-wrapper {
-
-
-    width: 60%;
-    height: 550px;
-    
-    margin-left: 30%;
-}
-
-/* 스티커 이름 검색, 상점 header영역 */
-.sticker-wrapper .header {
-    display: flex;
-    
-    width: 100%;
-
-    margin-top: 5%;
-    margin-bottom: 3%;
-
-    font-size: 22px;
-    color: black;
-
-}
-
-/* 이름 검색 */
-.sticker-wrapper .header-left {
-    justify-content: start;
-
-    margin-right: 50%;
-    width: 50%;
-}
-
-/* 상점 */
-.sticker-wrapper .header-right {
-    justify-content: end;
-    width: 30%;
-}
-
-.header-right:hover {
-    border-radius: 10px;
-    background-color: rgb(200, 210, 200);
-}
-
-
-/* 보유한 스티커 리스트 영역 */
-.mysticker-wrapper .list-wrapper {
-    background-color: #E9E0D6;
-    display: flex;
-
-    width: 100%;
-    height: 500px;
-
-    padding-top: 5%;
-
-}
-
-
-/* 개별 스티커팩 부분 */
-.mysticker-wrapper .sticker-info {
-    width: 50%;
-    height: 30%;
-
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-}
-
-.mysticker-wrapper .sticker-info .sticker-img {
-    width: 50%;
-}
-
-.mysticker-wrapper .sticker-name {
-    color : black;
-}
