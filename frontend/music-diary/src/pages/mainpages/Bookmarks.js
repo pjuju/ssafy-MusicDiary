@@ -46,7 +46,7 @@ const Bookmarks =() => {
     return (
     <div className="bookmark">
       <div className="diary-list">
-      <h2 className="bookmarks-page-title">책갈피 모아보기</h2>
+      <h2 className="bookmarks-page-title" style={{fontSize:"48px"}}>책갈피 모아보기</h2>
         <div className="bookmark-items">
           {bookmark.map((it)=> (
             <Bookmark key={it.id} {...it}></Bookmark>

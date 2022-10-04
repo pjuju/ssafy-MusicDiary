@@ -53,6 +53,7 @@
 .bookmark .bookmark-date {
     margin-right: -40vw;
     margin-top: -5vh;
+    color: grey;
 }
 
 /* 사진이 없는 경우 일기 내용만 보이면 된다 */

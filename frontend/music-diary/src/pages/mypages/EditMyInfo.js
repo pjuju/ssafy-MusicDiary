@@ -21,6 +21,7 @@ import { patchUserInfoApi, deleteUserInfoApi, patchUserPasswordApi } from "../..
 import { getMonthDiary, getDiaryListApi, getDiaryImage } from "../../api/diaryApi";
 
 import "./EditMyInfo.css";
+import Swal from "sweetalert2";
 
 function EditMyInfo() {
   const [username, setUserName] = useState("");
@@ -126,6 +127,17 @@ function EditMyInfo() {
       username,
     };
 
+    if(username.length < 1){
+      Swal.fire({
+        icon: 'error',
+        title: '변경할 닉네임을 입력해주세요',
+        // text: '',
+      })
+
+      return;
+    }
+
+    console.log("return 되나")
     // patch API
     patchUserInfoApi(editInfo, user_id)
       .then((res) => {
@@ -141,9 +153,6 @@ function EditMyInfo() {
 
         // 변경 실패 알림 띄우기
 
-        // 1. 기존의 비밀번호와 같을 경우
-
-        //
       });
   };
 
@@ -155,6 +164,14 @@ function EditMyInfo() {
       old_password: oldPassword,
       new_password: newPassword,
     };
+
+    if(newPassword < 1){
+      Swal.fire({
+        icon: 'error',
+        title: '변경할 비밀번호를 입력해주세요',
+      })
+      return;
+    }
 
     // patch API
     patchUserPasswordApi(user_id, editPassword)
@@ -168,6 +185,12 @@ function EditMyInfo() {
       })
       .catch((err) => {
         console.log(err.data);
+
+        Swal.fire({
+          icon: 'error',
+          title: '기존 비밀번호를 잘못 입력했습니다.',
+        })
+        return;
 
         // 변경 실패 알림 띄우기
 
@@ -197,7 +220,7 @@ function EditMyInfo() {
     <>
       <div className="edit-myinfo">
         <div className="myinfo">
-        <h2 className="edit-myinfo-title">나의 정보 수정</h2>
+        <h2 className="edit-myinfo-title">회원정보 수정</h2>
           <div className="myinfo-main">
             
             {/* 이미지 등록 */}
@@ -238,7 +261,8 @@ function EditMyInfo() {
               <Button
                 name="프로필 변경"
                 style={{ width: "110px", fontSize: "15px", marginLeft: "20px"}}
-                color="green"
+                color="#AC5050"
+                hcolor="#DF8787"
                 size="sm"
                 onClick={onImgRegisterBtn}
               />
@@ -280,6 +304,7 @@ function EditMyInfo() {
                 <Button
                   className="edit-btn"
                   name="닉네임 수정"
+                  hcolor="#bde2bd"
                   // color="#AC5050"
                   // style={{backgroundColor:"green"}}
                   size="md"
@@ -309,7 +334,7 @@ function EditMyInfo() {
           </div>
           {/*  */}
           <div className="quit-btn-wrapper"
-            style={{marginTop:"62vh", marginLeft:"26vw"}}>
+            >
             <Button
               className="quit-btn"
               name="회원탈퇴"

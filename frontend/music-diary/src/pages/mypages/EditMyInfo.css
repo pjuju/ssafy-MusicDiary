@@ -29,7 +29,7 @@
 .edit-myinfo .myinfo-main {
     /* background-color: black; */
     width: 60vw;
-    margin-top: 5vh;
+    margin-top: 11vh;
     height: 55vh;
     /* margin-left: 3vw; */
     position: absolute;
@@ -173,24 +173,32 @@
 
 
 .edit-myinfo .edit-btn {
-    font-size: 15px;
+    font-size: 17px;
     color: black;
     /* border: 1px solid blue; */
     margin-left: 1vw;
-    background-color: rgb(169, 182, 169);
-}
-
-.edit-myinfo .edit-btn:hover {
     background-color: rgb(189, 226, 189);
 }
+
+/* .edit-myinfo .edit-btn:hover {
+    background-color: rgb(189, 226, 189);
+} */
 
 
 /* 회원탈퇴 관련 */
 .edit-myinfo .quit-btn-wrapper {
+    /* style={{marginTop:"62vh", marginLeft:"26vw"}} */
     width: 10vw;
+    height: 5vh;
 
-    margin-top: 9vh;
-    margin-left: 15vw;
+    /* font-size: 20px; */
+
+    margin-top: 55vh;
+    margin-left: 22vw;
     /* border: 1px solid orange; */
+}
+
+.edit-myinfo .quit-btn {
+    font-size: 20px;
 }
 
