@@ -58,9 +58,10 @@ const getStringdate = (date) => {
 
 const DiaryEditor = ({ isEdit, originData }) => {
   const navigate = useNavigate();
-  // const image_url= process.env.PUBLIC_URL + ''
 
-  const [created_date, setCreated_date] = useState(getStringdate(new Date()));
+  // const [created_date, setCreated_date] = useState(getStringdate(new Date()));
+  const [created_date, setCreated_date] = useState(new Date().toLocaleDateString());
+
   const [content, setcontent] = useState("");
   const [title, setTitle] = useState("");
   const [emotion, setEmotion] = useState("");
@@ -407,7 +408,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
 
         </div>
       </div>
-
+      
       <button class="snip1431 submit-button" onClick={handleSubmit}>수정 완료</button>
 
       <button
