@@ -4,6 +4,7 @@ import IntroClosedBook from '../scrollpages/IntroClosedBook.js'
 
 
 const MainScroll = () => {
+
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");
       
@@ -28,17 +29,14 @@ const MainScroll = () => {
     return(<div className="main-scroll">
 
     <section className="first">
-      <>
-        <h1 style={{fontSize:'7vw',marginTop:'-50vh',color:'black',marginLeft:'-0vw'}}>ALSONG</h1>
+        <ul class="snip1241" style={{position:'absolute',fontSize:'1.5vw',marginTop:'-80vh',marginLeft:'70vw'}}>
+          <li onClick={()=>{navigate('/login')}}><a href="#">로그인</a></li>
+          <li onClick={()=> {navigate('/signup/info')}}><a href="#">회원가입</a></li>
+        </ul>
+        <h1 style={{fontSize:'7vw',marginTop:'-50vh',color:'black',marginLeft:'10vw'}}>ALSONG</h1>
         <h1 style={{fontSize:'7vw',marginTop:'-30vh',color:'black',marginLeft:'-15vw'}}>DALSONG</h1>
-      </>
-      <>
-        {/* <h5 style={{color:'black',marginLeft:'-20vw'}}>다이어리의 표지를 넘겨보세요</h5> */}
-      </>
-        <button class="btn-hover color-1" 
-        onClick={()=>{navigate('/login')}}>로그인</button>
-        <button onClick={()=> {navigate('/signup/info')}}>회원가입</button>
-        <IntroClosedBook style={{marginTop:'-10vh'}}></IntroClosedBook>
+
+        <IntroClosedBook style={{Top:'-10vh'}}></IntroClosedBook>
     </section>
 
 <section className='second'>
@@ -81,21 +79,21 @@ const MainScroll = () => {
     <h1 style={{marginLeft:'5vw'}}>오늘의 기분에 따른 음악도 <br></br>추천해드립니다</h1>  
     <div class="text-container">
       <div class="text-box">
-        <div style={{marginLeft:'3vw'}}>
+        <div style={{width:'25vw'}}>
           <img src="/assets/img/playlist.jpg" 
           style={{width:'25vw',backgroundColor:'#ffffff',borderRadius:'15px',boxShadow:'10px 10px #dcdca2'}}></img>
           <h5 style={{marginTop:'3vh'}}>감정에 따라 다른 플레이리스트가 준비되어 있습니다 <br></br>
           순간순간마다 다른 음악을 즐겨보세요</h5>
         </div>
       </div>
-      <div class="text-box" style={{marginLeft:'2vw'}}>
-        <h5>
+      <div class="text-box" style={{width:'25vw'}}>
+        <h5 style={{marginTop:"11vh"}}>
           매일 같은 노래만 듣는게 <br></br>어느 순간 지겨워진 당신
           <br></br>
           그런 당신을 위해 준비했습니다
         </h5>
       </div>
-      <div class="text-box">
+      <div class="text-box" style={{width:'25vw'}}>
       <img src="/assets/img/pli.jpg" 
           style={{width:'25vw',backgroundColor:'#ffffff',borderRadius:'15px',boxShadow:'10px 10px #dcdca2'}}></img>
       <h5 style={{marginTop:'3vh'}}>최신 음악부터 올드팝까지, <br></br>
@@ -116,6 +114,7 @@ const MainScroll = () => {
           다양한 스티커로 일기를 취향대로 꾸며보세요
         </h5>
       </div>
+
       <div class="text-box">
         <img src="/assets/img/stickerstore.png" 
         style={{width:'30vw',backgroundColor:'#ffffff',borderRadius:'15px',boxShadow:'10px 10px #dcdca2'}}></img>

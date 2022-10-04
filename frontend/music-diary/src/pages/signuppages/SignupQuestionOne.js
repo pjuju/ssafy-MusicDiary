@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // import "../../css/signuppages/SignupPageBook.css";
@@ -9,20 +9,17 @@ import { setNormalChoiceValue } from "../../store/store";
 import { useDispatch } from "react-redux";
 
 function SignupQuestionOne() {
-
-  const [firstAnswer, setFirstAnswer] = useState();
-  const [emotionAnswer, setEmotionAnswer] = useState();
-  const [happy, setHappy] = useState(false);
-  const [sad, setSad] = useState(false);
-  const [normal, setNormal] = useState(false);
-  const [energytic, setEnergytic] = useState(false);
-
   const navigate = useNavigate();
 
   // store의 state 값 확인중
   const storeEmail = useSelector((state) => {
     return state.user.normalChoice;
   });
+
+    // store의 state 값 확인중
+    const storeNormal = useSelector((state) => {
+      return state.user.normalChoice;
+    });
 
   // store의 state바꾸기
   const dispatch = useDispatch();
@@ -33,47 +30,36 @@ function SignupQuestionOne() {
 
   // 슬픈 / 기쁜 / 에너지틱 / 평온한 노래 선택 -> dispatch
   const onClickSad = () => {
-    setSad(!sad);
-    if (!sad) {
-      setFirstAnswer("슬픈");
-      dispatch(setNormalChoiceValue(1));
-    } else {
-      setFirstAnswer("   ");
-    }
+    dispatch(setNormalChoiceValue(1));
   };
 
   const onClickHappy = () => {
-    setHappy(!happy);
-    if (!happy) {
-      setFirstAnswer("기쁜");
-      dispatch(setNormalChoiceValue(2));
-    } else {
-      setFirstAnswer("   ");
-    }
+    dispatch(setNormalChoiceValue(2));
   };
 
   const onClickEnergy = () => {
-    setEnergytic(!energytic);
-    if (!energytic) {
-      setFirstAnswer("에너지틱한");
-      dispatch(setNormalChoiceValue(3));
-    } else {
-      setFirstAnswer("   ");
-    }
+    dispatch(setNormalChoiceValue(3));
   };
 
   const onClickNormal = () => {
-    setNormal(!normal);
-    if (!normal) {
-      setFirstAnswer("평온한");
       dispatch(setNormalChoiceValue(4));
-    } else {
-      setFirstAnswer("   ");
-    }
   };
 
-
-
+  const answer = () => {
+    if (storeNormal == '1') {
+      return '슬픈'
+    }
+    if (storeNormal == '2') {
+      return '기쁜'
+    }
+    if (storeNormal == '3') {
+      return '에너지틱한'
+    }
+    if (storeNormal == '4') {
+      return '평온한'
+    }
+  }
+  console.log(answer())
 
   return (
     <>
@@ -84,21 +70,21 @@ function SignupQuestionOne() {
                   <h3 style={{marginTop:'5vh'}}>당신의 음악취향은?</h3>
                   <h3>
                     1. 나는 평소에 
-                    <div style={{width:'8vw',height:'5vh',marginLeft:'19vw',backgroundColor:'#C1D3C2',borderRadius:'5px'}}>
-                    {firstAnswer}
+                    <div style={{width:'8vw',height:'5vh',marginLeft:'19vw',borderRadius:'5px'}}>
+                    {answer()}
                     </div>
                     노래를 듣는다
                   </h3>
 
-                  <div className="first-row">
-                    <div
-                      className={sad ? "selected-box" : "question-box"}
+                  <div className="first-row" >
+                    <div style={{cursor:'pointer'}}
+                      className={answer() == '슬픈' ? "selected-box" : "question-box"}
                       onClick={onClickSad}
                     >
                       슬픈
                     </div>
-                    <div
-                      className={happy ? "selected-box" : "question-box"}
+                    <div style={{cursor:'pointer'}}
+                      className={answer() == '기쁜' ? "selected-box" : "question-box"}
                       onClick={onClickHappy}
                     >
                       기쁜
@@ -106,27 +92,36 @@ function SignupQuestionOne() {
                   </div>
 
                   <div className="second-row">
-                    <div
-                      className={energytic ? "selected-e-box" : "question-e-box"}
+                    <div  style={{cursor:'pointer'}}
+                      className={answer() == '에너지틱한' ? "selected-e-box" : "question-e-box"}
                       onClick={onClickEnergy}
-                    >에너지틱한</div>
-                    <div
-                      className={normal ? "selected-n-box" : "question-n-box"}
+                    >
+                      에너지틱한
+                    </div>
+                    <div style={{cursor:'pointer'}}
+                      className={answer() == '평온한' ? "selected-n-box" : "question-n-box"}
                       onClick={onClickNormal}
                     >
                       평온한
                     </div>
                   </div>
-                  
+
+                  <button
+                      onClick={()=>{navigate('/signup/info')}}
+                      className="before-button"
+                    > 	&#60; 이전</button>
                     <button
                       onClick={onMoveQuestionTwo}
                       className="next-button"
-                    >다음</button>
+                    >다음 &#62;</button>
 
                 </div>
               </div>
+              <img src="/assets/img/home.png" 
+              style={{width:'2vw',marginTop:'4vh',marginLeft:'37vw',cursor:'pointer'}}
+              onClick={()=>{navigate('/')}}></img>
             </div>
-            <div className="shadow"></div>
+
           </div>
 
       <img src="/assets/img/signup.png" style={{width:'100vw',height:'100vh'}}></img>

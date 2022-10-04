@@ -138,8 +138,9 @@ function MainLogin() {
 </div>
           
           
+        <h5 style={{color:'darkgrey',marginLeft:'34vw',marginTop:'5vh',cursor:'pointer'}}
+        onClick={()=>{navigate('/')}}>돌아가기</h5>
           </div>
-
 
         <img src="/assets/img/login.png"
         style={{width:'100vw',height:'100vh'}} ></img>

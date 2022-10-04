@@ -1,9 +1,7 @@
 import {useState, useContext, useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
 import moment from 'moment';
-import { DiaryStateContext } from "../../App";
-import { getStringDate } from "../../util/date";
-import { DiaryDispatchContext } from "../../App.js";
+import Button from '../../components/Common/Button';
 import { getMonthEmotion,getMonthDiary } from '../../api/diaryApi';
 
 import './MainCalender.css'
@@ -84,9 +82,8 @@ const MainCalender =() => {
                   // 이 달이 아닌 경우(지난달, 다음달의 날짜)
                   }else if(days.format('MM') !== today.format('MM')){
                     return(
-                        <td key={index} style={{backgroundColor:'#CAD8B5'}} >
+                        <td key={index} className="another-month" >
                           {noticeData.map(it=> {
-    
                               if (new Date(it.created_date).toLocaleDateString() == days.format('YYYY. M. D.'))
                               return <div onClick={()=>{navigate(`/diary/${it.id}`)}}>
                                 <img src={rightEmotion(it.emotion)} className="calender-emoji animate__animated animate__bounceIn" style={{cursor:'pointer'}}></img>
@@ -124,21 +121,30 @@ const MainCalender =() => {
       <div className="main-calender">
         <div className='calender'>
           <div className="control">
-            <div className='year-change'>
+            <div className='year-change' style={{marginLeft:'1vw'}}>
               <button onClick={()=>{ setMoment(getMoment.clone().subtract(1, 'year')) }} className="time-change-button">&#10092; &nbsp;</button>
               <span>{today.format('YYYY 년')}</span>
               <button onClick={()=>{ setMoment(getMoment.clone().add(1, 'year')) }} className="time-change-button">&nbsp; &#10093;	</button>
             </div>
-            <div className='month-change'>
+            <div className='month-change' style={{marginLeft:'1vw'}}>
               <button onClick={()=>{ setMoment(getMoment.clone().subtract(1, 'month')) }} className="time-change-button" >&#10092; &nbsp;</button>
               <span>{today.format('M 월')}</span>
               <button onClick={()=>{ setMoment(getMoment.clone().add(1, 'month')) }} className="time-change-button" >&nbsp; &#10093;	</button>
             </div>
           </div>
-          <button class="button" onClick={()=>{navigate('/newdiary')}}>일기 작성</button>
+          <Button
+                className=" y"
+                name="일기 작성"
+                style={{ width: "110px", fontSize: "15px", marginLeft: "15px",color:'black'}}
+                color="#CAD8B5"
+                hcolor="#8FB46E"
+                size="sm"
+                onClick={()=>{navigate('/newdiary')}}
+              />
           <ul onClick={()=>{navigate('/diarylist')}} className="snip1241">
             <li><a href="#">모아보기</a></li>
           </ul>          
+
           <table>
             <tbody>
               <div className='days'>

@@ -3,6 +3,7 @@ import MainNote from "./MainNote";
 import React, { useEffect, useState, useContext } from "react";
 import {useNavigate} from 'react-router-dom'
 import { getMonthDiary,getDiaryListApi } from "../../api/diaryApi";
+import Button from "../../components/Common/Button";
 import './MainMonth.css'
 // import './Dropdown.scss'
 
@@ -115,20 +116,6 @@ const MainMonth =() => {
     const [data, setData] = useState([]);
     const [curDate, setCurDate] = useState(new Date());
     const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
-
-    // 전체 일기 한 번 불러보자
-  //   const [wholeData, setWholeData] = useState([])
-  //   useEffect(()=> {
-  //     getDiaryListApi()
-  //     .then((res)=> {
-  //       setWholeData(res.data)
-  //       console.log("모든 일기:", wholeData)
-  //       // console.log('모든 일기 잘 모아지나',noticeData)
-  //   })
-  //   .catch((e)=> {
-  //     console.log('err',e)
-  //   });
-  // },[])
     
     // 이달의 일기 모아보는 로직
   const [noticeData, setNoticeData] = useState([])
@@ -190,7 +177,15 @@ const MainMonth =() => {
             optionList={filterOptionList}
           />
 
-        <button onClick={()=>{navigate('/newdiary')}} className="button">일기 작성</button>
+        <Button
+                className=" y"
+                name="일기 작성"
+                style={{ width: "110px", fontSize: "15px", marginLeft: "20px",color:'black'}}
+                color="#CAD8B5"
+                hcolor="#8FB46E"
+                size="sm"
+                onClick={()=>{navigate('/newdiary')}}
+              />
         <ul onClick={()=>{navigate('/calender')}} className="snip1241">
             <li><a href="#">달력보기</a></li>
           </ul>  
