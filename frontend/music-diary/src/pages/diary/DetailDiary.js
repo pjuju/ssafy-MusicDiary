@@ -43,6 +43,7 @@ import {BiCaretRight } from 'react-icons/bi'
 import Lottie from 'lottie-react'
 // import bookmark from '../../store/lottie/bookmark.json'
 import BookmarkAnimation from "../../store/lottie/BookmarkAnimation";
+import { FcMusic } from 'react-icons/fc'
 
 // sticker patch method test
 
@@ -142,7 +143,6 @@ const DetailDiary = () => {
         res.data.map((ele, i) => {
           tmp.push(ele.stickerpacks);
 
-          // console.log(JSON.stringify(ele.stickerpacks))
           // console.log(tmp)
         });
         // console.log("최종 tmp:", JSON.stringify(tmp));
@@ -187,7 +187,6 @@ const DetailDiary = () => {
 
   ///음악
   useEffect(()=>{
-
     
     getPlaylist(id)
       .then((res) => {
@@ -379,7 +378,7 @@ const DetailDiary = () => {
         console.log("되면 좋겟당");
         console.log(JSON.stringify(res.data));
 
-        alert("스티커 저장완료")
+        // alert("스티커 저장완료")
       })
       .catch((err) => {});
   };
@@ -449,7 +448,6 @@ const DetailDiary = () => {
     <>
      
       <div className="detail-diary">
-      
         {/* 상단의 북마크 설정 */}
         {storeBookmark === true ? (
           <div
@@ -507,12 +505,13 @@ const DetailDiary = () => {
         {/* 일기 감정, 날짜 부분 */}
         <div className="emotion-date">
           <img alt="#" src={rightEmotion(emotion)}  />
-          <div className="date">2022.10.4 의 플레이리스트</div>
+          <div className="youtube-date">{strDate}의 플레이리스트</div>
+          <div className="remake-btn" onClick = {()=>remakePlaylist()}>⟳</div>
         </div>
 
         {/* 일기별 플레이리스트 */}
         <div className="detail-diary-playlist">
-        <p onClick = {()=>remakePlaylist()} style={{cursor: "pointer"}}>⟳</p>
+        {/* <p onClick = {()=>remakePlaylist()} style={{cursor: "pointer"}}>⟳</p> */}
         <iframe
             className="playlist-iframe"
 
@@ -530,13 +529,14 @@ const DetailDiary = () => {
                 return (
                   <>
                     <div>
-                      {ele.name} - {ele.artist}
+                     
+                      <div className="heart-wrapper" >
                       {ele.like === true ? (
                         <>
-                          <div
+                          <div  
+                            // className="fill-heart"
                             id={idName}
                             style={{
-                              zIndex: "9000",
                               cursor: "pointer",
                             }}
                             onClick={(e) => likeMusic(ele.id, i)}
@@ -549,7 +549,6 @@ const DetailDiary = () => {
                           <div
                             id={idName}
                             style={{
-                              zIndex: "9000",
                               cursor: "pointer",
                             }}
                             onClick={(e) => likeMusic(ele.id, i)}
@@ -558,6 +557,15 @@ const DetailDiary = () => {
                           </div>
                         </>
                       )}
+                        <div className="music-name-wrapper">
+                         {ele.name} 
+                        </div>
+                      </div>
+
+                      <div className="artist-wrapper">
+                        <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
+                      </div>
+
                     </div>
                   </>
                 );
@@ -610,8 +618,11 @@ const DetailDiary = () => {
                       setImages(newImages);
                     }}
                     onDragEnd={(event) => {
+
                       image.x = event.target.x();
                       image.y = event.target.y();
+
+                      onSaveStickerPos()
                       console.log("stage안의 스티커 선택");
                       console.log("image.x :", image.x);
                       console.log("image.y:", image.y);
@@ -706,9 +717,9 @@ const DetailDiary = () => {
 
         </div>
         <div className="sticker-btn-wrapper">
-            <div className="sticker-save-btn" onClick={onSaveStickerPos} >
+            {/* <div className="sticker-save-btn" onClick={onSaveStickerPos} >
               스티커 저장
-            </div>
+            </div> */}
 
             <div className="sticker-edit-btn" onClick={onEditStickerPos}>
               스티커 수정

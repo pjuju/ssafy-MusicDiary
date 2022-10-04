@@ -10,9 +10,15 @@ import { useDispatch } from "react-redux";
 
 import { getUserInfoApi } from '../../api/userApi'
 
+import toggleClass from 'jquery'
+
+import $ from 'jquery'
+
 const MainNote = () => {
     const navigate = useNavigate();
     const [userImage, setUserImage] = useState("")
+    const [userName, setUserName] = useState("");
+
     
     const storeUserName = useSelector((state)=>{
         return state.user.username
@@ -25,34 +31,57 @@ const MainNote = () => {
         navigate('/')
     }
 
+    const onMoveCalender = () =>{
+        
+
+        navigate('/calender')
+    }
+    
     useEffect(()=>{
         const user_id = sessionStorage.getItem("user_id")
+        
         console.log("username:", storeUserName)
 
         getUserInfoApi(user_id)
         .then((res)=>{
-            // console.log("in MainNote:", JSON.stringify(res.data.data.image_url))
-
+            console.log("in MainNote:", JSON.stringify(res.data.data.username))
+            setUserName(res.data.data.username)
             setUserImage(res.data.data.image_url)
         })
         .catch((err)=>{
             console.log(err.data)
 
         })
-    })
+    }, [])
     
     return(<div className='main-note'>
         <div className='left-page'>
 
-            <img src={"https:///"+ userImage} alt="sq-sample14"
+            <img src={"https:///"+ userImage} alt=""
                 className='profile-image'
                 style={{width:"7vw"}}
             />
 
-            <h5>{storeUserName}</h5>
+            <h5 style={{color:"black"}}>{userName}</h5>
 
             <div className='profile-menu' >
-                <ul class="snip1250" onClick={()=>{navigate('/calender')}}>
+                <div className="menu-diary" onClick={()=>{navigate('/calender')}}>
+                    일기장
+                </div>
+
+                <div className="menu-bookmark" onClick={()=>{navigate('/bookmarks')}}>
+                    책갈피
+                </div>
+
+                <div className="menu-playlist" onClick={()=>{navigate('/myplaylist')}}>
+                    My playlist
+                </div>
+
+                <div className="menu-recommend" onClick={()=>{navigate('/musicrecommendation')}}>
+                    음악 추천
+                </div>
+
+                {/* <ul class="snip1250" onClick={()=>{navigate('/calender')}}>
                     <li><a href="#" data-hover="일기장">일기장</a></li>
                 </ul>
                 <ul class="snip1250" onClick={()=>{navigate('/bookmarks')}}>
@@ -63,7 +92,7 @@ const MainNote = () => {
                 </ul>
                 <ul class="snip1250" onClick={()=>{navigate('/musicrecommendation')}}>
                     <li><a href="#" data-hover="음악 추천">음악 추천</a></li>
-                </ul>
+                </ul> */}
             </div>
         </div>
         <div className='bookmarks'>

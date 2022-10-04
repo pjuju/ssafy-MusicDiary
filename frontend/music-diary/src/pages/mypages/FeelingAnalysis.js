@@ -14,7 +14,7 @@ import {
   setDepressedChoiceValue,
 } from "../../store/store";
 import { useDispatch } from "react-redux";
-import { putUserInfoApi } from "../../api/userApi";
+import { patchUserInfoApi } from "../../api/userApi";
 import {getMonthDiary,getDiaryListApi } from '../../api/diaryApi';
 
 
@@ -286,7 +286,7 @@ const FeelingAnalysis = () => {
         "depressed":depressedMoment
     }
 
-    putUserInfoApi(patchUserInfo, user_id)
+    patchUserInfoApi(patchUserInfo, user_id)
     .then((res)=>{
         console.log(JSON.stringify(res.data))
         console.log("patch로 기분 설문조사 성공")

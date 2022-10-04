@@ -22,7 +22,7 @@ white-space : nowrap
 .detail-diary .detail-diary-item .fix-top {
   position: absolute;
   display: flex;
-  z-index: 1;
+  z-index: 2000;
   color: rgba(2, 2, 18, 0.977);
 
   height: 10vh;
@@ -142,7 +142,7 @@ z-index: 100;
 }
 
 .detail-diary .bookmark:hover {
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
 }
 
 
@@ -169,6 +169,8 @@ border-bottom: 1px solid grey;
   position: absolute;
 
   color:grey;
+
+  /* border-bottom: 1px solid grey; */
 
   justify-content: end;
   width: 20%;
@@ -314,9 +316,9 @@ border-bottom: 1px solid grey;
   /* border: 1px solid black; */
 }
 
-.emotion-date .date {
+.emotion-date .youtube-date {
   /* margin-top: 12vh; */
-  /* border: 1px solid black;  */
+  border-bottom: 1px solid black; 
   padding-top: 7px;
   margin-left: 1vw;
 }
@@ -326,21 +328,90 @@ border-bottom: 1px solid grey;
   /* border: 1px solid black;  */
 }
 
+.detail-diary .remake-btn {
+  height: 3vh;
+  width: 2.5vw;
+  color: red;
+
+  cursor: pointer;
+ 
+  margin-top:1vh;
+  margin-left: 0.5vw;
+ 
+  border-radius: 40%;
+
+  z-index: 9000;
+  transition: all ease 0.3s;
+}
+
+.detail-diary .remake-btn:active {
+  /* transform: rotate(360deg); */
+}
+
+.detail-diary .remake-btn:hover {
+  transform: rotate(270deg);
+}
+
 .detail-diary .detail-diary-playlist {
   width: 22vw;
   height: 68vh;
-  /* background-color: rgb(104, 123, 130); 유튜브 프레임 배경영역 */
+  /* background-color: rgb(104, 123, 130);  */
   position: absolute;
   margin-left: 65vw;
   margin-top:18vh;
-  z-index: 2;
+  z-index: 2200;
   color: black;
 
-  border-radius: 10%;
-  border: 1px solid grey;
-  /* overflow:auto;
-  -ms-overflow-style: none; */
+  border-radius: 3%;
+  /* border: 1px solid grey; */
+  overflow:auto;
+  -ms-overflow-style: none;
 
+}
+
+.detail-diary .detail-diary-playlist::-webkit-scrollbar {
+  display: none;
+}
+
+.detail-diary .heart-wrapper {
+  display: flex;
+  /* border: 1px solid red; */
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 2100;
+}
+
+
+
+.detail-diary .heart-wrapper:hover {
+  /* background-color: grey; */
+}
+
+.detail-diary .music-name-wrapper {
+  /* border: 1px solid orange; */
+  margin-left: 0.5vw;
+}
+
+.detail-diary .artist-wrapper {
+  position: relative;
+
+  
+  width: 11vw;
+  height: 3vh;
+  color: grey;
+  font-size: 12px;
+ 
+
+  margin-right: 10vw;
+  margin-left: 0vw;
+  /* border: 1px solid red; */
+}
+
+.detail-diary .artist-wrapper > div {
+  position: absolute;
+  justify-content: start;
+
+  margin-left: 1vw;
 }
 
 .detail-diary .playlist-iframe {
@@ -351,7 +422,7 @@ border-bottom: 1px solid grey;
   height: 30vh;
 
   /* margin-right: 90%; */
-  border-radius: 10%;
+  border-radius: 6%;
 }
 
 .detail-diary .delete-sticker-btn {

@@ -236,10 +236,9 @@ function EditMyInfo() {
               </label>
 
               <Button
-                className=" y"
                 name="프로필 변경"
-                style={{ width: "110px", fontSize: "15px", marginLeft: "20px" }}
-                color="#AC5050"
+                style={{ width: "110px", fontSize: "15px", marginLeft: "20px"}}
+                color="green"
                 size="sm"
                 onClick={onImgRegisterBtn}
               />
@@ -281,7 +280,8 @@ function EditMyInfo() {
                 <Button
                   className="edit-btn"
                   name="닉네임 수정"
-                  color="#AC5050"
+                  // color="#AC5050"
+                  // style={{backgroundColor:"green"}}
                   size="md"
                   onClick={onEditUserNameBtn}
                 />

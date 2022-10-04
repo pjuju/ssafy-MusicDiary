@@ -174,8 +174,14 @@
 
 .edit-myinfo .edit-btn {
     font-size: 15px;
+    color: black;
     /* border: 1px solid blue; */
     margin-left: 1vw;
+    background-color: rgb(169, 182, 169);
+}
+
+.edit-myinfo .edit-btn:hover {
+    background-color: rgb(189, 226, 189);
 }
 
 

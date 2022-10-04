@@ -77,10 +77,71 @@
 }
 
 
+/* navbar menu */
+
+.main-note .profile-menu {
+  position: absolute;
+  width: 7vw;
+
+  margin-left: 2vw;
+  font-size: 21px;
+  /* border:1px solid black; */
+}
+
+/* 일기장 / 북마크 / my playlist / 음악추천 */
+.main-note .menu-diary {
+  /* position: absolute; */
+  width: 4vw;
+  margin-bottom: 2vh;
+  margin-left: 1.4vw;
+}
+
+.main-note .menu-diary:hover{
+  border-width: 2vw;
+  border-bottom: 3px solid #ac5050;
+}
+
+.main-note .menu-bookmark {
+  width: 4vw;
+  margin-bottom: 2vh;
+  margin-left: 1.4vw;
+}
+
+.main-note .menu-bookmark:hover {
+  border-width: 2vw;
+  border-bottom: 3px solid #ac5050;
+}
+
+.main-note .menu-playlist {
+  width: 7.5vw;
+  margin-bottom: 2vh;
+  margin-left: 0vw;
+
+  /* border: 2px solid red; */
+}
+
+.main-note .menu-playlist:hover {
+  border-width: 2vw;
+  border-bottom: 3px solid #ac5050;
+}
+
+
+.main-note .menu-recommend {
+  width: 6vw;
+  margin-bottom: 2vh;
+  margin-left: 1vw;
+  /* border: 2px solid red; */
+}
+
+.main-note .menu-recommend:hover {
+  border-width: 2vw;
+  border-bottom: 3px solid #ac5050;
+}
+
 
 /* 메뉴 디자인  */
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
-.snip1250 {
+/* @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800); */
+/* .snip1250 {
 font-family: 'Raleway', Arial, sans-serif;
 text-align: center;
 text-transform: uppercase;
@@ -133,10 +194,14 @@ top: 0;
 content: attr(data-hover);
 color: black;
 white-space: nowrap;
-}
+/* background-color: #d9c865; */
+/* }
 .snip1250 li:hover a,
 .snip1250 .current a {
 transform: translateX(-100%);
 }
 
-
+.snip1250 li:selected {
+  background-color: #d9c865;
+} */
+ 
