@@ -18,7 +18,7 @@
     width: 40vw;
     height: 7vh;
     margin-left: 8vw;
-    margin-top: -1vh;
+    margin-top: 0vh;
     display: flex;
     /* background-color: green; */
 }
@@ -43,12 +43,14 @@
     width: 53vw;
     height: 65vh;
     /* background-color: pink; */
-    margin-top: 4vh;
+    margin-top: 2vh;
     position: absolute;
     margin-left: 2vw;
 }
 
 .diary-editor .input-date {
+    width: 8vw;
+    height: 5vh;
     cursor: pointer;
 }
 
@@ -58,6 +60,8 @@
     width: 40vw;
     height: 5vh;
     border-radius: 5px;
+
+    font-size: 22px;
 }
 
 .diary-editor .diary-textarea-content {
@@ -66,6 +70,8 @@
     width: 40vw;
     height: 50vh;
     border-radius: 5px;
+
+    font-size: 22px;
 }
 
 /* 오른쪽 */

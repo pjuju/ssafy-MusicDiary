@@ -279,8 +279,9 @@ const DiaryEditor = ({ isEdit, originData }) => {
 
   return (
     <div className="diary-editor">
-      <h5 style={{marginTop:'6vh', marginLeft:"-47vw"}}>오늘의 감정을 골라보세요</h5>
-      <p style={{marginTop:'-1vh', marginLeft:"-18vw"}}>감정을 선택하지 못하시겠다구요? 물음표를 클릭해보세요. 오늘 일기 내용을 바탕으로 감정을 추천해드립니다.</p>
+      <h4 style={{marginTop:'6vh', marginLeft:"-43vw", fontSize:"27px"}}>오늘의 감정을 골라보세요</h4>
+      <div style={{marginTop:'-1vh', marginLeft:"-36vw", fontSize:"17px", color:"grey", marginBottom:"0.3vh"}}>감정을 선택하지 못하시겠다구요? 물음표를 클릭해보세요. </div>
+      <div style={{marginTop:'-1vh', marginLeft:"-39vw", marginBottom:"0.3vh", fontSize:"17px", color:"grey"}}>오늘 일기 내용을 바탕으로 감정을 추천해드립니다.</div>
       <div ref={emotionRef} className="select-emotion">
         <img
           src="/assets/img/happy_emoji.png"
