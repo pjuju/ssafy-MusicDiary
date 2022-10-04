@@ -245,35 +245,39 @@ function EditMyInfo() {
               />
             </div>
           </div>
+          {/* 이미지 등록 영역 끝 */}
 
             {/* 닉네임, 비밀번호 수정 */}
-          <div className="edit-myinfo-field">
-            <div className="edit-myinfo-input">
+          <div className="edit-right-wrapper">
+            <div className="edit-myinfo-nickname">
               <input
-                className="edit-form-input"
+                className="edit-form-input-nickname"
                 placeholder="닉네임"
                 name="username"
                 type="text"
                 onChange={onChaneUserName}
               />
+            </div>
+
+            <div className="edit-myinfo-password">
               <input
-                className="edit-form-input"
+                className="edit-form-input-password"
                 placeholder="기존 비밀번호"
                 name="oldPassword"
                 type="password"
                 onChange={onChangeOldPassword}
               />
-           <input
-                className="edit-form-input"
-                placeholder="바뀐 비밀번호"
-                name="newPassword"
-                type="password"
-                onChange={onChangeNewPassword}
-              />
-            </div>
-
-            <div className="edit-btn-wrapper">
-              <div>
+              <input
+                    className="edit-form-input-password"
+                    placeholder="바뀐 비밀번호"
+                    name="newPassword"
+                    type="password"
+                    onChange={onChangeNewPassword}
+                />
+              </div>
+    
+            <div className="edit-nickname-btn-wrapper">
+     
                 <Button
                   className="edit-btn"
                   name="닉네임 수정"
@@ -281,6 +285,9 @@ function EditMyInfo() {
                   size="md"
                   onClick={onEditUserNameBtn}
                 />
+              </div>
+
+              <div className="edit-password-btn-wrapper">
                 <Button
                   className="edit-btn"
                   name="비밀번호 수정"
@@ -289,21 +296,30 @@ function EditMyInfo() {
                   onClick={onEditUserPasswordBtn}
                 />
               </div>
-
-              <div className="quit-btn">
+       
+              {/* <div className="quit-btn-wrapper">
                 <Button
-                  className="edit-btn"
+                  className="quit-btn"
                   name="회원탈퇴"
                   color="#464646"
                   size="sm"
                 />
-              </div>
-            </div>
-          </div>
+              </div> */}
 
+          </div>
+          {/*  */}
+          <div className="quit-btn-wrapper"
+            style={{marginTop:"62vh", marginLeft:"26vw"}}>
+            <Button
+              className="quit-btn"
+              name="회원탈퇴"
+              color="#464646"
+              size="sm"
+            />
           </div>
         </div>
-
+        {/* myinfo main / skyblue 끝 */}
+        </div>
         <MainNote className="main-note"></MainNote>
       </div>
     </>

@@ -6,7 +6,7 @@
 .bookmark .diary-list {
   /* 이건 모든 페이지들이 공용으로 설정할 값 */
   width: 64vw;
-  height: 93vh;
+  height: 85vh;
   margin-top: 7vh;
   margin-left: 24vw;
   /* background-color: green; */

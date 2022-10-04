@@ -56,7 +56,7 @@ const DetailDiary = () => {
   // diary
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [emotion, setemotion] = useState("");
+  const [emotion, setEmotion] = useState("");
   const [date, setDate] = useState("");
   const [bookmark, setBookmark] = useState(false);
   const [returnImages, setReturnImages] = useState([]);
@@ -97,7 +97,7 @@ const DetailDiary = () => {
 
   // 이모티콘 옳게 부착하기
   const rightEmotion = (emotion) => {
-    if (emotion === "행복") {
+    if (emotion === "기쁨") {
       return "/assets/img/happy_emoji.png";
     }
     if (emotion === "슬픔") {
@@ -109,10 +109,10 @@ const DetailDiary = () => {
     if (emotion === "우울") {
       return "/assets/img/depressed_emoji.png";
     }
-    if (emotion === "화남") {
+    if (emotion === "분노") {
       return "/assets/img/angry_emoji.png";
     }
-    if (emotion === "놀람") {
+    if (emotion === "불안") {
       return "/assets/img/anxious_emoji.png";
     }
   };
@@ -167,7 +167,7 @@ const DetailDiary = () => {
 
         setTitle(targetDiary.title);
         setContent(targetDiary.content);
-        setemotion(targetDiary.emotion);
+        setEmotion(targetDiary.emotion);
         setDate(targetDiary.created_date);
         setBookmark(targetDiary.bookmarked);
         setOriginStickers(targetDiary.stickers);
@@ -454,19 +454,24 @@ const DetailDiary = () => {
         {storeBookmark === true ? (
           <div
             className="bookmark"
-            style={{ backgroundColor: "#547C2B", zIndex: "9000" }}
+            style={{zIndex: "9000" }}
             ref={bookmarkRef}
             onClick={() => handleBookmark()}
           >
+            <img alt="#" src="/assets/img/flacticon-bookmark.png" 
+              style={{width:"3vw", height:"8vh", marginRight:"2vw"}} />
           </div>
 
         ) : (
           <div
             className="bookmark"
-            style={{ backgroundColor: "#A4BE58", zIndex: "9000" }}
+            style={{zIndex: "9000" }}
             ref={bookmarkRef}
             onClick={() => handleBookmark()}
-          ></div>
+          >
+            <img alt="#" src="/assets/img/empty-bookmark.png" 
+              style={{width:"3vw", height:"8vh", marginRight:"2vw"}} />
+          </div>
         )}
 
 
@@ -497,6 +502,12 @@ const DetailDiary = () => {
             <div></div>
           )}
         
+        </div>
+
+        {/* 일기 감정, 날짜 부분 */}
+        <div className="emotion-date">
+          <img alt="#" src={rightEmotion(emotion)}  />
+          <div className="date">2022.10.4 의 플레이리스트</div>
         </div>
 
         {/* 일기별 플레이리스트 */}

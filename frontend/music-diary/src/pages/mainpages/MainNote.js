@@ -27,6 +27,7 @@ const MainNote = () => {
 
     useEffect(()=>{
         const user_id = sessionStorage.getItem("user_id")
+        console.log("username:", storeUserName)
 
         getUserInfoApi(user_id)
         .then((res)=>{
