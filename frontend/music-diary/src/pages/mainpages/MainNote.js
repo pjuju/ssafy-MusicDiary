@@ -98,7 +98,7 @@ const MainNote = () => {
         <div className='bookmarks'>
             <div className='logout' onClick={onLogoutBtn}>로그아웃</div>
             <Dropdown className='my-page'>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <Dropdown.Toggle variant="success" id="dropdown-basic" style={{fontSize:"20px", height:"5.3vh"}}>
                     마이 페이지
                 </Dropdown.Toggle>
                 <Dropdown.Menu>

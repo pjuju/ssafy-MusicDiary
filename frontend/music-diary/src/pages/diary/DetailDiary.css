@@ -7,7 +7,7 @@
 width: 64vw;
 height: 93.5vh;
 margin-top: 6vh;
-margin-left: 24vw;
+margin-left: 25.5vw;
 
 position: absolute;
 z-index: 1;
@@ -129,7 +129,7 @@ height: 10vh;
 
 /* background-color: white; */
 
-margin-left: 25vw;
+margin-left: 26vw;
 margin-top: 8vh;
 
 /* border: 1px solid black; */
@@ -160,7 +160,6 @@ margin-left: 1vw;
 /* width: 80%; */
 justify-content: start;
 
-border-bottom: 1px solid grey;
 
 }
 
