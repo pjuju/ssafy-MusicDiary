@@ -162,3 +162,15 @@ section .text-container .text-box h3{
   transform: translateY(0);
   opacity: 1;
 }
+
+/* Music Playing */
+.lottie-music-playing {
+  position: absolute;
+
+  /* border: 1px solid black; */
+
+  margin-left: 40vw;
+  margin-top: -13vh;
+
+  width: 10vw;
+}

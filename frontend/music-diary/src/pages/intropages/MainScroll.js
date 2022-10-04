@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import '../../css/intropages/MainScroll.css'
 import IntroClosedBook from '../scrollpages/IntroClosedBook.js'
 
+import Lottie from 'lottie-react';
+import MusicPlaying from '../../store/lottie/music-playing.json'
 
 const MainScroll = () => {
     function reveal() {
@@ -78,6 +80,7 @@ const MainScroll = () => {
 
 <section className="third">
   <div class="container reveal">
+  <Lottie animationData={MusicPlaying} className="lottie-music-playing" />
     <h1 style={{marginLeft:'5vw'}}>오늘의 기분에 따른 음악도 <br></br>추천해드립니다</h1>  
     <div class="text-container">
       <div class="text-box">
