@@ -53,15 +53,15 @@
 
 @keyframes emotion {
   from {
-    scale: 120%
+    scale: 100%
   }
   to {
-    scale: 100%
+    scale: 85%
   }
 }
 
 .main-scroll .happy {
-  animation: emotion 1000ms alternate infinite;
+  animation: emotion 650ms alternate infinite;
 }
 
 .main-scroll .angry {
@@ -69,7 +69,7 @@
 }
 
 .main-scroll .anxious {
-  animation: emotion 1050ms alternate infinite;
+  animation: emotion 850ms alternate infinite;
 }
 
 .main-scroll .depressed {
@@ -77,11 +77,11 @@
 }
 
 .main-scroll .sad {
-  animation: emotion 850ms alternate infinite;
+  animation: emotion 750ms alternate infinite;
 }
 
 .main-scroll .normal {
-  animation: emotion 950ms alternate infinite;
+  animation: emotion 700ms alternate infinite;
 }
 
 .main-scroll .third {

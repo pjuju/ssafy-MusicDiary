@@ -187,7 +187,7 @@ function App() {
     <BrowserRouter>
         <Routes>
         <Route path="/konva" element={<Test />} />
-          <Route path="/" element={<ClosedIntroPage />} />
+          <Route path="/dd" element={<ClosedIntroPage />} />
           <Route path="/test" element={<IntroScrollPage />} />
           <Route path="/calender" element={<MainCalender />} />
           <Route path="/diarylist" element={<MainMonth />} />
@@ -232,7 +232,7 @@ function App() {
           <Route path="/recommendation/normal" element={<NormalRecommendation />} />
           <Route path="/recommendation/sad" element={<SadRecommendation />} />
 
-          <Route path='/scroll' element={<MainScroll />} />
+          <Route path='/' element={<MainScroll />} />
         </Routes>
       </BrowserRouter>
       </DiaryDispatchContext.Provider>

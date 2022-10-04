@@ -67,8 +67,23 @@
   }
 
 .next-button {
-  background-color: green;
+  background-color: transparent;
   border: none;
-  width: 10vw;
+  width: 5vw;
   height: 5vh;
+  margin-left: 0vw;
+  border-radius: 10px;
+  margin-top: 3vh;
+  font-size: 1.2vw;
+}
+
+.before-button {
+  background-color: transparent;
+  border: none;
+  width: 5vw;
+  height: 5vh;
+  margin-left: 1.3vw;
+  border-radius: 10px;
+  margin-top: 3vh;
+  font-size: 1.2vw;
 }
