@@ -235,7 +235,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
   const emotionAnxiousRef = useRef();
   const emotionRandomRef = useRef()
   useEffect(() => {
-    if (emotion == "기쁨") {
+    if (emotion == "기쁨") { 
       // emotionHappyRef.current.style.height = '5vh';
       const happy = document.getElementById('happy')
       emotionHappyRef.current.style.scale = "130%";

@@ -28,7 +28,7 @@ const StyledButton = styled.button`
   ${(props) => props.sizeStyle}
 
   background: ${(props) => props.color};
-
+ 
   width: var(--button-width);
   height: var(--button-height);
   border: none;
@@ -43,7 +43,7 @@ const StyledButton = styled.button`
   font-family: "alsongdalsong";
 
   &:hover {
-    background-color: #DF8787;
+    background-color: ${(props) => props.hcolor};;
   }
 `;
 
