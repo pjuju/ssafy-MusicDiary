@@ -1,22 +1,71 @@
 /*  여기서부터  */
 .depress-playlist {
-    position: relative;
-  }
-  
-.depress-playlist .work-area {
-  width: 64vw;
-  height: 93vh;
-  margin-top: 7vh;
-  margin-left: 24vw;
-  /* background-color: green; */
+  position: relative;
+}
 
-  position: absolute;
-  z-index: 1;
+.depress-playlist .work-area {
+width: 64vw;
+height: 93vh;
+margin-top: 7vh;
+margin-left: 24vw;
+/* background-color: green; */
+position: absolute;
+z-index: 1;
+color: black;
+}
+
+.depress-playlist .playlist-iframe {
+  display:flex;
+  width:38vw;
+  height:35vh;
+  margin-top: 20vh;
+  margin-left: 3vw;
+  margin-bottom: 20vh;
+}
+
+.depress-playlist .detail-diary-playlist {
+  width: 20vw;
+  height: 10vh;
+  position: relative;
+  margin-left: 45vw;
+  margin-top: -15vh;
+  z-index: 2200;
   color: black;
-  }
-  
-.depress-playlist .main-note {
-    /* position: absolute; */
-  }
+  border-radius: 3%;
+  overflow:auto;
+  -ms-overflow-style: none;
+}
+
+.depress-playlist .detail-diary-playlist::-webkit-scrollbar {
+  display: none;
+}
+
+.depress-playlist .heart-wrapper {
+  display: flex;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 2100;
+}
+
+
+.depress-playlist .music-name-wrapper {
+  margin-left: 0.5vw;
+}
+
+.depress-playlist .artist-wrapper {
+  position: relative;
+  width: 15vw;
+  height: 0.1vh;
+  color: grey;
+  font-size: 12px;
+  margin-right: 10vw;
+  margin-left: 0vw;
+}
+
+.depress-playlist .artist-wrapper > div {
+  position: absolute;
+  justify-content: start;
+  margin-left: 1vw;
+}
 
 /* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */

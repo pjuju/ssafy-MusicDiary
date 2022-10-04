@@ -1,4 +1,4 @@
-import MainNote from "../../mainpages/MainNote"
+import MainPlaylist from "../../mainpages/MainPlaylist"
 import './SadPlaylist.css'
 import { emotionMusic, makeLike } from "../../../api/musicApi";
 import { useState } from "react";
@@ -48,41 +48,74 @@ const SadPlaylist = () => {
     }
     return(<div className="sad-playlist">
         <div className="work-area">
-            <h2>당신이 슬펐을 때 들었던 음악</h2>
-            <div style={{display:"flex", marginLeft:"3vw"}}>
-            {youtube==="https://www.youtube.com/embed?playlist="?(<>음악이 없네요!</>):(<iframe className="youtube" width="560" height="315" src={youtube} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{width:"90vh", height:"50vh", marginTop:"5vh"}}></iframe>)}
-              <div style={{marginLeft:"2vw", marginTop:'5.5vh'}}>
+            <h2 style={{marginTop:'6vh'}}>당신이 슬펐을 때 들었던 음악</h2>
+            {youtube==="https://www.youtube.com/embed?playlist="?
+            (<>음악이 없어요!</>):
+            (<iframe
+              className="playlist-iframe"
+              src={youtube}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>)}
+              
           { musicBtn
           ? (
             <>
-            {
-              
-              musics.map((ele, i)=>{
-                
-                var idName = "heart"+i;
+              {musics.map((ele, i) => {
+                var idName = "heart" + i;
                 return (
                   <>
-                    <div style={{display:"flex", marginTop:"-1.3vh"}}>
-                      
-                      <div id={idName} style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, i)}>♥ </div>
-                      {ele.name} - {ele.artist}<FcMusic />
+                    <div className="detail-diary-playlist">
+                      <div className="heart-wrapper" >
+                      {ele.like === true ? (
+                        <>
+                          <div  
+                            // className="fill-heart"
+                            id={idName}
+                            style={{
+                              cursor: "pointer", color:"red"
+                            }}
+                            onClick={(e) => likeMusic(ele.id, i)}
+                          >
+                            ♥
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div
+                            id={idName}
+                            style={{
+                              cursor: "pointer", color:"red"
+                            }}
+                            onClick={(e) => likeMusic(ele.id, i)}
+                          >
+                            ♡
+                          </div>
+                        </>
+                      )}
+                        <div className="music-name-wrapper">
+                         {ele.name} 
+                        </div>
+                      </div>
+
+                      <div className="artist-wrapper">
+                        <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
+                      </div>
+                            
                     </div>
                   </>
-                )
-              })
-            }
+                );
+              })}
             </>
-          )
-          : (
+          ) : (
             <>
-            <div>아직 음악없음</div>
+              <div>아직 음악없음</div>
             </>
-          )
-        }
+          )}
         </div>
-            </div>
-        </div>
-        <MainNote className="main-note"></MainNote>
+        <MainPlaylist className="main-playlist"></MainPlaylist>
     </div>)
 }
 
