@@ -23,7 +23,7 @@ white-space : nowrap
   position: absolute;
   display: flex;
   z-index: 1;
-  color: blue;
+  color: rgba(2, 2, 18, 0.977);
 
   height: 10vh;
   /* margin-top:-5vh; */
@@ -175,13 +175,14 @@ border-bottom: 1px solid grey;
   margin-top: 6vh;
   margin-right: 5vw;
   margin-left:33vw;
+
 }
 
-.detail-diary .emotion {
+/* .detail-diary .emotion {
   width: 5vw;
   margin-top: -20vh;
   margin-left: -17vw;
-}
+} */
 
 
 .detail-diary .content {
@@ -302,13 +303,36 @@ border-bottom: 1px solid grey;
   display:none;
   }
 
+
+.emotion-date {
+  display: flex;
+  position: absolute;
+  color:black;
+  margin-top: 11vh;
+  margin-left: 68.5vw;
+
+  /* border: 1px solid black; */
+}
+
+.emotion-date .date {
+  /* margin-top: 12vh; */
+  /* border: 1px solid black;  */
+  padding-top: 7px;
+  margin-left: 1vw;
+}
+
+.emotion-date > img {
+  width: 3vw;
+  /* border: 1px solid black;  */
+}
+
 .detail-diary .detail-diary-playlist {
   width: 22vw;
-  height: 72vh;
+  height: 68vh;
   /* background-color: rgb(104, 123, 130); 유튜브 프레임 배경영역 */
   position: absolute;
   margin-left: 65vw;
-  margin-top: 12vh;
+  margin-top:18vh;
   z-index: 2;
   color: black;
 
