@@ -2,8 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import '../../css/intropages/MainScroll.css'
 import IntroClosedBook from '../scrollpages/IntroClosedBook.js'
 
-import Lottie from 'lottie-react';
-import MusicPlaying from '../../store/lottie/music-playing.json'
 
 const MainScroll = () => {
 
@@ -37,7 +35,7 @@ const MainScroll = () => {
         </ul>
         <h1 style={{fontSize:'7vw',marginTop:'-50vh',color:'black',marginLeft:'10vw'}}>ALSONG</h1>
         <h1 style={{fontSize:'7vw',marginTop:'-30vh',color:'black',marginLeft:'-15vw'}}>DALSONG</h1>
-
+        <h5 style={{color:'black',marginLeft:'-20vw'}}>아래의 책을 클릭해보세요</h5>
         <IntroClosedBook style={{Top:'-10vh'}}></IntroClosedBook>
     </section>
 
@@ -78,7 +76,6 @@ const MainScroll = () => {
 
 <section className="third">
   <div class="container reveal">
-  <Lottie animationData={MusicPlaying} className="lottie-music-playing" />
     <h1 style={{marginLeft:'5vw'}}>오늘의 기분에 따른 음악도 <br></br>추천해드립니다</h1>  
     <div class="text-container">
       <div class="text-box">
@@ -119,7 +116,7 @@ const MainScroll = () => {
       </div>
 
       <div class="text-box">
-        <img src="/assets/img/stickerstore.png" 
+        <img src="/assets/img/sticker.png" 
         style={{width:'30vw',backgroundColor:'#ffffff',borderRadius:'15px',boxShadow:'10px 10px #dcdca2'}}></img>
         <h5 style={{marginTop:'3vh'}}>
           스티커 상점에서 마음에 드는 스티커를 구입할 수도 있습니다
