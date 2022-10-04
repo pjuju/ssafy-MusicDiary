@@ -16,7 +16,7 @@ import {
 import { useDispatch } from "react-redux";
 import { patchUserInfoApi } from "../../api/userApi";
 import {getMonthDiary,getDiaryListApi } from '../../api/diaryApi';
-import Button from '../../components/Common/Button'
+
 
 import "./FeelingAnalysis.css";
 
@@ -76,9 +76,9 @@ const FeelingAnalysis = () => {
   const [nowClick, setNowClick] = useState('')
 
   let callMyName = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setNowClick(e.target.value)
-    console.log(nowClick)
+    // console.log(nowClick)
     setTmp(e.target.value);
     if (e.target.value === "1개월") {
       setColor("set3");
@@ -149,8 +149,8 @@ const FeelingAnalysis = () => {
     getMonthDiary(curDate.getMonth()+1, curDate.getFullYear())
     .then((res)=> {
       setMonthData(res.data)
-      console.log('이번달의 일기 개수는',res.data)
-      console.log('이번달 감정 갯수',monthHappy,monthSad,monthAnxious,monthAngry,monthNormal,monthDepressed)
+      // console.log('이번달의 일기 개수는',res.data)
+      // console.log('이번달 감정 갯수',monthHappy,monthSad,monthAnxious,monthAngry,monthNormal,monthDepressed)
     })
     .catch((e)=> {
       console.log('err',e)
@@ -166,7 +166,7 @@ const FeelingAnalysis = () => {
   // 1년짜리 데이터 가져오기
   const [aYearData, setAYearData] = useState([])
   useEffect(()=> {
-    setAYearData(fullData.filter((it)=> getDateDiff(it.created_date, aYearAgo) < 360))
+    setAYearData(fullData.filter((it)=> getDateDiff(it.created_date, aYearAgo) <365))
     console.log('1년 데이터',aYearData)
     console.log('1년 데이터 개수',yearHappy,yearSad,yearAnxious,yearAngry,yearNormal,yearDepressed)
   },[nowClick])
@@ -181,8 +181,8 @@ const FeelingAnalysis = () => {
   const [sixMonthData, setSixMonthData] = useState([])
   useEffect(()=> {
     setSixMonthData(fullData.filter((it)=> getDateDiff(it.created_date, sixMonthAgo) < 150))
-    console.log('6개월 데이터',sixMonthData)
-    console.log('6개월 데이터 개수', sixHappy,sixSad,sixAnxious,sixAngry,sixNormal,sixDepressed)
+    // console.log('6개월 데이터',sixMonthData)
+    // console.log('6개월 데이터 개수', sixHappy,sixSad,sixAnxious,sixAngry,sixNormal,sixDepressed)
   },[nowClick])
   const sixHappy = sixMonthData.filter((it)=> it.emotion == '기쁨').length
   const sixSad = sixMonthData.filter((it)=> it.emotion == '슬픔').length
@@ -376,11 +376,9 @@ const FeelingAnalysis = () => {
           </div>
           <ul class="snip1226">
             <li>
-
-            <Button name="저장하기" hcolor="#DF8787" color="#AC5050" size="lg" onClick={onSaveMoodSurveyBtn} />
-              {/* <a href="#" data-hover="저장하기" onClick={onSaveMoodSurveyBtn}>
+              <a href="#" data-hover="저장하기" onClick={onSaveMoodSurveyBtn}>
                 저장하기
-              </a> */}
+              </a>
             </li>
           </ul>
         </div>
