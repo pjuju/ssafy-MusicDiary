@@ -504,7 +504,7 @@ const DetailDiary = () => {
             <div className="content-img-wrapper">
                     <img 
                       className="content-image"
-                      alt="#" src={"https://" + ele.image_url} />
+                      alt="" src={"https://" + ele.image_url} />
              </div>
                 </>
               );
@@ -732,7 +732,7 @@ const DetailDiary = () => {
             </div> */}
 
             <div className="sticker-edit-btn" onClick={onEditStickerPos}>
-              스티커 수정
+              스티커 삭제
             </div>
           </div>
         </div>
