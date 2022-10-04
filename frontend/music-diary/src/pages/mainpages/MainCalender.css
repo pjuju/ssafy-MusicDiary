@@ -19,6 +19,12 @@
   /* position: absolute; */
 }
 
+.main-calender .another-month {
+  background-color: rgb(240, 240, 240);
+  border-radius: 8px;
+  color: rgb(192, 192, 192);
+}
+
 /* 달력 css */
 .main-calender .control {
   margin-top: 6vh;

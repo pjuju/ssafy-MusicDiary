@@ -87,6 +87,14 @@ function SignupInfo() {
     })
   }
 
+  const storeEmail = useSelector((state)=>{
+    return state.user.email
+  })
+
+  const storeUserName = useSelector((state=>{
+    return state.user.username
+  }))
+
   return (
     <>  
       <div style={{position:'relative'}}>
@@ -99,6 +107,7 @@ function SignupInfo() {
               name='email'
               type='email'
               onChange={onEmailHandler}
+              // value={storeEmail}
               style={{width:'20vw',borderRadius:'5px',height:'5vh',fontSize:'1.1vw',border:'1px solid lightgrey',marginTop:'-1vh'}}
             />
             </div>
@@ -109,6 +118,7 @@ function SignupInfo() {
                 placeholder="Nickname"
                 name='username'
                 type='text'
+                // value={storeUserName}
                 onChange={onUsernameHandler}
                 style={{width:'20vw',borderRadius:'5px',height:'5vh',border:'1px solid lightgrey',marginTop:"-1vh",fontSize:'1.1vw'}}
               />
@@ -127,7 +137,6 @@ function SignupInfo() {
 
           <div>
 
-          </div>
             <h5 style={{color:'#3D3D3D',marginLeft:'-13vw',marginTop:'2vh'}}>비밀번호 확인</h5>
             <input 
               placeholder="Confirm Password"
@@ -138,12 +147,16 @@ function SignupInfo() {
             />
           </div>
 
-
+          </div>
           <button 
             onClick={moveQuestionOne}
             style={{position:'absolute',marginTop:'70vh',width:"20vw",height:'5vh',border:"none",marginLeft:'-7.5vw'
           ,backgroundColor:'#C0D2C1',borderRadius:"5px",fontSize:'1.3vw'}}
-          >다음으로 넘어가기</button>
+          >설문조사 시작</button>
+          <h5 style={{color:'darkgrey',marginLeft:'68vw',marginTop:'83vh',cursor:'pointer',position:'absolute'}}
+        onClick={()=>{navigate('/')}}>돌아가기</h5>
+
+
           </div>
 
         <img src="/assets/img/signup.png" style={{width:'100vw',height:'100vh'}}></img>
