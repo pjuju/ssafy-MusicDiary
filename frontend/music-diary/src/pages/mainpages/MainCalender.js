@@ -142,7 +142,7 @@ const MainCalender =() => {
                 onClick={()=>{navigate('/newdiary')}}
               />
           <ul onClick={()=>{navigate('/diarylist')}} className="snip1241">
-            <li><a href="#">모아보기</a></li>
+            <li><a href="#" style={{fontSize:"20px"}}>모아보기</a></li>
           </ul>          
 
           <table>

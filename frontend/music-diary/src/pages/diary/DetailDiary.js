@@ -288,27 +288,6 @@ const DetailDiary = () => {
       }
     })
 
-    // if (window.confirm("정말 삭제하시겠습니까?")) {
-    //   //   useEffect(()=> {
-    //   deleteDiary(id)
-    //     .then((res) => {
-    //       console.log(res.data);
-
-    //       Swal.fire({
-    //         icon: 'success',
-    //         title: '일기가 저장되었습니다!',
-    //         showConfirmButton: false,
-    //         timer: 1700
-    //       })
-    //     })
-    //     .catch((e) => {
-    //       console.log("err", e);
-    //     });
-    //   //   },[])
-    //   navigate("/diarylist", { replace: true });
-    // }
-
-
   };
 
   const targetDiary = monthData.find((it) => parseInt(it.id) === parseInt(id));
@@ -343,7 +322,6 @@ const DetailDiary = () => {
     }
   };
   ///////////////////////////////////////////////////////////////////////////////////////
-
   const addStickerToPanel = ({ src, width, x, y, sticker_id }) => {
     setImages((currentImages) => [
       ...currentImages,
@@ -389,7 +367,6 @@ const DetailDiary = () => {
       };
 
       tmp.push(element);
-      // console.log("추가한 현재 tmp: ", JSON.stringify(tmp));
     });
 
     // console.log("origin:", JSON.stringify(originStickers));
@@ -418,7 +395,6 @@ const DetailDiary = () => {
       .then((res) => {
         console.log("되면 좋겟당");
         console.log(JSON.stringify(res.data));
-
         // alert("스티커 저장완료")
       })
       .catch((err) => {});
@@ -442,9 +418,7 @@ const DetailDiary = () => {
         sticker_x: stickers[i].sticker_x,
         sticker_y: stickers[i].sticker_y,
       };
-
       tmp2.push(element);
-      // console.log("추가한 현재 tmp: ", JSON.stringify(tmp2))
     });
 
     const diaryInfo = {
@@ -487,7 +461,6 @@ const DetailDiary = () => {
 
   return (
     <>
-     
       <div className="detail-diary">
         {/* 상단의 북마크 설정 */}
         {storeBookmark === true ? (
@@ -512,7 +485,6 @@ const DetailDiary = () => {
               style={{width:"3vw", height:"8vh", marginRight:"2vw"}} />
           </div>
         )}
-
 
         {/* 일기 title & content */}
         <div className="detail-diary-item" style={{zIndex:"0"}}>
@@ -540,9 +512,7 @@ const DetailDiary = () => {
           ) : (
             <div></div>
           )}
-        
         </div>
-
         {/* 일기 감정, 날짜 부분 */}
         <div className="emotion-date">
           <img alt="" src={rightEmotion(emotion)}  />
@@ -575,7 +545,6 @@ const DetailDiary = () => {
                       {ele.like === true ? (
                         <>
                           <div  
-                            // className="fill-heart"
                             id={idName}
                             style={{
                               cursor: "pointer",
@@ -838,11 +807,6 @@ const DetailDiary = () => {
     </>
   )
 }
-  
-
-
-
-
       {/* 7. MainNote창 */}
       <div>
         <MainNote className="main-note"></MainNote>

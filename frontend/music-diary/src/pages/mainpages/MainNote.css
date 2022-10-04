@@ -53,16 +53,18 @@
 
 /* 우측 상단 북마크 */
 .main-note .logout {
+  position: absolute;
   width: 7vw;
   height: 5vh;
   background-color: rgb(84, 152, 116);
-  position: absolute;
+
   margin-top: 3.2vh;
   left: 70vw;
   border-radius: 5px;
   padding-top: 0.8vh;
   cursor: pointer;
 
+  font-size: 20px;
   z-index: 9000;
 }
 
@@ -73,6 +75,7 @@
   margin-top: 3vh;
   left: 77vw;
 
+  font-size: 20px;
   z-index: 9000;
 }
 
@@ -90,34 +93,46 @@
 
 /* 일기장 / 북마크 / my playlist / 음악추천 */
 .main-note .menu-diary {
-  /* position: absolute; */
-  width: 4vw;
+  position: absolute;
+  width: 5vw;
   margin-bottom: 2vh;
-  margin-left: 1.4vw;
+  margin-left: 1.9vw;
+
+  font-size: 30px;
 }
 
 .main-note .menu-diary:hover{
+  
   border-width: 2vw;
   border-bottom: 3px solid #ac5050;
 }
 
 .main-note .menu-bookmark {
-  width: 4vw;
+  position: absolute;
+  width: 5vw;
+
+  margin-top:8vh;
   margin-bottom: 2vh;
-  margin-left: 1.4vw;
+  margin-left: 1.9vw;
+
+  font-size: 30px;
 }
 
 .main-note .menu-bookmark:hover {
+  
   border-width: 2vw;
   border-bottom: 3px solid #ac5050;
 }
 
 .main-note .menu-playlist {
-  width: 7.5vw;
+  position: absolute;
+  width: 10vw;
+
+  margin-top:16vh;
   margin-bottom: 2vh;
   margin-left: 0vw;
 
-  /* border: 2px solid red; */
+  font-size: 30px;
 }
 
 .main-note .menu-playlist:hover {
@@ -127,10 +142,14 @@
 
 
 .main-note .menu-recommend {
-  width: 6vw;
+  position: absolute;
+  width: 7vw;
+
+  margin-top:24vh;
   margin-bottom: 2vh;
-  margin-left: 1vw;
-  /* border: 2px solid red; */
+  margin-left: 1.3vw;
+
+  font-size: 30px;
 }
 
 .main-note .menu-recommend:hover {
