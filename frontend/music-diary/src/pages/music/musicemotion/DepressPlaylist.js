@@ -2,6 +2,7 @@ import MainNote from "../../mainpages/MainNote"
 import './DepressPlaylist.css'
 import { emotionMusic, makeLike } from "../../../api/musicApi";
 import { useState } from "react";
+import { FcMusic } from 'react-icons/fc';
 
 const DepressPlaylist = () => {
     const [musicBtn, setMusicBtn] = useState(false);
@@ -49,7 +50,7 @@ const DepressPlaylist = () => {
         <div className="work-area">
             <h2>당신이 우울했을 때 들었던 음악</h2>
             <div style={{display:"flex", marginLeft:"3vw"}}>
-              <iframe width="560" height="315" src={youtube} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{width:"35vw", height:"40vh", marginTop:"5vh"}}></iframe>
+            {youtube==="https://www.youtube.com/embed?playlist="?(<>음악이 없네요!</>):(<iframe className="youtube" width="560" height="315" src={youtube} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{width:"90vh", height:"50vh", marginTop:"5vh"}}></iframe>)}
               <div style={{marginLeft:"2vw", marginTop:'5.5vh'}}>
           { musicBtn
           ? (
@@ -64,7 +65,7 @@ const DepressPlaylist = () => {
                     <div style={{display:"flex", marginTop:"-1.3vh"}}>
                       
                       <div id={idName} style={{zIndex:"9999999999999999999999", cursor: "pointer"}} onClick = {(e)=>likeMusic(ele.id, i)}>♥ </div>
-                      {ele.name} - {ele.artist}
+                      {ele.name} - {ele.artist}<FcMusic />
                     </div>
                   </>
                 )

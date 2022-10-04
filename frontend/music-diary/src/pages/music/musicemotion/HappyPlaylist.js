@@ -1,13 +1,15 @@
 import MainPlaylist from "../../mainpages/MainPlaylist";
 import './HappyPlaylist.css';
 import { emotionMusic, makeLike } from "../../../api/musicApi";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 const HappyPlaylist = () => {
 
     const [musicBtn, setMusicBtn] = useState(false);
     const [musics, setMusics] = useState([]);
     const [youtube, setYoutube] = useState("");
+    const [videos, setVideos] = useState("");
+    const [musicList, setMusicList] = useState([]);
 
     emotionMusic(1)
     .then((res) => {
@@ -24,13 +26,17 @@ const HappyPlaylist = () => {
           video += (res.data[i].videoid + ",");
           list.push(test)
         }
-        setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
+        setVideos(video);
         setMusics(list);
         setMusicBtn(true)
       })
       .catch((e) => {
         console.log("err", e);
       });
+
+      function MyPlaylist(x) {
+        useMemo(() => setMusicList(musics), setYoutube("https://www.youtube.com/embed?playlist="+videos.slice(0,-1)));
+      }
     
       const likeMusic = (music_id, i) => {
         const txt = document.getElementById("heart"+i);
@@ -51,13 +57,14 @@ const HappyPlaylist = () => {
         <div className="work-area">
             <h2>당신이 행복했을 때 들었던 음악</h2>
             <div style={{display:"flex", marginLeft:"3vw"}}>
-              <iframe className="youtube" width="560" height="315" src={youtube} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{width:"90vh", height:"50vh", marginTop:"5vh"}}></iframe>
+              {youtube?(<iframe className="youtube" width="560" height="315" src={youtube} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style={{width:"90vh", height:"50vh", marginTop:"5vh"}}></iframe>):(<>음악이 없네요!</>)}
               <div style={{marginLeft:"2vw", marginTop:'5.5vh'}}>
+              {()=>MyPlaylist(1)}
           { musicBtn
           ? (
             <>
             {
-              musics.map((ele, i)=>{
+              musicList.map((ele, i)=>{
                 var idName = "heart"+i;
                 return (
                   <>

@@ -187,6 +187,7 @@ const DetailDiary = () => {
 
   ///음악
   useEffect(()=>{
+
     
     getPlaylist(id)
       .then((res) => {
