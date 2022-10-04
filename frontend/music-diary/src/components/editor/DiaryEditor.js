@@ -188,6 +188,9 @@ const DiaryEditor = ({ isEdit, originData }) => {
         content,
         emotion,
         created_date,
+        images:[
+          {image_url:returnImg}
+        ]
       };
       modifyDiaryItem(originData.id, diaryInfo)
         .then((res) => {
@@ -404,7 +407,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
         </div>
       </div>
 
-      <button class="snip1431 submit-button" onClick={handleSubmit}>작성 완료</button>
+      <button class="snip1431 submit-button" onClick={handleSubmit}>수정 완료</button>
 
       <button
         onClick={() => {
@@ -412,7 +415,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
         }}
         className="back-button snip1417"
       >
-        작성 취소
+        수정 취소
       </button>
     </div>
   );

@@ -44,7 +44,9 @@ import Lottie from 'lottie-react'
 // import bookmark from '../../store/lottie/bookmark.json'
 import BookmarkAnimation from "../../store/lottie/BookmarkAnimation";
 import { FcMusic } from 'react-icons/fc'
+import {FcSynchronize } from 'react-icons/fc'
 
+import Swal from "sweetalert2";
 // sticker patch method test
 
 const DetailDiary = () => {
@@ -257,18 +259,56 @@ const DetailDiary = () => {
   //////////////////////////////////////////////////////////////////////////////
   // 다이어리 remove 함수
   const handleRemove = () => {
-    if (window.confirm("정말 삭제하시겠습니까?")) {
-      //   useEffect(()=> {
-      deleteDiary(id)
-        .then((res) => {
-          console.log(res.data);
+
+    Swal.fire({
+      title: '일기를 삭제하시겠습니까?',
+      text: '',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '삭제하기'
+    })
+    .then((res)=>{
+      if (res.isConfirmed){
+
+        deleteDiary(id)
+        .then((res)=>{
+          Swal.fire(
+            '삭제되었습니다!',
+            '',
+            'success'
+          )
+
+          navigate("/diarylist", { replace: true });
         })
-        .catch((e) => {
-          console.log("err", e);
-        });
-      //   },[])
-      navigate("/diarylist", { replace: true });
-    }
+        .catch((err)=>{
+          console.log(err.data)
+        })
+      }
+    })
+
+    // if (window.confirm("정말 삭제하시겠습니까?")) {
+    //   //   useEffect(()=> {
+    //   deleteDiary(id)
+    //     .then((res) => {
+    //       console.log(res.data);
+
+    //       Swal.fire({
+    //         icon: 'success',
+    //         title: '일기가 저장되었습니다!',
+    //         showConfirmButton: false,
+    //         timer: 1700
+    //       })
+    //     })
+    //     .catch((e) => {
+    //       console.log("err", e);
+    //     });
+    //   //   },[])
+    //   navigate("/diarylist", { replace: true });
+    // }
+
+
   };
 
   const targetDiary = monthData.find((it) => parseInt(it.id) === parseInt(id));
@@ -482,7 +522,7 @@ const DetailDiary = () => {
               <p className="date">{strDate}</p>
             {/* <img src={rightEmotion(emotion)} className='emotion'></img> */}
             </div>
-            <div className="content">{content}</div>
+            <h5 className="content">{content}</h5>
 
           
           {returnImages.length >= 1 ? (
@@ -505,9 +545,9 @@ const DetailDiary = () => {
 
         {/* 일기 감정, 날짜 부분 */}
         <div className="emotion-date">
-          <img alt="#" src={rightEmotion(emotion)}  />
+          <img alt="" src={rightEmotion(emotion)}  />
           <div className="youtube-date">{strDate}의 플레이리스트</div>
-          <div className="remake-btn" onClick = {()=>remakePlaylist()}>⟳</div>
+          <div className="remake-btn" onClick = {()=>remakePlaylist()}><FcSynchronize /></div>
         </div>
 
         {/* 일기별 플레이리스트 */}
@@ -586,14 +626,14 @@ const DetailDiary = () => {
               navigate(`/edit/${id}`);
             }}
             className="edit-button"
-            style={{ zIndex: "9000" }}
+            style={{ zIndex: "9000", fontSize:"20px"}}
           >
             수정하기
           </div>
           <div
             onClick={handleRemove}
             className="delete-button"
-            style={{ zIndex: "9000" }}
+            style={{ zIndex: "9000",  fontSize:"20px" }}
           >
             삭제하기
           </div>
@@ -693,7 +733,7 @@ const DetailDiary = () => {
       {/* 5. 스티커 선택창 */}
 
     <div className="sticker-choice-toggle">
-        <div onClick={onShowStickerPacks}>스티커 선택창<BiCaretRight /></div>  
+        <div onClick={onShowStickerPacks}>스티커 붙이기<BiCaretRight /></div>  
     </div>
 
 {

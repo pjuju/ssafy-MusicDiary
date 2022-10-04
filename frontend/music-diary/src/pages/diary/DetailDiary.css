@@ -134,7 +134,7 @@ margin-top: 8vh;
 
 /* border: 1px solid black; */
 
-transform: rotate(20deg);
+/* transform: rotate(20deg); */
 border-radius: 9%;
 
 cursor: pointer;
@@ -311,7 +311,7 @@ border-bottom: 1px solid grey;
   position: absolute;
   color:black;
   margin-top: 11vh;
-  margin-left: 68.5vw;
+  margin-left: 66vw;
 
   /* border: 1px solid black; */
 }
@@ -336,12 +336,12 @@ border-bottom: 1px solid grey;
   cursor: pointer;
  
   margin-top:1vh;
-  margin-left: 0.5vw;
+  margin-left: 0vw;
  
   border-radius: 40%;
 
   z-index: 9000;
-  transition: all ease 0.3s;
+  transition: all ease 0.5s;
 }
 
 .detail-diary .remake-btn:active {
@@ -349,7 +349,7 @@ border-bottom: 1px solid grey;
 }
 
 .detail-diary .remake-btn:hover {
-  transform: rotate(270deg);
+  transform: rotate(360deg);
 }
 
 .detail-diary .detail-diary-playlist {
@@ -396,7 +396,7 @@ border-bottom: 1px solid grey;
   position: relative;
 
   
-  width: 11vw;
+  width: 13vw;
   height: 3vh;
   color: grey;
   font-size: 12px;
@@ -412,6 +412,7 @@ border-bottom: 1px solid grey;
   justify-content: start;
 
   margin-left: 1vw;
+  /* border: 1px solid red; */
 }
 
 .detail-diary .playlist-iframe {

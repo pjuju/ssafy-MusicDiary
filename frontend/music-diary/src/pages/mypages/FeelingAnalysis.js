@@ -16,7 +16,7 @@ import {
 import { useDispatch } from "react-redux";
 import { patchUserInfoApi } from "../../api/userApi";
 import {getMonthDiary,getDiaryListApi } from '../../api/diaryApi';
-
+import Button from '../../components/Common/Button'
 
 import "./FeelingAnalysis.css";
 
@@ -376,9 +376,11 @@ const FeelingAnalysis = () => {
           </div>
           <ul class="snip1226">
             <li>
-              <a href="#" data-hover="저장하기" onClick={onSaveMoodSurveyBtn}>
+
+            <Button name="저장하기" hcolor="#DF8787" color="#AC5050" size="lg" onClick={onSaveMoodSurveyBtn} />
+              {/* <a href="#" data-hover="저장하기" onClick={onSaveMoodSurveyBtn}>
                 저장하기
-              </a>
+              </a> */}
             </li>
           </ul>
         </div>
