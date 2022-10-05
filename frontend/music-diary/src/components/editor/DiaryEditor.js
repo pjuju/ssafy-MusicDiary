@@ -117,6 +117,15 @@ const DiaryEditor = ({ isEdit, originData }) => {
       .then((res) => {
         console.log(JSON.stringify(res.data));
         setReturnImg(res.data)
+
+        Swal.fire({
+          icon: 'success',
+          title: '사진 등록 완료!',
+          showConfirmButton: false,
+          timer: 1300
+        })
+
+        
       })
       .catch((err) => {
         console.log(JSON.stringify(err.data));
@@ -170,7 +179,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
                 .then((res) => {
                   console.log("일기 생성", JSON.stringify(res.data));
                   console.log(res.data);
-                  makePlaylist(res.data.id)
+                  // makePlaylist(res.data.id)
                 })
                 .catch((err) => {
                   console.log(JSON.stringify(err.data));

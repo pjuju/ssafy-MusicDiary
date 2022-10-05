@@ -1,3 +1,9 @@
+
+@font-face {
+  font-family:"playlist-font";
+  src: url("../../../public/assets/fonts/SCDream4.otf")
+}
+
 .detail-diary {
   position: relative;
 }
@@ -50,7 +56,6 @@ display:none;
 
   background-color: rgb(244, 240, 240);
   border-radius: 3%;
-
 
   overflow: auto;
 
@@ -357,6 +362,8 @@ justify-content: start;
   /* border: 1px solid grey; */
   overflow:auto;
   -ms-overflow-style: none;
+
+  font-family: playlist-font;
 
 }
 
