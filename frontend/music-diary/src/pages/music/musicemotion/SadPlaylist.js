@@ -1,7 +1,7 @@
 import MainPlaylist from "../../mainpages/MainPlaylist"
 import './SadPlaylist.css'
 import { emotionMusic, makeLike } from "../../../api/musicApi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FcMusic } from 'react-icons/fc';
 
 const SadPlaylist = () => {
@@ -9,27 +9,29 @@ const SadPlaylist = () => {
     const [musics, setMusics] = useState([]);
     const [youtube, setYoutube] = useState("");
 
-    emotionMusic(3)
-    .then((res) => {
-        var list = [];
-        let video = "";
-        for (let i in [...Array(res.data.length).keys()]) {
-          let test = {
-            id: res.data[i].id,
-            like: res.data[i].like,
-            name: res.data[i].track_name,
-            artist: res.data[i].artist_name,
+    useEffect(() => {
+      emotionMusic(3)
+      .then((res) => {
+          var list = [];
+          let video = "";
+          for (let i in [...Array(res.data.length).keys()]) {
+            let test = {
+              id: res.data[i].id,
+              like: res.data[i].like,
+              name: res.data[i].track_name,
+              artist: res.data[i].artist_name,
+            }
+            video += (res.data[i].videoid + ",");
+            list.push(test)
           }
-          video += (res.data[i].videoid + ",");
-          list.push(test)
-        }
-        setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
-        setMusics(list);
-        setMusicBtn(true)
+          setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
+          setMusics(list);
+          setMusicBtn(true)
       })
       .catch((e) => {
         console.log("err", e);
       });
+    },[])
     
       const likeMusic = (music_id, i) => {
         const txt = document.getElementById("heart"+i);

@@ -1,7 +1,7 @@
 import MainPlaylist from "../../mainpages/MainPlaylist";
 import './HappyPlaylist.css';
 import { emotionMusic, makeLike } from "../../../api/musicApi";
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { FcMusic } from 'react-icons/fc';
 
 const HappyPlaylist = () => {
@@ -12,32 +12,34 @@ const HappyPlaylist = () => {
     const [videos, setVideos] = useState("");
     const [musicList, setMusicList] = useState([]);
 
-    emotionMusic(1)
-    .then((res) => {
-        var list = [];
-        let video = "";
-        for (let i in [...Array(res.data.length).keys()]) {
-          let test = {
-            id: res.data[i].id,
-            like: res.data[i].like,
-            name: res.data[i].track_name,
-            artist: res.data[i].artist_name,
-            // heart: heart,
+    useEffect(()=> {
+      emotionMusic(1)
+      .then((res) => {
+          var list = [];
+          let video = "";
+          for (let i in [...Array(res.data.length).keys()]) {
+            let test = {
+              id: res.data[i].id,
+              like: res.data[i].like,
+              name: res.data[i].track_name,
+              artist: res.data[i].artist_name,
+              // heart: heart,
+            }
+            video += (res.data[i].videoid + ",");
+            list.push(test)
           }
-          video += (res.data[i].videoid + ",");
-          list.push(test)
-        }
-        setVideos(video);
-        setMusics(list);
-        setMusicBtn(true)
+          setVideos(video);
+          setMusics(list);
+          setMusicBtn(true)
+        })
+        .catch((e) => {
+          console.log("err", e);
       })
-      .catch((e) => {
-        console.log("err", e);
-      });
+    }, [])
 
-      function MyPlaylist(x) {
-        useMemo(() => setMusicList(musics), setYoutube("https://www.youtube.com/embed?playlist="+videos.slice(0,-1)));
-      }
+      // function MyPlaylist(x) {
+      //   useMemo(() => setMusicList(musics), setYoutube("https://www.youtube.com/embed?playlist="+videos.slice(0,-1)));
+      // }
     
       const likeMusic = (music_id, i) => {
         const txt = document.getElementById("heart"+i);
@@ -76,7 +78,7 @@ const HappyPlaylist = () => {
                   <>
                     <div className="detail-diary-playlist">
                       <div className="heart-wrapper" >
-                      {ele.like === true ? (
+                      
                         <>
                           <div  
                             // className="fill-heart"
@@ -89,19 +91,6 @@ const HappyPlaylist = () => {
                             ♥
                           </div>
                         </>
-                      ) : (
-                        <>
-                          <div
-                            id={idName}
-                            style={{
-                              cursor: "pointer", color:"red"
-                            }}
-                            onClick={(e) => likeMusic(ele.id, i)}
-                          >
-                            ♡
-                          </div>
-                        </>
-                      )}
                         <div className="music-name-wrapper">
                          {ele.name} 
                         </div>
