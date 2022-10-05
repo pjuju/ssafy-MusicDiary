@@ -1,9 +1,10 @@
-import MainNote from "../../mainpages/MainNote"
+import MainPlaylist from "../../mainpages/MainPlaylist"
 import { musicRecommend, getMusic, makeLike } from '../../../api/musicApi'
 import { getUserApi } from '../../../api/userApi'
 import { useEffect, useState } from "react"
 import './AngryRecommendation.css'
 import { useNavigate } from "react-router-dom"
+import { FcMusic } from 'react-icons/fc';
 
 const AngryRecommendation =() => {
     const [angryMusic, setAngryMusic] = useState([])
@@ -52,6 +53,16 @@ const AngryRecommendation =() => {
         });
     }
 
+    const remakePlaylist = () => {
+        musicRecommend(4)
+        .then((res) => {
+          window.location.reload();
+        })
+        .catch((e) => {
+          console.log("err", e);
+        });
+      }
+
     useEffect(()=> {
         
         musicRecommend(4)
@@ -81,32 +92,36 @@ const AngryRecommendation =() => {
     // const trackName = angryMusic.map((it)=> it.track_name)
 
     return(<div className="angry-recommendation">
-        <div className="workarea">
-            <div className="header" style={{marginTop:'6vh'}}>
-                <h2>당신에게 추천합니다</h2>
+        <div className="work-area">
+            <div className="header">
+                <h2 style={{marginTop:"10vh"}}>당신에게 추천합니다</h2>
                 <p>화난 순간, 마음을 다스려줄 플레이리스트</p>
             </div>
-            <div style={{display:"flex", marginLeft:"3vw"}}>
                 
-                <iframe src={youtube} title="YouTube video player" 
-                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen style={{width:"35vw", height:"40vh", marginTop:"5vh"}}></iframe>
+            <iframe src={youtube} className="playlist-iframe" title="YouTube video player" 
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
                 
-                <div style={{marginLeft:"2vw", marginTop:'5.5vh'}}>
+                <div className="remake-btn" onClick = {()=>remakePlaylist()}>
+                        <img style={{width:"1.2vw", marginTop:"0.5vh"}} alt="" src="/assets/icons/syncro.png" />
+                    </div>
+                <div className="detail-diary-playlist">
                     
                     {angryMusic.map((it)=>
                     <div>
+                    <div className="heart-wrapper">
                         {likeCheck(it.id)}
-                        <p id={"heart"+it.id} style={{zIndex:"9999999999999999999999", display:"inline-block", cursor: "pointer", whitespace: "nowrap"}} onClick = {()=>likeMusic(it.id)}> </p>
-                        <p style={{display:"inline-block", marginTop:"-1.3vh", whitespace: "nowrap"}}
-                        onClick={()=>{navigate({youtube})}}
-                        >{it.track_name}</p><br></br>
+                        <div id={"heart"+it.id} style={{zIndex:"9999999999999999999999", cursor: "pointer", color:"red"}} onClick = {()=>likeMusic(it.id)}></div>
+                        <div className="music-name-wrapper" onClick={()=>{navigate({youtube})}}>{it.track_name}</div><br></br>
+                    </div>
+                    <div className="artist-wrapper">
+                        <div>{it.artist_name} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
+                      </div>
                     </div>
                     )}
-                </div>
             </div>
         </div>
-        <MainNote className="main-note"></MainNote>
+        <MainPlaylist className="main-playlist"></MainPlaylist>
     </div>)
 }
 

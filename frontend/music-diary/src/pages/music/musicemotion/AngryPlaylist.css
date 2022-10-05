@@ -58,11 +58,11 @@ color: black;
   /* overflow: hidden; */
   width: 15vw;
   text-align: left;
-  white-space: nowrap; 
-  display: block;
-  margin-left: 0.5vw;
-  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
+  margin-left: 0.5vw;
   margin-bottom: 1vh;
   margin-top: -0.5vh;
   /* animation: 2s slide-right;
