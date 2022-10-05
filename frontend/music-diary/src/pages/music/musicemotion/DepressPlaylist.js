@@ -1,7 +1,7 @@
 import MainPlaylist from "../../mainpages/MainPlaylist"
 import './DepressPlaylist.css'
 import { emotionMusic, makeLike } from "../../../api/musicApi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FcMusic } from 'react-icons/fc';
 
 const DepressPlaylist = () => {
@@ -9,6 +9,7 @@ const DepressPlaylist = () => {
     const [musics, setMusics] = useState([]);
     const [youtube, setYoutube] = useState("");
 
+    useEffect(() => {
     emotionMusic(5)
     .then((res) => {
         var list = [];
@@ -30,6 +31,7 @@ const DepressPlaylist = () => {
       .catch((e) => {
         console.log("err", e);
       });
+    }, [])
     
       const likeMusic = (music_id, i) => {
         const txt = document.getElementById("heart"+i);

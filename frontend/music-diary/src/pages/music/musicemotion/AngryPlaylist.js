@@ -9,9 +9,9 @@ const AngryPlaylist = () => {
     const [musics, setMusics] = useState([]);
     const [youtube, setYoutube] = useState("");
 
-    useMemo(()=> makePlaylist, [])
+    // useMemo(()=> makePlaylist, [])
 
-    const makePlaylist = useMemo(()=> {
+    useEffect(()=> {
       emotionMusic(4)
       .then((res) => {
           var list = [];
