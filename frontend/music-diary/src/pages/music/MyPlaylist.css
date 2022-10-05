@@ -33,14 +33,14 @@ margin-left: 3vw;
 .music-playlist .happy {
 width: 170px;
 height: 170px;
-background-color: rgb(247, 224, 155);
+background-color: #CDE6BF;
 border-radius: 100%;
 }
 
 .music-playlist .sad {
 width: 170px;
 height: 170px;
-background-color: rgb(247, 224, 155);
+background-color: #CDE6BF;
 border-radius: 100%;
 animation-duration: 0.5s;
 }
@@ -48,7 +48,7 @@ animation-duration: 0.5s;
 .music-playlist .normal {
 width: 170px;
 height: 170px;
-background-color: rgb(247, 224, 155);
+background-color: #CDE6BF;
 border-radius: 100%;
 animation-duration: 1s;
 }
@@ -56,7 +56,7 @@ animation-duration: 1s;
 .music-playlist .anxious {
 width: 170px;
 height: 170px;
-background-color: rgb(247, 224, 155);
+background-color: #CDE6BF;
 border-radius: 100%;
 animation-duration: 1.5s;
 }
@@ -64,7 +64,7 @@ animation-duration: 1.5s;
 .music-playlist .depressed {
 width: 170px;
 height: 170px;
-background-color: rgb(247, 224, 155);
+background-color: #CDE6BF;
 border-radius: 100%;
 animation-duration: 2s;
 }
@@ -72,7 +72,7 @@ animation-duration: 2s;
 .music-playlist .angry {
 width: 170px;
 height: 170px;
-background-color: rgb(247, 224, 155);
+background-color: #CDE6BF;
 border-radius: 100%;
 animation-duration: 2.2s;
 }
