@@ -1,20 +1,112 @@
 /*  여기서부터  */
-.happy-recommendation {
-    position: relative;
-  }
-  
-.happy-recommendation .work-area {
-  width: 65vw;
-  height: 86vh;
-  margin-top: 8vh;
-  margin-left: 24vw;
-  /* background-color: green; */
+@font-face {
+  font-family:"playlist-font";
+  src: url("../../../../public/assets/fonts/SCDream4.otf")
+}
 
+.happy-recommendation {
+  position: relative;
+}
+
+.happy-recommendation .work-area {
+width: 64vw;
+height: 93vh;
+margin-top: 7vh;
+margin-left: 24vw;
+/* background-color: green; */
+position: absolute;
+z-index: 1;
+color: black;
+}
+
+.happy-recommendation .playlist-iframe {
   position: absolute;
-  z-index: 1;
+  width:32vw;
+  height:35vh;
+  margin-top: 14vh;
+  margin-left: -26vw;
+  margin-bottom: 20vh;
+}
+
+.happy-recommendation .detail-diary-playlist {
+  width: 17vw;
+  height: 50vh;
+  position: absolute;
+  margin-left: 45vw;
+  margin-top: 6.5vh;
+  z-index: 2200;
   color: black;
+  border-radius: 3%;
+  overflow:auto;
+  -ms-overflow-style: none;
+  font-family: playlist-font;
+}
+
+.happy-recommendation .detail-diary-playlist::-webkit-scrollbar {
+  display: none;
+}
+
+.happy-recommendation .heart-wrapper {
+  display: flex;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 2100;
+}
+
+
+.happy-recommendation .music-name-wrapper {
+  /* overflow: hidden; */
+  width: 15vw;
+  text-align: left;
+  white-space: nowrap; 
+  display: block;
+  margin-left: 0.5vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 1vh;
+  margin-top: -0.5vh;
+  /* animation: 2s slide-right;
+  animation-delay: 2s; */
+}
+
+.happy-recommendation .artist-wrapper {
+  text-align: left;
+  white-space: nowrap; 
+  display: block;
+  position: relative;
+  width: 15vw;
+  height: 0.1vh;
+  color: grey;
+  font-size: 12px;
+  margin-right: 10vw;
+  margin-left: 0vw;
+  margin-top: -0.7vh;
+  margin-bottom: 3.5vh;
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
+  /* overflow: hidden;
+  animation: 2s slide-right;
+  animation-delay: 2s; */
+}
+
+/* @keyframes slide-right {
+  from {
+    margin-left: 0px;
   }
-  
-.happy-recommendation.main-note {
-    /* position: absolute; */
+  to {
+    margin-left: -50px;
   }
+} */
+
+.happy-recommendation .artist-wrapper > div {
+  position: absolute;
+  justify-content: start;
+  margin-left: 1vw;
+}
+
+.happy-recommendation .remake-btn {
+  position: absolute;
+  margin-left: 60vw;
+  margin-top: 3vh;
+}
+/* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */
