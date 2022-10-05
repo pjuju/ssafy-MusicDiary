@@ -20,8 +20,7 @@ function GoogleAuth() {
   const dispatch = useDispatch(); 
   
   // const scope = "https://www.googleapis.com/auth/userinfo.email"
-  const GOOGLE_CLIENT_ID =
-    "421385414738-hlk6fqfkbur8k03nuh1ftjftukoo8umd.apps.googleusercontent.com";
+  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
   // const GOOGLE_SECRET_KEY = "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"
   const GOOGLE_CALLBACK_URI = "http://j7d204.p.ssafy.io/google/login/callback/";
   // const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&response_type=code&redirect_uri=${GOOGLE_CALLBACK_URI}&scope=${scope}`;
