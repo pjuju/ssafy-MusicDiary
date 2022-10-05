@@ -5,7 +5,8 @@ import {
   writeDiaryListApi,
   modifyDiaryItem,
   getDiaryImage,
-  makePlaylist
+  makePlaylist,
+  getDiaryListApi
 } from "../../api/diaryApi";
 import Button from "../Common/Button";
 
@@ -126,6 +127,22 @@ const DiaryEditor = ({ isEdit, originData }) => {
     console.log(emotion);
     setEmotion(emotion);
   };
+  
+  // 전체 일기 리스트 불러오기
+  const [total, setTotal] = useState([])
+  useEffect(()=> {
+    getDiaryListApi()
+    .then((res)=> {
+      // console.log(res.data)
+      setTotal(res.data)
+    })
+    .catch((err)=> {
+      console.log(err)
+    })
+  },[])
+  const date = total.map((it)=> it.created_date)
+  console.log(date)
+
 
   const handleSubmit = () => {
     if (content.length < 1) {
@@ -137,79 +154,89 @@ const DiaryEditor = ({ isEdit, originData }) => {
       return;
     }
 
-    if (!isEdit) {
-      //   onCreate(created_date, title, content, emotion, image,bookmark);
-      const diaryInfo = {
-        title,
-        content,
-        emotion,
-        created_date,
-        images:[
-          {image_url:returnImg}
-        ]
-      };
-      // 일기 작성하기
-      writeDiaryListApi(diaryInfo)
-        .then((res) => {
-          console.log("일기 생성", JSON.stringify(res.data));
-          console.log(res.data);
-          makePlaylist(res.data.id)
-        })
-        .catch((err) => {
-          console.log(JSON.stringify(err.data));
-        });
-    }
-    // useEffect(()=> {
-    if (emotion==='') {
-      setTimeout(()=> {
-        navigate('/diarylist', { replace: true })
+    if(date.includes(created_date)) {
+      Swal.fire({
+        icon: 'error',
+        title: '작성 불가',
+        text: '일기는 하루에 한 장만 작성 가능합니다',
+      })
+    } else {
+
+      if (!isEdit) {
+        //   onCreate(created_date, title, content, emotion, image,bookmark);
+        const diaryInfo = {
+          title,
+          content,
+          emotion,
+          created_date,
+          images:[
+            {image_url:returnImg}
+          ]
+        };
+        // 일기 작성하기
+        writeDiaryListApi(diaryInfo)
+          .then((res) => {
+            console.log("일기 생성", JSON.stringify(res.data));
+            console.log(res.data);
+            makePlaylist(res.data.id)
+          })
+          .catch((err) => {
+            console.log(JSON.stringify(err.data));
+          });
+      }
+      // useEffect(()=> {
+      if (emotion==='') {
+        setTimeout(()=> {
+          navigate('/diarylist', { replace: true })
+          Swal.fire({
+            icon: 'success',
+            title: '일기가 저장되었습니다!',
+            showConfirmButton: false,
+            timer: 1700
+          })
+        },2500)
+      }
+  
+      if (emotion === "") {
+        const spinner = document.getElementById("spinner")
+        spinner.classList.remove('display-none')
+        spinner.classList.add('display-block')
+      }
+  
+  
+      if (isEdit) {
+        // 일기 수정하기
+        const diaryInfo = {
+          title,
+          content,
+          emotion,
+          created_date,
+          images:[
+            {image_url:returnImg}
+          ]
+        };
+        modifyDiaryItem(originData.id, diaryInfo)
+          .then((res) => {
+            console.log(res.data);
+            console.log(diaryInfo);
+          })
+          .catch((err) => {
+            console.log(JSON.stringify(err.data));
+          });
+      }
+      // }
+  
+      if (emotion !== '') {
         Swal.fire({
           icon: 'success',
-          title: '일기가 저장되었습니다!',
+          title: '일기가 수정되었습니다!',
           showConfirmButton: false,
           timer: 1700
         })
-      },2500)
+        navigate("/diarylist", { replace: true });
+      }
     }
 
-    if (emotion === "") {
-      const spinner = document.getElementById("spinner")
-      spinner.classList.remove('display-none')
-      spinner.classList.add('display-block')
-    }
-
-
-    if (isEdit) {
-      // 일기 수정하기
-      const diaryInfo = {
-        title,
-        content,
-        emotion,
-        created_date,
-        images:[
-          {image_url:returnImg}
-        ]
-      };
-      modifyDiaryItem(originData.id, diaryInfo)
-        .then((res) => {
-          console.log(res.data);
-          console.log(diaryInfo);
-        })
-        .catch((err) => {
-          console.log(JSON.stringify(err.data));
-        });
-    }
-    // }
-
-    if (emotion !== '') {
-      Swal.fire({
-        icon: 'success',
-        title: '일기가 수정되었습니다!',
-        showConfirmButton: false,
-        timer: 1700
-      })
-      navigate("/diarylist", { replace: true });
-    }
   };
 
 
