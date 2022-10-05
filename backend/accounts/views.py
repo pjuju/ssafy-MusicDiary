@@ -249,8 +249,11 @@ class UserView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Destro
         data = serializer.data
         return Response({"data":data}, status=status.HTTP_200_OK)
 
-    def delete(self,request):
-        pass
+    def delete(self,request,pk):
+        user = get_object_or_404(User, pk=pk)
+        user.delete()
+        return Response(status=status.HTTP_200_OK)
+
     
     def patch(self, request, pk):
         user = get_object_or_404(User, pk=pk)
