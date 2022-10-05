@@ -349,11 +349,11 @@ justify-content: start;
 }
 
 .detail-diary .detail-diary-playlist {
-  width: 22vw;
+  width: 17vw;
   height: 68vh;
   /* background-color: rgb(104, 123, 130);  */
   position: absolute;
-  margin-left: 65vw;
+  margin-left: 68vw;
   margin-top:18vh;
   z-index: 2200;
   color: black;
@@ -417,8 +417,9 @@ justify-content: start;
   /* width="560"
   height="315" */
   /* position: absolute; */
-  width: 22vw;
-  height: 30vh;
+  width: 17vw;
+  height: 20vh;
+  margin-bottom: 2vh;
 
   /* margin-right: 90%; */
   border-radius: 6%;
