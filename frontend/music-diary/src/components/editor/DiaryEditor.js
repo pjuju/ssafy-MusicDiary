@@ -58,10 +58,9 @@ const getStringdate = (date) => {
 
 const DiaryEditor = ({ isEdit, originData }) => {
   const navigate = useNavigate();
+  // const image_url= process.env.PUBLIC_URL + ''
 
-  // const [created_date, setCreated_date] = useState(getStringdate(new Date()));
-  const [created_date, setCreated_date] = useState(new Date().toLocaleDateString());
-
+  const [created_date, setCreated_date] = useState(getStringdate(new Date()));
   const [content, setcontent] = useState("");
   const [title, setTitle] = useState("");
   const [emotion, setEmotion] = useState("");
@@ -117,13 +116,11 @@ const DiaryEditor = ({ isEdit, originData }) => {
       .then((res) => {
         console.log(JSON.stringify(res.data));
         setReturnImg(res.data)
-        
       })
       .catch((err) => {
         console.log(JSON.stringify(err.data));
       });
   };
-
 
   const handleClickEmote = (emotion) => {
     console.log(emotion);
@@ -207,16 +204,13 @@ const DiaryEditor = ({ isEdit, originData }) => {
     if (emotion !== '') {
       Swal.fire({
         icon: 'success',
-        title: '일기가 저장되었습니다!',
+        title: '일기가 수정되었습니다!',
         showConfirmButton: false,
         timer: 1700
       })
       navigate("/diarylist", { replace: true });
     }
   };
-
-
-
 
 
   // 원래 일기 정보 보여주는 로직
@@ -408,17 +402,34 @@ const DiaryEditor = ({ isEdit, originData }) => {
 
         </div>
       </div>
-      
-      <button class="snip1431 submit-button" onClick={handleSubmit}>수정 완료</button>
 
-      <button
-        onClick={() => {
-          navigate(-1);
-        }}
-        className="back-button snip1417"
-      >
-        수정 취소
-      </button>
+      {isEdit?(
+  <>  <button class="snip1431 submit-button" onClick={handleSubmit}>수정 완료</button>
+  <button
+  onClick={() => {
+    navigate(-1);
+  }}
+  className="back-button snip1417"
+ >
+  수정 취소
+ </button>
+ </>
+
+)
+:(
+  <>
+<button class="snip1431 submit-button" onClick={handleSubmit}>작성 완료</button>
+ <button
+ onClick={() => {
+   navigate(-1);
+ }}
+ className="back-button snip1417"
+>
+ 작성 취소
+</button>
+</>
+)
+}
     </div>
   );
 };
