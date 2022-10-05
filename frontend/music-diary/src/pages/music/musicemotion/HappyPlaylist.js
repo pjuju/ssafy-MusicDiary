@@ -52,9 +52,18 @@ const HappyPlaylist = () => {
     }
     return(<div className="happy-playlist">
         <div className="work-area">
-            <h2 style={{marginTop:"10vh"}}>당신이 행복했을 때 들었던 음악</h2>
+            <h2 style={{marginTop:"10vh"}}>당신이 행복했을 때 듣기 좋아하던 음악</h2>
+        <p>뭔 말하징</p>
             {youtube==="https://www.youtube.com/embed?playlist="?
-            (<>음악이 없어요!</>):
+            (<>
+              <div className="no-video">
+                <h4>재생할 동영상이 없어요!</h4>
+                <p>행복했던 날의 추천 음악에 하트를 눌러 플레이리스트에 추가해보세요.</p>
+              </div>
+              <div className="no-music">
+                <h4>재생할 음악이 없어요!</h4>
+              </div>
+            </>):
             (<iframe
               className="playlist-iframe"
               src={youtube}
