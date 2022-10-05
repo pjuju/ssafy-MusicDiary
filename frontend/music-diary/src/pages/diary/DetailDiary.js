@@ -82,7 +82,6 @@ const DetailDiary = () => {
   const [musics, setMusics] = useState([]);
   const [heart, setHeart] = useState("");
   const [youtube, setYoutube] = useState("");
-  const [newMusic, setNewMusic] = useState([]);
 
   // konva //
   const [background] = useImage("example-image.jpg");
@@ -190,7 +189,6 @@ const DetailDiary = () => {
   ///음악
   useEffect(()=>{
 
-    
     getPlaylist(id)
       .then((res) => {
         var list = [];
@@ -227,7 +225,7 @@ const DetailDiary = () => {
         console.log("err", e);
       });
     
-  }, newMusic)
+  }, [])
 
   const likeMusic = (music_id, i) => {
     const txt = document.getElementById("heart" + i);
@@ -249,7 +247,7 @@ const DetailDiary = () => {
   const remakePlaylist = () => {
     makePlaylist(id)
     .then((res) => {
-      setNewMusic([res.data])
+      window.location.reload();
     })
     .catch((e) => {
       console.log("err", e);

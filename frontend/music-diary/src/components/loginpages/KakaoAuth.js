@@ -19,7 +19,7 @@ function KakaoAuth() {
   const [userId, setUserId] = useState("");
   const dispatch = useDispatch(); 
 
-  const REST_API_KEY = "f742e07d1059ec8cd0050f305986a8a4";
+  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY
   const REDIRECT_URI = "http://j7d204.p.ssafy.io/kakao/login/callback";
   // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   // const CLIENT_SECRET = "upBn6BfX6M7ycktPVn59NpwPBqccaIhU"

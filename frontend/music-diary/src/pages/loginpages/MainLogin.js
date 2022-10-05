@@ -13,7 +13,11 @@ import '../../css/loginpages/MainLogin.css'
 import {
 
   setUserEmail,
-  setUserName
+  setUserName,
+  setNormalChoiceValue,
+  setAngryChoiceValue,
+  setSadChoiceValue,
+  setDepressedChoiceValue
 } from "../../store/store";
 import { useDispatch } from "react-redux";
 
@@ -58,8 +62,13 @@ function MainLogin() {
           sessionStorage.setItem("user_id", res.data.data.id)
           dispatch(setUserEmail(res.data.data.email))
           dispatch(setUserName(res.data.data.username))
+          dispatch(setNormalChoiceValue(res.data.data.normal))
+          dispatch(setSadChoiceValue(res.data.data.sad))
+          dispatch(setAngryChoiceValue(res.data.data.angry))
+          dispatch(setDepressedChoiceValue(res.data.data.depressed))
 
-        navigate("/calender");
+
+          navigate("/calender");
       })
       .catch((err) => {
         console.log(err.data);
@@ -83,13 +92,12 @@ function MainLogin() {
       });
   };
   
-  const REST_API_KEY = "f742e07d1059ec8cd0050f305986a8a4"
+  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY
   const REDIRECT_URI = "http://j7d204.p.ssafy.io/kakao/login/callback";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;   
 
   const scope = "https://www.googleapis.com/auth/userinfo.email"
-  const GOOGLE_CLIENT_ID = "421385414738-hlk6fqfkbur8k03nuh1ftjftukoo8umd.apps.googleusercontent.com"
-  // const GOOGLE_SECRET_KEY = "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"
+  const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
   const GOOGLE_CALLBACK_URI = 'http://j7d204.p.ssafy.io/google/login/callback/'
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&response_type=code&redirect_uri=${GOOGLE_CALLBACK_URI}&scope=${scope}`
 
@@ -134,7 +142,9 @@ function MainLogin() {
             <img alt="#" src="/assets/img/kakao-login-btn.png" style={{width:'15vw',marginTop:'-2vh',marginLeft:'0vw'}} />
           </a>
           <br></br>
+          <a href={KAKAO_AUTH_URL}>
           <img alt="#" src="/assets/img/google-login-btn.png" style={{width:'17vw',marginTop:'1vh'}} />
+          </a>
 </div>
           
           

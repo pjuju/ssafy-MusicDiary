@@ -77,7 +77,7 @@ function SingupQuestionFour() {
     // username이 null이라면, ( redux store에 username state를 업데이트 한 적 없으면, 초기상태인 'null'임)
     if (storeUserName === "null") {
       // 설문조사한 감정정보 redux store에서 모으기 : normal, sad, angry, depressed,
-      console.log("카카오유저임")
+      console.log("소셜 유저임")
       
       const kakaoUserInfo = {
         normal: storeNormal,
@@ -92,9 +92,9 @@ function SingupQuestionFour() {
 
       patchUserInfoApi(kakaoUserInfo, kakaoUser_id)
         .then((res) => {
-          console.log("카카오 사용자 가입 완료");
+          console.log("소셜 사용자 가입 완료");
           console.log(res.data);
-          alert("카카오 사용자 가입완료!");
+          alert("소셜 사용자 가입완료!");
 
           navigate("/login");
         })
