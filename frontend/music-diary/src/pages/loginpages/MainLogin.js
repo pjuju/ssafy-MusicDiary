@@ -13,7 +13,11 @@ import '../../css/loginpages/MainLogin.css'
 import {
 
   setUserEmail,
-  setUserName
+  setUserName,
+  setNormalChoiceValue,
+  setAngryChoiceValue,
+  setSadChoiceValue,
+  setDepressedChoiceValue
 } from "../../store/store";
 import { useDispatch } from "react-redux";
 
@@ -58,8 +62,13 @@ function MainLogin() {
           sessionStorage.setItem("user_id", res.data.data.id)
           dispatch(setUserEmail(res.data.data.email))
           dispatch(setUserName(res.data.data.username))
+          dispatch(setNormalChoiceValue(res.data.data.normal))
+          dispatch(setSadChoiceValue(res.data.data.sad))
+          dispatch(setAngryChoiceValue(res.data.data.angry))
+          dispatch(setDepressedChoiceValue(res.data.data.depressed))
 
-        navigate("/calender");
+
+          navigate("/calender");
       })
       .catch((err) => {
         console.log(err.data);

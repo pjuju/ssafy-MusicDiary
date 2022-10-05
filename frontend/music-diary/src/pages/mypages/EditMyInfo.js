@@ -144,9 +144,12 @@ function EditMyInfo() {
         console.log(res.data);
 
         // 수정완료 알람
+        alert("닉네임 수정완료")
 
         // 성공 시, 화면 전환
-        navigate("/login");
+        navigate("/calender")
+
+        // navigate("/login");
       })
       .catch((err) => {
         console.log(err.data);
@@ -177,6 +180,9 @@ function EditMyInfo() {
     patchUserPasswordApi(user_id, editPassword)
       .then((res) => {
         console.log(res.data);
+
+        // sessionStorage에서 username remove & 새로 등록
+
 
         // 수정완료 알람
 
