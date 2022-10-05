@@ -142,7 +142,7 @@ function MainLogin() {
             <img alt="#" src="/assets/img/kakao-login-btn.png" style={{width:'15vw',marginTop:'-2vh',marginLeft:'0vw'}} />
           </a>
           <br></br>
-          <a href={KAKAO_AUTH_URL}>
+          <a href={GOOGLE_AUTH_URL}>
           <img alt="#" src="/assets/img/google-login-btn.png" style={{width:'17vw',marginTop:'1vh'}} />
           </a>
 </div>
