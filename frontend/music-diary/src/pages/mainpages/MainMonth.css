@@ -96,20 +96,22 @@ cursor: pointer;
 
 /* 드롭다운 */
 .main-month .dropbar-left {
-  width: 7vw;
-  height: 3h;
+  width: 7.5vw;
+  height: 5vh;
+  font-size: 17px;
   /* background-color: green; */
   border-radius: 5px;
   /* margin-top: -2vh; */
-  margin-left: -18vw;
+  margin-left: -19vw;
   position: absolute;
 }
 
 .main-month .dropbar-right {
-  width: 8vw;
-  height: 3vh;
+  width: 7.5vw;
+  height: 5vh;
+  font-size: 17px;
   border-radius: 5px;
-  margin-left: -10vw;
+  margin-left: -11vw;
   position: absolute;
 }
 

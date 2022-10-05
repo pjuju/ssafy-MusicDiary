@@ -32,6 +32,7 @@ const MainMonth =() => {
 
   const ControlDateMenu = React.memo(({ value, onChange, optionList }) => {
     return (
+        // <div>
           <select
             value={value}
             onChange={(e) => onChange(e.target.value)}
@@ -45,6 +46,7 @@ const MainMonth =() => {
               </option>
             ))}
           </select>
+        // </div>
     );
   });
 
@@ -163,8 +165,15 @@ const MainMonth =() => {
           <div onClick={increaseMonth} className="time-change-button">&#10093;</div>
         </h2>
 {/* 감정별, 날짜별 분류 로직 */} 
-
-        <ControlDateMenu
+      {
+        getProcessedDiaryList().length < 1
+        ? (
+          <>
+          </>
+        )
+        :(
+          <>
+          <ControlDateMenu
             value={sortType}
             onChange={setSortType}
             optionList={sortOptionList} 
@@ -173,7 +182,11 @@ const MainMonth =() => {
             value={filter}
             onChange={setFilter}
             optionList={filterOptionList}
-          />
+          />  
+          </>
+        )
+      }
+        
 
         <Button
                 className=" y"
@@ -189,8 +202,8 @@ const MainMonth =() => {
           </ul>  
         </div>
       <div className="diary-list">
-      {
-        getProcessedDiaryList.length < 1
+      {/* {
+        getProcessedDiaryList.length < 1 
         ? (
           <>
           <div className="diary-items-none">작성된 일기가 없습니다.</div>
@@ -207,8 +220,26 @@ const MainMonth =() => {
         </div>
           </>
         )
-      }
-        
+      } */}
+        {
+          getProcessedDiaryList().length < 1
+          ? (
+            <>
+            <div className="diary-items-none">작성된 일기가 없습니다.</div>
+            <div className="diary-items-none-subtitle">새로운 일기를 작성해주세요!</div>
+            <Lottie animationData={PencilWriting} className="lottie-pencil-writing" />
+            </>
+          ) 
+          :(
+            <>
+          <div className="diary-items">
+          {getProcessedDiaryList().map((it) => (
+            <DiaryItem key={it.id} {...it} className="diary-items" />
+          ))}
+        </div>
+            </>
+          )
+        }
 
       </div>
       <MainNote className="main-note"></MainNote>
