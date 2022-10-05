@@ -7,7 +7,6 @@ from rest_framework import parsers, renderers, status
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
-from rest_framework.decorators import api_view
 
 import base64
 from Crypto import Random
@@ -195,7 +194,7 @@ class DiaryList(GenericAPIView):
                     if diarystickerSerializer.is_valid(raise_exception=True):
                         diarystickerSerializer.save()
 
-            return DiaryDetail.get(self=DiaryDetail, request=request, diary_pk=diary_pk)
+            return DiaryMusicDetail.post(self=DiaryMusicDetail, request=request, diary_pk=diary_pk)
 
 
 class ImageDetail(GenericAPIView):
@@ -375,13 +374,13 @@ class DiaryMusicDetail(GenericAPIView):
             print(mood_id)
 
             # 설문을 통해 mood 도출
-            mood = self.convertToMood(mood_id)
+            mood = convertToMood(mood_id)
             if mood == 'ERROR':
                 return Response({'error': '유효하지 않은 음악 선호도 값'}, status=status.HTTP_400_BAD_REQUEST)
 
         print(mood)
         # [1, 4, 5, 16, 23]
-        playlist = self.makePlaylist(mood, request.user)
+        playlist = makePlaylist(mood, request.user)
 
         # 생성된 플레이리스트 테이블에 저장
         data={'diary': diary_pk}
@@ -391,97 +390,97 @@ class DiaryMusicDetail(GenericAPIView):
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
         
-        return self.get(request, diary_pk)
+        return self.get(self=self, request=request, diary_pk=diary_pk)
 
-    def convertToMood(self, mood_id):
-        if mood_id == 1:
-            return "Sad"
-        elif mood_id == 2:
-            return "Happy"
-        elif mood_id == 3:
-            return "Energetic"
-        elif mood_id == 4:
-            return "Calm"
-        else:
-            return "ERROR"
-
-
-    # mood : 일기의 emotion -> user의 취향 ( emotion 별 노래 mood)
-    # user : requesqt.user
-    def makePlaylist(self, mood, user):
-        # Todo: diary_pk 일기의 추천 음악 id를 list로 반환
-
-        # 1. 감정별로 내가 좋아한 음악들 리스트
-        liked_musics = user.favorite_musics.filter(mood=mood).values()    
-        liked_musics_df = pd.DataFrame(list(liked_musics), columns=['id','year', 'track_popularity', 'danceability',
-            'acousticness', 'energy', 'liveness', 'valence', 'loudness', 'speechiness', 'tempo'])    
-        liked_musics_df.set_index('id', inplace=True)
-
-        # id리스트에 담기    
-        liked_ids = []    
-        for l_m in liked_musics:
-            liked_ids.append(l_m['id'])
-
-        # 2. 전체 음악에서 감정으로 거른 음악들 (좋아한 음악들 제외)
-        all_musics = Music.objects.filter(mood=mood).exclude(id__in=liked_ids).values()   
-        all_musics_df = pd.DataFrame(list(all_musics), columns=['id','year', 'track_popularity', 'danceability',
-            'acousticness', 'energy', 'liveness', 'valence', 'loudness', 'speechiness', 'tempo'])   
-
-        all_musics_df.set_index('id', inplace=True)
-
-        # 그 감정에서 좋아한 노래가 아직 없으면 전체 음악에서 인기도 순으로 N개 자르고, 10개 랜덤 츄츌
-        if len(liked_ids) == 0:
-            if mood == "Calm": # 500개 
-                reco_musics_df = all_musics_df.sort_values(by="track_popularity", ascending=False).head(200).sample(10)
-
-            elif mood == "Energetic": # 700개 
-                reco_musics_df = all_musics_df.sort_values(by="track_popularity", ascending=False).head(700).sample(10)
-
-            elif mood == "Happy": # 1000개 
-                reco_musics_df = all_musics_df.sort_values(by="track_popularity", ascending=False).head(1000).sample(10)
-
-            elif mood == "Sad":  # 1000개 
-                reco_musics_df = all_musics_df.sort_values(by="track_popularity", ascending=False).head(1000).sample(10)
-
-            reco_musics_df = all_musics_df.sort_values(by="track_popularity", ascending=False).head(500).sample(10)    
-
-        else:
-            # 정규화 작업
-            scaler = MinMaxScaler()
-            # print(all_musics_df)
-            scaler.fit(all_musics_df)
-            all_musics_df = pd.DataFrame(scaler.transform(all_musics_df), index=all_musics_df.index, columns=all_musics_df.columns)
-            liked_musics_df = pd.DataFrame(scaler.transform(liked_musics_df), index=liked_musics_df.index, columns=liked_musics_df.columns)
-
-            # 중앙값    
-            median_music_df = liked_musics_df.median()  
-            
-            # 평균값   
-            # mean_music_df = liked_musics_df.mean()
-
-            # 음악 유사도 측정 (유클리디안 거리)           
-            all_musics_df['similarity'] = ( (all_musics_df['track_popularity'] - median_music_df['track_popularity']) ** 2 + (all_musics_df['year'] - median_music_df['year']) ** 2 + (all_musics_df['danceability'] - median_music_df['danceability']) ** 2 + (all_musics_df['acousticness'] - median_music_df['acousticness']) ** 2 + (all_musics_df['energy'] - median_music_df['energy']) ** 2 + (all_musics_df['liveness'] - median_music_df['liveness']) ** 2 + (all_musics_df['valence'] - median_music_df['valence']) ** 2 + (all_musics_df['loudness'] - median_music_df['loudness']) ** 2 + (all_musics_df['speechiness'] - median_music_df['speechiness']) ** 2 + (all_musics_df['tempo'] - median_music_df['tempo']) ** 2 ) ** 0.5
+def convertToMood(mood_id):
+    if mood_id == 1:
+        return "Sad"
+    elif mood_id == 2:
+        return "Happy"
+    elif mood_id == 3:
+        return "Energetic"
+    elif mood_id == 4:
+        return "Calm"
+    else:
+        return "ERROR"
 
 
-            # 가장 유사한 음악 N개 추출 + 유사한 음악들에서 인기도 순 상위 N개에서 10개 추출
-            if mood == "Calm": # 500개 / 200개
-                similar_musics_df = all_musics_df.sort_values(by="similarity", ascending=False).head(300)
-                reco_musics_df = similar_musics_df.sort_values(by="track_popularity", ascending=False).head(100).sample(10)    
+# mood : 일기의 emotion -> user의 취향 ( emotion 별 노래 mood)
+# user : requesqt.user
+def makePlaylist(mood, user):
+    # Todo: diary_pk 일기의 추천 음악 id를 list로 반환
 
-            elif mood == "Energetic": # 700개 / 200개
-                similar_musics_df = all_musics_df.sort_values(by="similarity", ascending=False).head(700)
-                reco_musics_df = similar_musics_df.sort_values(by="track_popularity", ascending=False).head(100).sample(10) 
+    # 1. 감정별로 내가 좋아한 음악들 리스트
+    liked_musics = user.favorite_musics.filter(mood=mood).values()    
+    liked_musics_df = pd.DataFrame(list(liked_musics), columns=['id','year', 'track_popularity', 'danceability',
+        'acousticness', 'energy', 'liveness', 'valence', 'loudness', 'speechiness', 'tempo'])    
+    liked_musics_df.set_index('id', inplace=True)
 
-            elif mood == "Happy": # 1000개 / 300개
-                similar_musics_df = all_musics_df.sort_values(by="similarity", ascending=False).head(1000)
-                reco_musics_df = similar_musics_df.sort_values(by="track_popularity", ascending=False).head(100).sample(10) 
+    # id리스트에 담기    
+    liked_ids = []    
+    for l_m in liked_musics:
+        liked_ids.append(l_m['id'])
 
-            elif mood == "Sad":  # 1000개 / 300개
-                similar_musics_df = all_musics_df.sort_values(by="similarity", ascending=False).head(1000)
-                reco_musics_df = similar_musics_df.sort_values(by="track_popularity", ascending=False).head(100).sample(10) 
+    # 2. 전체 음악에서 감정으로 거른 음악들 (좋아한 음악들 제외)
+    all_musics = Music.objects.filter(mood=mood).exclude(id__in=liked_ids).values()   
+    all_musics_df = pd.DataFrame(list(all_musics), columns=['id','year', 'track_popularity', 'danceability',
+        'acousticness', 'energy', 'liveness', 'valence', 'loudness', 'speechiness', 'tempo'])   
 
-        reco_musics_list = list(reco_musics_df.index)
-        return reco_musics_list
+    all_musics_df.set_index('id', inplace=True)
+
+    # 그 감정에서 좋아한 노래가 아직 없으면 전체 음악에서 인기도 순으로 N개 자르고, 10개 랜덤 츄츌
+    if len(liked_ids) == 0:
+        if mood == "Calm": # 500개 
+            reco_musics_df = all_musics_df.sort_values(by="track_popularity", ascending=False).head(200).sample(10)
+
+        elif mood == "Energetic": # 700개 
+            reco_musics_df = all_musics_df.sort_values(by="track_popularity", ascending=False).head(700).sample(10)
+
+        elif mood == "Happy": # 1000개 
+            reco_musics_df = all_musics_df.sort_values(by="track_popularity", ascending=False).head(1000).sample(10)
+
+        elif mood == "Sad":  # 1000개 
+            reco_musics_df = all_musics_df.sort_values(by="track_popularity", ascending=False).head(1000).sample(10)
+
+        reco_musics_df = all_musics_df.sort_values(by="track_popularity", ascending=False).head(500).sample(10)    
+
+    else:
+        # 정규화 작업
+        scaler = MinMaxScaler()
+        # print(all_musics_df)
+        scaler.fit(all_musics_df)
+        all_musics_df = pd.DataFrame(scaler.transform(all_musics_df), index=all_musics_df.index, columns=all_musics_df.columns)
+        liked_musics_df = pd.DataFrame(scaler.transform(liked_musics_df), index=liked_musics_df.index, columns=liked_musics_df.columns)
+
+        # 중앙값    
+        median_music_df = liked_musics_df.median()  
+        
+        # 평균값   
+        # mean_music_df = liked_musics_df.mean()
+
+        # 음악 유사도 측정 (유클리디안 거리)           
+        all_musics_df['similarity'] = ( (all_musics_df['track_popularity'] - median_music_df['track_popularity']) ** 2 + (all_musics_df['year'] - median_music_df['year']) ** 2 + (all_musics_df['danceability'] - median_music_df['danceability']) ** 2 + (all_musics_df['acousticness'] - median_music_df['acousticness']) ** 2 + (all_musics_df['energy'] - median_music_df['energy']) ** 2 + (all_musics_df['liveness'] - median_music_df['liveness']) ** 2 + (all_musics_df['valence'] - median_music_df['valence']) ** 2 + (all_musics_df['loudness'] - median_music_df['loudness']) ** 2 + (all_musics_df['speechiness'] - median_music_df['speechiness']) ** 2 + (all_musics_df['tempo'] - median_music_df['tempo']) ** 2 ) ** 0.5
+
+
+        # 가장 유사한 음악 N개 추출 + 유사한 음악들에서 인기도 순 상위 N개에서 10개 추출
+        if mood == "Calm": # 500개 / 200개
+            similar_musics_df = all_musics_df.sort_values(by="similarity", ascending=False).head(300)
+            reco_musics_df = similar_musics_df.sort_values(by="track_popularity", ascending=False).head(100).sample(10)    
+
+        elif mood == "Energetic": # 700개 / 200개
+            similar_musics_df = all_musics_df.sort_values(by="similarity", ascending=False).head(700)
+            reco_musics_df = similar_musics_df.sort_values(by="track_popularity", ascending=False).head(100).sample(10) 
+
+        elif mood == "Happy": # 1000개 / 300개
+            similar_musics_df = all_musics_df.sort_values(by="similarity", ascending=False).head(1000)
+            reco_musics_df = similar_musics_df.sort_values(by="track_popularity", ascending=False).head(100).sample(10) 
+
+        elif mood == "Sad":  # 1000개 / 300개
+            similar_musics_df = all_musics_df.sort_values(by="similarity", ascending=False).head(1000)
+            reco_musics_df = similar_musics_df.sort_values(by="track_popularity", ascending=False).head(100).sample(10) 
+
+    reco_musics_list = list(reco_musics_df.index)
+    return reco_musics_list
 
 
 # Get: 모든 책갈피 모아보기
