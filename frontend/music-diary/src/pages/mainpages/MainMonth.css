@@ -40,6 +40,33 @@ overflow:auto;
   display:none;
   }
 
+/* 일기 데이터 없을 경우 */
+.main-month .diary-items-none {
+  position: absolute;
+  font-size: 33px;
+
+  margin-top: 12vw;
+  margin-left: 21vw;
+}
+
+.main-month .diary-items-none-subtitle {
+  position: absolute;
+  font-size: 22px;
+
+  color: grey;
+
+  margin-top: 14.6vw;
+  margin-left: 22.3vw;
+}
+
+.main-month .lottie-pencil-writing {
+  position: absolute;
+
+  margin-top: 27.7vh;
+  margin-left: 27.7vw;
+
+  width: 6.4vw;
+}
 
 .main-month .main-note {
   /* position: absolute; */

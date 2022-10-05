@@ -246,8 +246,9 @@ justify-content: start;
 .sticker-choice-toggle {
   position: absolute;
 
-  width: 8vw;
+  width: 8.5vw;
   height: auto;
+  font-size: 21px;
   
   color:black;
   margin-top: 84vh;
@@ -309,6 +310,8 @@ justify-content: start;
   border-bottom: 1px solid black; 
   padding-top: 7px;
   margin-left: 1vw;
+
+  font-size: 17px;
 }
 
 .emotion-date > img {

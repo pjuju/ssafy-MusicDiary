@@ -269,7 +269,6 @@ const DetailDiary = () => {
     })
     .then((res)=>{
       if (res.isConfirmed){
-
         deleteDiary(id)
         .then((res)=>{
           Swal.fire(
@@ -515,7 +514,9 @@ const DetailDiary = () => {
         <div className="emotion-date">
           <img alt="" src={rightEmotion(emotion)}  />
           <div className="youtube-date">{strDate}의 플레이리스트</div>
-          <div className="remake-btn" onClick = {()=>remakePlaylist()}><FcSynchronize /></div>
+          <div className="remake-btn" onClick = {()=>remakePlaylist()}>
+            <img style={{width:"1.2vw", marginTop:"0.5vh"}} alt="" src="/assets/icons/syncro.png" />
+          </div>
         </div>
 
         {/* 일기별 플레이리스트 */}

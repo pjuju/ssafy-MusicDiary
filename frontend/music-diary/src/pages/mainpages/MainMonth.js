@@ -6,7 +6,8 @@ import { getMonthDiary,getDiaryListApi } from "../../api/diaryApi";
 import Button from "../../components/Common/Button";
 import './MainMonth.css'
 // import './Dropdown.scss'
-
+import Lottie from 'lottie-react';
+import PencilWriting from '../../store/lottie/pencil-writing.json'
 
 // 날짜순, 이모티콘 순으로 정렬하기 로직
   const sortOptionList = [
@@ -23,9 +24,6 @@ import './MainMonth.css'
     { value: "분노", name: "화났던 날" },
     { value: "불안", name: "놀랐던 날" }
   ];
-
-
-
 
 const MainMonth =() => {
 
@@ -191,11 +189,27 @@ const MainMonth =() => {
           </ul>  
         </div>
       <div className="diary-list">
-        <div className="diary-items">
+      {
+        getProcessedDiaryList.length < 1
+        ? (
+          <>
+          <div className="diary-items-none">작성된 일기가 없습니다.</div>
+          <div className="diary-items-none-subtitle">새로운 일기를 작성해주세요!</div>
+          <Lottie animationData={PencilWriting} className="lottie-pencil-writing" />
+          </>
+        )
+        : (
+          <>
+          <div className="diary-items">
           {getProcessedDiaryList().map((it) => (
             <DiaryItem key={it.id} {...it} className="diary-items" />
           ))}
         </div>
+          </>
+        )
+      }
+        
+
       </div>
       <MainNote className="main-note"></MainNote>
     </div>)
