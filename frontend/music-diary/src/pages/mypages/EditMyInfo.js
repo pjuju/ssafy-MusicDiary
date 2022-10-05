@@ -211,13 +211,42 @@ function EditMyInfo() {
 
     // 탈퇴확인 시 처리
     const user_id = sessionStorage.getItem("user_id");
-    deleteUserInfoApi(user_id)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.data);
-      });
+
+
+    Swal.fire({
+      title: '회원탈퇴를 진행하시겠습니까?',
+      text: '',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '탈퇴하기'
+    })
+    .then((res)=>{
+      if(res.isConfirmed){
+        deleteUserInfoApi(user_id)
+        .then((res) => {
+          console.log(res.data);
+
+          Swal.fire({
+            icon: 'success',
+            title: '회원탈퇴 완료!',
+            showConfirmButton: false,
+            timer: 1300
+          })
+          
+          navigate("/")
+        })
+        .catch((err) => {
+          console.log(err.data);
+        });
+
+
+      }
+    })
+
+
+
 
     // 취소할 시 처리
   };
@@ -346,6 +375,7 @@ function EditMyInfo() {
               name="회원탈퇴"
               color="#464646"
               size="sm"
+              onClick={onQuitBtn}
             />
           </div>
         </div>
