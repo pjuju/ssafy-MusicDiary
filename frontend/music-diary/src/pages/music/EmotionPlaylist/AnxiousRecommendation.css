@@ -1,21 +1,112 @@
+/*  여기서부터  */
+@font-face {
+  font-family:"playlist-font";
+  src: url("../../../../public/assets/fonts/SCDream4.otf")
+}
+
 .anxious-recommendation {
-    position: relative;
+  position: relative;
+}
+
+.anxious-recommendation .work-area {
+width: 64vw;
+height: 93vh;
+margin-top: 7vh;
+margin-left: 24vw;
+/* background-color: green; */
+position: absolute;
+z-index: 1;
+color: black;
+}
+
+.anxious-recommendation .playlist-iframe {
+  position: absolute;
+  width:32vw;
+  height:35vh;
+  margin-top: 14vh;
+  margin-left: -26vw;
+  margin-bottom: 20vh;
+}
+
+.anxious-recommendation .detail-diary-playlist {
+  width: 17vw;
+  height: 50vh;
+  position: absolute;
+  margin-left: 45vw;
+  margin-top: 6.5vh;
+  z-index: 2200;
+  color: black;
+  border-radius: 3%;
+  overflow:auto;
+  -ms-overflow-style: none;
+  font-family: playlist-font;
+}
+
+.anxious-recommendation .detail-diary-playlist::-webkit-scrollbar {
+  display: none;
+}
+
+.anxious-recommendation .heart-wrapper {
+  display: flex;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 2100;
+}
+
+
+.anxious-recommendation .music-name-wrapper {
+  /* overflow: hidden; */
+  width: 15vw;
+  text-align: left;
+  white-space: nowrap; 
+  display: block;
+  margin-left: 0.5vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 1vh;
+  margin-top: -0.5vh;
+  /* animation: 2s slide-right;
+  animation-delay: 2s; */
+}
+
+.anxious-recommendation .artist-wrapper {
+  text-align: left;
+  white-space: nowrap; 
+  display: block;
+  position: relative;
+  width: 15vw;
+  height: 0.1vh;
+  color: grey;
+  font-size: 12px;
+  margin-right: 10vw;
+  margin-left: 0vw;
+  margin-top: -0.7vh;
+  margin-bottom: 3.5vh;
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
+  /* overflow: hidden;
+  animation: 2s slide-right;
+  animation-delay: 2s; */
+}
+
+/* @keyframes slide-right {
+  from {
+    margin-left: 0px;
   }
-  
-.anxious-recommendation .workarea {
-    /* 이건 모든 페이지들이 공용으로 설정할 값 */
-    width: 64vw;
-    height: 93vh;
-    margin-top: 7vh;
-    margin-left: 24vw;
-    /* background-color: green; */
-  
-    position: absolute;
-    z-index: 1;
-    color: black;
+  to {
+    margin-left: -50px;
   }
-  
-.anxious-recommendation .main-note {
-    /* position: absolute; */
-  }
-  
+} */
+
+.anxious-recommendation .artist-wrapper > div {
+  position: absolute;
+  justify-content: start;
+  margin-left: 1vw;
+}
+
+.anxious-recommendation .remake-btn {
+  position: absolute;
+  margin-left: 60vw;
+  margin-top: 3vh;
+}
+/* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */

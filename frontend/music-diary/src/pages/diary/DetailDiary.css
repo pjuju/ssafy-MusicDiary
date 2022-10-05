@@ -353,7 +353,7 @@ justify-content: start;
 
 .detail-diary .detail-diary-playlist {
   width: 17vw;
-  height: 65vh;
+  height: 63vh;
   /* background-color: rgb(104, 123, 130);  */
   position: absolute;
   margin-left: 68vw;
@@ -391,10 +391,17 @@ justify-content: start;
 .detail-diary .music-name-wrapper {
   /* border: 1px solid orange; */
   margin-left: 0.5vw;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
 }
 
 .detail-diary .artist-wrapper {
-  position: relative;
+  text-align: left;
+  white-space: nowrap; 
+  display: block;
 
   
   width: 13vw;
@@ -422,7 +429,7 @@ justify-content: start;
   /* position: absolute; */
   width: 17vw;
   height: 20vh;
-  margin-bottom: 2vh;
+  margin-bottom: 1vh;
 
   /* margin-right: 90%; */
   border-radius: 6%;
