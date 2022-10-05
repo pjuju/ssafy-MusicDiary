@@ -6,7 +6,8 @@ import { getMonthDiary,getDiaryListApi } from "../../api/diaryApi";
 import Button from "../../components/Common/Button";
 import './MainMonth.css'
 // import './Dropdown.scss'
-
+import Lottie from 'lottie-react';
+import PencilWriting from '../../store/lottie/pencil-writing.json'
 
 // 날짜순, 이모티콘 순으로 정렬하기 로직
   const sortOptionList = [
@@ -24,9 +25,6 @@ import './MainMonth.css'
     { value: "불안", name: "놀랐던 날" }
   ];
 
-
-
-
 const MainMonth =() => {
 
   const [sortType, setSortType] = useState("latest");
@@ -34,6 +32,7 @@ const MainMonth =() => {
 
   const ControlDateMenu = React.memo(({ value, onChange, optionList }) => {
     return (
+        // <div>
           <select
             value={value}
             onChange={(e) => onChange(e.target.value)}
@@ -47,6 +46,7 @@ const MainMonth =() => {
               </option>
             ))}
           </select>
+        // </div>
     );
   });
 
@@ -165,8 +165,15 @@ const MainMonth =() => {
           <div onClick={increaseMonth} className="time-change-button">&#10093;</div>
         </h2>
 {/* 감정별, 날짜별 분류 로직 */} 
-
-        <ControlDateMenu
+      {
+        getProcessedDiaryList().length < 1
+        ? (
+          <>
+          </>
+        )
+        :(
+          <>
+          <ControlDateMenu
             value={sortType}
             onChange={setSortType}
             optionList={sortOptionList} 
@@ -175,7 +182,11 @@ const MainMonth =() => {
             value={filter}
             onChange={setFilter}
             optionList={filterOptionList}
-          />
+          />  
+          </>
+        )
+      }
+        
 
         <Button
                 className=" y"
@@ -191,11 +202,45 @@ const MainMonth =() => {
           </ul>  
         </div>
       <div className="diary-list">
-        <div className="diary-items">
+      {/* {
+        getProcessedDiaryList.length < 1 
+        ? (
+          <>
+          <div className="diary-items-none">작성된 일기가 없습니다.</div>
+          <div className="diary-items-none-subtitle">새로운 일기를 작성해주세요!</div>
+          <Lottie animationData={PencilWriting} className="lottie-pencil-writing" />
+          </>
+        )
+        : (
+          <>
+          <div className="diary-items">
           {getProcessedDiaryList().map((it) => (
             <DiaryItem key={it.id} {...it} className="diary-items" />
           ))}
         </div>
+          </>
+        )
+      } */}
+        {
+          getProcessedDiaryList().length < 1
+          ? (
+            <>
+            <div className="diary-items-none">작성된 일기가 없습니다.</div>
+            <div className="diary-items-none-subtitle">새로운 일기를 작성해주세요!</div>
+            <Lottie animationData={PencilWriting} className="lottie-pencil-writing" />
+            </>
+          ) 
+          :(
+            <>
+          <div className="diary-items">
+          {getProcessedDiaryList().map((it) => (
+            <DiaryItem key={it.id} {...it} className="diary-items" />
+          ))}
+        </div>
+            </>
+          )
+        }
+
       </div>
       <MainNote className="main-note"></MainNote>
     </div>)

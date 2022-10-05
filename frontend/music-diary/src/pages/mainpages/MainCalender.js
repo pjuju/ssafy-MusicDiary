@@ -135,7 +135,7 @@ const MainCalender =() => {
           <Button
                 className=" y"
                 name="일기 작성"
-                style={{ width: "110px", fontSize: "20px", marginLeft: "15px",color:'black'}}
+                style={{ width: "110px", fontSize: "22px", marginLeft: "15px",color:'black'}}
                 color="#CAD8B5"
                 hcolor="#8FB46E"
                 size="sm"

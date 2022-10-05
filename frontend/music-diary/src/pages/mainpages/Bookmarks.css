@@ -23,6 +23,24 @@
   display:none;
 }
 
+.bookmark .bookmark-none {
+  position: absolute;
+  font-size: 33px;
+
+  margin-top: 12vw;
+  margin-left: 21vw;
+}
+
+.bookmark .bookmark-none-subtitle {
+  position: absolute;
+  font-size: 22px;
+
+  color: grey;
+
+  margin-top: 14.6vw;
+  margin-left: 22.3vw; 
+}
+
 
 .bookmark .main-note {
     position: absolute;

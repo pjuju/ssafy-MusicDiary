@@ -117,6 +117,15 @@ const DiaryEditor = ({ isEdit, originData }) => {
       .then((res) => {
         console.log(JSON.stringify(res.data));
         setReturnImg(res.data)
+
+        Swal.fire({
+          icon: 'success',
+          title: '사진 등록 완료!',
+          showConfirmButton: false,
+          timer: 1300
+        })
+
+        
       })
       .catch((err) => {
         console.log(JSON.stringify(err.data));
@@ -153,49 +162,49 @@ const DiaryEditor = ({ isEdit, originData }) => {
       titleRef.current.focus();
       return;
     }
+      
+    // 일기를 처음 생성할떄
+            if (!isEdit) {
+              const diaryInfo = {
+                title,
+                content,
+                emotion,
+                created_date,
+                images:[
+                  {image_url:returnImg}
+                ]
+              };
+              // 일기 작성하기
+              writeDiaryListApi(diaryInfo)
+                .then((res) => {
+                  console.log("일기 생성", JSON.stringify(res.data));
+                  console.log(res.data);
+                  // makePlaylist(res.data.id)
+                })
+                .catch((err) => {
+                  console.log(JSON.stringify(err.data));
+                });
+            }
+            if (emotion==='') {
+              setTimeout(()=> {
+                navigate('/diarylist', { replace: true })
+                Swal.fire({
+                  icon: 'success',
+                  title: '일기가 저장되었습니다!',
+                  showConfirmButton: false,
+                  timer: 1700
+                })
+              },2500)
+            } else {
+              navigate('/diarylist', { replace: true })
+              Swal.fire({
+                icon: 'success',
+                title: '일기가 저장되었습니다!',
+                showConfirmButton: false,
+                timer: 1700
+              })
+            }
 
-    if(date.includes(created_date)) {
-      Swal.fire({
-        icon: 'error',
-        title: '작성 불가',
-        text: '일기는 하루에 한 장만 작성 가능합니다',
-      })
-    } else {
-
-      if (!isEdit) {
-        //   onCreate(created_date, title, content, emotion, image,bookmark);
-        const diaryInfo = {
-          title,
-          content,
-          emotion,
-          created_date,
-          images:[
-            {image_url:returnImg}
-          ]
-        };
-        // 일기 작성하기
-        writeDiaryListApi(diaryInfo)
-          .then((res) => {
-            console.log("일기 생성", JSON.stringify(res.data));
-            console.log(res.data);
-            makePlaylist(res.data.id)
-          })
-          .catch((err) => {
-            console.log(JSON.stringify(err.data));
-          });
-      }
-      // useEffect(()=> {
-      if (emotion==='') {
-        setTimeout(()=> {
-          navigate('/diarylist', { replace: true })
-          Swal.fire({
-            icon: 'success',
-            title: '일기가 저장되었습니다!',
-            showConfirmButton: false,
-            timer: 1700
-          })
-        },2500)
-      }
   
       if (emotion === "") {
         const spinner = document.getElementById("spinner")
@@ -223,19 +232,30 @@ const DiaryEditor = ({ isEdit, originData }) => {
           .catch((err) => {
             console.log(JSON.stringify(err.data));
           });
+
+          // 이모션을 사용자가 선택했을 경우에는
+          if (emotion !== '') {
+            Swal.fire({
+              icon: 'success',
+              title: '일기가 수정되었습니다!',
+              showConfirmButton: false,
+              timer: 1700
+            })
+            navigate("/diarylist", { replace: true });
+          } else {
+            setTimeout(()=> {
+              navigate('/diarylist', { replace: true })
+              Swal.fire({
+                icon: 'success',
+                title: '일기가 수정되었습니다!',
+                showConfirmButton: false,
+                timer: 1700
+              })
+            },2500)
+          }
       }
-      // }
   
-      if (emotion !== '') {
-        Swal.fire({
-          icon: 'success',
-          title: '일기가 수정되었습니다!',
-          showConfirmButton: false,
-          timer: 1700
-        })
-        navigate("/diarylist", { replace: true });
-      }
-    }
+    
 
   };
 
@@ -259,6 +279,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
   const emotionAngryRef = useRef();
   const emotionAnxiousRef = useRef();
   const emotionRandomRef = useRef()
+
   useEffect(() => {
     if (emotion == "기쁨") { 
       // emotionHappyRef.current.style.height = '5vh';
