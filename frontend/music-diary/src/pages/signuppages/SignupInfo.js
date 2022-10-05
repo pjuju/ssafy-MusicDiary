@@ -13,21 +13,31 @@ import { useSelector } from "react-redux";
 import { setUserEmail, setUserPassword, setUserPassword2, setUserName} from '../../store/store'
 import { useDispatch } from "react-redux";
 
-const SignupInfoBookcontainer = styled.div`
-  width: 60%;
-  margin: 20px auto;
-  display: inline-block;
-  vertical-align: middle;
-`
+// etc 
+import Swal from "sweetalert2";
+import { useForm } from 'react-hook-form'
+
 
 function SignupInfo() {
   
-
   const [email, setEmail] = useState()
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
   const [password2, setPassword2] = useState()
 
+  //******************************************************** */
+  // 폼을 만들기 위한 여러가지 요소 불러오기
+  const { register, handleSubmit, getValues } = useForm();
+
+  // 데이터 전송시 작동할 함수 정의
+  const onValid = (data) => {
+    // 기본으로 data 가져오기
+    console.log(data)
+    
+    // getValues()로 data 가져오기
+    const { name, firstName } = getValues();
+  }
+  //******************************************************** */
   const navigate = useNavigate()
 
   const dispatch = useDispatch();
@@ -37,6 +47,7 @@ function SignupInfo() {
   }
   
   const onUsernameHandler = (e) => {
+    console.log("on Username Handler:", e.target.value)
     setUsername(e.target.value)
   }
   
@@ -78,7 +89,12 @@ function SignupInfo() {
     .then((res)=>{
       console.log(JSON.stringify(res.data))
 
-      alert("회원가입 성공! 로그인페이지로 이동합니다")
+      Swal.fire({
+        icon: 'success',
+        title: '회원가입 성공! 로그인페이지로 이동합니다',
+        showConfirmButton: false,
+        timer: 1300
+      })
 
       navigate('/')
     })
@@ -97,68 +113,60 @@ function SignupInfo() {
 
   return (
     <>  
-      <div style={{position:'relative'}}>
-          <div style={{position:'absolute',width:'45vw',height:'70vh',marginTop:'20vh',marginLeft:'30vw'}}>
-            
+      <div className="signup-info-wrapper" style={{position:'relative'}}>
+          <div className='signup-info'>
+
+ 
             <div style={{marginTop:'5vh'}}>
-              <h5 style={{color:'#3D3D3D',marginLeft:'-14vw'}}>이메일 주소</h5>
+              <h5 style={{color:'#3D3D3D',marginLeft:'-14vw'}}>이메일 주소ddd</h5>
               <input 
-              placeholder="Email address"
-              name='email'
-              type='email'
-              onChange={onEmailHandler}
-              // value={storeEmail}
-              style={{width:'20vw',borderRadius:'5px',height:'5vh',fontSize:'1.1vw',border:'1px solid lightgrey',marginTop:'-1vh'}}
+                className='email-input'
+                placeholder="Email address"
+                name='email'
+                type='email'
+                onChange={onEmailHandler}
             />
             </div>
 
             <div>
               <h5 style={{color:'#3D3D3D',marginLeft:'-16vw',marginTop:'2vh'}}>닉네임</h5>
               <input 
+                className='nickname-input'
                 placeholder="Nickname"
                 name='username'
                 type='text'
-                // value={storeUserName}
                 onChange={onUsernameHandler}
-                style={{width:'20vw',borderRadius:'5px',height:'5vh',border:'1px solid lightgrey',marginTop:"-1vh",fontSize:'1.1vw'}}
               />
             </div>
 
           <div>
             <h5 style={{color:'#3D3D3D',marginLeft:'-15.5vw',marginTop:'2vh'}}>비밀번호</h5>
             <input 
+              className='password-1'
               placeholder="Password"
               name='password'
               type='password'
               onChange={onPasswordHandler}
-              style={{width:'20vw',borderRadius:'5px',height:'5vh',border:'1px solid lightgrey',marginTop:"-1vh",fontSize:'1.1vw'}}
             />
           </div>
 
           <div>
-
             <h5 style={{color:'#3D3D3D',marginLeft:'-13vw',marginTop:'2vh'}}>비밀번호 확인</h5>
             <input 
+              className='password-2'
               placeholder="Confirm Password"
               name='password2'
               type='password'
               onChange={onPassword2Handler}
-              style={{width:'20vw',borderRadius:'5px',height:'5vh',border:'1px solid lightgrey',marginTop:"-1vh",fontSize:'1.1vw'}}
             />
-          </div>
+            </div>
 
           </div>
-          <button 
-            onClick={moveQuestionOne}
-            style={{position:'absolute',marginTop:'70vh',width:"20vw",height:'5vh',border:"none",marginLeft:'-7.5vw'
-          ,backgroundColor:'#C0D2C1',borderRadius:"5px",fontSize:'1.3vw'}}
-          >설문조사 시작</button>
-          <h5 style={{color:'darkgrey',marginLeft:'68vw',marginTop:'83vh',cursor:'pointer',position:'absolute'}}
-        onClick={()=>{navigate('/')}}>돌아가기</h5>
+          {/* signup-info : end */}
 
-
+            <button className='survey-btn' onClick={moveQuestionOne}>설문조사 시작</button>
+            <h5  className='back-btn'onClick={()=>{navigate('/')}}>돌아가기</h5>
           </div>
-
         <img src="/assets/img/signup.png" style={{width:'100vw',height:'100vh'}}></img>
     </>
   )

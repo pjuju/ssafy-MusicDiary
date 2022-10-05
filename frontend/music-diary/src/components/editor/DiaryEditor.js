@@ -192,7 +192,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
                   icon: 'success',
                   title: '일기가 저장되었습니다!',
                   showConfirmButton: false,
-                  timer: 1700
+                  timer: 1300
                 })
               },2500)
             } else {
@@ -201,7 +201,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
                 icon: 'success',
                 title: '일기가 저장되었습니다!',
                 showConfirmButton: false,
-                timer: 1700
+                timer: 1300
               })
             }
 
@@ -239,7 +239,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
               icon: 'success',
               title: '일기가 수정되었습니다!',
               showConfirmButton: false,
-              timer: 1700
+              timer: 1300
             })
             navigate("/diarylist", { replace: true });
           } else {
@@ -249,7 +249,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
                 icon: 'success',
                 title: '일기가 수정되었습니다!',
                 showConfirmButton: false,
-                timer: 1700
+                timer: 1300
               })
             },2500)
           }
