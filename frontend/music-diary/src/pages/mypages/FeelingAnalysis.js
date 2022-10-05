@@ -288,7 +288,7 @@ const FeelingAnalysis = () => {
           icon: 'success',
           title: '취향이 반영되었습니다!',
           showConfirmButton: false,
-          timer: 1700
+          timer: 1300
         })
     })
     .catch((err)=>{

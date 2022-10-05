@@ -107,9 +107,9 @@ function SingupQuestionFour() {
     else {
       const userInfo = {
         email: storeEmail,
+        username: storeUserName,
         password: storePassword,
         password2: storePassword2,
-        username: storeUserName,
         normal: storeNormal,
         sad: storeSad,
         angry: storeAngry,

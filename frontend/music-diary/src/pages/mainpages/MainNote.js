@@ -108,7 +108,7 @@ const MainNote = () => {
             </Dropdown>
 
         </div>
-        <img src="/assets/img/backgroundyellow2.png" className='book-background'/>
+        <img src="/assets/img/backgroundyellow3.png" className='book-background'/>
     </div>)
 }
 
