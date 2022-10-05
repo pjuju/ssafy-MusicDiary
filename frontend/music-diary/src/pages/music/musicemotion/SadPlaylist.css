@@ -15,20 +15,20 @@ color: black;
 }
 
 .sad-playlist .playlist-iframe {
-  display:flex;
-  width:38vw;
+  position: absolute;
+  width:32vw;
   height:35vh;
-  margin-top: 20vh;
-  margin-left: 3vw;
+  margin-top: 18.5vh;
+  margin-left: -26vw;
   margin-bottom: 20vh;
 }
 
 .sad-playlist .detail-diary-playlist {
-  width: 20vw;
-  height: 10vh;
-  position: relative;
+  width: 17vw;
+  height: 50vh;
+  position: absolute;
   margin-left: 45vw;
-  margin-top: -15vh;
+  margin-top: 12.5vh;
   z-index: 2200;
   color: black;
   border-radius: 3%;
@@ -49,10 +49,22 @@ color: black;
 
 
 .sad-playlist .music-name-wrapper {
+  /* overflow: hidden; */
+  width: 15vw;
+  text-align: left;
+  white-space: nowrap; 
+  display: block;
   margin-left: 0.5vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 1vh;
+  margin-top: -0.5vh;
+  /* animation: 2s slide-right;
+  animation-delay: 2s; */
 }
 
 .sad-playlist .artist-wrapper {
+  display: block;
   position: relative;
   width: 15vw;
   height: 0.1vh;
@@ -60,12 +72,40 @@ color: black;
   font-size: 12px;
   margin-right: 10vw;
   margin-left: 0vw;
+  margin-top: -1.5vh;
+  margin-bottom: 3.5vh;
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
+  /* overflow: hidden;
+  animation: 2s slide-right;
+  animation-delay: 2s; */
 }
+
+/* @keyframes slide-right {
+  from {
+    margin-left: 0px;
+  }
+  to {
+    margin-left: -50px;
+  }
+} */
 
 .sad-playlist .artist-wrapper > div {
   position: absolute;
   justify-content: start;
   margin-left: 1vw;
+}
+
+.sad-playlist .no-video {
+  position: absolute;
+  margin-left: 12vw;
+  margin-top: 30vh;
+}
+
+.sad-playlist .no-music {
+  position: absolute;
+  margin-left: 46.8vw;
+  margin-top: 32vh;
 }
 
 /* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */

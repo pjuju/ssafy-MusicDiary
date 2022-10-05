@@ -49,75 +49,71 @@ const CalmPlaylist = () => {
         });
     }
     return(<div className="calm-playlist">
-        <div className="work-area">
-            <h2>당신이 평온했을 때 들었던 음악</h2>
-            {youtube==="https://www.youtube.com/embed?playlist="?
-            (<>음악이 없어요!</>):
-            (<iframe
-              className="playlist-iframe"
-              src={youtube}
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>)}
-          { musicBtn
-          ? (
-            <>
-              {musics.map((ele, i) => {
-                var idName = "heart" + i;
-                return (
-                  <>
-                    <div className="detail-diary-playlist">
-                      <div className="heart-wrapper" >
-                      {ele.like === true ? (
-                        <>
-                          <div  
-                            // className="fill-heart"
-                            id={idName}
-                            style={{
-                              cursor: "pointer", color:"red"
-                            }}
-                            onClick={(e) => likeMusic(ele.id, i)}
-                          >
-                            ♥
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div
-                            id={idName}
-                            style={{
-                              cursor: "pointer", color:"red"
-                            }}
-                            onClick={(e) => likeMusic(ele.id, i)}
-                          >
-                            ♡
-                          </div>
-                        </>
-                      )}
-                        <div className="music-name-wrapper">
-                         {ele.name} 
-                        </div>
+    <div className="work-area">
+        <h2 style={{marginTop:"10vh"}}>당신이 평온했을 때 듣기 좋아하던 음악</h2>
+        <p>창의력 부족ㅠㅠ</p>
+        {youtube==="https://www.youtube.com/embed?playlist="?
+        (<>
+          <div className="no-video">
+            <h4>재생할 동영상이 없어요!</h4>
+            <p>평온했던 날의 추천 음악에 하트를 눌러 플레이리스트에 추가해보세요.</p>
+          </div>
+          <div className="no-music">
+            <h4>재생할 음악이 없어요!</h4>
+          </div>
+        </>):
+        (<iframe
+          className="playlist-iframe"
+          src={youtube}
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>)}
+        <div className="detail-diary-playlist">
+      { musicBtn
+      ? (
+        <>
+          {musics.map((ele, i) => {
+            var idName = "heart" + i;
+            return (
+              <>
+                
+                  <div className="heart-wrapper" >
+                  
+                    <>
+                      <div  
+                        // className="fill-heart"
+                        id={idName}
+                        style={{
+                          cursor: "pointer", color:"red"
+                        }}
+                        onClick={(e) => likeMusic(ele.id, i)}
+                      >
+                        ♥
                       </div>
-
-                      <div className="artist-wrapper">
-                        <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
-                      </div>
-
+                    </>
+                    <div className="music-name-wrapper">
+                     {ele.name} 
                     </div>
-                  </>
-                );
-              })}
-            </>
-          ) : (
-            <>
-              <div>아직 음악없음</div>
-            </>
-          )}
-        </div>
-        <MainPlaylist className="main-playlist"></MainPlaylist>
-    </div>)
+                  </div>
+
+                  <div className="artist-wrapper">
+                    <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
+                  </div>
+              </>
+            );
+          })}
+        </>
+      ) : (
+        <>
+          <div>아직 음악없음</div>
+        </>
+      )}
+    </div>
+    </div>
+    <MainPlaylist className="main-playlist"></MainPlaylist>
+</div>)
 }
 
 export default CalmPlaylist

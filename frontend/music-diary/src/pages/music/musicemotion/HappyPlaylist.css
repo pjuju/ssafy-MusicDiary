@@ -18,7 +18,7 @@ color: black;
   position: absolute;
   width:32vw;
   height:35vh;
-  margin-top: 15vh;
+  margin-top: 18.5vh;
   margin-left: -26vw;
   margin-bottom: 20vh;
 }
@@ -28,7 +28,7 @@ color: black;
   height: 50vh;
   position: absolute;
   margin-left: 45vw;
-  margin-top: 10vh;
+  margin-top: 12.5vh;
   z-index: 2200;
   color: black;
   border-radius: 3%;
@@ -94,6 +94,18 @@ color: black;
   position: absolute;
   justify-content: start;
   margin-left: 1vw;
+}
+
+.happy-playlist .no-video {
+  position: absolute;
+  margin-left: 12vw;
+  margin-top: 30vh;
+}
+
+.happy-playlist .no-music {
+  position: absolute;
+  margin-left: 46.8vw;
+  margin-top: 32vh;
 }
 
 /* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */
