@@ -1,7 +1,7 @@
 import MainPlaylist from "../../mainpages/MainPlaylist";
 import './HappyPlaylist.css';
 import { emotionMusic, makeLike } from "../../../api/musicApi";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { FcMusic } from 'react-icons/fc';
 
 const HappyPlaylist = () => {
@@ -61,7 +61,7 @@ const HappyPlaylist = () => {
                 <p>행복했던 날의 추천 음악에 하트를 눌러 플레이리스트에 추가해보세요.</p>
               </div>
               <div className="no-music">
-                <h4>재생할 음악이 없어요!</h4>
+                <h5>재생할 음악이 없어요!</h5>
               </div>
             </>):
             (<iframe

@@ -59,7 +59,7 @@ const CalmPlaylist = () => {
             <p>평온했던 날의 추천 음악에 하트를 눌러 플레이리스트에 추가해보세요.</p>
           </div>
           <div className="no-music">
-            <h4>재생할 음악이 없어요!</h4>
+            <h5>재생할 음악이 없어요!</h5>
           </div>
         </>):
         (<iframe

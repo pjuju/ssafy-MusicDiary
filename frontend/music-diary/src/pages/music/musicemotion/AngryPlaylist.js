@@ -1,7 +1,7 @@
 import MainPlaylist from "../../mainpages/MainPlaylist"
 import './AngryPlaylist.css'
 import { emotionMusic, makeLike } from "../../../api/musicApi";
-import { useMemo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FcMusic } from 'react-icons/fc';
 
 const AngryPlaylist = () => {
@@ -57,11 +57,11 @@ const AngryPlaylist = () => {
         {youtube==="https://www.youtube.com/embed?playlist="?
         (<>
           <div className="no-video">
-            <h3>재생할 동영상이 없어요!</h3>
+            <h4>재생할 동영상이 없어요!</h4>
             <p>화가 났던 날의 추천 음악에 하트를 눌러 플레이리스트에 추가해보세요.</p>
           </div>
           <div className="no-music">
-            <h3>재생할 음악이 없어요!</h3>
+            <h5>재생할 음악이 없어요!</h5>
           </div>
         </>):
         (<iframe
