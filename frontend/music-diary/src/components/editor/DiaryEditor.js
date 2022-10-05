@@ -174,47 +174,61 @@ const DiaryEditor = ({ isEdit, originData }) => {
                   {image_url:returnImg}
                 ]
               };
-              // 일기 작성하기
-              writeDiaryListApi(diaryInfo)
-                .then((res) => {
-                  console.log("일기 생성", JSON.stringify(res.data));
-                  console.log(res.data);
-                  // makePlaylist(res.data.id)
-                })
-                .catch((err) => {
-                  console.log(JSON.stringify(err.data));
-                });
-            }
-            if (emotion==='') {
-              setTimeout(()=> {
-                navigate('/diarylist', { replace: true })
+              // 만약 동일한 날짜의 일기를 또 작성할려고 한다면 막기 alert
+              if (date.includes(created_date)) {
                 Swal.fire({
-                  icon: 'success',
-                  title: '일기가 저장되었습니다!',
-                  showConfirmButton: false,
-                  timer: 1300
+                  icon: 'error',
+                  title: '작성 불가',
+                  text: '동일한 날짜에 일기를 두 번 생성 불가합니다',
                 })
-              },2500)
-            } else {
-              navigate('/diarylist', { replace: true })
-              Swal.fire({
-                icon: 'success',
-                title: '일기가 저장되었습니다!',
-                showConfirmButton: false,
-                timer: 1300
-              })
+              }
+              else {
+                // 만약 처음 쓰는 날짜라면 일기 작성하기
+                writeDiaryListApi(diaryInfo)
+                  .then((res) => {
+                    console.log("일기 생성", JSON.stringify(res.data));
+                    console.log(res.data);
+                    // makePlaylist(res.data.id)
+                  })
+                  .catch((err) => {
+                    console.log(JSON.stringify(err.data));
+                  });
+                  if (emotion==='') {
+                    const spinner = document.getElementById("spinner")
+                    spinner.classList.remove('display-none')
+                    spinner.classList.add('display-block')
+                    setTimeout(()=> {
+                      navigate('/diarylist', { replace: true })
+                      Swal.fire({
+                        icon: 'success',
+                        title: '일기가 저장되었습니다!',
+                        showConfirmButton: false,
+                        timer: 1700
+                      })
+                    },2500)
+                  } 
+                  else {
+                    navigate('/diarylist', { replace: true })
+                    Swal.fire({
+                      icon: 'success',
+                      title: '일기가 저장되었습니다!',
+                      showConfirmButton: false,
+                      timer: 1700
+                    })
+                  }
+              }
             }
 
   
-      if (emotion === "") {
-        const spinner = document.getElementById("spinner")
-        spinner.classList.remove('display-none')
-        spinner.classList.add('display-block')
-      }
+      // if (emotion === "") {
+      //   const spinner = document.getElementById("spinner")
+      //   spinner.classList.remove('display-none')
+      //   spinner.classList.add('display-block')
+      // }
   
   
+      // 일기 수정하기
       if (isEdit) {
-        // 일기 수정하기
         const diaryInfo = {
           title,
           content,
@@ -224,37 +238,40 @@ const DiaryEditor = ({ isEdit, originData }) => {
             {image_url:returnImg}
           ]
         };
-        modifyDiaryItem(originData.id, diaryInfo)
-          .then((res) => {
-            console.log(res.data);
-            console.log(diaryInfo);
-          })
-          .catch((err) => {
-            console.log(JSON.stringify(err.data));
-          });
 
-          // 이모션을 사용자가 선택했을 경우에는
-          if (emotion !== '') {
-            Swal.fire({
-              icon: 'success',
-              title: '일기가 수정되었습니다!',
-              showConfirmButton: false,
-              timer: 1300
+          modifyDiaryItem(originData.id, diaryInfo)
+            .then((res) => {
+              console.log(res.data);
+              console.log(diaryInfo);
             })
-            navigate("/diarylist", { replace: true });
-          } else {
-            setTimeout(()=> {
-              navigate('/diarylist', { replace: true })
+            .catch((err) => {
+              console.log(JSON.stringify(err.data));
+            });
+            // 이모션을 사용자가 선택했을 경우에는
+            if (emotion !== '') {
               Swal.fire({
                 icon: 'success',
                 title: '일기가 수정되었습니다!',
                 showConfirmButton: false,
-                timer: 1300
+                timer: 1700
               })
-            },2500)
-          }
-      }
-  
+              navigate("/diarylist", { replace: true });
+            } else {
+              setTimeout(()=> {
+                const spinner = document.getElementById("spinner")
+                spinner.classList.remove('display-none')
+                spinner.classList.add('display-block')
+                navigate('/diarylist', { replace: true })
+                Swal.fire({
+                  icon: 'success',
+                  title: '일기가 수정되었습니다!',
+                  showConfirmButton: false,
+                  timer: 1700
+                })
+              },2500)
+            }
+        }
+
     
 
   };
