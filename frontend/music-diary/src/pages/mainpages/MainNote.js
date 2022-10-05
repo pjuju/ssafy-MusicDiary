@@ -32,8 +32,6 @@ const MainNote = () => {
     }
 
     const onMoveCalender = () =>{
-        
-
         navigate('/calender')
     }
     
@@ -47,6 +45,7 @@ const MainNote = () => {
             console.log("in MainNote:", JSON.stringify(res.data.data.username))
             setUserName(res.data.data.username)
             setUserImage(res.data.data.image_url)
+
         })
         .catch((err)=>{
             console.log(err.data)

@@ -17,7 +17,8 @@ import { useDispatch } from "react-redux";
 import { patchUserInfoApi } from "../../api/userApi";
 import {getMonthDiary,getDiaryListApi } from '../../api/diaryApi';
 
-
+import Button from '../../components/Common/Button'
+import Swal from "sweetalert2";
 import "./FeelingAnalysis.css";
 
 const MyResponsiveRadar = ({ data, callMyName, Color }) => (
@@ -66,6 +67,7 @@ const FeelingAnalysis = () => {
   const [sadMoment, setSadMoment] = useState("");
   const [angryMoment, setAngryMoment] = useState("");
   const [depressedMoment, setDepressedMoment] = useState("");
+
 
 // store의 state 값 확인중
   const storeEmail = useSelector((state) => {
@@ -124,9 +126,6 @@ const FeelingAnalysis = () => {
       console.log('err',e)
     })
   }, [])
-
-
-
 
   // 일주일짜리 데이터 가져오기
   const [weekData, setWeekData] = useState([])
@@ -248,22 +247,18 @@ const FeelingAnalysis = () => {
     console.log(e.target.value);
 
     setSadMoment(e.target.value);
-    
   };
 
   const onChangeAngryMoment = (e) => {
     console.log(e.target.value);
 
     setAngryMoment(e.target.value);
-    
-
   };
 
   const onChangeDepressedMoment = (e) => {
     console.log(e.target.value);
 
     setDepressedMoment(e.target.value);
-    
   };
 
   const onSaveMoodSurveyBtn = (e)=>{
@@ -289,7 +284,12 @@ const FeelingAnalysis = () => {
     patchUserInfoApi(patchUserInfo, user_id)
     .then((res)=>{
         console.log(JSON.stringify(res.data))
-        console.log("patch로 기분 설문조사 성공")
+        Swal.fire({
+          icon: 'success',
+          title: '취향이 반영되었습니다!',
+          showConfirmButton: false,
+          timer: 1700
+        })
     })
     .catch((err)=>{
         console.log(JSON.stringify(err.data))
@@ -297,12 +297,11 @@ const FeelingAnalysis = () => {
     
   }
 
+
   return (
     <div className="feeling-analysis">
       <div className="analysis">
 
-
-        
         <div className="analysis-graph">
           <h5 className="analysis-page-title">나의 감정 분석</h5>
           <Form.Select
@@ -317,7 +316,6 @@ const FeelingAnalysis = () => {
           </Form.Select>
           <MyResponsiveRadar data={data} callMyName={tmp} Color={color} />
         </div>
-
 
 
         <div className="feeling-music-type">
@@ -376,9 +374,7 @@ const FeelingAnalysis = () => {
           </div>
           <ul class="snip1226">
             <li>
-              <a href="#" data-hover="저장하기" onClick={onSaveMoodSurveyBtn}>
-                저장하기
-              </a>
+            <Button name="저장하기" color="#AC5050" hcolor="#DF8787" size="md" onClick={onSaveMoodSurveyBtn} />
             </li>
           </ul>
         </div>
