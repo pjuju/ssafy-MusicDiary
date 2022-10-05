@@ -73,7 +73,7 @@ const MainNote = () => {
                 </div>
 
                 <div className="menu-playlist" onClick={()=>{navigate('/myplaylist')}}>
-                    My playlist
+                    My Playlist
                 </div>
 
                 <div className="menu-recommend" onClick={()=>{navigate('/musicrecommendation')}}>
