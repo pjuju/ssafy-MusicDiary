@@ -1,112 +1,119 @@
 /*  여기서부터  */
 @font-face {
-    font-family:"playlist-font";
-    src: url("../../../../public/assets/fonts/SCDream4.otf")
-  }
-  
-  .sad-recommendation {
-    position: relative;
-  }
-  
-  .sad-recommendation .work-area {
-  width: 64vw;
-  height: 93vh;
-  margin-top: 7vh;
-  margin-left: 24vw;
-  /* background-color: green; */
+  font-family:"playlist-font";
+  src: url("../../../../public/assets/fonts/SCDream4.otf")
+}
+
+.sad-recommendation {
+  position: relative;
+}
+
+.sad-recommendation .work-area {
+width: 64vw;
+height: 93vh;
+margin-top: 7vh;
+margin-left: 24vw;
+/* background-color: green; */
+position: absolute;
+z-index: 1;
+color: black;
+}
+
+.sad-recommendation .playlist-iframe {
   position: absolute;
-  z-index: 1;
+  width:32vw;
+  height:35vh;
+  margin-top: 36vh;
+  margin-left: -24.5vw;
+  margin-bottom: 20vh;
+  border-radius: 6%;
+}
+
+.sad-recommendation .detail-diary-playlist {
+  width: 14.5vw;
+  height: 57vh;
+  position: absolute;
+  margin-left: 46vw;
+  margin-top: 18vh;
+  z-index: 2200;
   color: black;
+  border-radius: 3%;
+  overflow:auto;
+  -ms-overflow-style: none;
+  font-family: playlist-font;
+}
+
+.sad-recommendation .detail-diary-playlist::-webkit-scrollbar {
+  display: none;
+}
+
+.sad-recommendation .heart-wrapper {
+  display: flex;
+  font-size: 15px;
+  cursor: pointer;
+  z-index: 2100;
+}
+
+
+.sad-recommendation .music-name-wrapper {
+  /* overflow: hidden; */
+  width: 15vw;
+  text-align: left;
+  white-space: nowrap; 
+  display: block;
+  margin-left: 0.5vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 1vh;
+  margin-top: -0.5vh;
+  /* animation: 2s slide-right;
+  animation-delay: 2s; */
+}
+
+.sad-recommendation .artist-wrapper {
+  display: block;
+  position: relative;
+  width: 15vw;
+  height: 0.1vh;
+  color: grey;
+  font-size: 12px;
+  margin-right: 10vw;
+  margin-left: 0.5vw;
+  white-space: nowrap; 
+  margin-top: -0.7vh;
+  margin-bottom: 3.5vh;
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
+  /* overflow: hidden;
+  animation: 2s slide-right;
+  animation-delay: 2s; */
+}
+
+/* @keyframes slide-right {
+  from {
+    margin-left: 0px;
   }
-  
-  .sad-recommendation .playlist-iframe {
-    position: absolute;
-    width:32vw;
-    height:35vh;
-    margin-top: 12.5vh;
-    margin-left: -26vw;
-    margin-bottom: 20vh;
+  to {
+    margin-left: -50px;
   }
-  
-  .sad-recommendation .detail-diary-playlist {
-    width: 17vw;
-    height: 50vh;
-    position: absolute;
-    margin-left: 45vw;
-    margin-top: 5.5vh;
-    z-index: 2200;
-    color: black;
-    border-radius: 3%;
-    overflow:auto;
-    -ms-overflow-style: none;
-    font-family: playlist-font;
-  }
-  
-  .sad-recommendation .detail-diary-playlist::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .sad-recommendation .heart-wrapper {
-    display: flex;
-    font-size: 15px;
-    cursor: pointer;
-    z-index: 2100;
-  }
-  
-  
-  .sad-recommendation .music-name-wrapper {
-    /* overflow: hidden; */
-    width: 15vw;
-    text-align: left;
-    white-space: nowrap; 
-    display: block;
-    margin-left: 0.5vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 1vh;
-    margin-top: -0.5vh;
-    /* animation: 2s slide-right;
-    animation-delay: 2s; */
-  }
-  
-  .sad-recommendation .artist-wrapper {
-    text-align: left;
-    white-space: nowrap; 
-    display: block;
-    position: relative;
-    width: 15vw;
-    height: 0.1vh;
-    color: grey;
-    font-size: 12px;
-    margin-right: 10vw;
-    margin-left: 0vw;
-    margin-top: -0.7vh;
-    margin-bottom: 3.5vh;
-    /* overflow: hidden; */
-    text-overflow: ellipsis;
-    /* overflow: hidden;
-    animation: 2s slide-right;
-    animation-delay: 2s; */
-  }
-  
-  /* @keyframes slide-right {
-    from {
-      margin-left: 0px;
-    }
-    to {
-      margin-left: -50px;
-    }
-  } */
-  
-  .sad-recommendation .artist-wrapper > div {
-    position: absolute;
-    justify-content: start;
-    margin-left: 1vw;
-  }
-  
-  .sad-recommendation .remake-btn {
-    position: absolute;
-    margin-left: 60.7vw;
-    margin-top: 1.5vh;
-  }
-  /* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */
+} */
+
+.sad-recommendation .artist-wrapper > div {
+  position: absolute;
+  justify-content: start;
+  margin-left: 1vw;
+}
+
+
+.sad-recommendation .ment {
+  position: absolute;
+  margin-left: 13vw;
+  margin-top: 2.5vh;
+}
+
+.sad-recommendation .remake-btn {
+  position: absolute;
+  margin-left: 60vw;
+  margin-top: 12.5vh;
+}
+/* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */

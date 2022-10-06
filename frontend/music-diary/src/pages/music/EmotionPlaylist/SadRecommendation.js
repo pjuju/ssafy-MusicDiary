@@ -77,9 +77,9 @@ const SadRecommendation =() => {
 
     return(<div className="sad-recommendation">
         <div className="work-area">
-            <div className="header">
-                <h1 style={{marginTop:"10vh"}}>당신에게 추천합니다</h1>
-                <h5 style={{fontSize:"18pt"}}>슬픈 순간, 당신을 위로해줄 수 있는 플레이리스트</h5>
+            <div className="ment">
+                <h2 style={{marginTop:"10vh"}}>당신에게 추천합니다</h2>
+                <h5 style={{fontSize:"15pt"}}>슬픈 순간, 당신을 위로해줄 수 있는 플레이리스트</h5>
             </div>
             <iframe src={youtube} className="playlist-iframe" title="YouTube video player" 
                 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -97,7 +97,7 @@ const SadRecommendation =() => {
                         <div className="music-name-wrapper" onClick={()=>{navigate({youtube})}}>{it.track_name}</div><br></br>
                     </div>
                     <div className="artist-wrapper">
-                        <div>{it.artist_name} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
+                        <div>{it.artist_name}</div>
                       </div>
                     </div>
                     )}
