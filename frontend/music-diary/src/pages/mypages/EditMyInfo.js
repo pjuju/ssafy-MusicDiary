@@ -41,7 +41,7 @@ function EditMyInfo() {
   const [imgBase64, setImgBase64] = useState([]); // 미리보기를 구현할 state
   const [imgFile, setImgFile] = useState("");
   const [previewUrl, setPreviewUrl] = useState(
-    `${process.env.PUBLIC_URL}/assets/img/default-img.png`
+    `${process.env.PUBLIC_URL}/assets/img/default-profile-img.png`
   );
 
   const navigate = useNavigate();

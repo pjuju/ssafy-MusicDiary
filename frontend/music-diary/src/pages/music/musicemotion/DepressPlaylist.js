@@ -50,7 +50,7 @@ const DepressPlaylist = () => {
     }
     return(<div className="depress-playlist">
     <div className="work-area">
-        <h1 style={{marginTop:"10vh"}}>당신이 우울했을 때 듣기 좋아하던 음악</h1>
+        <h1 style={{marginTop:"10vh"}}>당신이 우울했을 때 듣기 좋아하던 노래</h1>
         <h5 style={{fontSize:"18pt"}}>ucc 클났다 휴.......</h5>
         {youtube==="https://www.youtube.com/embed?playlist="?
         (<>

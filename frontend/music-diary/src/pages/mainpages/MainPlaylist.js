@@ -18,7 +18,9 @@ const MainPlaylist = () => {
     const navigate = useNavigate();
     const [userImage, setUserImage] = useState("")
     const [userName, setUserName] = useState("");
-
+    const [previewUrl, setPreviewUrl] = useState(
+        `${process.env.PUBLIC_URL}/assets/img/default-profile-img.png`
+      );
     
     const storeUserName = useSelector((state)=>{
         return state.user.username
@@ -56,13 +58,27 @@ const MainPlaylist = () => {
     
     return(<div className='main-playlist'>
         <div className='left-page'>
-
-            <img src={"https:///"+ userImage} alt=""
-                className='profile-image'
-                style={{width:"7vw"}}
-            />
-
+            <div style={{width:'100px',height:'100px',
+            position:'absolute', 
+            paddingTop:'2vh',marginTop:'15vh',marginLeft:'1.8vw'}}>
+                {
+                    userImage === "NULL" || userImage === "null" 
+                    ? (
+                        <img src={previewUrl} alt=""
+                            className='profile-image'
+                            style={{width:"7vw", marginTop:'0vh'}}
+                        />
+                    )
+                    : (
+                        <img src={"https:///"+ userImage} alt=""
+                            className='profile-image'
+                            style={{width:"7vw", marginTop:'0vh'}}
+                        />
+                    )
+                }
             <h5 style={{color:"black"}}>{userName}</h5>
+
+            </div>
 
             <div className='profile-menu' >
                 <div className="menu-diary" onClick={()=>{navigate('/calender')}}>
