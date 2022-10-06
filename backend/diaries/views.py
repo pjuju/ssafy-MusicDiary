@@ -194,7 +194,8 @@ class DiaryList(GenericAPIView):
                     if diarystickerSerializer.is_valid(raise_exception=True):
                         diarystickerSerializer.save()
 
-            return DiaryMusicDetail().post(request=request, diary_pk=diary_pk)
+            return Response(diarySerializer.data, status=status.HTTP_201_CREATED)
+            # return DiaryMusicDetail().post(request=request, diary_pk=diary_pk)
 
 
 class ImageDetail(GenericAPIView):
@@ -390,7 +391,8 @@ class DiaryMusicDetail(GenericAPIView):
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
         
-        return Response(status=status.HTTP_201_CREATED)
+        # return Response(status=status.HTTP_201_CREATED)
+        return self.get(request=request, diary_pk=diary_pk)
 
 def convertToMood(mood_id):
     if mood_id == 1:
