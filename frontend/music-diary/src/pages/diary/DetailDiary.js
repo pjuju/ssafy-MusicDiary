@@ -548,6 +548,7 @@ const DetailDiary = () => {
                             id={idName}
                             style={{
                               cursor: "pointer",
+                              color: "red"
                             }}
                             onClick={(e) => likeMusic(ele.id, i)}
                           >
@@ -560,6 +561,7 @@ const DetailDiary = () => {
                             id={idName}
                             style={{
                               cursor: "pointer",
+                              color: "red"
                             }}
                             onClick={(e) => likeMusic(ele.id, i)}
                           >

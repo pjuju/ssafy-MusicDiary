@@ -1,4 +1,9 @@
 /*  여기서부터  */
+@font-face {
+  font-family:"playlist-font";
+  src: url("../../../../public/assets/fonts/SCDream4.otf")
+}
+
 .angry-playlist {
   position: relative;
 }
@@ -15,25 +20,26 @@ color: black;
 }
 
 .angry-playlist .playlist-iframe {
-  display:flex;
-  width:38vw;
+  position: absolute;
+  width:32vw;
   height:35vh;
-  margin-top: 20vh;
-  margin-left: 3vw;
+  margin-top: 14vh;
+  margin-left: -26vw;
   margin-bottom: 20vh;
 }
 
 .angry-playlist .detail-diary-playlist {
-  width: 20vw;
-  height: 10vh;
-  position: relative;
+  width: 17vw;
+  height: 50vh;
+  position: absolute;
   margin-left: 45vw;
-  margin-top: -15vh;
+  margin-top: 6.5vh;
   z-index: 2200;
   color: black;
   border-radius: 3%;
   overflow:auto;
   -ms-overflow-style: none;
+  font-family: playlist-font;
 }
 
 .angry-playlist .detail-diary-playlist::-webkit-scrollbar {
@@ -49,10 +55,22 @@ color: black;
 
 
 .angry-playlist .music-name-wrapper {
+  /* overflow: hidden; */
+  width: 15vw;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
   margin-left: 0.5vw;
+  margin-bottom: 1vh;
+  margin-top: -0.5vh;
+  /* animation: 2s slide-right;
+  animation-delay: 2s; */
 }
 
 .angry-playlist .artist-wrapper {
+  display: block;
   position: relative;
   width: 15vw;
   height: 0.1vh;
@@ -60,12 +78,40 @@ color: black;
   font-size: 12px;
   margin-right: 10vw;
   margin-left: 0vw;
+  margin-top: -0.7vh;
+  margin-bottom: 3.5vh;
+  /* overflow: hidden; */
+  text-overflow: ellipsis;
+  /* overflow: hidden;
+  animation: 2s slide-right;
+  animation-delay: 2s; */
 }
+
+/* @keyframes slide-right {
+  from {
+    margin-left: 0px;
+  }
+  to {
+    margin-left: -50px;
+  }
+} */
 
 .angry-playlist .artist-wrapper > div {
   position: absolute;
   justify-content: start;
   margin-left: 1vw;
+}
+
+.angry-playlist .no-video {
+  position: absolute;
+  margin-left: 9vw;
+  margin-top: 27vh;
+}
+
+.angry-playlist .no-music {
+  position: absolute;
+  margin-left: 45vw;
+  margin-top: 30vh;
 }
 
 /* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */

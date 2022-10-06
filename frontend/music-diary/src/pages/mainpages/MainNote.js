@@ -73,7 +73,7 @@ const MainNote = () => {
                 </div>
 
                 <div className="menu-playlist" onClick={()=>{navigate('/myplaylist')}}>
-                    My playlist
+                    My Playlist
                 </div>
 
                 <div className="menu-recommend" onClick={()=>{navigate('/musicrecommendation')}}>
@@ -108,7 +108,7 @@ const MainNote = () => {
             </Dropdown>
 
         </div>
-        <img src="/assets/img/backgroundyellow3.png" className='book-background'/>
+        <img src="/assets/img/bg33.png" className='book-background'/>
     </div>)
 }
 

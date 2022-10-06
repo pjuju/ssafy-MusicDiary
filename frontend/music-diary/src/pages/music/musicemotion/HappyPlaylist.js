@@ -1,7 +1,7 @@
 import MainPlaylist from "../../mainpages/MainPlaylist";
 import './HappyPlaylist.css';
 import { emotionMusic, makeLike } from "../../../api/musicApi";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { FcMusic } from 'react-icons/fc';
 
 const HappyPlaylist = () => {
@@ -9,8 +9,6 @@ const HappyPlaylist = () => {
     const [musicBtn, setMusicBtn] = useState(false);
     const [musics, setMusics] = useState([]);
     const [youtube, setYoutube] = useState("");
-    const [videos, setVideos] = useState("");
-    const [musicList, setMusicList] = useState([]);
 
     useEffect(()=> {
       emotionMusic(1)
@@ -28,7 +26,7 @@ const HappyPlaylist = () => {
             video += (res.data[i].videoid + ",");
             list.push(test)
           }
-          setVideos(video);
+          setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
           setMusics(list);
           setMusicBtn(true)
         })
@@ -36,10 +34,6 @@ const HappyPlaylist = () => {
           console.log("err", e);
       })
     }, [])
-
-      // function MyPlaylist(x) {
-      //   useMemo(() => setMusicList(musics), setYoutube("https://www.youtube.com/embed?playlist="+videos.slice(0,-1)));
-      // }
     
       const likeMusic = (music_id, i) => {
         const txt = document.getElementById("heart"+i);
@@ -58,9 +52,18 @@ const HappyPlaylist = () => {
     }
     return(<div className="happy-playlist">
         <div className="work-area">
-            <h2>당신이 행복했을 때 들었던 음악</h2>
+            <h2 style={{marginTop:"10vh"}}>당신이 행복했을 때 듣기 좋아하던 음악</h2>
+        <p>뭔 말하징</p>
             {youtube==="https://www.youtube.com/embed?playlist="?
-            (<>음악이 없어요!</>):
+            (<>
+              <div className="no-video">
+                <h4>재생할 동영상이 없어요!</h4>
+                <p>행복했던 날의 추천 음악에 하트를 눌러 플레이리스트에 추가해보세요.</p>
+              </div>
+              <div className="no-music">
+                <h5>재생할 음악이 없어요!</h5>
+              </div>
+            </>):
             (<iframe
               className="playlist-iframe"
               src={youtube}
@@ -69,6 +72,7 @@ const HappyPlaylist = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>)}
+            <div className="detail-diary-playlist">
           { musicBtn
           ? (
             <>
@@ -76,7 +80,7 @@ const HappyPlaylist = () => {
                 var idName = "heart" + i;
                 return (
                   <>
-                    <div className="detail-diary-playlist">
+                    
                       <div className="heart-wrapper" >
                       
                         <>
@@ -99,7 +103,6 @@ const HappyPlaylist = () => {
                       <div className="artist-wrapper">
                         <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
                       </div>
-                    </div>
                   </>
                 );
               })}
@@ -109,6 +112,7 @@ const HappyPlaylist = () => {
               <div>아직 음악없음</div>
             </>
           )}
+        </div>
         </div>
         <MainPlaylist className="main-playlist"></MainPlaylist>
     </div>)

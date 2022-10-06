@@ -13,7 +13,7 @@
 width: 64vw;
 height: 93.5vh;
 margin-top: 6vh;
-margin-left: 25.5vw;
+margin-left: 27vw;
 
 position: absolute;
 z-index: 1;
@@ -33,10 +33,9 @@ white-space : nowrap
   z-index: 2000;
   color: rgba(2, 2, 18, 0.977);
 
-  height: 10vh;
+  height: 11vh;
 
   margin-left: 1vw;
-
   border-bottom: 1px solid rgb(194, 189, 189);
 
 }
@@ -49,9 +48,8 @@ display:none;
   width: 39vw;
   height: 68vh;
   /* background-color: aqua; */
-  margin-top: 12vh;
+  margin-top: 12.5vh;
   margin-bottom: 10vh;
-
   /* border: 1px solid grey; */
 
   background-color: rgb(244, 240, 240);
@@ -65,7 +63,11 @@ display:none;
   width: 94%;
 
   margin-left:3%;
-  
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  padding-left: 1vw;
+  padding-right: 1vw;
+
   white-space: normal; /* 자동 줄바꿈*/
   text-align: left;
   
@@ -128,7 +130,7 @@ height: 10vh;
 
 /* background-color: white; */
 
-margin-left: 26vw;
+margin-left: 28vw;
 margin-top: 8vh;
 
 /* border: 1px solid black; */
@@ -314,13 +316,14 @@ justify-content: start;
   /* margin-top: 12vh; */
   border-bottom: 1px solid black; 
   padding-top: 7px;
-  margin-left: 1vw;
+  margin-left: 0.3vw;
 
   font-size: 17px;
 }
 
 .emotion-date > img {
   width: 3vw;
+  margin-left: 0.7vw;
   /* border: 1px solid black;  */
 }
 
@@ -349,11 +352,11 @@ justify-content: start;
 }
 
 .detail-diary .detail-diary-playlist {
-  width: 22vw;
-  height: 68vh;
+  width: 17vw;
+  height: 63vh;
   /* background-color: rgb(104, 123, 130);  */
   position: absolute;
-  margin-left: 65vw;
+  margin-left: 68vw;
   margin-top:18vh;
   z-index: 2200;
   color: black;
@@ -388,10 +391,17 @@ justify-content: start;
 .detail-diary .music-name-wrapper {
   /* border: 1px solid orange; */
   margin-left: 0.5vw;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
 }
 
 .detail-diary .artist-wrapper {
-  position: relative;
+  text-align: left;
+  white-space: nowrap; 
+  display: block;
 
   
   width: 13vw;
@@ -417,8 +427,9 @@ justify-content: start;
   /* width="560"
   height="315" */
   /* position: absolute; */
-  width: 22vw;
-  height: 30vh;
+  width: 17vw;
+  height: 20vh;
+  margin-bottom: 1vh;
 
   /* margin-right: 90%; */
   border-radius: 6%;

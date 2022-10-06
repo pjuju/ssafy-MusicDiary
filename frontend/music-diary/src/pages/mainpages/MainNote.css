@@ -8,7 +8,7 @@
 .main-note .left-page {
   /* background-color: pink;
   opacity: 50%; */
-  width: 11vw;
+  width: 13.5vw;
   height: 100vh;
   margin-left: 13vw;
 }
@@ -25,7 +25,8 @@
 .main-note .profile {
   position: absolute;
   top: 15vh;
-  margin-left: 3vw;
+  margin-left: auto;
+  margin-right: auto;
   /* background-color: yellow; */
   /* color: black; */
   font-size: 1vw;
@@ -34,15 +35,16 @@
 }
 
 .main-note .profile-image {
-  /* width: 7vw; */
+  width: 7vw;
   margin-bottom: 2vh;
-  margin-top: 10vh;
-
+  margin-top: 17vh;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .main-note .profile-menu {
   position: absolute;
-  top: 40vh;
+  top: 47vh;
   /* background-color: yellow; */
   color: black;
   z-index: 100000000000000;

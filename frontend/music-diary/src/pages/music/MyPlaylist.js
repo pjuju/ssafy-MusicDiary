@@ -27,9 +27,9 @@ const MusicPlaylist = () => {
 
     return(<div className="music-playlist">
         <div className="work-area">
-            <h2 style={{marginTop:'5vh', fontSize:"48px"}}>플레이리스트 추천</h2>
-            <h4 style={{marginTop:"0vh", color:"grey"}}>그날 그날 바뀌는 나의 감정, 다르게 음악을 추천받을 수 없을까?</h4>
-            <h4 style={{marginTop:"-1vh", color:"grey"}}>순간의 감정에 어울리는 음악을 추천받아 보세요</h4>
+            <h2 style={{marginTop:'5vh', fontSize:"48px"}}>My Playlist</h2>
+            <h4 style={{marginTop:"0vh", color:"grey"}}>이런 날, 내가 좋아했던 노래는?</h4>
+            <h4 style={{marginTop:"-1vh", color:"grey"}}>내가 좋아했던 노래를 감정별로 들어보세요.</h4>
         
             <div className="playlist">
                 <div style={{display:"flex", justifyContent:"space-around", marginTop:"6vh"}}>

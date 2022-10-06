@@ -1,78 +1,161 @@
 .main-playlist {
-    position: relative;
-    top: 0;
-    left: 0;
-    display: flex;
-  }
+  position: relative;
+  top: 0;
+  left: 0;
+  display: flex;
+}
+
+.main-playlist .left-page {
+  /* background-color: pink;
+  opacity: 50%; */
+  width: 13.5vw;
+  height: 100vh;
+  margin-left: 13vw;
+}
+
+.main-playlist .book-background {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+
+/* 프로필 영역 */
+.main-playlist .profile {
+  position: absolute;
+  top: 15vh;
+  margin-left: auto;
+  margin-right: auto;
+  /* background-color: yellow; */
+  /* color: black; */
+  font-size: 1vw;
+  border-radius: 15px;
+  width: 2vw;
+}
+
+.main-playlist .profile-image {
+  width: 7vw;
+  margin-bottom: 2vh;
+  margin-top: 17vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-playlist .profile-menu {
+  position: absolute;
+  top: 47vh;
+  /* background-color: yellow; */
+  color: black;
+  z-index: 100000000000000;
+  margin-left: -3vw;
+  cursor: pointer;
+}
+
+
+/* 우측 상단 북마크 */
+.main-playlist .logout {
+  position: absolute;
+  width: 7vw;
+  height: 5vh;
+  background-color: rgb(84, 152, 116);
+
+  margin-top: 3.2vh;
+  left: 70vw;
+  border-radius: 5px;
+  padding-top: 0.8vh;
+  cursor: pointer;
+
+  font-size: 20px;
+  z-index: 9000;
+}
+
+.main-playlist .my-page {
+  width: 10vw;
+  height: 4vh;
+  position: absolute;
+  margin-top: 3vh;
+  left: 77vw;
+
+  font-size: 20px;
+  z-index: 9000;
+}
+
+
+/* navbar menu */
+
+.main-playlist .profile-menu {
+  position: absolute;
+  width: 7vw;
+  margin-left: 2vw;
+  font-size: 23px;
+  /* border:1px solid black; */
+}
+
+/* 일기장 / 북마크 / my playlist / 음악추천 */
+.main-playlist .menu-diary {
+  position: absolute;
+  width: 5vw;
+  margin-bottom: 2vh;
+  margin-left: 1.9vw;
+  font-size: 30px;
+}
+
+.main-playlist .menu-diary:hover{
   
-  .main-playlist .left-page {
-    /* background-color: pink;
-    opacity: 50%; */
-    width: 11vw;
-    height: 100vh;
-    margin-left: 13vw;
-  }
+  border-width: 2vw;
+  border-bottom: 3px solid #ac5050;
+}
+
+.main-playlist .menu-bookmark {
+  position: absolute;
+  width: 5vw;
+
+  margin-top:8vh;
+  margin-bottom: 2vh;
+  margin-left: 1.9vw;
+
+  font-size: 30px;
+}
+
+.main-playlist .menu-bookmark:hover {
   
-  .main-playlist .playlist-background {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-  }
-  
-  
-  /* 프로필 영역 */
-  .main-playlist .profile {
-    position: absolute;
-    top: 15vh;
-    margin-left: 3vw;
-    /* background-color: yellow; */
-    /* color: black; */
-    font-size: 1vw;
-    border-radius: 15px;
-    width: 2vw;
-  }
-  
-  .main-playlist .profile-image {
-    /* width: 7vw; */
-    margin-bottom: 2vh;
-    margin-top: 10vh;
-  
-  }
-  
-  .main-playlist .profile-menu {
-    position: absolute;
-    top: 40vh;
-    /* background-color: yellow; */
-    color: black;
-    z-index: 100000000000000;
-    margin-left: -3vw;
-    cursor: pointer;
-  }
-  
-  
-  /* 우측 상단 북마크 */
-  .main-playlist .logout {
-    width: 7vw;
-    height: 5vh;
-    background-color: rgb(84, 152, 116);
-    position: absolute;
-    margin-top: 3.2vh;
-    left: 70vw;
-    border-radius: 5px;
-    padding-top: 0.8vh;
-    cursor: pointer;
-  
-    z-index: 9999999999999999;
-  }
-  
-  .main-playlist .my-page {
-    width: 10vw;
-    height: 4vh;
-    position: absolute;
-    margin-top: 3vh;
-    left: 77vw;
-  }
+  border-width: 2vw;
+  border-bottom: 3px solid #ac5050;
+}
+
+.main-playlist .menu-playlist {
+  position: absolute;
+  width: 10vw;
+
+  margin-top:16vh;
+  margin-bottom: 2vh;
+  margin-left: 0vw;
+
+  font-size: 30px;
+}
+
+.main-playlist .menu-playlist:hover {
+  border-width: 2vw;
+  border-bottom: 3px solid #ac5050;
+}
+
+
+.main-playlist .menu-recommend {
+  position: absolute;
+  width: 7vw;
+
+  margin-top:24vh;
+  margin-bottom: 2vh;
+  margin-left: 1.3vw;
+
+  font-size: 30px;
+}
+
+.main-playlist .menu-recommend:hover {
+  border-width: 2vw;
+  border-bottom: 3px solid #ac5050;
+}
   
   
   
