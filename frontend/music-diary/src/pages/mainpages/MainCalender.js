@@ -18,7 +18,7 @@ const MainCalender =() => {
   
     // api 연결하기
     const [noticeData, setNoticeData] = useState([])
-
+  console.log('지금 보고 있는 달은',today.format('M'))
     useEffect(()=> {
       getMonthDiary(today.format('M'), today.format('YYYY'))
       .then((res)=> {

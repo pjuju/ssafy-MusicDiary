@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import qs from "qs";
+import MainNote from '../mainpages/MainNote'
+import Button from '../../components/Common/Button';
+import {Navigate} from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 class PayResult extends React.Component {
     constructor(props) {
@@ -66,12 +71,43 @@ class PayResult extends React.Component {
 }
     
 
-    render() {
+render() {
+        const onClickButton = () => {
+            return <Navigate to="/" />;
+        }
+
+
         return (
             <div>
-                <h2>Result page</h2>
-                <h2>결제가 완료되었습니다.</h2>
-                <h2>{this.state.params.total_amount} 포인트 충전되었습니다.</h2>
+                <div style={{color:'black',position:'absolute',marginLeft:'50vw',marginTop:'30vh',zIndex:'99'}}>
+                    <h5>결제가 완료되었습니다.</h5>
+                    <h5>{this.state.params.total_amount} 포인트 충전되었습니다.</h5>
+                    {/* <Navigate to="/" replace={true} > */}
+                        <Button
+                    className=" y"
+                    name="돌아가기"
+                    style={{ width: "110px", fontSize: "22px", marginLeft: "0vw",color:'black',marginTop:'2vh'}}
+                    color="#CAD8B5"
+                    hcolor="#8FB46E"
+                    size="sm"
+                    onClick={onClickButton}
+                />
+
+
+
+                {/* 이 부분이 navigate 하고 싶은 버튼 부분입니다!!!!! */}
+<button onClick={() => {this.props.history.push({
+  pathname: "/",
+ 
+})}} >돌아가기</button>
+
+
+
+
+
+                    {/* </Navigate> */}
+                </div>
+                <MainNote style={{width:'100vw',height:'100vh'}}></MainNote>
             </div>
         );
     }
