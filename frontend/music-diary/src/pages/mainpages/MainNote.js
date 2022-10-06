@@ -63,7 +63,7 @@ const MainNote = () => {
         <div className='left-page'>
 
         {
-            userImage === "NULL" || userImage === "null" 
+            userImage === "NULL" || userImage === null 
             ? (
                 <img src={previewUrl} alt=""
                     className='profile-image'
@@ -77,7 +77,6 @@ const MainNote = () => {
                 />
             )
         }
-
 
             <h5 style={{color:"black"}}>{userName}</h5>
 
