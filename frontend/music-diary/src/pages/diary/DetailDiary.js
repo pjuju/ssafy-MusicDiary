@@ -484,6 +484,12 @@ const DetailDiary = () => {
           </div>
         )}
 
+        {/* <div style={{ position:"absolute", width:"1.5vw", 
+            height:"2vh", zIndex:"9009", 
+            marginLeft:"25.5vw", rotate:"-90deg", marginTop:"9.5vh"}}>
+          <img style={{width:"2vw"}} alt="" src="/assets/icons/back-btn.png" />
+        </div> */}
+
         {/* 일기 title & content */}
         <div className="detail-diary-item" style={{zIndex:"0"}}>
             {/* 상단의 일기 제목 고정으로 */}
