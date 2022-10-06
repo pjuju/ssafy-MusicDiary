@@ -83,7 +83,7 @@ const MainNote = () => {
 
             </div>
 
-        {
+        {/* {
             userImage === "NULL" || userImage === null 
             ? (
                 <img src={previewUrl} alt=""
@@ -99,7 +99,7 @@ const MainNote = () => {
             )
         }
 
-            <h5 style={{color:"black"}}>{userName}</h5>
+            <h5 style={{color:"black"}}>{userName}</h5> */}
 
             <div className='profile-menu'>
                 <div className="menu-diary" onClick={()=>{navigate('/calender')}}>
