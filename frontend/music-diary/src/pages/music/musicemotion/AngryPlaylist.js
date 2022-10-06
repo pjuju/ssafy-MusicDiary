@@ -53,7 +53,7 @@ const AngryPlaylist = () => {
     return(<div className="angry-playlist">
     <div className="work-area">
         <h1 style={{marginTop:"10vh"}}>당신이 화가 났을 때 좋아한 노래</h1>
-        <h5 style={{fontSize:"18pt"}}>멘트 뭐 넣지...........</h5>
+        <h5 style={{fontSize:"18pt"}}>ㅎ</h5>
         {youtube==="https://www.youtube.com/embed?playlist="?
         (<>
           <div className="no-video">

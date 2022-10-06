@@ -58,9 +58,30 @@ const MainNote = () => {
 
         })
     }, [])
-    
+     
     return(<div className='main-note'>
         <div className='left-page'>
+            <div style={{width:'100px',height:'100px',
+            position:'absolute', 
+            paddingTop:'2vh',marginTop:'15vh',marginLeft:'1.8vw'}}>
+                {
+                    userImage === "NULL" || userImage === "null" 
+                    ? (
+                        <img src={previewUrl} alt=""
+                            className='profile-image'
+                            style={{width:"7vw", marginTop:'0vh'}}
+                        />
+                    )
+                    : (
+                        <img src={"https:///"+ userImage} alt=""
+                            className='profile-image'
+                            style={{width:"7vw", marginTop:'0vh'}}
+                        />
+                    )
+                }
+            <h5 style={{color:"black"}}>{userName}</h5>
+
+            </div>
 
         {
             userImage === "NULL" || userImage === null 
@@ -80,7 +101,7 @@ const MainNote = () => {
 
             <h5 style={{color:"black"}}>{userName}</h5>
 
-            <div className='profile-menu' >
+            <div className='profile-menu'>
                 <div className="menu-diary" onClick={()=>{navigate('/calender')}}>
                     일기장
                 </div>
@@ -97,18 +118,6 @@ const MainNote = () => {
                     음악 추천
                 </div>
 
-                {/* <ul class="snip1250" onClick={()=>{navigate('/calender')}}>
-                    <li><a href="#" data-hover="일기장">일기장</a></li>
-                </ul>
-                <ul class="snip1250" onClick={()=>{navigate('/bookmarks')}}>
-                    <li ><a href="#" data-hover="책갈피">책갈피</a></li>
-                </ul>
-                <ul class="snip1250" onClick={()=>{navigate('/myplaylist')}}>
-                    <li><a href="#" data-hover="My playlist">My playlist</a></li>
-                </ul>
-                <ul class="snip1250" onClick={()=>{navigate('/musicrecommendation')}}>
-                    <li><a href="#" data-hover="음악 추천">음악 추천</a></li>
-                </ul> */}
             </div>
         </div>
         <div className='bookmarks'>
@@ -125,7 +134,7 @@ const MainNote = () => {
             </Dropdown>
 
         </div>
-        <img src="/assets/img/bg33.png" className='book-background'/>
+        <img src="/assets/img/backgroundyellow3.png" className='book-background'/>
     </div>)
 }
 

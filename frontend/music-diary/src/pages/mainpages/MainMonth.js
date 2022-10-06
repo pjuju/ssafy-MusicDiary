@@ -169,6 +169,7 @@ const MainMonth =() => {
             value={sortType}
             onChange={setSortType}
             optionList={sortOptionList} 
+            
           />
           <ControlEmotionMenu
             value={filter}
@@ -176,17 +177,17 @@ const MainMonth =() => {
             optionList={filterOptionList}
           />  
 
-        <Button
+        <Button 
                 className=" y"
                 name="일기 작성"
-                style={{ width: "110px", fontSize: "15px", marginLeft: "20px",color:'black'}}
+                style={{ width: "110px", fontSize: "15px", marginLeft: "51vw",color:'black',marginTop:'0.2vh'}}
                 color="#CAD8B5"
                 hcolor="#8FB46E"
                 size="sm"
                 onClick={()=>{navigate('/newdiary')}}
               />
           <ul onClick={()=>{navigate('/calender')}} className="snip1241">
-            <li><a href="#">달력보기</a></li>
+            <li style={{marginLeft:'-44vw',fontSize:'1.4vw',marginTop:'0.5vh'}}><a href="#">달력보기</a></li>
           </ul>  
         </div>
       <div className="diary-list">

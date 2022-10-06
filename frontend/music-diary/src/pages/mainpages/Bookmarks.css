@@ -28,7 +28,7 @@
   font-size: 33px;
 
   margin-top: 12vw;
-  margin-left: 21vw;
+  margin-left: 23vw;
 }
 
 .bookmark .bookmark-none-subtitle {
@@ -37,8 +37,8 @@
 
   color: grey;
 
-  margin-top: 14.6vw;
-  margin-left: 22.3vw; 
+  margin-top: 10vw;
+  margin-left: 24vw; 
 }
 
 
@@ -47,5 +47,5 @@
 }
 
 .bookmark .bookmarks-page-title {
-  margin-top: 5vh;
+  margin-top: 9vh;
 }

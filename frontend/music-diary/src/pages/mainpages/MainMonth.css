@@ -14,9 +14,9 @@ z-index: 1;
 .main-month .diary-list {
 /* 이건 모든 페이지들이 공용으로 설정할 값 */
 width: 64vw;
-height: 70vh;
-margin-top: 24vh;
-margin-left: 24vw;
+height: 68vh;
+margin-top: 22vh; 
+margin-left: 27vw;
 
 position: absolute;
 z-index: 1;
@@ -34,6 +34,8 @@ display:none;
 .main-month .diary-items {
 overflow:auto;
 -ms-overflow-style: none;
+/* background-color: green; */
+margin-left: 1vw;
 }
 
 .main-month .diary-items::-webkit-scrollbar{
@@ -71,12 +73,12 @@ overflow:auto;
 .main-month .main-note {
   /* position: absolute; */
 }
-
+ 
 .main-month .diary-list-page-title {
 margin-top: 5vh;
 display: flex;
 /* justify-content: center; */
-margin-left: 21vw;
+margin-left: 22vw;
 } 
 
 .main-month .diary-list-page-title * {
@@ -96,22 +98,25 @@ cursor: pointer;
 
 /* 드롭다운 */
 .main-month .dropbar-left {
-  width: 7.5vw;
-  height: 5vh;
+  width: 6vw;
+  height: 4vh;
   font-size: 17px;
   /* background-color: green; */
   border-radius: 5px;
   /* margin-top: -2vh; */
-  margin-left: -19vw;
+  margin-left: 44vw;
+  margin-top: 0.7vh;
   position: absolute;
 }
 
 .main-month .dropbar-right {
-  width: 7.5vw;
-  height: 5vh;
+  width: 6vw;
+  height: 4vh;
   font-size: 17px;
   border-radius: 5px;
-  margin-left: -11vw;
+  /* margin-left: -11vw; */
+  margin-left: 37.3vw;
+  margin-top: 0.7vh;
   position: absolute;
 }
 
