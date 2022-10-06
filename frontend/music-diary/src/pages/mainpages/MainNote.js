@@ -63,7 +63,7 @@ const MainNote = () => {
         <div className='left-page'>
 
         {
-            userImage === "NULL"
+            userImage === "NULL" || userImage === "null" 
             ? (
                 <img src={previewUrl} alt=""
                     className='profile-image'
