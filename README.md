@@ -2,6 +2,8 @@
 
 SSAFY 7기 특화 빅데이터 추천 프로젝트
 
+<img src="/uploads/d4bc93dce6a31af56f4f3853430b7f1e/logo.jpg" width="50%" height="50%">
+
 > 사용자의 일기 내용을 분석하여 그날의 감정에 맞는 플레이리스트를 추천해주는 서비스
 
 ## 목차
@@ -54,24 +56,27 @@ SSAFY 7기 특화 빅데이터 추천 프로젝트
 
 ## FE
 
-- React 18.2.0
-- react-bootstrap 2.5.0 
-- react-dom 18.2.0 
-- react-router-dom 6.4.0 
-- moment.js 2.29.4 
-- styled-components 5.3.5 
+| <img src="https://profilinator.rishav.dev/skills-assets/html5-original-wordmark.svg" alt="HTML5" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/css3-original-wordmark.svg" alt="CSS3" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/javascript-original.svg" alt="Javascript" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/react-original-wordmark.svg" alt="React.js" width="50px" height="50px" /> | <img src="https://profilinator.rishav.dev/skills-assets/redux-original.svg" alt="Redux" width="50px" height="50px" /> |
+|:-:|:-:|:-:|:-:|:-:|
+|HTML|CSS|Javascript|React|Redux|
+
+| <img src="https://profilinator.rishav.dev/skills-assets/sass-original.svg" alt="sass" width="50px" height="50px" /> | <img src="https://mmcgbl-1cc8f.kxcdn.com/wp-content/uploads/2022/03/react-bootstrap.png" alt="React-Bootstrap" width="50px" height="50px" /> | <img src="https://levijonas.app/static/media/MomentLogo.47dcee78.png" alt="moment.js" width="50px" height="50px" />| <img src="https://i.ibb.co/ydkG6cv/img.png" alt="styled-components" width="50px" height="50px" />|
+|:-:|:-:|:-:|:-:|
+|Sass|React-Bootstrap|moment.js|styled-components|
 
 ## BE
 
-- python 3.7
-- Django 3.2.12
-- Djangorestframework
-- Djangorestframework-simplejwt
-- Oauth2
-- Amazone S3
+| <img src="https://profilinator.rishav.dev/skills-assets/python-original.svg" alt="Python" width="50px" height="50px" /> | <img src="https://blog.kakaocdn.net/dn/cVaSOX/btqD9jVw36X/jHpIEqn2EAk7xdKMMmpEP0/img.png" alt="Django" width="50px"/> | <img src="https://velog.velcdn.com/images/poiuyy0420/post/96732bec-ed98-49c9-b8ef-7dba9faf1b0e/d_rest.png" alt="DRF" width="70px" /> | <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Swagger-logo.png" alt="Swagger" width="50px" height="50px" /> |
+|:-:|:-:|:-:|:-:|
+|Python|Django|DRF|Swagger|
+
+| <img src="https://w7.pngwing.com/pngs/298/299/png-transparent-docker-yaml-github-repository-github-text-logo-fedora.png" alt="Docker" width="50px" height="50px" /> | <img src="https://image.toast.com/aaaadh/alpha/2017/techblog/oauthretinapreview.jpg" alt="Oauth2" width="50px" height="50px" /> | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2p0RSCGKPoBoP3gj15fuOtaudI-cLgnypQbtOoqij_8B0HEytSQkcZHTZyCOJhJ-HY2I&usqp=CAU" alt="AWS-S3" width="50px" height="50px" />|
+|:-:|:-:|:-:|
+|Docker|Oauth2|AWS S3|
 
 ## DATA
 
-- Jupyter notebook
-- Python 3.7
-- Django 3.2.12
+| <img src="https://profilinator.rishav.dev/skills-assets/python-original.svg" alt="Python" width="50px" height="50px" /> | <img src="https://blog.kakaocdn.net/dn/cVaSOX/btqD9jVw36X/jHpIEqn2EAk7xdKMMmpEP0/img.png" alt="Django" width="50px"/> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Jupyter_logo.svg/1200px-Jupyter_logo.svg.png" alt="Jupyter" width="50px" height="50px" /> |
+|:-:|:-:|:-:|
+|Python|Django|Jupyter|
+

@@ -52,16 +52,18 @@ const AngryPlaylist = () => {
     }
     return(<div className="angry-playlist">
     <div className="work-area">
-        <h1 style={{marginTop:"10vh"}}>당신이 화가 났을 때 좋아한 노래</h1>
-        <h5 style={{fontSize:"18pt"}}>ㅎ</h5>
+      <div className="ment">
+        <h2 style={{marginTop:"10vh"}}>당신이 화가 났을 때 좋아한 노래</h2>
+        <h5 style={{fontSize:"15pt"}}>음악을 들으면서 화난 기분을 날려보세요</h5>
+        </div>
         {youtube==="https://www.youtube.com/embed?playlist="?
         (<>
           <div className="no-video">
-            <h4>재생할 동영상이 없어요!</h4>
-            <p>화가 났던 날의 추천 음악에 하트를 눌러 플레이리스트에 추가해보세요.</p>
+            <h3>재생할 동영상이 없어요!</h3>
+            <p style={{fontSize:"10pt"}}>화가 났던 날의 추천 음악에 하트를 눌러 플레이리스트에 추가해보세요.</p>
           </div>
           <div className="no-music">
-            <h5>재생할 음악이 없어요!</h5>
+            <h4>재생할 음악이 없어요!</h4>
           </div>
         </>):
         (<iframe
@@ -101,7 +103,8 @@ const AngryPlaylist = () => {
                   </div>
 
                   <div className="artist-wrapper">
-                    <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
+                    {/* <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div> */}
+                    <div>{ele.artist}</div>
                   </div>
               </>
             );
