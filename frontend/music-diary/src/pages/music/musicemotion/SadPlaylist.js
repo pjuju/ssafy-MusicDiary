@@ -50,8 +50,10 @@ const SadPlaylist = () => {
     }
     return(<div className="sad-playlist">
     <div className="work-area">
-        <h1 style={{marginTop:"10vh"}}>당신이 슬펐을 때 듣기 좋아하던 음악</h1>
-        <h5 style={{fontSize:"18pt"}}>다들 파이탱!!!!!!!!!!!</h5>
+      <div className="ment">
+        <h2 style={{marginTop:"10vh"}}>당신이 슬펐을 때 좋아한 음악</h2>
+        <h5 style={{fontSize:"15pt"}}>슬픈 기분을 다시 위로해줄게요</h5>
+        </div>
         {youtube==="https://www.youtube.com/embed?playlist="?
         (<>
           <div className="no-video">
@@ -99,7 +101,8 @@ const SadPlaylist = () => {
                   </div>
 
                   <div className="artist-wrapper">
-                    <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
+                    {/* <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div> */}
+                    <div>{ele.artist}</div>
                   </div>
               </>
             );
