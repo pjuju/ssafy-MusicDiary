@@ -18,7 +18,11 @@ const MainPlaylist = () => {
     const navigate = useNavigate();
     const [userImage, setUserImage] = useState("")
     const [userName, setUserName] = useState("");
+    const [previewUrl, setPreviewUrl] = useState(
+        `${process.env.PUBLIC_URL}/assets/img/default-img.png`
+      );
 
+    const [imageResult, setImageResult] = useState("");
     
     const storeUserName = useSelector((state)=>{
         return state.user.username
@@ -32,8 +36,6 @@ const MainPlaylist = () => {
     }
 
     const onMoveCalender = () =>{
-        
-
         navigate('/calender')
     }
     
@@ -44,27 +46,62 @@ const MainPlaylist = () => {
 
         getUserInfoApi(user_id)
         .then((res)=>{
-            console.log("in MainNote:", JSON.stringify(res.data.data.username))
+            console.log("in MainNote:", JSON.stringify(res.data.data.image_url))
+
+   
             setUserName(res.data.data.username)
             setUserImage(res.data.data.image_url)
+
         })
         .catch((err)=>{
             console.log(err.data)
 
         })
     }, [])
-    
-    return(<div className='main-playlist'>
+     
+    return(<div className='main-note'>
         <div className='left-page'>
-
-            <img src={"https:///"+ userImage} alt=""
-                className='profile-image'
-                style={{width:"7vw"}}
-            />
-
+            <div style={{width:'100px',height:'100px',
+            position:'absolute', 
+            paddingTop:'2vh',marginTop:'15vh',marginLeft:'1.8vw'}}>
+                {
+                    userImage === "NULL" || userImage === "null" 
+                    ? (
+                        <img src={previewUrl} alt=""
+                            className='profile-image'
+                            style={{width:"7vw", marginTop:'0vh'}}
+                        />
+                    )
+                    : (
+                        <img src={"https:///"+ userImage} alt=""
+                            className='profile-image'
+                            style={{width:"7vw", marginTop:'0vh'}}
+                        />
+                    )
+                }
             <h5 style={{color:"black"}}>{userName}</h5>
 
-            <div className='profile-menu' >
+            </div>
+
+        {/* {
+            userImage === "NULL" || userImage === null 
+            ? (
+                <img src={previewUrl} alt=""
+                    className='profile-image'
+                    style={{width:"7vw"}}
+                />
+            )
+            : (
+                <img src={"https:///"+ userImage} alt=""
+                    className='profile-image'
+                    style={{width:"7vw"}}
+                />
+            )
+        }
+
+            <h5 style={{color:"black"}}>{userName}</h5> */}
+
+            <div className='profile-menu'>
                 <div className="menu-diary" onClick={()=>{navigate('/calender')}}>
                     일기장
                 </div>
@@ -81,18 +118,6 @@ const MainPlaylist = () => {
                     음악 추천
                 </div>
 
-                {/* <ul class="snip1250" onClick={()=>{navigate('/calender')}}>
-                    <li><a href="#" data-hover="일기장">일기장</a></li>
-                </ul>
-                <ul class="snip1250" onClick={()=>{navigate('/bookmarks')}}>
-                    <li ><a href="#" data-hover="책갈피">책갈피</a></li>
-                </ul>
-                <ul class="snip1250" onClick={()=>{navigate('/myplaylist')}}>
-                    <li><a href="#" data-hover="My playlist">My playlist</a></li>
-                </ul>
-                <ul class="snip1250" onClick={()=>{navigate('/musicrecommendation')}}>
-                    <li><a href="#" data-hover="음악 추천">음악 추천</a></li>
-                </ul> */}
             </div>
         </div>
         <div className='bookmarks'>

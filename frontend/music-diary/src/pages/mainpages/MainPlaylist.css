@@ -32,23 +32,25 @@
   font-size: 1vw;
   border-radius: 15px;
   width: 2vw;
-}
+} 
 
 .main-playlist .profile-image {
-  width: 7vw;
+  width: 100%;
   margin-bottom: 2vh;
   margin-top: 17vh;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 100%;
+  /* background-color: green; */
 }
 
 .main-playlist .profile-menu {
   position: absolute;
   top: 47vh;
-  /* background-color: yellow; */
+  background-color: yellow;
   color: black;
   z-index: 100000000000000;
-  margin-left: -3vw;
+  margin-left: -5vw;
   cursor: pointer;
 }
 
@@ -87,6 +89,7 @@
 .main-playlist .profile-menu {
   position: absolute;
   width: 7vw;
+
   margin-left: 2vw;
   font-size: 23px;
   /* border:1px solid black; */
@@ -97,8 +100,9 @@
   position: absolute;
   width: 5vw;
   margin-bottom: 2vh;
-  margin-left: 1.9vw;
-  font-size: 30px;
+  margin-left: 0.5vw;
+
+  font-size: 25px;
 }
 
 .main-playlist .menu-diary:hover{
@@ -113,9 +117,9 @@
 
   margin-top:8vh;
   margin-bottom: 2vh;
-  margin-left: 1.9vw;
+  margin-left: 0.5vw;
 
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .main-playlist .menu-bookmark:hover {
@@ -130,9 +134,9 @@
 
   margin-top:16vh;
   margin-bottom: 2vh;
-  margin-left: 0vw;
+  margin-left: -2vw;
 
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .main-playlist .menu-playlist:hover {
@@ -145,80 +149,82 @@
   position: absolute;
   width: 7vw;
 
-  margin-top:24vh;
+  margin-top: 24vh;
   margin-bottom: 2vh;
-  margin-left: 1.3vw;
+  margin-left: -0.5vw;
 
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .main-playlist .menu-recommend:hover {
   border-width: 2vw;
   border-bottom: 3px solid #ac5050;
 }
-  
-  
-  
-  /* 메뉴 디자인  */
-  @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
-  .snip1250 {
-  font-family: 'Raleway', Arial, sans-serif;
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 500;
-  }
-  .snip1250 * {
-  box-sizing: border-box;
-  -webkit-transition: all 0.35s ease;
-  transition: all 0.35s ease;
-  
-  }
-  .snip1250 li {
-  display: inline-block;
-  list-style: outside none none;
-  margin: 0 2.2em;
-  overflow: hidden;
-  }
-  .snip1250 a {
-  padding: 0 0.2em 0 0.5em;
-  color: rgba(255, 255, 255, 0.5);
-  position: relative;
-  display: inline-block;
-  letter-spacing: 1px;
-  margin: 0;
-  text-decoration: none;
-  color: black;
-  font-size: 1vw;
-  }
-  .snip1250 a:before,
-  .snip1250 a:after {
-  position: absolute;
-  -webkit-transition: all 0.35s ease;
-  transition: all 0.35s ease;
-  color: black;
-  
-  }
-  .snip1250 a:before {
-  left: 100%;
-  display: block;
-  width: 3px;
-  height: 100%;
-  content: "";
+
+
+/* 메뉴 디자인  */
+/* @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800); */
+/* .snip1250 {
+font-family: 'Raleway', Arial, sans-serif;
+text-align: center;
+text-transform: uppercase;
+font-weight: 500;
+}
+.snip1250 * {
+box-sizing: border-box;
+-webkit-transition: all 0.35s ease;
+transition: all 0.35s ease;
+
+}
+.snip1250 li {
+display: inline-block;
+list-style: outside none none;
+margin: 0 2.2em;
+overflow: hidden;
+}
+.snip1250 a {
+padding: 0 0.2em 0 0.5em;
+color: rgba(255, 255, 255, 0.5);
+position: relative;
+display: inline-block;
+letter-spacing: 1px;
+margin: 0;
+text-decoration: none;
+color: black;
+font-size: 1vw;
+}
+.snip1250 a:before,
+.snip1250 a:after {
+position: absolute;
+-webkit-transition: all 0.35s ease;
+transition: all 0.35s ease;
+color: black;
+
+}
+.snip1250 a:before {
+left: 100%;
+display: block;
+width: 3px;
+height: 100%;
+content: "";
+background-color: #d9c865;
+}
+.snip1250 a:after {
+padding: 0 0.2em 0 0.5em;
+position: absolute;
+left: 100%;
+top: 0;
+content: attr(data-hover);
+color: black;
+white-space: nowrap;
+/* background-color: #d9c865; */
+/* }
+.snip1250 li:hover a,
+.snip1250 .current a {
+transform: translateX(-100%);
+}
+
+.snip1250 li:selected {
   background-color: #d9c865;
-  }
-  .snip1250 a:after {
-  padding: 0 0.2em 0 0.5em;
-  position: absolute;
-  left: 100%;
-  top: 0;
-  content: attr(data-hover);
-  color: black;
-  white-space: nowrap;
-  }
-  .snip1250 li:hover a,
-  .snip1250 .current a {
-  transform: translateX(-100%);
-  }
-  
-  
-  
+} */
+ 

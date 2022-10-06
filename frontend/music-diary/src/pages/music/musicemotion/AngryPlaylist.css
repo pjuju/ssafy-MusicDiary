@@ -1,4 +1,3 @@
-/*  여기서부터  */
 @font-face {
   font-family:"playlist-font";
   src: url("../../../../public/assets/fonts/SCDream4.otf")
@@ -23,17 +22,18 @@ color: black;
   position: absolute;
   width:32vw;
   height:35vh;
-  margin-top: 12.5vh;
-  margin-left: -26vw;
+  margin-top: 36vh;
+  margin-left: -24.5vw;
   margin-bottom: 20vh;
+  border-radius: 6%;
 }
 
 .angry-playlist .detail-diary-playlist {
-  width: 17vw;
-  height: 50vh;
+  width: 14.5vw;
+  height: 57vh;
   position: absolute;
-  margin-left: 45vw;
-  margin-top: 5.5vh;
+  margin-left: 46vw;
+  margin-top: 18vh;
   z-index: 2200;
   color: black;
   border-radius: 3%;
@@ -58,11 +58,11 @@ color: black;
   /* overflow: hidden; */
   width: 15vw;
   text-align: left;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  white-space: nowrap; 
   display: block;
-  overflow: hidden;
   margin-left: 0.5vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin-bottom: 1vh;
   margin-top: -0.5vh;
   /* animation: 2s slide-right;
@@ -77,11 +77,12 @@ color: black;
   color: grey;
   font-size: 12px;
   margin-right: 10vw;
-  margin-left: 0vw;
+  margin-left: 0.5vw;
   margin-top: -0.7vh;
   margin-bottom: 3.5vh;
   /* overflow: hidden; */
   text-overflow: ellipsis;
+  white-space: nowrap; 
   /* overflow: hidden;
   animation: 2s slide-right;
   animation-delay: 2s; */
@@ -104,14 +105,18 @@ color: black;
 
 .angry-playlist .no-video {
   position: absolute;
-  margin-left: 9vw;
-  margin-top: 27vh;
+  margin-left: 13vw;
+  margin-top: 47vh;
 }
 
 .angry-playlist .no-music {
   position: absolute;
-  margin-left: 45vw;
-  margin-top: 30vh;
+  margin-left: 47.5vw;
+  margin-top: 40vh;
 }
 
-/* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */
+.angry-playlist .ment {
+  position: absolute;
+  margin-left: 11vw;
+  margin-top: 3.5vh;
+}
