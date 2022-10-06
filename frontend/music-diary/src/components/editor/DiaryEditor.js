@@ -197,36 +197,33 @@ const DiaryEditor = ({ isEdit, originData }) => {
               else {
                 // 만약 처음 쓰는 날짜라면 일기 작성하기
                 writeDiaryListApi(diaryInfo)
-                  .then((res) => {
-                    console.log("일기 생성", JSON.stringify(res.data));
-                    console.log(res.data);
-                    makePlaylist(res.data.id);
-                  })
-                  .catch((err) => {
-                    console.log(JSON.stringify(err.data));
-                  });
+     
                   if (emotion==='') {
                     const spinner = document.getElementById("spinner")
                     spinner.classList.remove('display-none')
                     spinner.classList.add('display-block')
                     setTimeout(()=> {
-                      navigate('/diarylist', { replace: true })
+                      
                       Swal.fire({
                         icon: 'success',
                         title: '일기가 저장되었습니다!',
                         showConfirmButton: false,
-                        timer: 1700
+                        timer: 2000
                       })
-                    },2500)
+                      
+                    },3000)
+                    navigate('/diarylist', { replace: true })
                   } 
                   else {
-                    navigate('/diarylist', { replace: true })
+                    
                     Swal.fire({
                       icon: 'success',
                       title: '일기가 저장되었습니다!',
                       showConfirmButton: false,
                       timer: 1700
                     })
+                    navigate('/diarylist', { replace: true })
+
                   }
               }
             }

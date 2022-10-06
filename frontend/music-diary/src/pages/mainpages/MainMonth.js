@@ -30,6 +30,48 @@ const MainMonth =() => {
   const [sortType, setSortType] = useState("latest");
   const [filter, setFilter] = useState("all");
 
+    // 감정별, 날짜별로 분류하는 로직
+  
+    const getProcessedDiaryList = () => {
+      const filterCallBack = (item) => {
+        if (filter === "기쁨") {
+          const happyDiary = item.emotion == '기쁨'
+          return happyDiary
+        } 
+        if (filter === "슬픔") {
+          return item.emotion === '슬픔'
+        }
+        if (filter === "평온") {
+          return item.emotion === '평온'
+        }
+        if (filter === "우울") {
+          return item.emotion === '우울'
+        }
+        if (filter === "분노") {
+          return item.emotion === '분노'
+        }
+        if (filter === "불안") {
+          return item.emotion === '불안'
+        }
+      };
+  
+      const compare = (a, b) => {
+        if (sortType === "latest") {
+          return b.created_date.split("-").join("") - a.created_date.split("-").join("");
+        } else {
+          return a.created_date.split("-").join("") - b.created_date.split("-").join("");
+        }
+      };
+  
+      // const copyList = JSON.parse(JSON.stringify(data));
+      // all이면 전부를, all이 아닌 감정 개별적인 거는 filterCallback에 넘겨주기
+      const filteredList =
+        filter === "all" ? data : data.filter((it) => filterCallBack(it));
+  
+      const sortedList = filteredList.sort(compare);
+      return sortedList;
+    };
+
   const ControlDateMenu = React.memo(({ value, onChange, optionList }) => {
     return (
         // <div>
@@ -69,47 +111,7 @@ const MainMonth =() => {
     );
   });
 
-  // 감정별, 날짜별로 분류하는 로직
-  
-  const getProcessedDiaryList = () => {
-    const filterCallBack = (item) => {
-      if (filter === "기쁨") {
-        const happyDiary = item.emotion == '기쁨'
-        return happyDiary
-      } 
-      if (filter === "슬픔") {
-        return item.emotion === '슬픔'
-      }
-      if (filter === "평온") {
-        return item.emotion === '평온'
-      }
-      if (filter === "우울") {
-        return item.emotion === '우울'
-      }
-      if (filter === "분노") {
-        return item.emotion === '분노'
-      }
-      if (filter === "불안") {
-        return item.emotion === '불안'
-      }
-    };
 
-    const compare = (a, b) => {
-      if (sortType === "latest") {
-        return b.created_date.split("-").join("") - a.created_date.split("-").join("");
-      } else {
-        return a.created_date.split("-").join("") - b.created_date.split("-").join("");
-      }
-    };
-
-    // const copyList = JSON.parse(JSON.stringify(data));
-    // all이면 전부를, all이 아닌 감정 개별적인 거는 filterCallback에 넘겨주기
-    const filteredList =
-      filter === "all" ? data : data.filter((it) => filterCallBack(it));
-
-    const sortedList = filteredList.sort(compare);
-    return sortedList;
-  };
 
     const navigate = useNavigate();
 
