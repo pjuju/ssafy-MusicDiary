@@ -109,7 +109,7 @@ const MainPlaylist = () => {
             </Dropdown>
 
         </div>
-        <img src="/assets/img/pl.png" className='book-background'/>
+        <img src="/assets/img/new123.png" className='book-background'/>
     </div>)
 }
 

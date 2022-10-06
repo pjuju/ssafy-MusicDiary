@@ -24,6 +24,10 @@ SSAFY 7기 특화 빅데이터 추천 프로젝트
 
 ## 서비스 화면
 
+1. 일기 작성
+2. 스티커
+3. 음악 추천
+
 [UCC]()
 
 </br>
@@ -50,6 +54,24 @@ SSAFY 7기 특화 빅데이터 추천 프로젝트
 
 ## FE
 
+- React 18.2.0
+- react-bootstrap 2.5.0 
+- react-dom 18.2.0 
+- react-router-dom 6.4.0 
+- moment.js 2.29.4 
+- styled-components 5.3.5 
+
 ## BE
 
+- python 3.7
+- Django 3.2.12
+- Djangorestframework
+- Djangorestframework-simplejwt
+- Oauth2
+- Amazone S3
+
 ## DATA
+
+- Jupyter notebook
+- Python 3.7
+- Django 3.2.12

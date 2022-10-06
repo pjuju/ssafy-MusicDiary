@@ -49,7 +49,8 @@ display:none;
   width: 39vw;
   height: 68vh;
   /* background-color: aqua; */
-  margin-top: 12.8vh;
+  margin-top: 15vh;
+  /* margin-top: 12.8vh; */
   margin-bottom: 10vh;
 
   /* border: 1px solid grey; */
@@ -63,7 +64,6 @@ display:none;
 
 .detail-diary .detail-diary-item .content {
   width: 94%;
-
   margin-left:3%;
   
   white-space: normal; /* 자동 줄바꿈*/
@@ -309,6 +309,8 @@ justify-content: start;
   /* margin-top: 12vh; */
   border-bottom: 1px solid black; 
   padding-top: 7px;
+  margin-left: 0.3vw;
+  margin-top: 3vh;
   margin-left: 1vw;
 
   font-size: 17px;
@@ -412,9 +414,12 @@ justify-content: start;
   /* width="560"
   height="315" */
   /* position: absolute; */
+  width: 16.5vw;
+  height: 16.5vh;
+  margin-bottom: 1vh;
+  margin-top: 2.5vh;
   width: 22vw;
   height: 30vh;
-
   /* margin-right: 90%; */
   border-radius: 6%;
 }
