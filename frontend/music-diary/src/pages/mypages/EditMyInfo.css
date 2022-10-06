@@ -25,41 +25,49 @@
     margin-top: 5vh;
 }
 
-
+/* Todo: 가운데 정렬 */
 .edit-myinfo .myinfo-main {
     /* background-color: black; */
-    width: 60vw;
-    margin-top: 11vh;
-    height: 55vh;
+    width: inherit;
+    margin-top: 7vh;
+    height: fit-content;
+    text-align: center;
     /* margin-left: 3vw; */
-    position: absolute;
+    /* position: absolute; */
     /* border: 1px solid skyblue; */
-    display: flex;
-
-    
+    /* display: flex; */
 }
 /* *****************************************************/
 
 
+.edit-myinfo .mimicBtn {
+    width: 110px;
+    font-size: 15px;
+    background-color: #b7b7b7;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.edit-myinfo .mimicBtn:hover {
+    background-color: #8b8b8b;
+}
+
 /* 이미지 업로드 관련 */
 .edit-myinfo .edit-myinfo-profile {
-    padding: absolute;
-    width: 54vw;
-    
-    margin-right: 2vw;
+    width: fit-content;
     /* border: 1px solid green; */
 }
 
 .edit-myinfo .diary-img-wrapper {
-    position: absolute;
-    width: 18vw;
-    margin-left: 10vw;
-
+    /* position: absolute; */
+    width: fit-content;
+    height: fit-content;
 }
 
 .edit-myinfo .diary-register-img {
     width: 13vw;
-    height: 28vh;
+    height: 13vw;
 
     border-radius: 48%;
     
@@ -68,8 +76,6 @@
 
 /* 이미지 등록 영역 */
 .edit-myinfo .diary-register-btn {
-    margin-top: 33vh;
-    margin-left:10vw;
     width: 18vw;
     display: flex;
 }
@@ -81,40 +87,92 @@
 
 /* *****************************************************/
 .edit-myinfo .edit-right-wrapper{
-    position: absolute;
+    /* position: absolute; */
 
-    margin-left: 30vw;
-    margin-top: 3vh;
+    /* margin-left: 30vw; */
+    /* margin-top: 3vh; */
     width: 30vw;
-    height: 50vh;
+    height: fit-content;
     /* border: 3px solid red; */
 }
 
-/* 닉네임 input */
-.edit-myinfo .edit-myinfo-nickname {
-    position: absolute;
-    width: 18vw;
+/* 닉네임 수정, 비밀번호 수정 */
+.edit-myinfo .edit-nickname-btn-wrapper {
+    display: flex;
 
+    /* margin-left: ; */
+    width: fit-content;
+    height: fit-content;
+    margin-top: 5.5vh;
+
+    font-size: 16px;
+
+    /* border: 1px solid blue; */
+}
+
+.edit-myinfo .edit-password-btn-wrapper {
+    display: flex;
+
+    /* margin-left: ; */
+    width: fit-content;
+    height: fit-content;
     margin-top: 5vh;
-    margin-left: 0vw;
 
-    /* border: 1px solid orange; */
-
-    
-    margin-bottom: 17vh;
+    /* border: 1px solid blue; */
 }
 
-/* 비밀번호 input */
+/* 닉네임 input 감싸는 div */
+.edit-myinfo .edit-myinfo-nickname {
+    width: 20vw;
+}
+
+/* 수정폼 */
+.edit-myinfo .edit-form-input-nickname {
+
+    padding: 0px 5px;
+
+    border: none;
+    border-radius: 3px;
+    background-color: #e8e8e8;
+
+    width: 20vw;
+    height: 6vh;
+
+    align-items: center;
+}
+
+/* 비밀번호 input 감싸는 div */
 .edit-myinfo .edit-myinfo-password {
-    position: absolute;
-    width:18vw;
-
-    margin-top:20vh;
-    margin-left: 0vw;
-
-    /* border: 1px solid orange; */
+    width:20vw;
 }
 
+
+.edit-myinfo .edit-form-input-password {
+
+    padding: 0px 5px;
+
+    border: none;
+    border-radius: 3px;
+    background-color: #e8e8e8;
+
+    width: 20vw;
+    height: 6vh;
+
+    align-items: center;
+
+    margin-bottom: 2px;
+}
+
+
+.edit-myinfo .edit-btn {
+    width: 110px;
+    height: 45px;
+    font-size: 15px;
+    color: black;
+    /* border: 1px solid blue; */
+    margin-left: 1vw;
+    background-color: rgb(189, 226, 189);
+}
 
 
 /* 수정폼 감싸는 부부  */
@@ -125,59 +183,6 @@
     /* display: block; */
     /* margin-top: 15vh; */
     
-}
-
-.edit-myinfo .edit-form-input-nickname {
-
-    width: 15vw;
-    height: 7vh;
-
-    align-items: center;
-}
-
-.edit-myinfo .edit-form-input-password {
-
-    width: 15vw;
-    height: 3.5vh;
-
-    align-items: center;
-}
-
-
-/* 닉네임 수정, 비밀번호 수정 */
-.edit-myinfo .edit-nickname-btn-wrapper {
-    display: absolute flex;
-
-    /* margin-left: ; */
-    width: 12vw;
-    height: 10vh;
-    margin-top: 5.5vh;
-    margin-left: 17vw;
-
-    font-size: 16px;
-
-    /* border: 1px solid blue; */
-}
-
-.edit-myinfo .edit-password-btn-wrapper {
-    display: absolute;
-    width: 12vw;
-    height: 10vh;
-
-    /* margin-left: ; */
-    margin-top: 5vh;
-    margin-left: 17vw;
-
-    /* border: 1px solid blue; */
-}
-
-
-.edit-myinfo .edit-btn {
-    font-size: 17px;
-    color: black;
-    /* border: 1px solid blue; */
-    margin-left: 1vw;
-    background-color: rgb(189, 226, 189);
 }
 
 /* .edit-myinfo .edit-btn:hover {
@@ -193,12 +198,9 @@
 
     /* font-size: 20px; */
 
-    margin-top: 55vh;
-    margin-left: 22vw;
     /* border: 1px solid orange; */
 }
 
 .edit-myinfo .quit-btn {
     font-size: 20px;
 }
-
