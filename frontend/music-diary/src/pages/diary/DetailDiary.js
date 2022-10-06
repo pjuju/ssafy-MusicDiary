@@ -305,7 +305,7 @@ console.log(totalDiary)
   };
 
   const targetDiary = totalDiary.find((it) => parseInt(it.id) === parseInt(id));
-
+ 
   // 북마크 다루기 ////////////////////////////////////////
   const handleBookmark = () => {
     // console.log("RETURN IMAGES:", returnImages[0].image_url);
@@ -500,11 +500,7 @@ console.log(totalDiary)
           </div>
         )}
 
-        {/* <div style={{ position:"absolute", width:"1.5vw", 
-            height:"2vh", zIndex:"9009", 
-            marginLeft:"25.5vw", rotate:"-90deg", marginTop:"9.5vh"}}>
-          <img style={{width:"2vw"}} alt="" src="/assets/icons/back-btn.png" />
-        </div> */}
+
 
         {/* 일기 title & content */}
         <div className="detail-diary-item" style={{zIndex:"0"}}>

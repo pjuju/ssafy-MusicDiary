@@ -32,23 +32,25 @@
   font-size: 1vw;
   border-radius: 15px;
   width: 2vw;
-}
+} 
 
 .main-note .profile-image {
-  width: 7vw;
+  width: 100%;
   margin-bottom: 2vh;
   margin-top: 17vh;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 100%;
+  /* background-color: green; */
 }
 
 .main-note .profile-menu {
   position: absolute;
   top: 47vh;
-  /* background-color: yellow; */
+  background-color: yellow;
   color: black;
   z-index: 100000000000000;
-  margin-left: -3vw;
+  margin-left: -5vw;
   cursor: pointer;
 }
 
@@ -98,9 +100,9 @@
   position: absolute;
   width: 5vw;
   margin-bottom: 2vh;
-  margin-left: 1.9vw;
+  margin-left: 0.5vw;
 
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .main-note .menu-diary:hover{
@@ -115,9 +117,9 @@
 
   margin-top:8vh;
   margin-bottom: 2vh;
-  margin-left: 1.9vw;
+  margin-left: 0.5vw;
 
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .main-note .menu-bookmark:hover {
@@ -132,9 +134,9 @@
 
   margin-top:16vh;
   margin-bottom: 2vh;
-  margin-left: 0vw;
+  margin-left: -2vw;
 
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .main-note .menu-playlist:hover {
@@ -147,11 +149,11 @@
   position: absolute;
   width: 7vw;
 
-  margin-top:24vh;
+  margin-top: 24vh;
   margin-bottom: 2vh;
-  margin-left: 1.3vw;
+  margin-left: -0.5vw;
 
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .main-note .menu-recommend:hover {
