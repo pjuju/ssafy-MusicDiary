@@ -132,8 +132,17 @@ const MainCalender =() => {
               <button onClick={()=>{ setMoment(getMoment.clone().add(1, 'month')) }} className="time-change-button" >&nbsp; &#10093;	</button>
             </div>
           </div>
+          <Button
+                className=" y"
+                name="일기 작성"
+                style={{ width: "110px", fontSize: "15px", marginLeft: "19vw",color:'black',marginTop:'-6.6vh',position:'absolute'}}
+                color="#CAD8B5"
+                hcolor="#8FB46E"
+                size="sm"
+                onClick={()=>{navigate('/newdiary')}}
+              />
           <ul onClick={()=>{navigate('/diarylist')}} className="snip1241">
-            <li><a href="#" style={{fontSize:"20px",marginLeft:'-3vw'}}>모아보기</a></li>
+            <li style={{marginTop:'0vh'}}><a href="#" style={{fontSize:"20px",marginLeft:'-83.5vw'}}>모아보기</a></li>
           </ul>     
           <table>
             <tbody>
@@ -150,15 +159,7 @@ const MainCalender =() => {
             </tbody>
           </table>
 
-          <Button
-                className=" y"
-                name="일기 작성"
-                style={{ width: "110px", fontSize: "22px", marginLeft: "43vw",color:'black',marginTop:'2vh'}}
-                color="#CAD8B5"
-                hcolor="#8FB46E"
-                size="sm"
-                onClick={()=>{navigate('/newdiary')}}
-              />
+
      
 
 

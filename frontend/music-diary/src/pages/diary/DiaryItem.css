@@ -8,7 +8,7 @@
 } 
 
 .diary-item .diary-item-card {
-    width: 18vw;
+    width: 16vw;
     height: 20vh;
     float: left;
     margin-left: 2vw;
@@ -29,7 +29,7 @@
     background-color: rgb(228, 240, 250);
     transform: scale(102%);
 }
-
+ 
 .diary-item .bookmark-paper {
     position: absolute;
     width: 2vw;
@@ -63,11 +63,14 @@
 
 .diary-item .diary-item-content {
     /* margin-left: 0vw; */
+    text-align:left;
+    padding-left: 1vw;
 }
 
 .diary-item .diary-item-date {
-    margin-left: 12vw;
+    margin-left: 9vw;
     font-size: 1.5vh;
     margin-top: -5vh;
     /* background-color: pink; */
+    
 }
