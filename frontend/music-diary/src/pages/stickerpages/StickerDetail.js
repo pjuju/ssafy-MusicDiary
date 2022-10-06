@@ -47,9 +47,15 @@ function StickerDetail({}) {
   }
 
   const onBugStickerPackBtn = () =>{
+    setThisIsMine(true)
     buyStickerPackApi(user_id,sticker_pack)
     .then((res)=> {
       console.log(JSON.stringify(res.data))
+      Swal.fire({
+        icon: 'success',
+        title: '구매 완료!',
+        text: '스티커 팩 구매가 완료되었습니다.',
+      })
     })
     .catch((err)=> {
       console.log(err)

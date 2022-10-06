@@ -69,7 +69,7 @@ const MainScroll = () => {
         <h5>
           이달의 감정들을 한 눈에 확인해보세요.
         </h5>
-        <img src="/assets/img/calender.jpg" style={{width:'30vw'}}></img>
+        <img src="/assets/img/calender.png" style={{width:'30vw'}}></img>
       </div>
 
     </div>
@@ -97,7 +97,7 @@ const MainScroll = () => {
         </h5>
       </div>
       <div class="text-box" style={{width:'25vw'}}>
-      <img src="/assets/img/pli.jpg" 
+      <img src="/assets/img/pli.png" 
           style={{width:'25vw',backgroundColor:'#ffffff',borderRadius:'15px',boxShadow:'10px 10px #dcdca2'}}></img>
       <h5 style={{marginTop:'3vh'}}>최신 음악부터 올드팝까지, <br></br>
       좋아하는 음악만 선택하여 들어보세요</h5>
@@ -111,7 +111,7 @@ const MainScroll = () => {
     <h2>스티커로 당신의 일기를 더욱 다채롭게</h2>
     <div class="text-container" style={{marginLeft:'7vw'}}>
       <div class="text-box">
-        <img src="/assets/img/sticker.png" 
+        <img src="/assets/img/detail.png" 
         style={{width:'30vw',backgroundColor:'#ffffff',borderRadius:'15px',boxShadow:'10px 10px #dcdca2'}}></img>
         <h5 style={{marginTop:'3vh'}}>
           다양한 스티커로 일기를 취향대로 꾸며보세요
@@ -119,7 +119,7 @@ const MainScroll = () => {
       </div>
 
       <div class="text-box">
-        <img src="/assets/img/sticker.png" 
+        <img src="/assets/img/store.png" 
         style={{width:'30vw',backgroundColor:'#ffffff',borderRadius:'15px',boxShadow:'10px 10px #dcdca2'}}></img>
         <h5 style={{marginTop:'3vh'}}>
           스티커 상점에서 마음에 드는 스티커를 구입할 수도 있습니다

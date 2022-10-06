@@ -372,11 +372,8 @@ const FeelingAnalysis = () => {
               <option value="4">잔잔한 노래</option>
             </Form.Select>
           </div>
-          <ul class="snip1226">
-            <li>
+
             <Button name="저장하기" color="#AC5050" hcolor="#DF8787" size="md" onClick={onSaveMoodSurveyBtn} />
-            </li>
-          </ul>
         </div>
       </div>
       <MainNote className="main-note"></MainNote>

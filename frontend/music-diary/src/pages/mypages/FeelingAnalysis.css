@@ -20,23 +20,24 @@
 }
 
 .feeling-analysis .analysis-page-title {
-    margin-top: 5vh;
+    margin-top: 15vh;
     font-size: 30px;
 }
 
 .feeling-analysis .analysis-graph {
     /* background-color: black; */
-    width: 30vw;
-    margin-top: 5vh;
+    width: 22vw;
+    margin-top: -3vh;
     height: 55vh;
-    margin-left: 2vw;
+    margin-left: 7vw;
     position: absolute;
 
 }
 
 .feeling-analysis .analysis-time-form {
-    width: 10vw;
-    margin-left: 18vw;
+    width: 6vw;
+    height: 5vh;
+    margin-left: 16vw;
 }
 
 .feeling-analysis .feeling-music-type {
@@ -45,11 +46,14 @@
     /* background-color: green; */
     margin-left: 35vw;
     position: absolute;
-    margin-top: 5vh;
+    margin-top: -3vh;
 }
 
 .feeling-analysis .music-research {
-    margin-bottom: 3vh;
+    margin-bottom: 2vh;
+    /* height: 10vh; */
+    width: 20vw;
+    margin-left: 1vw;
 }
 
 .feeling-analysis .analysis-page-title {
@@ -60,7 +64,7 @@
 
 
 /* 저장하기 버튼 css */
-.snip1226 {
+/* .snip1226 {
     text-align: center;
     text-transform: uppercase;
     font-weight: 500;
@@ -116,8 +120,4 @@
   .snip1226 li:hover a,
   .snip1226 .current a {
     transform: translateY(100%);
-  }
-  /* Demo purposes only */
-  body {
-    /* background-color: #212121; */
-  }
+  } */
