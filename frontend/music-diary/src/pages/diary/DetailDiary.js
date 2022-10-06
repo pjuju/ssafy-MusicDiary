@@ -272,6 +272,19 @@ console.log(totalDiary)
     });
   }
 
+  const makeURL = () => {
+    console.log("!!!!!!!!!!!!!!!!!");
+    let video = youtube
+    setYoutube(video)
+    .then((res) => {
+      console.log("????????????????????");
+    })
+    .catch((e) => {
+      console.log("err", e);
+    });
+
+  }
+
   //////////////////////////////////////////////////////////////////////////////
   // 다이어리 remove 함수
   const handleRemove = () => {
@@ -557,6 +570,7 @@ console.log(totalDiary)
           { musicBtn
           ? (
             <>
+            {()=>makeURL()}
               {musics.map((ele, i) => {
                 var idName = "heart" + i;
                 return (
