@@ -17,8 +17,16 @@ import {
   setDepressedChoiceValue,
 } from "../../store/store";
 import { useDispatch } from "react-redux";
-import { patchUserInfoApi, deleteUserInfoApi, patchUserPasswordApi } from "../../api/userApi";
-import { getMonthDiary, getDiaryListApi, getDiaryImage } from "../../api/diaryApi";
+import {
+  patchUserInfoApi,
+  deleteUserInfoApi,
+  patchUserPasswordApi,
+} from "../../api/userApi";
+import {
+  getMonthDiary,
+  getDiaryListApi,
+  getDiaryImage,
+} from "../../api/diaryApi";
 
 import "./EditMyInfo.css";
 import Swal from "sweetalert2";
@@ -92,31 +100,29 @@ function EditMyInfo() {
     getDiaryImage(fd)
       .then((res) => {
         console.log(JSON.stringify(res.data));
-        setReturnImg(res.data)
+        setReturnImg(res.data);
 
-        
-      const profileImage = {
-        image_url: res.data
-      }
+        const profileImage = {
+          image_url: res.data,
+        };
 
-        const user_id = sessionStorage.getItem("user_id")
+        const user_id = sessionStorage.getItem("user_id");
 
         patchUserInfoApi(profileImage, user_id)
-        .then((res)=>{
-          console.log(JSON.stringify(res.data))
-  
-          alert("프로필 사진 변경이 완료")
-        })
-        .catch((err)=>{
-          console.log(err.data)
-        })
+          .then((res) => {
+            console.log(JSON.stringify(res.data));
 
-        console.log("returnImg:", returnImg)
+            alert("프로필 사진 변경이 완료");
+          })
+          .catch((err) => {
+            console.log(err.data);
+          });
+
+        console.log("returnImg:", returnImg);
       })
       .catch((err) => {
         console.log(JSON.stringify(err.data));
-      });                                           
-
+      });
   };
 
   const onEditUserNameBtn = () => {
@@ -127,27 +133,27 @@ function EditMyInfo() {
       username,
     };
 
-    if(username.length < 1){
+    if (username.length < 1) {
       Swal.fire({
-        icon: 'error',
-        title: '변경할 닉네임을 입력해주세요',
+        icon: "error",
+        title: "변경할 닉네임을 입력해주세요",
         // text: '',
-      })
+      });
 
       return;
     }
 
-    console.log("return 되나")
+    console.log("return 되나");
     // patch API
     patchUserInfoApi(editInfo, user_id)
       .then((res) => {
         console.log(res.data);
 
         // 수정완료 알람
-        alert("닉네임 수정완료")
+        alert("닉네임 수정완료");
 
         // 성공 시, 화면 전환
-        navigate("/calender")
+        navigate("/calender");
 
         // navigate("/login");
       })
@@ -155,7 +161,6 @@ function EditMyInfo() {
         console.log(err.data);
 
         // 변경 실패 알림 띄우기
-
       });
   };
 
@@ -168,11 +173,11 @@ function EditMyInfo() {
       new_password: newPassword,
     };
 
-    if(newPassword < 1){
+    if (newPassword < 1) {
       Swal.fire({
-        icon: 'error',
-        title: '변경할 비밀번호를 입력해주세요',
-      })
+        icon: "error",
+        title: "변경할 비밀번호를 입력해주세요",
+      });
       return;
     }
 
@@ -183,7 +188,6 @@ function EditMyInfo() {
 
         // sessionStorage에서 username remove & 새로 등록
 
-
         // 수정완료 알람
 
         // 성공 시, 화면 전환
@@ -193,9 +197,9 @@ function EditMyInfo() {
         console.log(err.data);
 
         Swal.fire({
-          icon: 'error',
-          title: '기존 비밀번호를 잘못 입력했습니다.',
-        })
+          icon: "error",
+          title: "기존 비밀번호를 잘못 입력했습니다.",
+        });
         return;
 
         // 변경 실패 알림 띄우기
@@ -212,41 +216,34 @@ function EditMyInfo() {
     // 탈퇴확인 시 처리
     const user_id = sessionStorage.getItem("user_id");
 
-
     Swal.fire({
-      title: '회원탈퇴를 진행하시겠습니까?',
-      text: '',
-      icon: 'warning',
+      title: "회원탈퇴를 진행하시겠습니까?",
+      text: "",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '탈퇴하기'
-    })
-    .then((res)=>{
-      if(res.isConfirmed){
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "탈퇴하기",
+    }).then((res) => {
+      if (res.isConfirmed) {
         deleteUserInfoApi(user_id)
-        .then((res) => {
-          console.log(res.data);
+          .then((res) => {
+            console.log(res.data);
 
-          Swal.fire({
-            icon: 'success',
-            title: '회원탈퇴 완료!',
-            showConfirmButton: false,
-            timer: 1300
+            Swal.fire({
+              icon: "success",
+              title: "회원탈퇴 완료!",
+              showConfirmButton: false,
+              timer: 1300,
+            });
+
+            navigate("/");
           })
-          
-          navigate("/")
-        })
-        .catch((err) => {
-          console.log(err.data);
-        });
-
-
+          .catch((err) => {
+            console.log(err.data);
+          });
       }
-    })
-
-
-
+    });
 
     // 취소할 시 처리
   };
@@ -255,131 +252,148 @@ function EditMyInfo() {
     <>
       <div className="edit-myinfo">
         <div className="myinfo">
-        <h2 className="edit-myinfo-title">회원정보 수정</h2>
+          <h2 className="edit-myinfo-title">회원정보 수정</h2>
           <div className="myinfo-main">
-            
-            {/* 이미지 등록 */}
-          <div className="edit-myinfo-profile">
-            <div className="diary-img-wrapper">
-
-              {imgFile === "" ? (
-                <img className="diary-register-img" alt="#" src={previewUrl} />
-              ) : null}
-              {imgBase64.map((item) => {
-                return (
-                  <div>
+            <div className="my-container">
+              {/* 이미지 등록 */}
+              <div className="edit-myinfo-profile">
+                <div className="diary-img-wrapper">
+                  {imgFile === "" ? (
                     <img
                       className="diary-register-img"
-                      src={item}
-                      alt="First Slide"
+                      alt="#"
+                      src={previewUrl}
+                    />
+                  ) : null}
+                  {imgBase64.map((item) => {
+                    return (
+                      <div>
+                        <img
+                          className="diary-register-img"
+                          src={item}
+                          alt="First Slide"
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="diary-register-btn">
+                  <input
+                    multiple="multiple"
+                    type="file"
+                    id="file"
+                    name="file"
+                    accept="image/*"
+                    onChange={onHandleChangeFile}
+                    style={{ display: "none" }}
+                  />
+
+                  <div className="mimicBtn">
+                    <label for="file">
+                      <div className="find-file-btn">파일 찾기</div>
+                    </label>
+                  </div>
+
+                  {/* <div className="find-file-btn" for="file">
+                  <Button
+                    name="파일찾기"
+                    style={{ width: "110px", fontSize: "15px"}}
+                    color="#7791A5"
+                    hcolor="#b3cbda"
+                    size="sm"
+                    onClick="">
+                  </Button>
+                </div> */}
+
+                  <Button
+                    name="프로필 변경"
+                    style={{
+                      width: "110px",
+                      fontSize: "15px",
+                      marginLeft: "20px",
+                    }}
+                    color="#AC5050"
+                    hcolor="#DF8787"
+                    size="sm"
+                    onClick={onImgRegisterBtn}
+                  />
+                </div>
+              </div>
+              {/* 이미지 등록 영역 끝 */}
+
+              {/* 닉네임, 비밀번호 수정 */}
+              <div className="edit-right-wrapper">
+                <div className="edit-nickname-btn-wrapper">
+                  <div className="edit-myinfo-nickname">
+                    <input
+                      className="edit-form-input-nickname"
+                      placeholder="닉네임"
+                      name="username"
+                      type="text"
+                      onChange={onChaneUserName}
                     />
                   </div>
-                );
-              })}
-            </div>
 
-            <div className="diary-register-btn">
-              <input
-                multiple="multiple"
-                type="file"
-                id="file"
-                name="file"
-                accept="image/*"
-                onChange={onHandleChangeFile}
-                style={{ display: "none" }}
-              />
+                  <Button
+                    className="edit-btn"
+                    name="닉네임 수정"
+                    hcolor="#bde2bd"
+                    // color="#AC5050"
+                    // style={{backgroundColor:"green"}}
+                    size="md"
+                    onClick={onEditUserNameBtn}
+                  />
+                </div>
 
-              <label for="file">
-                <div className="find-file-btn">파일찾기</div>
-              </label>
+                <div className="edit-password-btn-wrapper">
+                  <div className="edit-myinfo-password">
+                    <input
+                      className="edit-form-input-password"
+                      placeholder="기존 비밀번호"
+                      name="oldPassword"
+                      type="password"
+                      onChange={onChangeOldPassword}
+                    />
+                    <input
+                      className="edit-form-input-password"
+                      placeholder="바뀐 비밀번호"
+                      name="newPassword"
+                      type="password"
+                      onChange={onChangeNewPassword}
+                    />
+                  </div>
+                  <Button
+                    className="edit-btn"
+                    name="비밀번호 수정"
+                    color="#AC5050"
+                    size="md"
+                    onClick={onEditUserPasswordBtn}
+                  />
+                </div>
 
-              <Button
-                name="프로필 변경"
-                style={{ width: "110px", fontSize: "15px", marginLeft: "20px"}}
-                color="#AC5050"
-                hcolor="#DF8787"
-                size="sm"
-                onClick={onImgRegisterBtn}
-              />
-            </div>
-          </div>
-          {/* 이미지 등록 영역 끝 */}
-
-            {/* 닉네임, 비밀번호 수정 */}
-          <div className="edit-right-wrapper">
-            <div className="edit-myinfo-nickname">
-              <input
-                className="edit-form-input-nickname"
-                placeholder="닉네임"
-                name="username"
-                type="text"
-                onChange={onChaneUserName}
-              />
-            </div>
-
-            <div className="edit-myinfo-password">
-              <input
-                className="edit-form-input-password"
-                placeholder="기존 비밀번호"
-                name="oldPassword"
-                type="password"
-                onChange={onChangeOldPassword}
-              />
-              <input
-                    className="edit-form-input-password"
-                    placeholder="바뀐 비밀번호"
-                    name="newPassword"
-                    type="password"
-                    onChange={onChangeNewPassword}
-                />
+                {/* <div className="quit-btn-wrapper">
+                  <Button
+                    className="quit-btn"
+                    name="회원탈퇴"
+                    color="#464646"
+                    size="sm"
+                  />
+                </div> */}
               </div>
-    
-            <div className="edit-nickname-btn-wrapper">
-     
-                <Button
-                  className="edit-btn"
-                  name="닉네임 수정"
-                  hcolor="#bde2bd"
-                  // color="#AC5050"
-                  // style={{backgroundColor:"green"}}
-                  size="md"
-                  onClick={onEditUserNameBtn}
-                />
-              </div>
-
-              <div className="edit-password-btn-wrapper">
-                <Button
-                  className="edit-btn"
-                  name="비밀번호 수정"
-                  color="#AC5050"
-                  size="md"
-                  onClick={onEditUserPasswordBtn}
-                />
-              </div>
-       
-              {/* <div className="quit-btn-wrapper">
+              {/*  */}
+              <div className="quit-btn-wrapper">
                 <Button
                   className="quit-btn"
                   name="회원탈퇴"
                   color="#464646"
                   size="sm"
+                  onClick={onQuitBtn}
                 />
-              </div> */}
-
+              </div>
+            </div>
           </div>
-          {/*  */}
-          <div className="quit-btn-wrapper"
-            >
-            <Button
-              className="quit-btn"
-              name="회원탈퇴"
-              color="#464646"
-              size="sm"
-              onClick={onQuitBtn}
-            />
-          </div>
-        </div>
-        {/* myinfo main / skyblue 끝 */}
+          {/* myinfo main / skyblue 끝 */}
         </div>
         <MainNote className="main-note"></MainNote>
       </div>
