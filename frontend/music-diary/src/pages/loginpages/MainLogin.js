@@ -7,7 +7,7 @@ import { gapi } from 'gapi-script';
 import { loginApi, kakaoLoginApi, googleLoginApi } from "../../api/userApi";
 import axios from "axios";
 import '../../css/loginpages/MainLogin.css'
-
+import Swal from "sweetalert2";
 
 // redux store
 import {
@@ -47,7 +47,6 @@ function MainLogin() {
       password,
     };
 
-
     axios
       .post("http://j7d204.p.ssafy.io:8080/rest/accounts/login/", loginInfo)
       .then((res) => {
@@ -72,6 +71,13 @@ function MainLogin() {
       })
       .catch((err) => {
         console.log(err.data);
+        Swal.fire({
+          icon: 'error',
+          title: '이메일 또는 비밀번호를 잘못 입력했습니다',
+          text: '입력하신 내용을 다시 확인해주세요.',
+          // footer: '<a href="">Why do I have this issue?</a>'
+        })
+        
       });
 
 
@@ -131,7 +137,7 @@ function MainLogin() {
             />
           </div>
 
-<div style={{marginTop:'7vh', marginLeft:''}} >
+      <div style={{marginTop:'7vh', marginLeft:''}} >
           <button onClick={onLoginBtn}
           style={{width:'15vw',height:'7vh',backgroundColor:'#C0D2C1',borderRadius:'15px',border:'none',fontSize:'1.3vw'}}
           className="login">로그인</button>
