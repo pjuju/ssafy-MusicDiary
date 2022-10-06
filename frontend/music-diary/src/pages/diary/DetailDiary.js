@@ -18,6 +18,7 @@ import {
   modifyDiaryItem,
   makePlaylist,
   getPlaylist,
+  getDiaryListApi
 } from "../../api/diaryApi";
 import { makeLike } from "../../api/musicApi";
 import { getUserStickerListApi } from "../../api/stickerApi";
@@ -68,7 +69,7 @@ const DetailDiary = () => {
 
   const [image, setImage] = useState("");
 
-  const [monthData, setmonthData] = useState([]); // 이달의 전체 일기 정보
+  // const [monthData, setmonthData] = useState([]); // 이달의 전체 일기 정보
 
   const strDate = new Date(date).toLocaleDateString();
 
@@ -120,17 +121,33 @@ const DetailDiary = () => {
     }
   };
 
-  useEffect(() => {
-    getMonthDiary(new Date().getMonth() + 1, new Date().getFullYear())
-      .then((res) => {
-        setmonthData(res.data);
-        console.log("과!연", res.data);
-        console.log("이달의 전체 일기 일단 모으기", monthData);
-      })
-      .catch((e) => {
-        console.log("err", e);
-      });
-  }, []);
+  // 달 조회를 해야하는 것이 아니다
+  // useEffect(() => {
+  //   getMonthDiary(new Date().getMonth() + 1, new Date().getFullYear())
+  //     .then((res) => {
+  //       setmonthData(res.data);
+  //       console.log("과!연", res.data);
+  //       console.log("이달의 전체 일기 일단 모으기", monthData);
+  //     })
+  //     .catch((e) => {
+  //       console.log("err", e);
+  //     });
+  // }, []);
+
+// 전체 일기를 가져와야 한다
+const [totalDiary, setTotalDiary] = useState([])
+useEffect(()=> {
+  getDiaryListApi()
+  .then((res)=> {
+    console.log('전체 일기는 ',res.data)
+    setTotalDiary(res.data)
+  })
+  .catch((err)=> {
+    console.log(err)
+  })
+},[])
+console.log(totalDiary)
+
   //
   useEffect(() => {
     const user_id = sessionStorage.getItem("user_id");
@@ -158,8 +175,8 @@ const DetailDiary = () => {
         console.log(JSON.stringify(err.data));
       });
 
-    if (monthData.length >= 1) {
-      const targetDiary = monthData.find(
+    if (totalDiary.length >= 1) {
+      const targetDiary = totalDiary.find(
         (it) => parseInt(it.id) === parseInt(id)
       );
 
@@ -185,7 +202,7 @@ const DetailDiary = () => {
         navigate("/calender", { replace: true });
       }
     }
-  }, [id, monthData, bookmark]);
+  }, [id, totalDiary, bookmark]);
 
   ///음악
   useEffect(()=>{
@@ -285,10 +302,9 @@ const DetailDiary = () => {
         })
       }
     })
-
   };
 
-  const targetDiary = monthData.find((it) => parseInt(it.id) === parseInt(id));
+  const targetDiary = totalDiary.find((it) => parseInt(it.id) === parseInt(id));
 
   // 북마크 다루기 ////////////////////////////////////////
   const handleBookmark = () => {
