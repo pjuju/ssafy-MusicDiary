@@ -18,7 +18,11 @@ const MainNote = () => {
     const navigate = useNavigate();
     const [userImage, setUserImage] = useState("")
     const [userName, setUserName] = useState("");
+    const [previewUrl, setPreviewUrl] = useState(
+        `${process.env.PUBLIC_URL}/assets/img/default-img.png`
+      );
 
+    const [imageResult, setImageResult] = useState("");
     
     const storeUserName = useSelector((state)=>{
         return state.user.username
@@ -42,7 +46,9 @@ const MainNote = () => {
 
         getUserInfoApi(user_id)
         .then((res)=>{
-            console.log("in MainNote:", JSON.stringify(res.data.data.username))
+            console.log("in MainNote:", JSON.stringify(res.data.data.image_url))
+
+   
             setUserName(res.data.data.username)
             setUserImage(res.data.data.image_url)
 
@@ -56,10 +62,21 @@ const MainNote = () => {
     return(<div className='main-note'>
         <div className='left-page'>
 
-            <img src={"https:///"+ userImage} alt=""
-                className='profile-image'
-                style={{width:"7vw"}}
-            />
+        {
+            userImage === "NULL" || userImage === null 
+            ? (
+                <img src={previewUrl} alt=""
+                    className='profile-image'
+                    style={{width:"7vw"}}
+                />
+            )
+            : (
+                <img src={"https:///"+ userImage} alt=""
+                    className='profile-image'
+                    style={{width:"7vw"}}
+                />
+            )
+        }
 
             <h5 style={{color:"black"}}>{userName}</h5>
 

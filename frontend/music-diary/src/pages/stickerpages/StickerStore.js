@@ -17,6 +17,7 @@ function StickerStore() {
     const [searchState, setSearchState] = useState(false);
 
     const navigate = useNavigate()
+    const [point, setPoint] = useState('')
 
     useEffect(()=>{
       // 사용자가 현재 보유하고 있는 포인트 불러와서 출력
@@ -24,7 +25,8 @@ function StickerStore() {
         getUserInfoApi(user_id)
         .then((res)=>{
           // setStickerPackList(res.data)
-          console.log(res.data)
+          console.log(res.data.data.point)
+          setPoint(res.data.data.point)
         })
         .catch((err)=>{
           console.log(err)
@@ -80,6 +82,8 @@ function StickerStore() {
           <div style={{display:"flex", justifyContent:'space-between', width:'56vw', marginLeft:"4vw"}}>
             <input placeholder="스티커 이름을 검색해보세요" className="store-header-left" 
             onChange={searchSticker} value={search}></input>
+            <h5 style={{marginLeft:'-6.5vw',marginTop:'0.5vh'}}>보유 포인트 : {point} 원
+              </h5>
             <ul class="snip1231 store-header-right"  onClick={()=>{navigate('/mypage/mysticker')}}>
               <li><a href="#" style={{color:'black'}}>내가 보유한 스티커</a></li>
             </ul>
