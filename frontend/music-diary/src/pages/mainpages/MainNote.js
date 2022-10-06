@@ -19,7 +19,7 @@ const MainNote = () => {
     const [userImage, setUserImage] = useState("")
     const [userName, setUserName] = useState("");
     const [previewUrl, setPreviewUrl] = useState(
-        `${process.env.PUBLIC_URL}/assets/img/default-img.png`
+        `${process.env.PUBLIC_URL}/assets/img/default-profile-img.png`
       );
 
     const [imageResult, setImageResult] = useState("");

@@ -50,7 +50,7 @@ const DepressPlaylist = () => {
     }
     return(<div className="depress-playlist">
     <div className="work-area">
-      <div className="ment">
+    <div className="ment">
         <h2 style={{marginTop:"10vh"}}>당신이 우울했을 때 좋아한 노래</h2>
         <h5 style={{fontSize:"15pt"}}>우울해지면 언제든지 들으러 오세요</h5>
         </div>
