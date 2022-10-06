@@ -70,9 +70,9 @@ SSAFY 7기 특화 빅데이터 추천 프로젝트
 |:-:|:-:|:-:|:-:|
 |Python|Django|DRF|Swagger|
 
-| <img src="https://w7.pngwing.com/pngs/298/299/png-transparent-docker-yaml-github-repository-github-text-logo-fedora.png" alt="Docker" width="50px" height="50px" /> | <img src="https://image.toast.com/aaaadh/alpha/2017/techblog/oauthretinapreview.jpg" alt="Oauth2" width="50px" height="50px" /> | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2p0RSCGKPoBoP3gj15fuOtaudI-cLgnypQbtOoqij_8B0HEytSQkcZHTZyCOJhJ-HY2I&usqp=CAU" alt="AWS-S3" width="50px" height="50px" />|
-|:-:|:-:|:-:|
-|Docker|Oauth2|AWS S3|
+| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Oauth_logo.svg/598px-Oauth_logo.svg.png" alt="Oauth2" width="50px" height="50px" /> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Amazon-S3-Logo.svg/428px-Amazon-S3-Logo.svg.png" alt="AWS-S3" width="50px" height="50px" />|
+|:-:|:-:|
+|Oauth2|AWS S3|
 
 ## DATA
 
@@ -80,3 +80,8 @@ SSAFY 7기 특화 빅데이터 추천 프로젝트
 |:-:|:-:|:-:|
 |Python|Django|Jupyter|
 
+
+## CI/CD
+|<img src="/uploads/589a0439a71fb84a844d1814f42b72bf/AWS-EC2.svg" alt="EC2" width="50px" height="50px"/>|<img src="https://profilinator.rishav.dev/skills-assets/jenkins-icon.svg" alt="jenkins" width="50px" height="50px"/>|<img src="https://profilinator.rishav.dev/skills-assets/docker-original-wordmark.svg" alt="docker" width="50px" height="50px"/>|<img src="https://wtit.com/wp-content/uploads/2022/03/NGINX-Icon.svg" width="50px" />
+|:-:|:-:|:-:|:-:|
+|AWS EC2|Jenkins|Docker|Nginx|
