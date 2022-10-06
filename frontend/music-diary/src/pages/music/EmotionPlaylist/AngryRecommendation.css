@@ -23,17 +23,18 @@ color: black;
   position: absolute;
   width:32vw;
   height:35vh;
-  margin-top: 12.5vh;
-  margin-left: -26vw;
+  margin-top: 36vh;
+  margin-left: -24.5vw;
   margin-bottom: 20vh;
+  border-radius: 6%;
 }
 
 .angry-recommendation .detail-diary-playlist {
-  width: 17vw;
-  height: 50vh;
+  width: 14.5vw;
+  height: 57vh;
   position: absolute;
-  margin-left: 45vw;
-  margin-top: 5.5vh;
+  margin-left: 46vw;
+  margin-top: 18vh;
   z-index: 2200;
   color: black;
   border-radius: 3%;
@@ -70,8 +71,6 @@ color: black;
 }
 
 .angry-recommendation .artist-wrapper {
-  text-align: left;
-  white-space: nowrap; 
   display: block;
   position: relative;
   width: 15vw;
@@ -79,7 +78,8 @@ color: black;
   color: grey;
   font-size: 12px;
   margin-right: 10vw;
-  margin-left: 0vw;
+  margin-left: 0.5vw;
+  white-space: nowrap; 
   margin-top: -0.7vh;
   margin-bottom: 3.5vh;
   /* overflow: hidden; */
@@ -104,9 +104,16 @@ color: black;
   margin-left: 1vw;
 }
 
+
+.angry-recommendation .ment {
+  position: absolute;
+  margin-left: 13vw;
+  margin-top: 2.5vh;
+}
+
 .angry-recommendation .remake-btn {
   position: absolute;
-  margin-left: 60.7vw;
-  margin-top: 1.5vh;
+  margin-left: 60vw;
+  margin-top: 12.5vh;
 }
 /* 여기까지 모든 페이지들이 공용으로 설정하는 값!!! */
