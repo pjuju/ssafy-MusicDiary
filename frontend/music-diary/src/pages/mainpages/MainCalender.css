@@ -20,7 +20,7 @@
 }
 
 .main-calender .another-month {
-  background-color: rgb(240, 240, 240);
+  /* background-color: rgb(240, 240, 240); */
   border-radius: 8px;
   color: rgb(192, 192, 192);
 }
@@ -164,7 +164,7 @@
 .main-calender .calender-emoji {
   position: absolute;
   z-index: 1;
-  width: 4vw;
+  width: 4.5vw;
   margin-left: -1vw;
   margin-top: 1vh;
 }

@@ -404,7 +404,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
         type="date"
         className="input-date"
       ></input>
-
+ 
       <div className="left-section">
         <div style={{ display: "flex", marginLeft: "3vw" }}></div>
         <textarea
@@ -413,6 +413,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
           ref={titleRef}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          
         ></textarea>
         <textarea
           className="diary-textarea-content"
@@ -420,6 +421,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
           ref={contentRef}
           value={content}
           onChange={(e) => setcontent(e.target.value)}
+          // style={{whiteSpace:'pre'}}
         ></textarea>
       </div>
 
@@ -454,7 +456,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
     
         </div>
 
-        <div className="diary-register-btn">
+        <div className="diary-register-btn" style={{marginTop:'40vh'}}> 
           <input
             multiple="multiple"
             type="file"
@@ -472,7 +474,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
             <Button
               name="사진 등록"
               style={{ width: "75px", fontSize: "15px", 
-              marginLeft: "-5vw", marginTop:"-1vh", position:"absolute" }}
+              marginLeft: "-5vw", position:"absolute",marginTop:'-1vh' }}
               color="#AC5050"
               size="sm"
               onClick={onImgRegisterBtn} />

@@ -11,7 +11,7 @@
 .spinner {
     margin-top: 20vh;
     margin-left: 23vw;
-}
+} 
 
 /* 상단 이모티콘 고르기 */
 .diary-editor .select-emotion {
@@ -31,8 +31,8 @@
 }
 
 .diary-editor .input-date {
-    margin-left: 15vw;
-    margin-top: -5vh;
+    margin-left: 2vw;
+    margin-top: -5.6vh;
     /* background-color: green; */
     position: absolute;
 }
@@ -91,13 +91,13 @@
 
 .diary-editor .submit-button {
     position: absolute;
-    margin-top: 55vh;
+    margin-top: 52vh;
     margin-left: 19.5vw;
 }
 
 .diary-editor .back-button {
     position: absolute;
-    margin-top: 55vh;
+    margin-top: 52vh;
     margin-left: 12vw;
 }
 
@@ -119,6 +119,7 @@
     
     margin-bottom: 5%;
     border: 1px solid black;
+    margin-top: -2vh;
 }
 
 .diary-editor .find-file-btn {
