@@ -118,7 +118,7 @@ function SignupInfo() {
 
  
             <div style={{marginTop:'5vh'}}>
-              <h5 style={{color:'#3D3D3D',marginLeft:'-14vw'}}>이메일 주소ddd</h5>
+              <h5 style={{color:'#3D3D3D',marginLeft:'-14vw'}}>이메일 주소</h5>
               <input 
                 className='email-input'
                 placeholder="Email address"

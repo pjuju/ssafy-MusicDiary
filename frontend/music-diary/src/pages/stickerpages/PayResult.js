@@ -94,17 +94,6 @@ render() {
                 />
 
 
-
-                {/* 이 부분이 navigate 하고 싶은 버튼 부분입니다!!!!! */}
-<button onClick={() => {this.props.history.push({
-  pathname: "/",
- 
-})}} >돌아가기</button>
-
-
-
-
-
                     {/* </Navigate> */}
                 </div>
                 <MainNote style={{width:'100vw',height:'100vh'}}></MainNote>
