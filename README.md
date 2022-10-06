@@ -27,8 +27,38 @@ SSAFY 7기 특화 빅데이터 추천 프로젝트
 ## 서비스 화면
 
 1. 일기 작성
+
+![일기작성](/uploads/204636e06a48cec18bc3cd02d2b3388b/일기작성.PNG)
+
+</br>
+
+![일기상세](/uploads/0cb1151a8195ccb6c7ea47663fd00897/일기상세.PNG)
+
+</br>
+
 2. 스티커
+
+![스티커](/uploads/95fdb25b8eabe8b0ddae4808bff3d9e5/스티커.PNG)
+
+</br>
+
 3. 음악 추천
+
+![음추목록](/uploads/baf541f8c56acec02bee8ed933da925f/음추목록.PNG)
+
+</br>
+
+![음추](/uploads/4d09da6699aeea4ef082ae906e481047/음추.PNG)
+
+</br>
+
+![마플목록](/uploads/0cf3347d994fd5aa110d7e5c7af3bb7f/마플목록.PNG)
+
+</br>
+
+![마플](/uploads/cf1e9c2fa4e93471b631199121b25927/마플.PNG)
+
+</br>
 
 [UCC]()
 
