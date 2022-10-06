@@ -49,24 +49,12 @@ const Bookmarks =() => {
     <div className="bookmark">
       <div className="diary-list">
       <h1 className="bookmarks-page-title">책갈피 모아보기</h1>
-      {
-        bookmark.length < 1
-        ? (
-          <>
-            <div className="bookmark-none">추가한 일기가 없습니다.</div>
-            <div className="bookmark-none-subtitle">마음에 드는 일기를 넣어주세요!</div>
-          </>
-        )
-        : (
-          <>
+       
         <div className="bookmark-items">
           {bookmark.map((it)=> (
             <Bookmark key={it.id} {...it}></Bookmark>
           ))}
         </div>
-          </>
-        )
-      }
         
       </div>
       <MainNote className="main-note"></MainNote>

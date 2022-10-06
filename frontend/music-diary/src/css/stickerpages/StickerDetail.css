@@ -10,7 +10,7 @@
   margin-left: 24vw;
   /* background-color: green; */
 
-  position: absolute;
+  position: absolute; 
   z-index: 1;
   color: black;
 }
@@ -48,10 +48,11 @@
 
 /* 개별 스티커 영역 */
 .sticker-detail .sticker-area {
-    width: 60vw;
+    width: 54vw;
     height: 45vh;
-    margin-left: 2vw;
-    /* background-color: #e4e4e4; */
+    margin-left: 6vw;
+    background-color: #e4e4e4;
+    border-radius: 10px;
     overflow:auto;
 -ms-overflow-style: none;
 }
@@ -62,6 +63,7 @@
 
 .sticker-detail .sticker-image {
     width: 100px;
+    margin-left: 1vw;
 }
 
 
