@@ -33,7 +33,7 @@ white-space : nowrap
   z-index: 2000;
   color: rgba(2, 2, 18, 0.977);
 
-  height: 10vh;
+  height: 11vh;
 
   margin-left: 1vw;
 
@@ -49,7 +49,8 @@ display:none;
   width: 39vw;
   height: 68vh;
   /* background-color: aqua; */
-  margin-top: 15vh;
+  margin-left: 27vw;
+  margin-top: 17vh;
   /* margin-top: 12.8vh; */
   margin-bottom: 10vh;
 
@@ -63,9 +64,12 @@ display:none;
 }
 
 .detail-diary .detail-diary-item .content {
+  padding-left: 0.7vw;
+  padding-right: 0.7vw;
+  padding-top: 3vh;
+  padding-bottom: 1vh;
   width: 94%;
   margin-left:3%;
-  
   white-space: normal; /* 자동 줄바꿈*/
   text-align: left;
   
@@ -88,13 +92,13 @@ position: absolute;
 }
 
 .detail-diary .edit-button {
-margin-top: 88vh;
-margin-left: 76vw;
+margin-top: 86vh;
+margin-left: 58vw;
 position: absolute;
 cursor: pointer;
 z-index: 100;
 
-width: 5vw;
+width: 3.5vw;
 border-radius: 10%;
 color:black;
 background-color: rgb(213, 232, 222);;
@@ -106,12 +110,12 @@ background-color: rgb(213, 232, 222);;
 }
 
 .detail-diary .delete-button {
-margin-top: 88vh;
-margin-left: 82vw;
+margin-top: 86vh;
+margin-left: 62vw;
 position: absolute;
 z-index: 100;
 cursor: pointer;
-width: 5vw;
+width: 3.5vw;
 color: #ececec;;
 border-radius: 10%;
 background-color: #AC5050;
@@ -127,7 +131,7 @@ width: 2vw;
 height: 10vh;
 
 margin-left: 60vw;
-margin-top: 8vh;
+margin-top: 13.5vh;
 
 border-radius: 9%;
 
@@ -251,8 +255,8 @@ justify-content: start;
   font-size: 21px;
   
   color:black;
-  margin-top: 84vh;
-  margin-left: 15.5vw;
+  margin-top: 77vh;
+  margin-left: 28vw;
 
 
   cursor: pointer;
@@ -264,7 +268,7 @@ justify-content: start;
 .sticker-choice-toggle:hover {
   /* background-color: #e3ded3; */
 
-  border-bottom: 3px solid #AC5050;
+  /* border-bottom: 3px solid #AC5050; */
   cursor: pointer;
 }
 
@@ -274,14 +278,14 @@ justify-content: start;
 
   /* border: 1px solid red; */
 
-  width: 40vw;
+  width: 30vw;
   height: 18vh;
 
   overflow-x:scroll;
   -ms-overflow-x-style: none;
   
-  margin-top: 77.5vh;
-  margin-left: 24vw;
+  margin-top: 79vh;
+  margin-left: 27vw;
   
   /* border: 1px solid black; */
   padding: 1%;
@@ -309,15 +313,16 @@ justify-content: start;
   /* margin-top: 12vh; */
   border-bottom: 1px solid black; 
   padding-top: 7px;
-  margin-left: 0.3vw;
-  margin-top: 3vh;
-  margin-left: 1vw;
+  margin-left: 40vw;
+  margin-top: 5vh;
 
   font-size: 17px;
 }
 
 .emotion-date > img {
   width: 3vw;
+  margin-left: -38vw;
+  margin-top: 2vh;
   /* border: 1px solid black;  */
 }
 
@@ -328,8 +333,8 @@ justify-content: start;
 
   cursor: pointer;
  
-  margin-top:1vh;
-  margin-left: 0vw;
+  margin-top:5.5vh;
+  margin-left: 0.4vw;
  
   border-radius: 40%;
 
@@ -346,12 +351,12 @@ justify-content: start;
 }
 
 .detail-diary .detail-diary-playlist {
-  width: 22vw;
-  height: 68vh;
+  width: 17vw;
+  height: 65vh;
   /* background-color: rgb(104, 123, 130);  */
   position: absolute;
-  margin-left: 65vw;
-  margin-top:18vh;
+  margin-left: 69vw;
+  margin-top:19vh;
   z-index: 2200;
   color: black;
 
@@ -385,12 +390,21 @@ justify-content: start;
 .detail-diary .music-name-wrapper {
   /* border: 1px solid orange; */
   margin-left: 0.5vw;
+  width: 13vw;
+  text-align: left;
+  display: block;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+  overflow: hidden;
+  position: relative;
 }
 
 .detail-diary .artist-wrapper {
   position: relative;
-
-  
+  display: block;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+  overflow: hidden;
   width: 13vw;
   height: 3vh;
   color: grey;
@@ -414,12 +428,10 @@ justify-content: start;
   /* width="560"
   height="315" */
   /* position: absolute; */
-  width: 16.5vw;
-  height: 16.5vh;
+  width: 17vw;
+  height: 17vh;
   margin-bottom: 1vh;
-  margin-top: 2.5vh;
-  width: 22vw;
-  height: 30vh;
+  margin-top: 4.5vh;
   /* margin-right: 90%; */
   border-radius: 6%;
 }
@@ -462,13 +474,14 @@ justify-content: start;
 
 .sticker-btn-wrapper {
   /* width: auto; */
-  width: 20%;
-  height: 85%;
-  display: flex;
+  width: 30%;
+  height: 130%;
+  display: absolute;
   color: black;
 
   /* border: 1px solid black; */
-  margin-top:1vh;
+  margin-top:-3vh;
+  margin-left:-13vw;
   padding-top:1vh;
 }
 

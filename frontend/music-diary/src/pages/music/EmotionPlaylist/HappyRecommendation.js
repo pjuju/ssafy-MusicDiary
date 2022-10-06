@@ -77,9 +77,9 @@ const HappyRecommendation =() => {
 
     return(<div className="happy-recommendation">
         <div className="work-area">
-            <div className="header">
-                <h1 style={{marginTop:"10vh"}}>당신에게 추천합니다</h1>
-                <h5 style={{fontSize:"18pt"}}>행복한 순간, 당신을 더 신나게 할 플레이리스트</h5>
+            <div className="ment">
+                <h2 style={{marginTop:"10vh"}}>당신에게 추천합니다</h2>
+                <h5 style={{fontSize:"15pt"}}>행복한 순간, 당신을 더 신나게 할 플레이리스트</h5>
             </div>
                 
                 <iframe src={youtube} className="playlist-iframe" title="YouTube video player" 
@@ -98,7 +98,7 @@ const HappyRecommendation =() => {
                         <div className="music-name-wrapper" onClick={()=>{navigate({youtube})}}>{it.track_name}</div><br></br>
                     </div>
                     <div className="artist-wrapper">
-                        <div>{it.artist_name} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
+                        <div>{it.artist_name}</div>
                       </div>
                     </div>
                     )}
