@@ -75,33 +75,7 @@ import MainNote from "../mainpages/MainNote";
     const { next_redirect_pc_url } = this.state;
     // const navigate = useNavigate()
     return (
-    <>
-      <div className="point-charge-wrapper">
-        <div className="sticker-page-header">
-          포인트 충전 <BiStore />
-        </div>
-        <a href={next_redirect_pc_url}>
-        <img
-          className="kakao-pay"
-          alt="#"
-          src={`${process.env.PUBLIC_URL}/assets/img/kakao-pay.jpg`}
-          width="200px" height="100px"
-        />
-        </a>
-        <div className="sticker-wrapper">
-          <div className="header">
-            <div className="header-left"></div>
-            <div className="header-right">
-              나의 스티커
-              <BiPlay />
-            </div>
-          </div>
-
-          <div className="list-wrapper">
- 
-          </div>
-        </div>
-      </div>      
+    <> 
       <h2 style={{position:"absolute",color:'black',zIndex:'1', marginTop:'15vh',marginLeft:'49.5vw'}}>포인트 충전</h2>
       <a href={next_redirect_pc_url} 
       style={{position:"absolute", marginTop:"30vh",marginLeft:"-3vw",zIndex:'9'}}
