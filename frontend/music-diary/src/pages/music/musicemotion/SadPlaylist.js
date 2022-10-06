@@ -50,8 +50,8 @@ const SadPlaylist = () => {
     }
     return(<div className="sad-playlist">
     <div className="work-area">
-        <h2 style={{marginTop:"10vh"}}>당신이 슬펐을 때 듣기 좋아하던 음악</h2>
-        <p>다들 파이탱!!!!!!!!!!!</p>
+        <h1 style={{marginTop:"10vh"}}>당신이 슬펐을 때 듣기 좋아하던 음악</h1>
+        <h5 style={{fontSize:"18pt"}}>다들 파이탱!!!!!!!!!!!</h5>
         {youtube==="https://www.youtube.com/embed?playlist="?
         (<>
           <div className="no-video">
