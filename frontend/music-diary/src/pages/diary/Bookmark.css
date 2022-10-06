@@ -25,11 +25,13 @@
   } 
  
 .real-bookmark {
-    width: 3vw;
+    width: 2.4vw;
     height: 4vh;
-    background-color: #93AAAC;
+    background-color: #b1e88a;
     margin-left: 53.5vw;
     position: absolute;
+    
+    margin-top: 1.3vh;
 }
 
 .bookmark-item-header {
@@ -40,35 +42,29 @@
 .bookmark .bookmark-title {
     margin-left: 1vw;
     margin-top: 1vh;
-    /* width: 200px;
-    background-color: red;
-    height: 40px; */
+    /* background-color: red; */
 }
 
 .bookmark .bookmark-emotion {
     /* width: 3%; */
     height: 8vh;
     /* background-color: green; */
-    margin-left: 17vw
+    /* margin-left:  */
 }
 
 .bookmark .bookmark-date {
-    /* margin-left: 35vw;
-    margin-top: -8.5vh; */
-    margin-left: 33vw;
+    margin-left: 35vw;
+    margin-top: -8.5vh;
     color: grey;
-    /* width: 100px;
-    height: 30px;
-    background-color: green; */
 }
 
 /* 사진이 없는 경우 일기 내용만 보이면 된다 */
 .bookmark .bookmark-content {
-    width: 35vw;
+    width: 41.5vw;
     /* background-color: green; */
     text-align:left;
-    padding-left: 1vw;
-    margin-top:-8vh;
+    padding-left: 5vw;
+    margin-top: 4vh;
 }
 
 /* 사진이 있는 경우 사진이랑 나란히 보여야한다*/
