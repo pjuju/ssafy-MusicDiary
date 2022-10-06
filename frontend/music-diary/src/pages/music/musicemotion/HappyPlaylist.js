@@ -52,8 +52,8 @@ const HappyPlaylist = () => {
     }
     return(<div className="happy-playlist">
         <div className="work-area">
-            <h2 style={{marginTop:"10vh"}}>당신이 행복했을 때 듣기 좋아하던 음악</h2>
-        <p>뭔 말하징</p>
+            <h1 style={{marginTop:"10vh"}}>당신이 행복했을 때 듣기 좋아하던 음악</h1>
+        <h5 style={{fontSize:"18pt"}}>뭔 말하징</h5>
             {youtube==="https://www.youtube.com/embed?playlist="?
             (<>
               <div className="no-video">
