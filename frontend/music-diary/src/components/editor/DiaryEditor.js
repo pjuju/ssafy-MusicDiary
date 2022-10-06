@@ -165,7 +165,9 @@ const DiaryEditor = ({ isEdit, originData }) => {
       
     // 일기를 처음 생성할떄
             if (!isEdit) {
-              const diaryInfo = {
+              let info = {}
+              if (returnImg){
+                info = {
                 title,
                 content,
                 emotion,
@@ -173,7 +175,17 @@ const DiaryEditor = ({ isEdit, originData }) => {
                 images:[
                   {image_url:returnImg}
                 ]
-              };
+              };} else{
+                  info = {
+                  title,
+                  content,
+                  emotion,
+                  created_date,
+                  // images:[
+                  //   {image_url:returnImg}
+                  // ]
+              }}
+              const diaryInfo = info;
               // 만약 동일한 날짜의 일기를 또 작성할려고 한다면 막기 alert
               if (date.includes(created_date)) {
                 Swal.fire({
@@ -188,7 +200,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
                   .then((res) => {
                     console.log("일기 생성", JSON.stringify(res.data));
                     console.log(res.data);
-                    // makePlaylist(res.data.id)
+                    makePlaylist(res.data.id);
                   })
                   .catch((err) => {
                     console.log(JSON.stringify(err.data));

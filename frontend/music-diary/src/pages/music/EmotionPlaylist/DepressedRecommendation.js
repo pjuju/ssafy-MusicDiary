@@ -1,5 +1,5 @@
 import MainPlaylist from "../../mainpages/MainPlaylist"
-import { musicRecommend, getMusic, makeLike } from '../../../api/musicApi'
+import { musicRecommend, makeLike } from '../../../api/musicApi'
 import { getUserApi } from '../../../api/userApi'
 import { useEffect, useState } from "react"
 import './DepressedRecommendation.css'
@@ -37,21 +37,6 @@ const DepressedRecommendation =() => {
           console.log("err", e);
         });
       }
-    
-    const likeCheck = (music_id) => {
-        const txt = document.getElementById("heart"+music_id);
-        getMusic(music_id)
-        .then((res) => {
-            if(res.data.like_users.includes(user)==="true"){
-                txt.innerText = "♥";
-            } else{
-                txt.innerText = "♡";
-            }
-        })
-        .catch((e) => {
-            console.log("err", e);
-        });
-    }
 
     const remakePlaylist = () => {
         musicRecommend(5)
@@ -93,8 +78,8 @@ const DepressedRecommendation =() => {
     return(<div className="depressed-recommendation">
         <div className="work-area">
             <div className="header">
-                <h2 style={{marginTop:"10vh"}}>당신에게 추천합니다</h2>
-                <p>우울한 순간, 당신의 곁에 있어줄 플레이리스트</p>
+                <h1 style={{marginTop:"10vh"}}>당신에게 추천합니다</h1>
+                <h5 style={{fontSize:"18pt"}}>우울한 순간, 당신의 곁에 있어줄 플레이리스트</h5>
             </div>  
             <iframe src={youtube} className="playlist-iframe" title="YouTube video player" 
                 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -108,8 +93,7 @@ const DepressedRecommendation =() => {
                     {depressedMusic.map((it)=>
                     <div>
                     <div className="heart-wrapper">
-                        {likeCheck(it.id)}
-                        <div id={"heart"+it.id} style={{zIndex:"9999999999999999999999", cursor: "pointer", color:"red"}} onClick = {()=>likeMusic(it.id)}></div>
+                        <div id={"heart"+it.id} style={{zIndex:"9999999999999999999999", cursor: "pointer", color:"red"}} onClick = {()=>likeMusic(it.id)}>♡</div>
                         <div className="music-name-wrapper" onClick={()=>{navigate({youtube})}}>{it.track_name}</div><br></br>
                     </div>
                     <div className="artist-wrapper">
