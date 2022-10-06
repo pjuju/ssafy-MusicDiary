@@ -2,7 +2,7 @@
 
 SSAFY 7기 특화 빅데이터 추천 프로젝트
 
-![logo](/uploads/d4bc93dce6a31af56f4f3853430b7f1e/logo.jpg)
+<img src="/uploads/d4bc93dce6a31af56f4f3853430b7f1e/logo.jpg" width="50%" height="50%">
 
 > 사용자의 일기 내용을 분석하여 그날의 감정에 맞는 플레이리스트를 추천해주는 서비스
 
