@@ -94,6 +94,7 @@ render() {
                 />
 
 
+
                     {/* </Navigate> */}
                 </div>
                 <MainNote style={{width:'100vw',height:'100vh'}}></MainNote>
