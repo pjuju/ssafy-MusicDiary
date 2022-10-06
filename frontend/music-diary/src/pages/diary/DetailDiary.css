@@ -49,7 +49,7 @@ display:none;
   width: 39vw;
   height: 68vh;
   /* background-color: aqua; */
-  margin-top: 12vh;
+  margin-top: 12.8vh;
   margin-bottom: 10vh;
 
   /* border: 1px solid grey; */
@@ -126,14 +126,9 @@ position: absolute;
 width: 2vw;
 height: 10vh;
 
-/* background-color: white; */
-
-margin-left: 26vw;
+margin-left: 60vw;
 margin-top: 8vh;
 
-/* border: 1px solid black; */
-
-/* transform: rotate(20deg); */
 border-radius: 9%;
 
 cursor: pointer;
