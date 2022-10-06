@@ -164,15 +164,7 @@ const MainMonth =() => {
           {headText}
           <div onClick={increaseMonth} className="time-change-button">&#10093;</div>
         </h2>
-{/* 감정별, 날짜별 분류 로직 */} 
-      {
-        getProcessedDiaryList().length < 1
-        ? (
-          <>
-          </>
-        )
-        :(
-          <>
+      {/* 감정별, 날짜별 분류 로직 */} 
           <ControlDateMenu
             value={sortType}
             onChange={setSortType}
@@ -183,10 +175,6 @@ const MainMonth =() => {
             onChange={setFilter}
             optionList={filterOptionList}
           />  
-          </>
-        )
-      }
-        
 
         <Button
                 className=" y"
@@ -197,7 +185,7 @@ const MainMonth =() => {
                 size="sm"
                 onClick={()=>{navigate('/newdiary')}}
               />
-        <ul onClick={()=>{navigate('/calender')}} className="snip1241">
+          <ul onClick={()=>{navigate('/calender')}} className="snip1241">
             <li><a href="#">달력보기</a></li>
           </ul>  
         </div>
@@ -221,26 +209,15 @@ const MainMonth =() => {
           </>
         )
       } */}
-        {
-          getProcessedDiaryList().length < 1
-          ? (
-            <>
-            <div className="diary-items-none">작성된 일기가 없습니다.</div>
+   
+            {/* <div className="diary-items-none">작성된 일기가 없습니다.</div>
             <div className="diary-items-none-subtitle">새로운 일기를 작성해주세요!</div>
-            <Lottie animationData={PencilWriting} className="lottie-pencil-writing" />
-            </>
-          ) 
-          :(
-            <>
-          <div className="diary-items">
+            <Lottie animationData={PencilWriting} className="lottie-pencil-writing" /> */}
+        <div className="diary-items">
           {getProcessedDiaryList().map((it) => (
             <DiaryItem key={it.id} {...it} className="diary-items" />
           ))}
         </div>
-            </>
-          )
-        }
-
       </div>
       <MainNote className="main-note"></MainNote>
     </div>)
