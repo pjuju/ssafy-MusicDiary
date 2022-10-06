@@ -14,7 +14,7 @@
   z-index: 1;
   color: black;
   }
-
+ 
   .music-recommendation .recommendation-title {
     /* margin-right: 30vw; */
   }
@@ -48,16 +48,17 @@
 }
 
 .music-recommendation .happy {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   background-color: rgb(247, 224, 155);
   border-radius: 100%;
   cursor: pointer;
+  margin-left: 3vw;
 }
 
 .music-recommendation .sad {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   background-color: rgb(247, 224, 155);
   border-radius: 100%;
   animation-duration: 0.5s;
@@ -65,26 +66,28 @@
 }
 
 .music-recommendation .normal {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   background-color: rgb(247, 224, 155);
   border-radius: 100%;
   animation-duration: 1s;
   cursor: pointer;
+  margin-right: 3vw;
 }
 
 .music-recommendation .anxious {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   background-color: rgb(247, 224, 155);
   border-radius: 100%;
   animation-duration: 1.5s;
   cursor: pointer;
+  margin-left: 3vw;
 }
 
 .music-recommendation .depressed {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   background-color: rgb(247, 224, 155);
   border-radius: 100%;
   animation-duration: 2s;
@@ -92,10 +95,11 @@
 }
 
 .music-recommendation .angry {
-  width: 170px;
-  height: 170px;
+  width: 150px;
+  height: 150px;
   background-color: rgb(247, 224, 155);
   border-radius: 100%;
   animation-duration: 2.2s;
   cursor: pointer;
+  margin-right: 3vw;
 }
