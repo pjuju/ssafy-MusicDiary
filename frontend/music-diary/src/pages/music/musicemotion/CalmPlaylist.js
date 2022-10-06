@@ -50,8 +50,8 @@ const CalmPlaylist = () => {
     }
     return(<div className="calm-playlist">
     <div className="work-area">
-        <h2 style={{marginTop:"10vh"}}>당신이 평온했을 때 듣기 좋아하던 음악</h2>
-        <p>창의력 부족ㅠㅠ</p>
+        <h1 style={{marginTop:"10vh"}}>당신이 평온했을 때 좋아한 노래</h1>
+        <h5 style={{fontSize:"18pt"}}>창의력 부족ㅠㅠ</h5>
         {youtube==="https://www.youtube.com/embed?playlist="?
         (<>
           <div className="no-video">
