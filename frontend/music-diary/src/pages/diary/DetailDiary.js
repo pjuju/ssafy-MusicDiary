@@ -38,7 +38,7 @@ import { IndividualSticker } from "../sticker-data/individualSticker.tsx";
 import { stickersData } from "../sticker-data/stickers.data.ts";
 
 // import "./styles.css"
-import {BiCaretRight } from 'react-icons/bi'
+import {BiCaretDown } from 'react-icons/bi'
 
 // lottie
 import Lottie from 'lottie-react'
@@ -607,7 +607,8 @@ console.log(totalDiary)
                       </div>
 
                       <div className="artist-wrapper">
-                        <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
+                        {/* <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div> */}
+                        <div>{ele.artist}</div>
                       </div>
 
                     </div>
@@ -631,14 +632,14 @@ console.log(totalDiary)
             className="edit-button"
             style={{ zIndex: "9000", fontSize:"20px"}}
           >
-            수정하기
+            수정
           </div>
           <div
             onClick={handleRemove}
             className="delete-button"
             style={{ zIndex: "9000",  fontSize:"20px" }}
           >
-            삭제하기
+            삭제
           </div>
         </div>
         {/* 4. stage 영역 */}
@@ -736,7 +737,7 @@ console.log(totalDiary)
       {/* 5. 스티커 선택창 */}
 
     <div className="sticker-choice-toggle">
-        <div onClick={onShowStickerPacks}>스티커 붙이기<BiCaretRight /></div>  
+        <div onClick={onShowStickerPacks}>스티커 붙이기<BiCaretDown /></div>  
     </div>
 
 {

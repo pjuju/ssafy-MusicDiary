@@ -50,16 +50,18 @@ const NervousPlaylist = () => {
     }
     return(<div className="nervous-playlist">
     <div className="work-area">
-        <h1 style={{marginTop:"10vh"}}>당신이 불안했을 때 듣기 좋아하던 음악</h1>
-        <h5 style={{fontSize:"18pt"}}>얼마 안 남았다</h5>
+      <div className="ment">
+        <h2 style={{marginTop:"10vh"}}>당신이 불안했을 때 좋아한 노래</h2>
+        <h5 style={{fontSize:"15pt"}}>불안한 마음을 없애줄거예요</h5>
+        </div>
         {youtube==="https://www.youtube.com/embed?playlist="?
         (<>
           <div className="no-video">
-            <h4>재생할 동영상이 없어요!</h4>
-            <p>불안했던 날의 추천 음악에 하트를 눌러 플레이리스트에 추가해보세요.</p>
+            <h3>재생할 동영상이 없어요!</h3>
+            <p style={{fontSize:"10pt"}}>불안했던 날의 추천 음악에 하트를 눌러 플레이리스트에 추가해보세요.</p>
           </div>
           <div className="no-music">
-            <h5>재생할 음악이 없어요!</h5>
+            <h4>재생할 음악이 없어요!</h4>
           </div>
         </>):
         (<iframe
@@ -99,7 +101,8 @@ const NervousPlaylist = () => {
                   </div>
 
                   <div className="artist-wrapper">
-                    <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div>
+                    {/* <div>{ele.artist} <FcMusic style={{marginTop:"-0.5vh"}} /></div> */}
+                    <div>{ele.artist}</div>
                   </div>
               </>
             );
