@@ -5,14 +5,14 @@ import {
   writeDiaryListApi,
   modifyDiaryItem,
   getDiaryImage,
-  getDiaryListApi
+  getDiaryListApi,
 } from "../../api/diaryApi";
 import Button from "../Common/Button";
 
 import "./DiaryEditor.css";
 import axios from "axios";
 import Swal from "sweetalert2";
-import 'animate.css';
+import "animate.css";
 
 const env = process.env;
 env.PUBLIC_URL = env.PUBLIC_URL || "";
@@ -115,16 +115,14 @@ const DiaryEditor = ({ isEdit, originData }) => {
     getDiaryImage(fd)
       .then((res) => {
         console.log(JSON.stringify(res.data));
-        setReturnImg(res.data)
+        setReturnImg(res.data);
 
         Swal.fire({
-          icon: 'success',
-          title: '사진 등록 완료!',
+          icon: "success",
+          title: "사진 등록 완료!",
           showConfirmButton: false,
-          timer: 1300
-        })
-
-        
+          timer: 1300,
+        });
       })
       .catch((err) => {
         console.log(JSON.stringify(err.data));
@@ -135,22 +133,21 @@ const DiaryEditor = ({ isEdit, originData }) => {
     console.log(emotion);
     setEmotion(emotion);
   };
-  
-  // 전체 일기 리스트 불러오기
-  const [total, setTotal] = useState([])
-  useEffect(()=> {
-    getDiaryListApi()
-    .then((res)=> {
-      // console.log(res.data)
-      setTotal(res.data)
-    })
-    .catch((err)=> {
-      console.log(err)
-    })
-  },[])
-  const date = total.map((it)=> it.created_date)
-  console.log(date)
 
+  // 전체 일기 리스트 불러오기
+  const [total, setTotal] = useState([]);
+  useEffect(() => {
+    getDiaryListApi()
+      .then((res) => {
+        // console.log(res.data)
+        setTotal(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  const date = total.map((it) => it.created_date);
+  console.log(date);
 
   const handleSubmit = () => {
     if (content.length < 1) {
@@ -161,131 +158,107 @@ const DiaryEditor = ({ isEdit, originData }) => {
       titleRef.current.focus();
       return;
     }
-      
-    // 일기를 처음 생성할떄
-            if (!isEdit) {
-              let info = {}
-              if (returnImg){
-                info = {
-                title,
-                content,
-                emotion,
-                created_date,
-                images:[
-                  {image_url:returnImg}
-                ]
-              };} else{
-                  info = {
-                  title,
-                  content,
-                  emotion,
-                  created_date,
-                  // images:[
-                  //   {image_url:returnImg}
-                  // ]
-              }}
-              const diaryInfo = info;
-              // 만약 동일한 날짜의 일기를 또 작성할려고 한다면 막기 alert
-              if (date.includes(created_date)) {
-                Swal.fire({
-                  icon: 'error',
-                  title: '작성 불가',
-                  text: '동일한 날짜에 일기를 두 번 생성 불가합니다',
-                })
-              }
-              else {
-                // 만약 처음 쓰는 날짜라면 일기 작성하기
-                writeDiaryListApi(diaryInfo)
-                  .then((res) => {
-                    console.log("일기 생성", JSON.stringify(res.data));
-                    console.log(res.data);
-                  })
-                  .catch((err) => {
-                    console.log(JSON.stringify(err.data));
-                  });
-                  if (emotion==='') {
-                    const spinner = document.getElementById("spinner")
-                    spinner.classList.remove('display-none')
-                    spinner.classList.add('display-block')
-                    setTimeout(()=> {
-                      navigate('/diarylist', { replace: true })
-                      Swal.fire({
-                        icon: 'success',
-                        title: '일기가 저장되었습니다!',
-                        showConfirmButton: false,
-                        timer: 1700
-                      })
-                    },2500)
-                  } 
-                  else {
-                    navigate('/diarylist', { replace: true })
-                    Swal.fire({
-                      icon: 'success',
-                      title: '일기가 저장되었습니다!',
-                      showConfirmButton: false,
-                      timer: 1700
-                    })
-                  }
-              }
-            }
 
-  
-      // if (emotion === "") {
-      //   const spinner = document.getElementById("spinner")
-      //   spinner.classList.remove('display-none')
-      //   spinner.classList.add('display-block')
-      // }
-  
-  
-      // 일기 수정하기
-      if (isEdit) {
-        const diaryInfo = {
+    // 일기를 처음 생성할떄
+    if (!isEdit) {
+      let info = {};
+      if (returnImg) {
+        info = {
           title,
           content,
           emotion,
           created_date,
-          images:[
-            {image_url:returnImg}
-          ]
+          images: [{ image_url: returnImg }],
         };
-
-          modifyDiaryItem(originData.id, diaryInfo)
-            .then((res) => {
-              console.log(res.data);
-              console.log(diaryInfo);
-            })
-            .catch((err) => {
-              console.log(JSON.stringify(err.data));
+      } else {
+        info = {
+          title,
+          content,
+          emotion,
+          created_date,
+          // images:[
+          //   {image_url:returnImg}
+          // ]
+        };
+      }
+      const diaryInfo = info;
+      // 만약 동일한 날짜의 일기를 또 작성할려고 한다면 막기 alert
+      if (date.includes(created_date)) {
+        Swal.fire({
+          icon: "error",
+          title: "작성 불가",
+          text: "동일한 날짜에 일기를 두 번 생성 불가합니다",
+        });
+      } else {
+        // 만약 처음 쓰는 날짜라면 일기 작성하기
+        const spinner = document.getElementById("spinner");
+        spinner.classList.remove("display-none");
+        spinner.classList.add("display-block");
+        writeDiaryListApi(diaryInfo)
+          .then((res) => {
+            navigate("/diarylist", { replace: true });
+            Swal.fire({
+              icon: "success",
+              title: "일기가 저장되었습니다!",
+              showConfirmButton: false,
+              timer: 1700,
             });
-            // 이모션을 사용자가 선택했을 경우에는
-            if (emotion !== '') {
-              Swal.fire({
-                icon: 'success',
-                title: '일기가 수정되었습니다!',
-                showConfirmButton: false,
-                timer: 1700
-              })
-              navigate("/diarylist", { replace: true });
-            } else {
-              setTimeout(()=> {
-                const spinner = document.getElementById("spinner")
-                spinner.classList.remove('display-none')
-                spinner.classList.add('display-block')
-                navigate('/diarylist', { replace: true })
-                Swal.fire({
-                  icon: 'success',
-                  title: '일기가 수정되었습니다!',
-                  showConfirmButton: false,
-                  timer: 1700
-                })
-              },2500)
-            }
-        }
+          })
+          .catch((err) => {
+            console.log(JSON.stringify(err.data));
+          });
+      }
+    }
 
-    
+    // if (emotion === "") {
+    //   const spinner = document.getElementById("spinner")
+    //   spinner.classList.remove('display-none')
+    //   spinner.classList.add('display-block')
+    // }
 
+    // 일기 수정하기
+    if (isEdit) {
+      const diaryInfo = {
+        title,
+        content,
+        emotion,
+        created_date,
+        images: [{ image_url: returnImg }],
+      };
+
+      modifyDiaryItem(originData.id, diaryInfo)
+        .then((res) => {
+          console.log(res.data);
+          console.log(diaryInfo);
+        })
+        .catch((err) => {
+          console.log(JSON.stringify(err.data));
+        });
+      // 이모션을 사용자가 선택했을 경우에는
+      if (emotion !== "") {
+        Swal.fire({
+          icon: "success",
+          title: "일기가 수정되었습니다!",
+          showConfirmButton: false,
+          timer: 1700,
+        });
+        navigate("/diarylist", { replace: true });
+      } else {
+        setTimeout(() => {
+          const spinner = document.getElementById("spinner");
+          spinner.classList.remove("display-none");
+          spinner.classList.add("display-block");
+          navigate("/diarylist", { replace: true });
+          Swal.fire({
+            icon: "success",
+            title: "일기가 수정되었습니다!",
+            showConfirmButton: false,
+            timer: 1700,
+          });
+        }, 2500);
+      }
+    }
   };
-
 
   // 원래 일기 정보 보여주는 로직
   useEffect(() => {
@@ -305,12 +278,12 @@ const DiaryEditor = ({ isEdit, originData }) => {
   const emotionNormalRef = useRef();
   const emotionAngryRef = useRef();
   const emotionAnxiousRef = useRef();
-  const emotionRandomRef = useRef()
+  const emotionRandomRef = useRef();
 
   useEffect(() => {
-    if (emotion == "기쁨") { 
+    if (emotion == "기쁨") {
       // emotionHappyRef.current.style.height = '5vh';
-      const happy = document.getElementById('happy')
+      const happy = document.getElementById("happy");
       emotionHappyRef.current.style.scale = "130%";
     } else {
       emotionHappyRef.current.style.scale = "80%";
@@ -349,9 +322,31 @@ const DiaryEditor = ({ isEdit, originData }) => {
 
   return (
     <div className="diary-editor">
-      <h4 style={{marginTop:'6vh', marginLeft:"-43vw", fontSize:"27px"}}>오늘의 감정을 골라보세요</h4>
-      <div style={{marginTop:'-1vh', marginLeft:"-36vw", fontSize:"17px", color:"grey", marginBottom:"0.3vh"}}>감정을 선택하지 못하시겠다구요? 물음표를 클릭해보세요. </div>
-      <div style={{marginTop:'-1vh', marginLeft:"-39vw", marginBottom:"0.3vh", fontSize:"17px", color:"grey"}}>오늘 일기 내용을 바탕으로 감정을 추천해드립니다.</div>
+      <h4 style={{ marginTop: "6vh", marginLeft: "-43vw", fontSize: "27px" }}>
+        오늘의 감정을 골라보세요
+      </h4>
+      <div
+        style={{
+          marginTop: "-1vh",
+          marginLeft: "-36vw",
+          fontSize: "17px",
+          color: "grey",
+          marginBottom: "0.3vh",
+        }}
+      >
+        감정을 선택하지 못하시겠다구요? 물음표를 클릭해보세요.{" "}
+      </div>
+      <div
+        style={{
+          marginTop: "-1vh",
+          marginLeft: "-39vw",
+          marginBottom: "0.3vh",
+          fontSize: "17px",
+          color: "grey",
+        }}
+      >
+        오늘 일기 내용을 바탕으로 감정을 추천해드립니다.
+      </div>
       <div ref={emotionRef} className="select-emotion">
         <img
           src="/assets/img/happy_emoji.png"
@@ -390,11 +385,12 @@ const DiaryEditor = ({ isEdit, originData }) => {
           onClick={() => handleClickEmote("불안")}
           ref={emotionAnxiousRef}
         ></img>
-        <img src="/assets/img/question.png"
-         className="emoji-img animate__animated animate__bounceIn"
-         onClick={() => setEmotion("")}
-         ref={emotionRandomRef}
-         ></img>
+        <img
+          src="/assets/img/question.png"
+          className="emoji-img animate__animated animate__bounceIn"
+          onClick={() => setEmotion("")}
+          ref={emotionRandomRef}
+        ></img>
       </div>
       <input
         value={created_date}
@@ -402,7 +398,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
         type="date"
         className="input-date"
       ></input>
- 
+
       <div className="left-section">
         <div style={{ display: "flex", marginLeft: "3vw" }}></div>
         <textarea
@@ -411,7 +407,6 @@ const DiaryEditor = ({ isEdit, originData }) => {
           ref={titleRef}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          
         ></textarea>
         <textarea
           className="diary-textarea-content"
@@ -423,38 +418,34 @@ const DiaryEditor = ({ isEdit, originData }) => {
         ></textarea>
       </div>
 
- 
-      <img src="/assets/img/spinner.gif" 
-      style={{position:"absolute",zIndex:"44"}}
-      id="spinner"
-      className="display-none spinner"
+      <img
+        src="/assets/img/spinner.gif"
+        style={{ position: "absolute", zIndex: "44" }}
+        id="spinner"
+        className="display-none spinner"
       ></img>
-
 
       {/* 오른쪽 영역 */}
       <div className="right-section">
-
         {/* 이미지 등록 */}
         <div className="diary-img-wrapper">
-        
-            {imgFile === "" ? (
-              <img className="diary-register-img" alt="#" src={previewUrl} />
-            ) : null}
-            {imgBase64.map((item) => {
-              return (
-                <div>
-                  <img
-                    className="diary-register-img"
-                    src={item}
-                    alt="First Slide"
-                  />
-                </div>
-              );
-            })}
-    
+          {imgFile === "" ? (
+            <img className="diary-register-img" alt="#" src={previewUrl} />
+          ) : null}
+          {imgBase64.map((item) => {
+            return (
+              <div>
+                <img
+                  className="diary-register-img"
+                  src={item}
+                  alt="First Slide"
+                />
+              </div>
+            );
+          })}
         </div>
 
-        <div className="diary-register-btn" style={{marginTop:'40vh'}}> 
+        <div className="diary-register-btn" style={{ marginTop: "40vh" }}>
           <input
             multiple="multiple"
             type="file"
@@ -464,49 +455,57 @@ const DiaryEditor = ({ isEdit, originData }) => {
             onChange={onHandleChangeFile}
             style={{ display: "none" }}
           />
-        
-            <label for="file">
-              <div className="find-file-btn">파일찾기</div>
-            </label>
 
-            <Button
-              name="사진 등록"
-              style={{ width: "75px", fontSize: "15px", 
-              marginLeft: "-5vw", position:"absolute",marginTop:'-1vh' }}
-              color="#AC5050"
-              size="sm"
-              onClick={onImgRegisterBtn} />
+          <label for="file">
+            <div className="find-file-btn">파일찾기</div>
+          </label>
 
+          <Button
+            name="사진 등록"
+            style={{
+              width: "75px",
+              fontSize: "15px",
+              marginLeft: "-5vw",
+              position: "absolute",
+              marginTop: "-1vh",
+            }}
+            color="#AC5050"
+            size="sm"
+            onClick={onImgRegisterBtn}
+          />
         </div>
       </div>
 
-      {isEdit?(
-  <>  <button class="snip1431 submit-button" onClick={handleSubmit}>수정 완료</button>
-  <button
-  onClick={() => {
-    navigate(-1);
-  }}
-  className="back-button snip1417"
- >
-  수정 취소
- </button>
- </>
-
-)
-:(
-  <>
-<button class="snip1431 submit-button" onClick={handleSubmit}>작성 완료</button>
- <button
- onClick={() => {
-   navigate(-1);
- }}
- className="back-button snip1417"
->
- 작성 취소
-</button>
-</>
-)
-}
+      {isEdit ? (
+        <>
+          {" "}
+          <button class="snip1431 submit-button" onClick={handleSubmit}>
+            수정 완료
+          </button>
+          <button
+            onClick={() => {
+              navigate(-1);
+            }}
+            className="back-button snip1417"
+          >
+            수정 취소
+          </button>
+        </>
+      ) : (
+        <>
+          <button class="snip1431 submit-button" onClick={handleSubmit}>
+            작성 완료
+          </button>
+          <button
+            onClick={() => {
+              navigate(-1);
+            }}
+            className="back-button snip1417"
+          >
+            작성 취소
+          </button>
+        </>
+      )}
     </div>
   );
 };
