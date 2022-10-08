@@ -61,7 +61,7 @@ class AESCipher:
 
 # AES Encrypt
 ciper = AESCipher()
-device = torch.device("cpu")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 bertmodel, vocab = get_pytorch_kobert_model()
 
 # Setting parameters
@@ -86,33 +86,32 @@ def predict(predict_sentence):
     test_dataloader = torch.utils.data.DataLoader(another_test, batch_size=batch_size, num_workers=5)
     
     loaded_data.eval()
+    with torch.no_grad():
+        for token_ids, valid_length, segment_ids, label in test_dataloader: 
+            token_ids = token_ids.long().to(device)
+            segment_ids = segment_ids.long().to(device)
 
-    for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(test_dataloader): 
-        token_ids = token_ids.long().to(device)
-        segment_ids = segment_ids.long().to(device)
+            valid_length= valid_length
+            label = label.long().to(device)
 
-        valid_length= valid_length
-        label = label.long().to(device)
+            out = loaded_data(token_ids, valid_length, segment_ids)
+            
+            test_eval=[]
+            for i in out:
+                logits=i
 
-        out = loaded_data(token_ids, valid_length, segment_ids)
-        
-        test_eval=[]
-        for i in out:
-            logits=i
-            logits = logits.detach().cpu().numpy()
-
-            if np.argmax(logits) == 0:
-                test_eval.append("기쁨")
-            elif np.argmax(logits) == 1:
-                test_eval.append("불안")
-            elif np.argmax(logits) == 2:
-                test_eval.append("슬픔")
-            elif np.argmax(logits) == 3:
-                test_eval.append("분노")
-            elif np.argmax(logits) == 4:
-                test_eval.append("평온")
-            elif np.argmax(logits) == 5:
-                test_eval.append("우울")
+                if torch.argmax(logits) == 0:
+                    test_eval.append("기쁨")
+                elif torch.argmax(logits) == 1:
+                    test_eval.append("불안")
+                elif torch.argmax(logits) == 2:
+                    test_eval.append("슬픔")
+                elif torch.argmax(logits) == 3:
+                    test_eval.append("분노")
+                elif torch.argmax(logits) == 4:
+                    test_eval.append("평온")
+                elif torch.argmax(logits) == 5:
+                    test_eval.append("우울")
                 
     return test_eval[0]
 
