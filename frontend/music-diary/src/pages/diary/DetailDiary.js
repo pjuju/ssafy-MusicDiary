@@ -84,6 +84,7 @@ const DetailDiary = () => {
   const [musics, setMusics] = useState([]);
   const [heart, setHeart] = useState("");
   const [youtube, setYoutube] = useState("");
+  const [newMusic, setNewMusic] = useState([]);
 
   // konva //
   const [background] = useImage("example-image.jpg");
@@ -238,12 +239,21 @@ console.log(totalDiary)
 
         // 버튼 활성화
         setMusicBtn(true);
+        window.onload = function() {
+          if(!window.location.hash) {
+              window.location = window.location + '#loaded';
+              window.location.reload();
+          }
+        }
+        
       })
       .catch((e) => {
         console.log("err", e);
       });
     
-  }, [])
+  }, newMusic)
+  
+  
 
   const likeMusic = (music_id, i) => {
     const txt = document.getElementById("heart" + i);
@@ -265,6 +275,7 @@ console.log(totalDiary)
   const remakePlaylist = () => {
     makePlaylist(id)
     .then((res) => {
+      setNewMusic([res.data]);
       window.location.reload();
     })
     .catch((e) => {
@@ -272,18 +283,6 @@ console.log(totalDiary)
     });
   }
 
-  const makeURL = () => {
-    console.log("!!!!!!!!!!!!!!!!!");
-    let video = youtube
-    setYoutube(video)
-    .then((res) => {
-      console.log("????????????????????");
-    })
-    .catch((e) => {
-      console.log("err", e);
-    });
-
-  }
 
   //////////////////////////////////////////////////////////////////////////////
   // 다이어리 remove 함수
@@ -566,7 +565,6 @@ console.log(totalDiary)
           { musicBtn
           ? (
             <>
-            {()=>makeURL()}
               {musics.map((ele, i) => {
                 var idName = "heart" + i;
                 return (

@@ -11,6 +11,7 @@ const AngryRecommendation =() => {
     const [youtube, setYoutube] = useState("")
     const navigate = useNavigate()
     const [ user, setUser ] = useState("")
+    const [newMusic, setNewMusic] = useState([])
     
     // const [videoid, setVideoid] = useState('')
 
@@ -38,9 +39,10 @@ const AngryRecommendation =() => {
         });
       }
 
-    const remakePlaylist = () => {
+      const remakePlaylist = () => {
         musicRecommend(4)
         .then((res) => {
+          setNewMusic([res.data]);
           window.location.reload();
         })
         .catch((e) => {
@@ -65,11 +67,18 @@ const AngryRecommendation =() => {
                 // console.log(videoid)
             }
             setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
+
+            window.onload = function() {
+              if(!window.location.hash) {
+                  window.location = window.location + '#loaded';
+                  window.location.reload();
+              }
+            }
         })
         .catch((err)=> {
             console.log(err) 
         })
-    },[])
+    },newMusic)
     console.log('유튜브 주소',youtube)
 
     
