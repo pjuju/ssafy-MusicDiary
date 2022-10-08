@@ -29,6 +29,12 @@ const AngryPlaylist = () => {
           setYoutube("https://www.youtube.com/embed?playlist="+video.slice(0,-1));
           setMusics(list);
           setMusicBtn(true)
+          window.onload = function() {
+            if(!window.location.hash) {
+                window.location = window.location + '#loaded';
+                window.location.reload();
+            }
+          }
         })
         .catch((e) => {
           console.log("err", e);
